@@ -8041,5 +8041,21 @@ if(isIOS && !isStandalone && !sessionStorage.getItem('mana.ios.hint')){
 console.log('[MANA-PWA] ready');
 })();
 </script>
+  <style>
+@supports (padding: env(safe-area-inset-top)) {
+  .topbar { padding-top: max(24px, calc(env(safe-area-inset-top) + 8px)) !important; }
+  .sidebar { padding-top: max(20px, calc(env(safe-area-inset-top) + 10px)) !important; }
+  .is-standalone .topbar { padding-top: max(28px, calc(env(safe-area-inset-top) + 12px)) !important; }
+}
+@media (max-width: 860px) {
+  .topbar { padding: 14px 0 10px !important; gap: 8px !important; }
+  .topbar h1 { font-size: 16px !important; }
+  .topbar p { font-size: 10.5px !important; }
+  .top-actions { gap: 5px !important; flex-wrap: nowrap !important; overflow-x: auto !important; }
+  .top-actions::-webkit-scrollbar { display: none; }
+  .top-actions .btn { min-width: 34px !important; min-height: 34px !important; padding: 6px 8px !important; }
+  .icon-btn { width: 36px !important; height: 36px !important; }
+}
+</style>
 </body>
 </html>
