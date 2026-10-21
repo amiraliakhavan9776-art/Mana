@@ -1,0 +1,6 @@
+# Never commit local project exports, audit trails, or secrets
+*.local.json
+*.jsonl
+.env
+.env.*
+data/
