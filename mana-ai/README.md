@@ -62,3 +62,18 @@ MANA_AI_AUDIT_FILE='/absolute/private/path/audit.jsonl' npm start
 3. Define an authenticated, organization-scoped import and reversible migration with audit evidence.
 4. Use PostgreSQL transactions, schema constraints and row-level isolation for production persistence.
 5. Add a read-only AI tool interface with redaction and citations, then human-approved write actions.
+
+## Mana AI Engine v0 (opt-in, general questions only)
+
+The first AI engine adapter is implemented, but **disabled by default**. It can connect to a locally running OpenAI-compatible chat completions endpoint (for example, a local model server). No provider, model weights, cloud API or model installation is bundled.
+
+Configure `MANA_AI_LOCAL_PROVIDER_URL` (loopback HTTP root URL only, such as `http://127.0.0.1:11434/`) and `MANA_AI_MODEL` (a model already installed on that provider), plus the existing `MANA_AI_TOKEN`. Restart the service.
+
+```sh
+curl -X POST http://127.0.0.1:8787/v1/ai/ask \
+  -H 'Content-Type: application/json' \
+  -H 'Authorization: Bearer YOUR_SECRET' \
+  -d '{"question":"Explain the purpose of a project schedule."}'
+```
+
+The endpoint requires authentication and a read permission; requests are limited to a single `question` field. It does not receive project data, search files, use tools, execute changes, remember conversations or provide RAG. The model may hallucinate. Do not submit secrets or real company information until a privacy and access review is complete. The adapter currently supports **only** local loopback providers and is not production hardened (including rate limits, full request lifecycle controls and structured model governance).
