@@ -1,7 +1,8 @@
 'use strict';
 const { can } = require('./security.cjs');
-function createConversationMemory({ maxTurns = 6 } = {}) {
+function createConversationMemory({ maxTurns = 6, maxSessions = 100 } = {}) {
   if (!Number.isInteger(maxTurns) || maxTurns < 1 || maxTurns > 20) throw new Error('Invalid memory limit');
+  if (!Number.isInteger(maxSessions) || maxSessions < 1 || maxSessions > 10000) throw new Error('Invalid session limit');
   const sessions = new Map();
   function key(principal, projectId, sessionId) {
     if (!can(principal, 'projects:read')) throw new Error('Permission denied');
@@ -19,7 +20,9 @@ function createConversationMemory({ maxTurns = 6 } = {}) {
       const turns = sessions.get(k) || [];
       turns.push({ question, answer });
       while (turns.length > maxTurns) turns.shift();
+      sessions.delete(k);
       sessions.set(k, turns);
+      while (sessions.size > maxSessions) sessions.delete(sessions.keys().next().value);
     },
     clear({ principal, projectId, sessionId }) { sessions.delete(key(principal, projectId, sessionId)); }
   };
