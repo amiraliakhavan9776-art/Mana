@@ -23,3 +23,13 @@ Decision: the default and required production architecture must function **witho
 3. Demonstrate controlled CAD/takeoff pilot and audit events.
 4. Test recovery, model restart, latency, and concurrent users.
 5. Document limitations against target quality, with no false equivalence to ChatGPT.
+
+## Mandatory Iran-local operation (approved)
+
+- The application server, primary database, inference GPU, document processing, CAD/takeoff engines, user authentication, internal DNS/time dependencies, and backups required for day-to-day operation must all be reachable within Iran when international connectivity is unavailable.
+- Pre-download and locally retain licensed model weights, tokenizers, runtimes, container images, operating-system packages and other required artifacts; do not depend on foreign registries, remote authentication, foreign license checks or cloud APIs at runtime.
+- Keep local network paths, private service discovery, certificates, monitoring, logs, queues, and scheduled supervisor reporting operational without international egress.
+- Separate optional internet-connected features from core workflows; degrade gracefully and clearly mark unavailable external integrations.
+- Test by deliberately blocking international egress in a controlled staging environment: Persian chat, document retrieval, project authorization, supervisor reporting, CAD/takeoff, approval workflows, backups and recovery.
+- Iran-local placement alone does not guarantee availability: power, local provider/network outages, hardware failures and domestic connectivity must be covered by recovery plans.
+- Treat this as a requirement and acceptance criterion, **not as an implemented or tested feature**.
