@@ -40,6 +40,31 @@ function start({port=PORT,provider,model,voiceProvider,conversationStore,authent
        res.writeHead(200,{'Content-Type':'application/json'});return res.end(JSON.stringify(session));
      }catch{res.writeHead(400);return res.end()}
    }
+   if(sessionAuth&&conversationStore&&req.method==='POST'&&/^\/api\/chat\/[A-Za-z0-9_-]{1,100}$/.test(req.url||'')){
+     const principal=sessionAuth.authenticate(req);
+     const send=(status,data)=>{res.writeHead(status,{'Content-Type':'application/json; charset=utf-8'});res.end(JSON.stringify(data))};
+     if(!principal||!principal.verifyCsrf(req.headers['x-mana-csrf'])){send(403,{error:'Access denied'});return}
+     if(req.headers.origin&&req.headers.origin!==`http://${HOST}:${port}`){send(403,{error:'Origin denied'});return}
+     if(req.headers['content-type']?.split(';')[0]!=='application/json'){send(415,{error:'JSON required'});return}
+     let size=0,chunks=[];
+     try{
+       for await(const chunk of req){size+=chunk.length;if(size>6000)throw Error('Request too large');chunks.push(chunk)}
+       const body=JSON.parse(Buffer.concat(chunks).toString('utf8'));
+       if(typeof body.prompt!=='string'||!body.prompt.trim()||body.prompt.length>4000)throw Error('Invalid prompt');
+       const scope={userId:principal.userId,organizationId:principal.organizationId,conversationId:req.url.split('/')[3]};
+       const history=await conversationStore.read(scope);
+       const context=history.slice(-20).filter(m=>['user','assistant'].includes(m.role)&&typeof m.text==='string').map(m=>({role:m.role,content:m.text}));
+       const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),60000);
+       let answer;
+       try{answer=await provider.complete({model,messages:[{role:'system',content:'You are Mana AI local experimental assistant. Answer in Persian. Do not claim actions were executed.'},...context,{role:'user',content:body.prompt}],signal:controller.signal})}
+       finally{clearTimeout(timer)}
+       if(typeof answer!=='string'||!answer.trim()||answer.length>16000)throw Error('Invalid model response');
+       await conversationStore.append(scope,{role:'user',text:body.prompt});
+       await conversationStore.append(scope,{role:'assistant',text:answer});
+       send(200,{answer,model,conversationId:scope.conversationId,actionsExecuted:0});
+     }catch{send(400,{error:'Chat processing failed'});}
+     return;
+   }
    if(conversationApi && await conversationApi(req,res))return;
    if(req.method==='POST'&&['/api/voice/transcribe','/api/voice/speak'].includes(req.url)){
      if(!voiceProvider){res.writeHead(503);return res.end()}
