@@ -1,6 +1,11 @@
 'use strict';
 const { authorizeAction } = require('./governance.cjs');
 const { can } = require('./security.cjs');
+function safeJsonSize(value, limit) {
+  const serialized = JSON.stringify(value);
+  if (typeof serialized !== 'string' || Buffer.byteLength(serialized) > limit) throw new Error('Invalid JSON payload');
+  return serialized;
+}
 function createAgentRunner({ tools = {}, audit, timeoutMs = 5000 } = {}) {
   if (!audit || typeof audit.record !== 'function') throw new Error('Audit required');
   if (!Number.isInteger(timeoutMs) || timeoutMs < 100 || timeoutMs > 30000) throw new Error('Invalid timeout');
@@ -25,22 +30,26 @@ function createAgentRunner({ tools = {}, audit, timeoutMs = 5000 } = {}) {
         audit.record({actorId,orgId,action:'agent:denied',outcome:'denied'});
         return {ok:false,error:'policy_denied'};
       }
-      if (!input || typeof input !== 'object' || Array.isArray(input) || Buffer.byteLength(JSON.stringify(input)) > 4096) {
+      let safeInput;
+      try {
+        if (!input || typeof input !== 'object' || Array.isArray(input)) throw new Error('Invalid input');
+        safeInput = JSON.parse(safeJsonSize(input, 4096));
+      } catch (_) {
         audit.record({actorId,orgId,action:'agent:invalid',outcome:'denied'});
         return {ok:false,error:'invalid_input'};
       }
       const controller = new AbortController();
       let timer;
       try {
-        const task = Promise.resolve().then(() => allowed.get(action)({principal:{id:principal.id,orgId:principal.orgId,role:principal.role},scope,input:structuredClone(input),signal:controller.signal}));
+        const task = Promise.resolve().then(() => allowed.get(action)({principal:{id:principal.id,orgId:principal.orgId,role:principal.role},scope,input:safeInput,signal:controller.signal}));
         const deadline = new Promise((_, reject) => {
           timer = setTimeout(() => { controller.abort(); reject(new Error('Tool timeout')); }, timeoutMs);
         });
         const result = await Promise.race([task, deadline]);
         if (controller.signal.aborted) throw new Error('Tool timeout');
-        if (Buffer.byteLength(JSON.stringify(result)) > 16384) throw new Error('Tool output too large');
+        const safeResult = JSON.parse(safeJsonSize(result, 16384));
         audit.record({actorId,orgId,action:'agent:'+action,outcome:'allowed'});
-        return {ok:true,result};
+        return {ok:true,result:safeResult};
       } catch (_) {
         audit.record({actorId,orgId,action:'agent:'+action,outcome:'failed'});
         return {ok:false,error:'tool_failed'};
