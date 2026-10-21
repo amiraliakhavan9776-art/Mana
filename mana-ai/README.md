@@ -123,3 +123,7 @@ MANA_AI_EXPORT_ORG_ID='local' npm start
 ```
 
 Do not commit the export file or use sensitive production data without consent, data minimization and access review. The export must be created separately by an authorized operator. No browser extraction or automatic transfer is implemented.
+
+## Local interactive chat (requires an installed model)
+
+Start an OpenAI-compatible **local** model provider first, and configure `MANA_AI_LOCAL_PROVIDER_URL` and `MANA_AI_MODEL` as described above. Start the Mana AI service with `npm start`. In a second terminal, using the same `MANA_AI_TOKEN`, run `npm run chat`. Type `/exit` to quit. The CLI sends text questions to the authenticated local `/v1/ai/ask` endpoint. Without a configured and running local model, chat cannot generate responses. To enable limited conversation history with an authorized project, set `MANA_AI_CHAT_PROJECT_ID` to an ID in the approved project snapshot; without it, the chat is stateless. This is a development CLI, not a production chat UI or voice assistant. Never enter real sensitive data into an unreviewed model provider.
