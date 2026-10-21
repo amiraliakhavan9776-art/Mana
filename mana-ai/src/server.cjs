@@ -6,6 +6,7 @@ const { validateProjects, projectsFor } = require('./projects.cjs');
 const { createAuditLog } = require('./audit.cjs');
 const { createDurableAuditLog } = require('./durable-audit.cjs');
 const { loadProjectSnapshot } = require('./snapshot.cjs');
+const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.cjs');
 
 const MAX_URL_LENGTH = 2048;
 const DEFAULT_HOST = '127.0.0.1';
@@ -26,7 +27,7 @@ function tokenMatches(supplied, expected) {
   const b = Buffer.from(expected);
   return a.length === b.length && a.length > 0 && timingSafeEqual(a, b);
 }
-function createServer({ token, principals, projects = [], audit = createAuditLog() } = {}) {
+function createServer({ token, principals, projects = [], audit = createAuditLog(), engine = null } = {}) {
   if (typeof token !== 'string' || token.length < 32) {
     throw new Error('MANA_AI_TOKEN must be at least 32 characters');
   }
@@ -37,6 +38,30 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
       return json(res, 414, { error: 'uri_too_long' });
     }
     const pathname = req.url.split('?')[0];
+    if (req.method === 'POST' && pathname === '/v1/ai/ask' && engine) {
+      const principal = authenticate(req.headers.authorization || '', users);
+      if (!principal) return json(res, 401, { error: 'unauthorized' });
+      if (!can(principal, 'projects:read')) return json(res, 403, { error: 'forbidden' });
+      let raw = '';
+      req.on('data', chunk => {
+        raw += chunk;
+        if (raw.length > 8192) req.destroy();
+      });
+      req.on('end', async () => {
+        try {
+          const input = JSON.parse(raw);
+          if (!input || typeof input !== 'object' || Array.isArray(input) ||
+              Object.keys(input).some(k => k !== 'question')) throw new Error('Invalid input');
+          const result = await engine.ask({ principal, question: input.question });
+          audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' });
+          return json(res, 200, result);
+        } catch (err) {
+          audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'failed' });
+          return json(res, 400, { error: 'ai_request_failed' });
+        }
+      });
+      return;
+    }
     if (req.method !== 'GET') {
       res.setHeader('Allow', 'GET');
       return json(res, 405, { error: 'method_not_allowed' });
@@ -70,9 +95,9 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
       return json(res, 200, {
         service: 'mana-ai',
         mode: 'read-only-foundation',
-        aiEnabled: false,
+        aiEnabled: !!engine,
         dataConnected: false,
-        capabilities: ['health', 'capabilities', 'projects:read', 'audit:read'],
+        capabilities: ['health', 'capabilities', 'projects:read', 'audit:read'].concat(engine ? ['ai:ask'] : []),
         humanApprovalRequiredForConsequentialActions: true
       });
     }
@@ -93,7 +118,9 @@ function start() {
     loadProjectSnapshot(process.env.MANA_AI_PROJECT_SNAPSHOT) : [];
   const audit = process.env.MANA_AI_AUDIT_FILE ?
     createDurableAuditLog(process.env.MANA_AI_AUDIT_FILE) : createAuditLog();
-  const server = createServer({ token, projects, audit });
+  const engine = process.env.MANA_AI_LOCAL_PROVIDER_URL && process.env.MANA_AI_MODEL ?
+    createEngine({ provider: createLocalOpenAICompatibleProvider({ baseUrl: process.env.MANA_AI_LOCAL_PROVIDER_URL }), model: process.env.MANA_AI_MODEL }) : null;
+  const server = createServer({ token, projects, audit, engine });
   if (typeof audit.close === 'function') server.on('close', () => audit.close());
   server.listen(port, host, () => {
     process.stdout.write('Mana AI foundation listening on ' + host + ':' + port + '\n');
