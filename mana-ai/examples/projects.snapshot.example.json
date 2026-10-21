@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "projects": [
+    { "id": "sample_project", "orgId": "local", "name": "Sample only — no real customer data" }
+  ]
+}
