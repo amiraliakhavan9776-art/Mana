@@ -103,3 +103,7 @@ This is **not semantic RAG**: document matching remains lexical, and retrieved s
 ## Autonomous research design (not yet connected)
 
 `src/research.cjs` provides a pluggable public-information search interface. External lookup requires an explicit `publicOnly: true` flag, limits query length and results, and returns HTTPS source links marked unverified. The interface intentionally has **no built-in web provider, automatic query routing, browser access, background search, or permission to transmit private project information**. Tests use a mock search function. A later integration must add an approved provider, query classification/redaction, user/organization permissions, source verification, rate limits, cost limits, and audit before enabling automatic internet searches.
+
+## Security governance prototype
+
+`src/governance.cjs` defines an explicit allowlist of action names and a fail-closed decision helper. High-risk actions (payments, signatures, deletion, safety sign-off, permission changes and secret exports) are **always denied** in foundation mode; the helper does not execute tools or issue real approval tokens. Public research requires an explicit approval flag. See `tests/governance.test.cjs` and `docs/mana-ai-target-architecture.md` for the planned broader security architecture. This is not a production policy engine, and not yet wired into all routes or agent connectors.
