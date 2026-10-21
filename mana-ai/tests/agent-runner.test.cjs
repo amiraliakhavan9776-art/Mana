@@ -26,3 +26,13 @@ test('runner denies viewer strategy drafts and rejects oversized inputs',async()
   assert.equal((await runner.execute({principal:{...admin,role:'viewer'},action:'strategy:draft',scope:'p1',input:{}})).ok,false);
   assert.equal((await runner.execute({principal:admin,action:'documents:read',scope:'p1',input:{text:'x'.repeat(5000)}})).error,'invalid_input');
 });
+
+test('runner enforces deadline for non-cooperative tools',async()=>{
+  const audit=createAuditLog();
+  const runner=createAgentRunner({audit,timeoutMs:100,tools:{'documents:read':async()=>new Promise(()=>{})}});
+  const started=Date.now();
+  const result=await runner.execute({principal:admin,action:'documents:read',scope:'p1',input:{}});
+  assert.deepEqual(result,{ok:false,error:'tool_failed'});
+  assert.ok(Date.now()-started<2000);
+  assert.equal(audit.list('org1').at(-1).outcome,'failed');
+});
