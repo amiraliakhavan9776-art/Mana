@@ -1,6 +1,9 @@
 'use strict';
 const http = require('node:http');
 const { timingSafeEqual } = require('node:crypto');
+const { normalizePrincipals, authenticate, can } = require('./security.cjs');
+const { validateProjects, projectsFor } = require('./projects.cjs');
+const { createAuditLog } = require('./audit.cjs');
 
 const MAX_URL_LENGTH = 2048;
 const DEFAULT_HOST = '127.0.0.1';
@@ -21,10 +24,12 @@ function tokenMatches(supplied, expected) {
   const b = Buffer.from(expected);
   return a.length === b.length && a.length > 0 && timingSafeEqual(a, b);
 }
-function createServer({ token } = {}) {
+function createServer({ token, principals, projects = [], audit = createAuditLog() } = {}) {
   if (typeof token !== 'string' || token.length < 32) {
     throw new Error('MANA_AI_TOKEN must be at least 32 characters');
   }
+  const users = normalizePrincipals(principals || [{ id: 'local-admin', orgId: 'local', role: 'admin', token }]);
+  const safeProjects = validateProjects(projects);
   return http.createServer((req, res) => {
     if (!req.url || req.url.length > MAX_URL_LENGTH) {
       return json(res, 414, { error: 'uri_too_long' });
@@ -39,17 +44,33 @@ function createServer({ token } = {}) {
     }
     const authorization = req.headers.authorization || '';
     const supplied = authorization.startsWith('Bearer ') ? authorization.slice(7) : '';
-    if (!tokenMatches(supplied, token)) {
+    const principal = authenticate(authorization, users);
+    if (!principal) {
+      audit.record({ action: pathname, outcome: 'unauthorized' });
       res.setHeader('WWW-Authenticate', 'Bearer');
       return json(res, 401, { error: 'unauthorized' });
     }
+    const permission = pathname === '/v1/capabilities' ? 'capabilities:read' :
+      pathname === '/v1/projects' ? 'projects:read' :
+      pathname === '/v1/audit' ? 'audit:read' : null;
+    if (!permission) {
+      audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'not_found' });
+      return json(res, 404, { error: 'not_found' });
+    }
+    if (!can(principal, permission)) {
+      audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'forbidden' });
+      return json(res, 403, { error: 'forbidden' });
+    }
+    audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' });
+    if (pathname === '/v1/projects') return json(res, 200, { projects: projectsFor(principal, safeProjects) });
+    if (pathname === '/v1/audit') return json(res, 200, { events: audit.list(principal.orgId) });
     if (pathname === '/v1/capabilities') {
       return json(res, 200, {
         service: 'mana-ai',
         mode: 'read-only-foundation',
         aiEnabled: false,
         dataConnected: false,
-        capabilities: ['health', 'capabilities'],
+        capabilities: ['health', 'capabilities', 'projects:read', 'audit:read'],
         humanApprovalRequiredForConsequentialActions: true
       });
     }
