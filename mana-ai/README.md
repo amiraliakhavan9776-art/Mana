@@ -93,3 +93,9 @@ Set `MANA_AI_DOCUMENT_SNAPSHOT` to a locally prepared, sanitized JSON snapshot i
 For `POST /v1/ai/ask` with `{"question":"Monday schedule","projectId":"sample_project"}`, the service checks the caller's organization and authorized project, then ranks only matching documents from that project using simple word overlap. At most three short excerpts are passed to the local model. The API returns document IDs and titles in `sources`, but does not verify that the model actually used or cited them. Retrieved content is untrusted and may contain prompt-injection attempts.
 
 **Not yet implemented:** embeddings/vector search, document-level ACLs, ingestion pipeline, live data sync, durable conversational memory, verified answer citations, model installation, production controls. Do not load real contracts, invoices or customer data yet.
+
+## Opt-in bounded conversation memory
+
+Supply an optional `sessionId` (1–64 ASCII letters, digits, underscores or hyphens) **together with an authorized `projectId`** in `POST /v1/ai/ask`. The service stores up to six question/answer turns in process memory, isolated by organization, authenticated user, project and session ID. Previous turns are sent to the local model on subsequent calls using the same scope. Without a session ID, questions remain stateless. Sessions are lost on restart; no persistence, expiry, encrypted storage, user-facing deletion API, or conversation governance is provided yet. Avoid sensitive information.
+
+This is **not semantic RAG**: document matching remains lexical, and retrieved source IDs are candidates rather than verified answer citations. The existing service is a local development prototype and must not be deployed with real customer data.
