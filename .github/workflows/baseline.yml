@@ -16,3 +16,5 @@ jobs:
           node-version: '22'
       - name: Run non-mutating source baseline checks
         run: node --test tests/*.test.cjs
+      - name: Run Mana AI foundation tests
+        run: node --test mana-ai/tests/*.test.cjs
