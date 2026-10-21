@@ -11,6 +11,7 @@ const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.
 const { authorizeAction } = require('./governance.cjs');
 const { createAgentRunner } = require('./agent-runner.cjs');
 const { createReadOnlyAgentTools } = require('./agent-tools.cjs');
+const { loadApprovedExport } = require('./export-loader.cjs');
 
 const MAX_URL_LENGTH = 2048;
 const DEFAULT_HOST = '127.0.0.1';
@@ -164,9 +165,15 @@ function start() {
   if (host !== DEFAULT_HOST && host !== '::1') {
     throw new Error('Remote binding is disabled in foundation mode; use loopback only');
   }
-  const projects = process.env.MANA_AI_PROJECT_SNAPSHOT ?
+  if (process.env.MANA_AI_APPROVED_EXPORT &&
+      (process.env.MANA_AI_PROJECT_SNAPSHOT || process.env.MANA_AI_DOCUMENT_SNAPSHOT)) {
+    throw new Error('Approved export cannot be combined with separate snapshots');
+  }
+  const approved = process.env.MANA_AI_APPROVED_EXPORT ?
+    loadApprovedExport(process.env.MANA_AI_APPROVED_EXPORT, { orgId: process.env.MANA_AI_EXPORT_ORG_ID }) : null;
+  const projects = approved ? approved.projects : process.env.MANA_AI_PROJECT_SNAPSHOT ?
     loadProjectSnapshot(process.env.MANA_AI_PROJECT_SNAPSHOT) : [];
-  const documents = process.env.MANA_AI_DOCUMENT_SNAPSHOT ?
+  const documents = approved ? approved.documents : process.env.MANA_AI_DOCUMENT_SNAPSHOT ?
     loadDocuments(process.env.MANA_AI_DOCUMENT_SNAPSHOT) : [];
   const audit = process.env.MANA_AI_AUDIT_FILE ?
     createDurableAuditLog(process.env.MANA_AI_AUDIT_FILE) : createAuditLog();
