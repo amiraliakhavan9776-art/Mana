@@ -111,3 +111,15 @@ This is **not semantic RAG**: document matching remains lexical, and retrieved s
 ## Explicit read-only export validation boundary
 
 `src/import-boundary.cjs` exposes `prepareReadOnlyExport(payload, { orgId })` for a **caller-provided, schemaVersion 1** export with `projects` and `documents`. It validates the project/document allowlists, rejects cross-organization data and orphan documents, and strips unsupported per-record fields through existing validators. This helper does **not** read the browser, contact the legacy app, import into a database, or schedule synchronization. Only pass sanitized synthetic fixtures until an approved export workflow and data protection review are completed.
+
+## Explicit approved export startup mode (development only)
+
+An authorized operator may prepare a **sanitized, synthetic or approved** JSON export matching `schemaVersion: 1`, `projects` and `documents`. Set `MANA_AI_APPROVED_EXPORT` to its local file path and `MANA_AI_EXPORT_ORG_ID` to the export's organization ID. The service validates organization ownership, document-to-project references, size and shape before starting. It rejects simultaneous use of `MANA_AI_PROJECT_SNAPSHOT` or `MANA_AI_DOCUMENT_SNAPSHOT`. This reads a static file **once at startup**; it is not a live database integration or background synchronization.
+
+```sh
+MANA_AI_TOKEN='your-unique-secret-of-at-least-32-characters' \
+MANA_AI_APPROVED_EXPORT='./approved-export.json' \
+MANA_AI_EXPORT_ORG_ID='local' npm start
+```
+
+Do not commit the export file or use sensitive production data without consent, data minimization and access review. The export must be created separately by an authorized operator. No browser extraction or automatic transfer is implemented.
