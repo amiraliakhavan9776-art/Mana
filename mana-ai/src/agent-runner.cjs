@@ -30,9 +30,13 @@ function createAgentRunner({ tools = {}, audit, timeoutMs = 5000 } = {}) {
         return {ok:false,error:'invalid_input'};
       }
       const controller = new AbortController();
-      const timer = setTimeout(()=>controller.abort(),timeoutMs);
+      let timer;
       try {
-        const result = await allowed.get(action)({principal:{id:principal.id,orgId:principal.orgId,role:principal.role},scope,input:structuredClone(input),signal:controller.signal});
+        const task = Promise.resolve().then(() => allowed.get(action)({principal:{id:principal.id,orgId:principal.orgId,role:principal.role},scope,input:structuredClone(input),signal:controller.signal}));
+        const deadline = new Promise((_, reject) => {
+          timer = setTimeout(() => { controller.abort(); reject(new Error('Tool timeout')); }, timeoutMs);
+        });
+        const result = await Promise.race([task, deadline]);
         if (controller.signal.aborted) throw new Error('Tool timeout');
         if (Buffer.byteLength(JSON.stringify(result)) > 16384) throw new Error('Tool output too large');
         audit.record({actorId,orgId,action:'agent:'+action,outcome:'allowed'});
