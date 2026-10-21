@@ -27,3 +27,15 @@ test('engine cites retrieved source metadata without returning document text', a
 test('invalid documents are rejected', () => {
   assert.throws(() => validateDocuments([{id:'d',orgId:'o1',projectId:'p1',title:'',text:'test'}]), /Invalid document/);
 });
+
+test('Persian letter variants and zero-width joiners are normalized', () => {
+  const persian = validateDocuments([
+    {id:'fa1',orgId:'o1',projectId:'p1',title:'صورت وضعیت پیمانکار',text:'مبلغ قرارداد و زمان‌بندی پروژه'}
+  ]);
+  const hits = retrieve({principal,projectId:'p1',question:'صورت‌وضعيت پيمانكار',projects,documents:persian});
+  assert.deepEqual(hits.map(h=>h.documentId),['fa1']);
+});
+test('irrelevant documents are not included', () => {
+  const hits = retrieve({principal,projectId:'p1',question:'unmatchedtoken',projects,documents});
+  assert.deepEqual(hits,[]);
+});
