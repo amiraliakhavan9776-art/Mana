@@ -107,3 +107,7 @@ This is **not semantic RAG**: document matching remains lexical, and retrieved s
 ## Security governance prototype
 
 `src/governance.cjs` defines an explicit allowlist of action names and a fail-closed decision helper. High-risk actions (payments, signatures, deletion, safety sign-off, permission changes and secret exports) are **always denied** in foundation mode; the helper does not execute tools or issue real approval tokens. Public research requires an explicit approval flag. See `tests/governance.test.cjs` and `docs/mana-ai-target-architecture.md` for the planned broader security architecture. This is not a production policy engine, and not yet wired into all routes or agent connectors.
+
+## Explicit read-only export validation boundary
+
+`src/import-boundary.cjs` exposes `prepareReadOnlyExport(payload, { orgId })` for a **caller-provided, schemaVersion 1** export with `projects` and `documents`. It validates the project/document allowlists, rejects cross-organization data and orphan documents, and strips unsupported per-record fields through existing validators. This helper does **not** read the browser, contact the legacy app, import into a database, or schedule synchronization. Only pass sanitized synthetic fixtures until an approved export workflow and data protection review are completed.
