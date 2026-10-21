@@ -9,6 +9,7 @@ const { loadProjectSnapshot } = require('./snapshot.cjs');
 const { loadDocuments, validateDocuments } = require('./documents.cjs');
 const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.cjs');
 const { authorizeAction } = require('./governance.cjs');
+const { createOpenAIProvider } = require('./openai-provider.cjs');
 const { createAgentRunner } = require('./agent-runner.cjs');
 const { createReadOnlyAgentTools } = require('./agent-tools.cjs');
 const { loadApprovedExport } = require('./export-loader.cjs');
@@ -177,8 +178,22 @@ function start() {
     loadDocuments(process.env.MANA_AI_DOCUMENT_SNAPSHOT) : [];
   const audit = process.env.MANA_AI_AUDIT_FILE ?
     createDurableAuditLog(process.env.MANA_AI_AUDIT_FILE) : createAuditLog();
-  const engine = process.env.MANA_AI_LOCAL_PROVIDER_URL && process.env.MANA_AI_MODEL ?
-    createEngine({ provider: createLocalOpenAICompatibleProvider({ baseUrl: process.env.MANA_AI_LOCAL_PROVIDER_URL }), model: process.env.MANA_AI_MODEL }) : null;
+  if (process.env.MANA_AI_OPENAI_API_KEY && process.env.MANA_AI_LOCAL_PROVIDER_URL) {
+    throw new Error('Select only one AI provider');
+  }
+  if (process.env.MANA_AI_OPENAI_API_KEY && process.env.MANA_AI_APPROVED_EXPORT) {
+    throw new Error('External AI provider cannot be used with approved project exports in pilot mode');
+  }
+  if (process.env.MANA_AI_OPENAI_API_KEY && (projects.length || documents.length)) {
+    throw new Error('External AI provider is limited to general questions without project or document data');
+  }
+  const engine = process.env.MANA_AI_MODEL && (process.env.MANA_AI_LOCAL_PROVIDER_URL || process.env.MANA_AI_OPENAI_API_KEY) ?
+    createEngine({
+      provider: process.env.MANA_AI_OPENAI_API_KEY ?
+        createOpenAIProvider({ apiKey: process.env.MANA_AI_OPENAI_API_KEY }) :
+        createLocalOpenAICompatibleProvider({ baseUrl: process.env.MANA_AI_LOCAL_PROVIDER_URL }),
+      model: process.env.MANA_AI_MODEL
+    }) : null;
   const server = createServer({ token, projects, documents, audit, engine });
   if (typeof audit.close === 'function') server.on('close', () => audit.close());
   server.listen(port, host, () => {
