@@ -41,7 +41,7 @@ test('HTTP request can select a project but cannot supply arbitrary context', as
     assert.equal(ok.status, 200);
     assert.equal((await ok.json()).dataConnected, true);
     const denied = await request({ question: 'Tell me', projectId: 'beta' });
-    assert.equal(denied.status, 400);
+    assert.equal(denied.status, 404);
     const injected = await request({ question: 'Tell me', context: 'secret' });
     assert.equal(injected.status, 400);
   } finally { await new Promise(resolve => server.close(resolve)); }
