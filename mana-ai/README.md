@@ -77,3 +77,11 @@ curl -X POST http://127.0.0.1:8787/v1/ai/ask \
 ```
 
 The endpoint requires authentication and a read permission; requests are limited to a single `question` field. It does not receive project data, search files, use tools, execute changes, remember conversations or provide RAG. The model may hallucinate. Do not submit secrets or real company information until a privacy and access review is complete. The adapter currently supports **only** local loopback providers and is not production hardened (including rate limits, full request lifecycle controls and structured model governance).
+
+## Opt-in project context (prototype)
+
+`POST /v1/ai/ask` also accepts an optional `projectId` alongside `question`. The engine resolves the ID **server-side** from the explicitly loaded, sanitized snapshot, checks the authenticated principal's `orgId`, and sends only the matching project's `id` and `name` to the configured local model. Other organizations' project metadata is never included in the prompt. A missing or unauthorized project is rejected without calling the model.
+
+Example: `{"question":"What is the project name?","projectId":"sample_project"}`.
+
+This is **not RAG**, semantic retrieval, durable conversation memory, or a live connection to the legacy Mana app. It is a controlled context proof of concept. Project names can still be sensitive: do not use real customer data until explicit approval, data classification, and provider privacy review. The model output is not guaranteed to be correct.
