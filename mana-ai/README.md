@@ -85,3 +85,11 @@ The endpoint requires authentication and a read permission; requests are limited
 Example: `{"question":"What is the project name?","projectId":"sample_project"}`.
 
 This is **not RAG**, semantic retrieval, durable conversation memory, or a live connection to the legacy Mana app. It is a controlled context proof of concept. Project names can still be sensitive: do not use real customer data until explicit approval, data classification, and provider privacy review. The model output is not guaranteed to be correct.
+
+## Read-only lexical retrieval prototype
+
+Set `MANA_AI_DOCUMENT_SNAPSHOT` to a locally prepared, sanitized JSON snapshot in the format of `examples/documents.snapshot.example.json`. A project snapshot must also be configured, and the local model provider must be enabled. This is **opt-in**, and no files are ingested automatically.
+
+For `POST /v1/ai/ask` with `{"question":"Monday schedule","projectId":"sample_project"}`, the service checks the caller's organization and authorized project, then ranks only matching documents from that project using simple word overlap. At most three short excerpts are passed to the local model. The API returns document IDs and titles in `sources`, but does not verify that the model actually used or cited them. Retrieved content is untrusted and may contain prompt-injection attempts.
+
+**Not yet implemented:** embeddings/vector search, document-level ACLs, ingestion pipeline, live data sync, durable conversational memory, verified answer citations, model installation, production controls. Do not load real contracts, invoices or customer data yet.
