@@ -8,6 +8,7 @@ const { createDurableAuditLog } = require('./durable-audit.cjs');
 const { loadProjectSnapshot } = require('./snapshot.cjs');
 const { loadDocuments, validateDocuments } = require('./documents.cjs');
 const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.cjs');
+const { authorizeAction } = require('./governance.cjs');
 
 const MAX_URL_LENGTH = 2048;
 const DEFAULT_HOST = '127.0.0.1';
@@ -44,16 +45,26 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
       const principal = authenticate(req.headers.authorization || '', users);
       if (!principal) return json(res, 401, { error: 'unauthorized' });
       if (!can(principal, 'projects:read')) return json(res, 403, { error: 'forbidden' });
+      const policy = authorizeAction({ principal, action: 'documents:read', scope: principal.orgId });
+      if (!policy.allowed) return json(res, 403, { error: 'policy_denied' });
       let raw = '';
       req.on('data', chunk => {
         raw += chunk;
-        if (raw.length > 8192) req.destroy();
+        if (Buffer.byteLength(raw, 'utf8') > 8192 && !res.headersSent) {
+          json(res, 413, { error: 'payload_too_large' });
+          req.resume();
+        }
       });
       req.on('end', async () => {
+        if (res.writableEnded) return;
         try {
           const input = JSON.parse(raw);
           if (!input || typeof input !== 'object' || Array.isArray(input) ||
               Object.keys(input).some(k => k !== 'question' && k !== 'projectId' && k !== 'sessionId')) throw new Error('Invalid input');
+          if (input.projectId !== undefined && !safeProjects.some(p => p.id === input.projectId && p.orgId === principal.orgId)) {
+            audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'forbidden' });
+            return json(res, 404, { error: 'project_not_found' });
+          }
           const result = await engine.ask({ principal, question: input.question, projectId: input.projectId, sessionId: input.sessionId, projects: safeProjects, documents: safeDocuments });
           audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' });
           return json(res, 200, result);
