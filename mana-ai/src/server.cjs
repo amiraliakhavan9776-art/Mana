@@ -9,6 +9,8 @@ const { loadProjectSnapshot } = require('./snapshot.cjs');
 const { loadDocuments, validateDocuments } = require('./documents.cjs');
 const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.cjs');
 const { authorizeAction } = require('./governance.cjs');
+const { createAgentRunner } = require('./agent-runner.cjs');
+const { createReadOnlyAgentTools } = require('./agent-tools.cjs');
 
 const MAX_URL_LENGTH = 2048;
 const DEFAULT_HOST = '127.0.0.1';
@@ -36,11 +38,43 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
   const users = normalizePrincipals(principals || [{ id: 'local-admin', orgId: 'local', role: 'admin', token }]);
   const safeProjects = validateProjects(projects);
   const safeDocuments = validateDocuments(documents);
+  const agent = createAgentRunner({ audit, tools: createReadOnlyAgentTools({ projects: safeProjects, documents: safeDocuments }) });
   return http.createServer((req, res) => {
     if (!req.url || req.url.length > MAX_URL_LENGTH) {
       return json(res, 414, { error: 'uri_too_long' });
     }
     const pathname = req.url.split('?')[0];
+    if (req.method === 'POST' && pathname === '/v1/agent/documents/search') {
+      const principal = authenticate(req.headers.authorization || '', users);
+      if (!principal) return json(res, 401, { error: 'unauthorized' });
+      if (!can(principal, 'projects:read')) return json(res, 403, { error: 'forbidden' });
+      let bytes = 0;
+      const chunks = [];
+      req.on('data', chunk => {
+        if (res.writableEnded) return;
+        bytes += chunk.length;
+        if (bytes > 4096) return json(res, 413, { error: 'payload_too_large' });
+        chunks.push(chunk);
+      });
+      req.on('end', async () => {
+        if (res.writableEnded) return;
+        let input;
+        try { input = JSON.parse(Buffer.concat(chunks).toString('utf8')); }
+        catch (_) { return json(res, 400, { error: 'invalid_input' }); }
+        if (!input || typeof input !== 'object' || Array.isArray(input) ||
+            Object.keys(input).some(k => k !== 'projectId' && k !== 'question') ||
+            typeof input.projectId !== 'string' || typeof input.question !== 'string') {
+          return json(res, 400, { error: 'invalid_input' });
+        }
+        if (!safeProjects.some(p => p.id === input.projectId && p.orgId === principal.orgId)) {
+          audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'denied' });
+          return json(res, 404, { error: 'project_not_found' });
+        }
+        const result = await agent.execute({ principal, action: 'documents:read', scope: input.projectId, input: { question: input.question } });
+        return json(res, result.ok ? 200 : 400, result.ok ? result.result : { error: result.error });
+      });
+      return;
+    }
     if (req.method === 'POST' && pathname === '/v1/ai/ask' && engine) {
       const principal = authenticate(req.headers.authorization || '', users);
       if (!principal) return json(res, 401, { error: 'unauthorized' });
@@ -113,7 +147,7 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
         mode: 'read-only-foundation',
         aiEnabled: !!engine,
         dataConnected: false,
-        capabilities: ['health', 'capabilities', 'projects:read', 'audit:read'].concat(engine ? ['ai:ask'] : []),
+        capabilities: ['health', 'capabilities', 'projects:read', 'audit:read', 'agent:documents:search'].concat(engine ? ['ai:ask'] : []),
         humanApprovalRequiredForConsequentialActions: true
       });
     }
