@@ -30,3 +30,13 @@ npm test
 The bearer token is only a temporary local-development gate, **not production identity or RBAC**. Do not expose this server to the internet or place it behind a public reverse proxy. Before any live deployment, implement organization-scoped identity, authorization, audit trails, TLS termination, rate limiting, persistent storage, approval policies, observability and threat-model review.
 
 The existing root `index.html` is intentionally untouched. This service is not connected to the browser's `mana.db.v2` localStorage.
+
+## Identity and audit prototype (development only)
+
+The server now supports optional `principals` and `projects` passed to `createServer()` for tests and embedding. Principals have `id`, `orgId`, `role` (`viewer`, `analyst`, `admin`), and a unique secret token. The default CLI configuration creates a single local admin principal from `MANA_AI_TOKEN`; **it is not a production identity provider**.
+
+- `GET /v1/projects`: returns a sanitized list of projects for the authenticated organization. Default list is empty; **no real Mana data is connected**.
+- `GET /v1/audit`: admin-only, organization-filtered in-memory audit events.
+- Unknown routes are 404; all non-GET requests remain 405.
+
+Audit events are **in-memory and lost on restart**; they are not tamper-proof and must not be used as compliance records. Token secrets must be kept outside source control and logs. Before deployment, replace development tokens with a proper identity provider, implement durable append-only audit storage and policy-driven approvals, and conduct security tests.
