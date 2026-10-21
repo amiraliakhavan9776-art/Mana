@@ -16,6 +16,7 @@ function start({port=PORT,provider,model,voiceProvider,conversationStore,authent
  if(sessionAuth)authenticate=req=>sessionAuth.authenticate(req);
  if(Boolean(conversationStore)!==Boolean(authenticate))throw Error('Conversation store and trusted authenticator must be supplied together');
  const conversationApi=conversationStore?createConversationApi({store:conversationStore,authenticate}):null;
+ const loginAttempts=new Map();
  const server=http.createServer(async(req,res)=>{
    res.setHeader('Cache-Control','no-store');res.setHeader('X-Content-Type-Options','nosniff');
    res.setHeader('Content-Security-Policy',"default-src 'self'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; connect-src 'self'; object-src 'none'; base-uri 'none'");
@@ -35,7 +36,12 @@ function start({port=PORT,provider,model,voiceProvider,conversationStore,authent
      try{
        for await(const chunk of req){size+=chunk.length;if(size>1500)throw Error('Too large');chunks.push(chunk)}
        const body=JSON.parse(Buffer.concat(chunks).toString('utf8'));
+       const identity=typeof body.userId==='string'&&/^[A-Za-z0-9_-]{1,100}$/.test(body.userId)?body.userId:'invalid';
+       const entry=loginAttempts.get(identity)||{count:0,until:0};
+       if(entry.until>Date.now()){res.writeHead(429,{'Retry-After':'60'});return res.end()}
        const session=sessionAuth.login(body.userId,body.password);
+       if(session)loginAttempts.delete(identity);
+       else{entry.count+=1;if(entry.count>=5){entry.count=0;entry.until=Date.now()+60000}loginAttempts.set(identity,entry)}
        if(!session){res.writeHead(401,{'Content-Type':'application/json'});return res.end(JSON.stringify({error:'Invalid credentials'}))}
        res.writeHead(200,{'Content-Type':'application/json'});return res.end(JSON.stringify(session));
      }catch{res.writeHead(400);return res.end()}
@@ -58,7 +64,7 @@ function start({port=PORT,provider,model,voiceProvider,conversationStore,authent
        let answer;
        try{answer=await provider.complete({model,messages:[{role:'system',content:'You are Mana AI local experimental assistant. Answer in Persian. Do not claim actions were executed.'},...context,{role:'user',content:body.prompt}],signal:controller.signal})}
        finally{clearTimeout(timer)}
-       if(typeof answer!=='string'||!answer.trim()||answer.length>16000)throw Error('Invalid model response');
+       if(typeof answer!=='string'||!answer.trim()||answer.length>4000)throw Error('Invalid model response');
        await conversationStore.append(scope,{role:'user',text:body.prompt});
        await conversationStore.append(scope,{role:'assistant',text:answer});
        send(200,{answer,model,conversationId:scope.conversationId,actionsExecuted:0});
@@ -66,6 +72,7 @@ function start({port=PORT,provider,model,voiceProvider,conversationStore,authent
      return;
    }
    if(conversationApi && await conversationApi(req,res))return;
+   if(sessionAuth&&(req.url==='/api/ask'||req.url==='/api/voice/transcribe'||req.url==='/api/voice/speak')){res.writeHead(403);return res.end()}
    if(req.method==='POST'&&['/api/voice/transcribe','/api/voice/speak'].includes(req.url)){
      if(!voiceProvider){res.writeHead(503);return res.end()}
      if(req.headers.origin&&req.headers.origin!==`http://${HOST}:${port}`){res.writeHead(403);return res.end()}
