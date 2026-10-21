@@ -36,3 +36,18 @@ test('runner enforces deadline for non-cooperative tools',async()=>{
   assert.ok(Date.now()-started<2000);
   assert.equal(audit.list('org1').at(-1).outcome,'failed');
 });
+
+test('runner rejects non-serializable input without invoking tool',async()=>{
+  let called=false;const runner=createAgentRunner({audit:createAuditLog(),tools:{'documents:read':async()=>{called=true;return {};}}});
+  const input={};input.self=input;
+  const result=await runner.execute({principal:admin,action:'documents:read',scope:'p1',input});
+  assert.equal(result.error,'invalid_input');assert.equal(called,false);
+});
+test('runner rejects undefined and oversized tool outputs',async()=>{
+  const audit=createAuditLog();
+  for(const output of [undefined,'x'.repeat(20000)]){
+    const runner=createAgentRunner({audit,tools:{'documents:read':async()=>output}});
+    const result=await runner.execute({principal:admin,action:'documents:read',scope:'p1',input:{}});
+    assert.equal(result.error,'tool_failed');
+  }
+});
