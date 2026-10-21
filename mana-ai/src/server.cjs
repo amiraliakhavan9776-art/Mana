@@ -47,18 +47,21 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
       if (!can(principal, 'projects:read')) return json(res, 403, { error: 'forbidden' });
       const policy = authorizeAction({ principal, action: 'documents:read', scope: principal.orgId });
       if (!policy.allowed) return json(res, 403, { error: 'policy_denied' });
-      let raw = '';
+      const chunks = [];
+      let bytes = 0;
       req.on('data', chunk => {
-        raw += chunk;
-        if (Buffer.byteLength(raw, 'utf8') > 8192 && !res.headersSent) {
+        if (res.writableEnded) return;
+        bytes += chunk.length;
+        if (bytes > 8192) {
           json(res, 413, { error: 'payload_too_large' });
-          req.resume();
+          return;
         }
+        chunks.push(chunk);
       });
       req.on('end', async () => {
         if (res.writableEnded) return;
         try {
-          const input = JSON.parse(raw);
+          const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
           if (!input || typeof input !== 'object' || Array.isArray(input) ||
               Object.keys(input).some(k => k !== 'question' && k !== 'projectId' && k !== 'sessionId')) throw new Error('Invalid input');
           if (input.projectId !== undefined && !safeProjects.some(p => p.id === input.projectId && p.orgId === principal.orgId)) {
