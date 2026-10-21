@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "documents": [
+    {
+      "id": "sample_note",
+      "orgId": "local",
+      "projectId": "sample_project",
+      "title": "Example schedule",
+      "text": "The sample project holds a weekly planning meeting on Monday."
+    }
+  ]
+}
