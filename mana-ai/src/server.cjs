@@ -6,6 +6,7 @@ const { validateProjects, projectsFor } = require('./projects.cjs');
 const { createAuditLog } = require('./audit.cjs');
 const { createDurableAuditLog } = require('./durable-audit.cjs');
 const { loadProjectSnapshot } = require('./snapshot.cjs');
+const { loadDocuments, validateDocuments } = require('./documents.cjs');
 const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.cjs');
 
 const MAX_URL_LENGTH = 2048;
@@ -27,12 +28,13 @@ function tokenMatches(supplied, expected) {
   const b = Buffer.from(expected);
   return a.length === b.length && a.length > 0 && timingSafeEqual(a, b);
 }
-function createServer({ token, principals, projects = [], audit = createAuditLog(), engine = null } = {}) {
+function createServer({ token, principals, projects = [], audit = createAuditLog(), engine = null, documents = [] } = {}) {
   if (typeof token !== 'string' || token.length < 32) {
     throw new Error('MANA_AI_TOKEN must be at least 32 characters');
   }
   const users = normalizePrincipals(principals || [{ id: 'local-admin', orgId: 'local', role: 'admin', token }]);
   const safeProjects = validateProjects(projects);
+  const safeDocuments = validateDocuments(documents);
   return http.createServer((req, res) => {
     if (!req.url || req.url.length > MAX_URL_LENGTH) {
       return json(res, 414, { error: 'uri_too_long' });
@@ -52,7 +54,7 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
           const input = JSON.parse(raw);
           if (!input || typeof input !== 'object' || Array.isArray(input) ||
               Object.keys(input).some(k => k !== 'question' && k !== 'projectId')) throw new Error('Invalid input');
-          const result = await engine.ask({ principal, question: input.question, projectId: input.projectId, projects: safeProjects });
+          const result = await engine.ask({ principal, question: input.question, projectId: input.projectId, projects: safeProjects, documents: safeDocuments });
           audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' });
           return json(res, 200, result);
         } catch (err) {
@@ -116,11 +118,13 @@ function start() {
   }
   const projects = process.env.MANA_AI_PROJECT_SNAPSHOT ?
     loadProjectSnapshot(process.env.MANA_AI_PROJECT_SNAPSHOT) : [];
+  const documents = process.env.MANA_AI_DOCUMENT_SNAPSHOT ?
+    loadDocuments(process.env.MANA_AI_DOCUMENT_SNAPSHOT) : [];
   const audit = process.env.MANA_AI_AUDIT_FILE ?
     createDurableAuditLog(process.env.MANA_AI_AUDIT_FILE) : createAuditLog();
   const engine = process.env.MANA_AI_LOCAL_PROVIDER_URL && process.env.MANA_AI_MODEL ?
     createEngine({ provider: createLocalOpenAICompatibleProvider({ baseUrl: process.env.MANA_AI_LOCAL_PROVIDER_URL }), model: process.env.MANA_AI_MODEL }) : null;
-  const server = createServer({ token, projects, audit, engine });
+  const server = createServer({ token, projects, documents, audit, engine });
   if (typeof audit.close === 'function') server.on('close', () => audit.close());
   server.listen(port, host, () => {
     process.stdout.write('Mana AI foundation listening on ' + host + ':' + port + '\n');
