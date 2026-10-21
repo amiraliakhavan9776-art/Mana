@@ -33,3 +33,13 @@ Decision: the default and required production architecture must function **witho
 - Test by deliberately blocking international egress in a controlled staging environment: Persian chat, document retrieval, project authorization, supervisor reporting, CAD/takeoff, approval workflows, backups and recovery.
 - Iran-local placement alone does not guarantee availability: power, local provider/network outages, hardware failures and domestic connectivity must be covered by recovery plans.
 - Treat this as a requirement and acceptance criterion, **not as an implemented or tested feature**.
+
+## Optional future overseas GPU (approved direction, conditional purchase)
+- Retain Iran-local inference as the default and always-available core; overseas GPU is optional acceleration/quality tier, not a dependency.
+- Route requests via explicit policy: classification, user/org authorization, data residency, provider jurisdiction and consent before remote processing.
+- Sensitive company financial, contracts, cameras, personnel and confidential project documents remain local by default. No silent cross-border transfer or replication.
+- Support opt-in external inference only where lawful, authorized and technically secure; use data minimization and redaction.
+- On overseas connectivity failure, fail over to local inference for supported tasks, disclose reduced capabilities and queue nonessential heavy jobs without leaking data.
+- No foreign hosted AI API is required; an overseas operator-controlled GPU may run self-hosted model weights.
+- Benchmark model quality, GPU VRAM, throughput, latency, recurring costs, security and operational complexity before any purchase.
+- This is a future architecture requirement, not an implemented routing or failover feature.
