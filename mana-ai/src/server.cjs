@@ -51,8 +51,8 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
         try {
           const input = JSON.parse(raw);
           if (!input || typeof input !== 'object' || Array.isArray(input) ||
-              Object.keys(input).some(k => k !== 'question')) throw new Error('Invalid input');
-          const result = await engine.ask({ principal, question: input.question });
+              Object.keys(input).some(k => k !== 'question' && k !== 'projectId')) throw new Error('Invalid input');
+          const result = await engine.ask({ principal, question: input.question, projectId: input.projectId, projects: safeProjects });
           audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' });
           return json(res, 200, result);
         } catch (err) {
