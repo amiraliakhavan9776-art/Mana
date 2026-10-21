@@ -4,6 +4,8 @@ const { timingSafeEqual } = require('node:crypto');
 const { normalizePrincipals, authenticate, can } = require('./security.cjs');
 const { validateProjects, projectsFor } = require('./projects.cjs');
 const { createAuditLog } = require('./audit.cjs');
+const { createDurableAuditLog } = require('./durable-audit.cjs');
+const { loadProjectSnapshot } = require('./snapshot.cjs');
 
 const MAX_URL_LENGTH = 2048;
 const DEFAULT_HOST = '127.0.0.1';
@@ -87,7 +89,12 @@ function start() {
   if (host !== DEFAULT_HOST && host !== '::1') {
     throw new Error('Remote binding is disabled in foundation mode; use loopback only');
   }
-  const server = createServer({ token });
+  const projects = process.env.MANA_AI_PROJECT_SNAPSHOT ?
+    loadProjectSnapshot(process.env.MANA_AI_PROJECT_SNAPSHOT) : [];
+  const audit = process.env.MANA_AI_AUDIT_FILE ?
+    createDurableAuditLog(process.env.MANA_AI_AUDIT_FILE) : createAuditLog();
+  const server = createServer({ token, projects, audit });
+  if (typeof audit.close === 'function') server.on('close', () => audit.close());
   server.listen(port, host, () => {
     process.stdout.write('Mana AI foundation listening on ' + host + ':' + port + '\n');
   });
