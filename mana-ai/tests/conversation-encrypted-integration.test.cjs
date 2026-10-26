@@ -3,7 +3,7 @@ const test=require('node:test');
 const assert=require('node:assert/strict');
 const {createConversationStore}=require('../src/encrypted-conversations.cjs');
 const {createConversationApi}=require('../src/conversation-api.cjs');
-const {randomBytes}=require('node:crypto');
+const {randomBytes,createHash}=require('node:crypto');
 const {Readable}=require('node:stream');
 const fs=require('node:fs/promises');
 const os=require('node:os');
@@ -25,6 +25,14 @@ test('conversation API separates encrypted records by authenticated identity',as
   assert.equal((await call('GET')).body.messages.length,1);
   principal={...principal,userId:'bob'};
   assert.deepEqual((await call('GET')).body.messages,[]);
+  const fileFor=user=>path.join(directory,createHash('sha256').update(JSON.stringify(['org1',user,'shared'])).digest('hex')+'.enc');
+  await fs.copyFile(fileFor('alice'),fileFor('bob'));
+  const transplanted=await call('GET');
+  assert.equal(transplanted.status,500);
+  assert.deepEqual(transplanted.body,{error:'Conversation unavailable'});
+  assert.equal((await call('POST',{role:'user',text:'must not overwrite'})).status,400);
+  principal={...principal,userId:'alice'};
+  assert.equal((await call('GET')).body.messages.length,1);
   principal={...principal,userId:'alice',organizationId:'org2'};
   assert.deepEqual((await call('GET')).body.messages,[]);
  }finally{await fs.rm(directory,{recursive:true,force:true})}

@@ -6,29 +6,34 @@ function passwordRecord(password){
  const salt=crypto.randomBytes(16);
  return {salt:salt.toString('hex'),digest:crypto.scryptSync(password,salt,32).toString('hex')};
 }
-function createSessionAuth({accounts=[],now=()=>Date.now(),ttlMs=3600000}={}){
+function createSessionAuth({accounts=[],now=()=>Date.now(),ttlMs=3600000,maxSessions=1000}={}){
  const users=new Map(),sessions=new Map();
+ if(!Array.isArray(accounts)||typeof now!=='function'||!Number.isInteger(maxSessions)||maxSessions<1||maxSessions>100000)throw Error('Invalid session configuration');
  if(!Number.isSafeInteger(ttlMs)||ttlMs<60000||ttlMs>86400000)throw Error('Invalid TTL');
  for(const a of accounts){
-  if(!ID.test(a.userId)||!ID.test(a.organizationId)||!/^[a-f0-9]{32}$/.test(a.salt)||!/^[a-f0-9]{64}$/.test(a.digest)||users.has(a.userId))throw Error('Invalid account');
-  users.set(a.userId,a);
+  if(!a||typeof a.userId!=='string'||typeof a.organizationId!=='string'||!ID.test(a.userId)||!ID.test(a.organizationId)||!/^[a-f0-9]{32}$/.test(a.salt)||!/^[a-f0-9]{64}$/.test(a.digest)||users.has(a.userId))throw Error('Invalid account');
+  users.set(a.userId,Object.freeze({userId:a.userId,organizationId:a.organizationId,salt:a.salt,digest:a.digest}));
  }
+ function time(){const value=now();if(!Number.isSafeInteger(value)||value<0||value>Number.MAX_SAFE_INTEGER-ttlMs)throw Error('Invalid session clock');return value}
  function login(userId,password){
   if(typeof userId!=='string'||typeof password!=='string'||password.length>256)return null;
+  const issuedAt=time();
+  for(const [token,session] of sessions)if(session.expires<=issuedAt)sessions.delete(token);
+  if(sessions.size>=maxSessions)return null;
   const a=users.get(userId);
   const salt=Buffer.from(a?a.salt:'0'.repeat(32),'hex');
   const expected=Buffer.from(a?a.digest:'0'.repeat(64),'hex');
   const actual=crypto.scryptSync(password,salt,32);
   if(!a||!crypto.timingSafeEqual(expected,actual))return null;
   const token=crypto.randomBytes(32).toString('hex'),csrf=crypto.randomBytes(32).toString('hex');
-  sessions.set(token,{userId:a.userId,organizationId:a.organizationId,csrf,expires:now()+ttlMs});
-  return {token,csrf,expiresAt:now()+ttlMs};
+  sessions.set(token,{userId:a.userId,organizationId:a.organizationId,csrf,expires:issuedAt+ttlMs});
+  return {token,csrf,expiresAt:issuedAt+ttlMs};
  }
  function authenticate(req){
-  const m=/^Bearer ([a-f0-9]{64})$/.exec(req.headers.authorization||'');
+  const m=/^Bearer ([a-f0-9]{64})$/.exec(req?.headers?.authorization||'');
   if(!m)return null;
   const s=sessions.get(m[1]);if(!s)return null;
-  if(s.expires<=now()){sessions.delete(m[1]);return null}
+  if(s.expires<=time()){sessions.delete(m[1]);return null}
   return {userId:s.userId,organizationId:s.organizationId,canReadConversations:true,canWriteConversations:true,
    verifyCsrf:proof=>typeof proof==='string'&&/^[a-f0-9]{64}$/.test(proof)&&crypto.timingSafeEqual(Buffer.from(proof,'hex'),Buffer.from(s.csrf,'hex'))};
  }

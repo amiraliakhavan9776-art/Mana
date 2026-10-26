@@ -22,3 +22,7 @@ At source cc614aeb, the existing 102 tests passed on Node v24.22.1 on 2026-10-26
 ## Persistent-control implementation
 
 135 Node tests pass. Settlement calculation was corrected after reproducing its failure. Persistent approval storage and a configured encrypted audit-checkpoint adapter are implemented; neither activates business effects or provisions independent production infrastructure. See [persistent controls](../docs/mana-ai-persistent-controls.md) and the latest browser workflow before release.
+
+## Conversation scope hardening
+
+143 Node tests now pass. MANA2 authenticates conversation scope; MANA1 requires explicit trusted-manifest conversion before reading. Session populations are bounded. See [security regression and compatibility](../docs/mana-ai-conversation-hardening.md). No live conversation migration or production deployment occurred.
