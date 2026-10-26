@@ -18,6 +18,7 @@ function createJarvisService({owner,authorize,evidenceSnapshot,tools,missionFile
   createFromText({subject,text,requestKey,revisionOf}){check(subject,'mission.create');let prior;
    if(revisionOf){prior=methods.get({subject,missionId:revisionOf});if(!['completed','cancelled','failed'].includes(prior.status))throw Error('Stop or resolve prior mission before revision')}
    const proposal=interpretPersianRequest(text);if(proposal.status!=='GROUNDED_PROPOSAL')return {created:false,analysis:proposal};
+   if(prior?.inputs?.['architecture.design']&&proposal.workflow==='architecture'){proposal.inputs['architecture.design'].revision=(prior.inputs['architecture.design'].revision??1)+1;if(!proposal.specifiedFields.includes('wallHeight'))proposal.inputs['architecture.design'].wallHeight=prior.inputs['architecture.design'].wallHeight??2.8;}
    const objective=revisionOf?'Revision of '+revisionOf+': '+text:text;
    const created=this.createMission({subject,objective,goals:proposal.goals,inputs:proposal.inputs,requestKey,maxWorkUnits:6});return {...created,revisionOf:revisionOf??null,grounding:proposal};
   },

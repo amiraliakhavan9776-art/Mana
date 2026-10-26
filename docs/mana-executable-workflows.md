@@ -36,3 +36,7 @@ Workbook exporter diagnostic stdout polluted its JSON response after files were 
 ## Remaining gates
 
 General Persian/model grounding, voice, independent specialist council, real-project architecture (doors/walls/code/structure), comprehensive takeoff/costs, unrestricted document extraction/OCR, production audit/identity/restore, live-source integrations, parallel scheduling and authenticated UI remain open. Product modules from master 1.1 are preserved in the capability map; this increment does not imply they are complete. Next: strengthen geometric solver and document schemas, then introduce a verified model/provider and supervised request confirmation before broadening supported tasks. No merge/deployment/installation recommendation.
+
+## Geometry follow-up
+
+The next increment adds dimensioned zero-thickness wall centerlines, door/window markers, actual DXF-based access checks, geometry revisions and room-side wall surface takeoff. See mana-architecture-geometry-v2.md for current capability and exact limitations; the initial floor-area-only run above remains historical evidence, not a claim of full architectural acceptance.
