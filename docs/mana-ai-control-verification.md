@@ -28,7 +28,7 @@ Run `node tools/inventory-legacy.cjs > docs/generated/legacy-static-index.json`.
 The static index covers 32 script blocks, 149 named function declarations, 190 handler registrations, 66 handler assignments/overrides, 51 literal route registrations, 14 renderer assignments, 706 DB property references and 26 storage operations.
 It records line numbers and repeated names, not effective lexical scope. The 100 generic k-property matches include non-route configuration. Do not treat those as 100 application routes.
 IndexedDB attachments use mana-attach, version 1, files store, id key and ownerKey index (index.html:3005 onward). Existing JSON export serializes DB, not the separate files store.
-Final-settlement calculation has a suspected function-shadowing defect at index.html:5580 (local invoicePaid variable shadows the function used in its initializer callback); reproduce and correct with a dedicated domain regression before closing financial acceptance.
+The final-settlement function-shadowing defect identified at index.html:5580 was reproduced and corrected in the subsequent [persistent-controls follow-up](mana-ai-persistent-controls.md). The regenerated static index describes the corrected source.
 
 ## Browser regression
 Two isolated Chromium tests were added:
@@ -47,3 +47,7 @@ node --test tests/browser/*.test.cjs
 G1 remains open for field-level schema, dynamic keys, effective override ownership and complete workflow mapping.
 G2 remains open for browser execution evidence, all claim modes/financial edge cases, full historical migration and recovery objectives.
 The new controls reduce specific gaps; they do not establish full production security, offline inference, CAD/BIM acceptance or approval readiness.
+
+## Subsequent implementation
+
+[Persistent controls](mana-ai-persistent-controls.md) adds an encrypted approval lifecycle, a persistent audit-checkpoint adapter wired to startup configuration, settlement correction and expanded browser backup coverage. Historical counts above remain scoped to their parent revision; the latest local suite has 135 passing tests. No live migration or production activation is claimed.

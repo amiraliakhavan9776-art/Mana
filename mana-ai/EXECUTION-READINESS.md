@@ -18,3 +18,7 @@ At source cc614aeb, the existing 102 tests passed on Node v24.22.1 on 2026-10-26
 ## Control hardening follow-up
 
 122 local Node tests now pass. Project access requires explicit trusted projectIds grants; token-only bootstrap has none. Independent audit anchoring and encrypted backup verification are tested interfaces, not provisioned production services. Browser CI is separate and must be checked. See [verification and integration requirements](../docs/mana-ai-control-verification.md). G1/G2 and consequential-action approval remain open.
+
+## Persistent-control implementation
+
+135 Node tests pass. Settlement calculation was corrected after reproducing its failure. Persistent approval storage and a configured encrypted audit-checkpoint adapter are implemented; neither activates business effects or provisions independent production infrastructure. See [persistent controls](../docs/mana-ai-persistent-controls.md) and the latest browser workflow before release.

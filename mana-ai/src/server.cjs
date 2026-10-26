@@ -6,6 +6,7 @@ const { normalizePrincipals, authenticate, can } = require('./security.cjs');
 const { validateProjects, projectsFor } = require('./projects.cjs');
 const { createAuditLog } = require('./audit.cjs');
 const { createDurableAuditLog } = require('./durable-audit.cjs');
+const { loadAuditAnchor } = require('./file-audit-anchor.cjs');
 const { loadProjectSnapshot } = require('./snapshot.cjs');
 const { loadDocuments, validateDocuments } = require('./documents.cjs');
 const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.cjs');
@@ -183,8 +184,11 @@ function start() {
     loadProjectSnapshot(process.env.MANA_AI_PROJECT_SNAPSHOT) : [];
   const documents = approved ? approved.documents : process.env.MANA_AI_DOCUMENT_SNAPSHOT ?
     loadDocuments(process.env.MANA_AI_DOCUMENT_SNAPSHOT) : [];
-  const audit = process.env.MANA_AI_AUDIT_FILE ?
-    createDurableAuditLog(process.env.MANA_AI_AUDIT_FILE) : createAuditLog();
+  const anchorFile=process.env.MANA_AI_AUDIT_ANCHOR_FILE, keyFile=process.env.MANA_AI_AUDIT_KEY_FILE;
+  if ((anchorFile || keyFile) && !(anchorFile && keyFile && process.env.MANA_AI_AUDIT_FILE)) {
+    throw new Error('Audit file, anchor file and private key file required together');
+  }
+  const anchor=anchorFile ? loadAuditAnchor({auditFile:process.env.MANA_AI_AUDIT_FILE,anchorFile,keyFile}) : undefined;
   if (process.env.MANA_AI_OPENAI_API_KEY && process.env.MANA_AI_LOCAL_PROVIDER_URL) {
     throw new Error('Select only one AI provider');
   }
@@ -201,15 +205,20 @@ function start() {
         createLocalOpenAICompatibleProvider({ baseUrl: process.env.MANA_AI_LOCAL_PROVIDER_URL }),
       model: process.env.MANA_AI_MODEL
     }) : null;
-  const server = createServer({ token, projects, documents, audit, engine });
+  const audit = process.env.MANA_AI_AUDIT_FILE ?
+    createDurableAuditLog(process.env.MANA_AI_AUDIT_FILE,{anchor}) : createAuditLog();
+  let server;
+  try { server = createServer({ token, projects, documents, audit, engine }); }
+  catch (error) { if (typeof audit.close === 'function') audit.close(); throw error; }
   if (typeof audit.close === 'function') server.on('close', () => audit.close());
+  if (typeof audit.close === 'function') server.once('error', () => audit.close());
   server.listen(port, host, () => {
     process.stdout.write('Mana AI foundation listening on ' + host + ':' + port + '\n');
   });
   return server;
 }
 if (require.main === module) {
-  try { start(); }
+  try { start().on('error', err => { process.stderr.write(err.message + '\n'); process.exitCode = 1; }); }
   catch (err) { process.stderr.write(err.message + '\n'); process.exitCode = 1; }
 }
 module.exports = { createServer, start, tokenMatches };

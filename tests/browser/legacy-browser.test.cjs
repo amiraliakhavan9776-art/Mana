@@ -2,6 +2,7 @@
 const test=require('node:test'),assert=require('node:assert/strict');
 const http=require('node:http'),fs=require('node:fs'),path=require('node:path');
 const {chromium}=require(process.env.MANA_PLAYWRIGHT_MODULE || 'playwright');
+const {createLegacyBackup,verifyLegacyBackup}=require('../../mana-ai/src/legacy-backup.cjs');
 const html=fs.readFileSync(path.join(__dirname,'../../index.html'));
 async function browserFixture(run){
  const server=http.createServer((req,res)=>{res.writeHead(200,{'content-type':'text/html; charset=utf-8'});res.end(html)});
@@ -55,4 +56,43 @@ test('legacy invoice approval state transitions persist and reverse', {timeout:6
  await page.waitForFunction(()=>JSON.parse(localStorage.getItem('mana.db.v2'))?.invoices?.some(i=>i.id==='regression-invoice'&&i.status==='pending'));
  await page.reload();
  assert.equal(await page.evaluate(()=>DB.invoices.find(i=>i.id==='regression-invoice').status),'pending');
+}));
+
+test('final settlement renders with an invoice and preserves paid totals', {timeout:60000},()=>browserFixture(async(page,base)=>{
+ await page.evaluate(()=>{
+  const project=DB.projects[0];
+  DB.invoices.push({id:'settlement-invoice',projectId:project.id,status:'pending',items:[{qty:2,price:1000}],payments:[{amount:600}]});
+  save(true);
+ });
+ await page.goto(base+'/#/settlement');
+ await page.waitForFunction(()=>document.querySelector('#pageTitle')?.textContent.includes('تسویه'));
+ assert.doesNotMatch(await page.locator('#view').innerText(),/خطا در نمایش/);
+ const result=await page.evaluate(()=>window.ManaFinalSettlement.calculate(DB.projects[0].id));
+ assert.equal(result.invoicePaid,600);assert.equal(result.invoiceGross,2000);
+}));
+
+test('encrypted backup round-trip includes real browser IndexedDB attachments', {timeout:60000},()=>browserFixture(async(page)=>{
+ const snapshot=await page.evaluate(async()=>{
+  const ownerKey='project:'+DB.projects[0].id;
+  const attachment=await window.ManaAttach.db.save(ownerKey,new File(['synthetic attachment'],'test.txt',{type:'text/plain'}));
+  return {databaseJson:JSON.stringify(DB),attachments:[attachment]};
+ });
+ const key=Buffer.alloc(32,12),restored=verifyLegacyBackup(createLegacyBackup(snapshot,key),key);
+ assert.equal(restored.databaseJson,snapshot.databaseJson);
+ assert.deepEqual(restored.attachments,snapshot.attachments);
+ await page.evaluate(async restored=>{
+  DB=JSON.parse(restored.databaseJson);save(true);
+  await new Promise((resolve,reject)=>{
+   const request=indexedDB.open('mana-attach',1);
+   request.onerror=()=>reject(request.error);
+   request.onsuccess=()=>{
+    const db=request.result,tx=db.transaction('files','readwrite'),store=tx.objectStore('files');
+    store.clear();for(const attachment of restored.attachments)store.put(attachment);
+    tx.oncomplete=()=>{db.close();resolve()};tx.onerror=()=>{db.close();reject(tx.error)};
+   };
+  });
+ },restored);
+ await page.reload();
+ const actual=await page.evaluate(async ownerKey=>window.ManaAttach.db.byOwner(ownerKey),restored.attachments[0].ownerKey);
+ assert.deepEqual(actual,restored.attachments);
 }));

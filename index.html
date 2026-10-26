@@ -5577,7 +5577,7 @@ console.log('%c[Mana v2 part 5 - block 4] ok', 'color:#2fa88f;font-weight:bold')
       /* جمع صورت‌وضعیت‌ها */
       var invoices = DB.invoices.filter(function(i){ return i.projectId === projectId; });
       var invoiceGross = sum(invoices, function(i){ return invoiceCalc(i).gross; });
-      var invoicePaid = sum(invoices, function(i){ return invoicePaid(i); });
+      var paidInvoicesTotal = sum(invoices, function(i){ return invoicePaid(i); });
       var retention = sum(invoices, function(i){ return invoiceCalc(i).retention; });
       var totalTax = sum(invoices, function(i){ return invoiceCalc(i).tax; });
       var totalInsurance = sum(invoices, function(i){ return invoiceCalc(i).insurance; });
@@ -5599,13 +5599,13 @@ console.log('%c[Mana v2 part 5 - block 4] ok', 'color:#2fa88f;font-weight:bold')
         if(calc) delayDamage = calc.capped;
       }
       /* مانده */
-      var netReceivable = totalContract - invoicePaid - retention;
+      var netReceivable = totalContract - paidInvoicesTotal - retention;
       return {
         contractAmount: contractAmount,
         addendumAmount: addendumAmount,
         totalContract: totalContract,
         invoiceGross: invoiceGross,
-        invoicePaid: invoicePaid,
+        invoicePaid: paidInvoicesTotal,
         retention: retention,
         totalTax: totalTax,
         totalInsurance: totalInsurance,

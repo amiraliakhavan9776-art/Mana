@@ -92,3 +92,19 @@ test('invoice explicit zero rates override defaults; payments sum Persian and Ar
   assert.equal(ctx.invoicePaid({payments:[{amount:'۱,۲۰۰'},{amount:'٨٠٠'}]}),2000);
   assert.equal(ctx.invoiceCalc({items:[],retention:0,tax:0,insurance:0,vat:0}).net,0);
 });
+
+test('final settlement sums paid invoices without shadowing the payment calculator', () => {
+  const DB={settings:{retention:5,tax:0,insurance:0,vat:0},projects:[{id:'p'}],
+    contracts:[{id:'c',projectId:'p',amount:10000}],cash:[],
+    invoices:[{id:'i',projectId:'p',items:[{qty:2,price:1000}],payments:[{amount:600}]}]};
+  const ctx=legacy(['toEn','num','sum','invoiceCalc','invoicePaid'],{DB,window:{},todayISO:()=> '2026-10-26'});
+  const block=source.match(/window\.ManaFinalSettlement = \{[\s\S]*?\n  \};/);
+  assert.ok(block,'Missing final settlement module');
+  new vm.Script(block[0]).runInContext(ctx,{timeout:1000});
+  const result=ctx.window.ManaFinalSettlement.calculate('p');
+  assert.equal(result.invoicePaid,600);
+  assert.equal(result.invoiceGross,2000);
+  assert.equal(result.retention,100);
+  assert.equal(result.netReceivable,9300);
+  assert.equal(ctx.window.ManaFinalSettlement.calculate('missing'),null);
+});

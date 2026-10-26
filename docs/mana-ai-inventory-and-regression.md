@@ -64,3 +64,7 @@ No gate approval, production datastore, financial limits, project visibility or 
 ## Follow-up verification
 
 See [control verification](mana-ai-control-verification.md) for 122 passing Node tests, scoped project grants, anchored-audit interfaces, encrypted backup/restore verification, static line-level inventory and separate browser CI. Historical observations above remain scoped to cc614aeb; this follow-up does not close G1/G2.
+
+## Persistent-controls follow-up
+
+See [implementation and validation](mana-ai-persistent-controls.md) for the corrected settlement defect, 135 passing Node tests, persistent approval lifecycle and startup-configured audit checkpoint. index.html has changed in this follow-up and the generated static index was regenerated. Full G1/G2 acceptance remains open.
