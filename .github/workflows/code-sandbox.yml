@@ -1,0 +1,26 @@
+name: Real Python code sandbox acceptance
+on:
+  pull_request:
+    paths: ['mana-ai/src/native/python-code-sandbox.cjs', 'mana-ai/sandbox-acceptance.cjs', '.github/workflows/code-sandbox.yml']
+  push:
+    branches: [feature/mana-ai-foundation]
+    paths: ['mana-ai/src/native/python-code-sandbox.cjs', 'mana-ai/sandbox-acceptance.cjs', '.github/workflows/code-sandbox.yml']
+permissions:
+  contents: read
+jobs:
+  sandbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Install isolation tools in ephemeral CI runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y bubblewrap util-linux
+      - name: Require actual namespace/seccomp acceptance
+        # Privilege only initializes namespaces in this disposable runner. The
+        # candidate runs after caps are dropped and seccomp/mount policy applies.
+        run: sudo "$(command -v node)" mana-ai/sandbox-acceptance.cjs

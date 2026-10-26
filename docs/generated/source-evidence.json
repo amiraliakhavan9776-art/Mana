@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "301073c8624ac6c13d3164db1f777046717e402619abbb63e96db5bfddf91466",
-  "fileCount": 231,
+  "sourceSetDigest": "3409949df56268f1c3d170b76539b8ecf54fcb5cb46f50b1dab9c9352b5f63d7",
+  "fileCount": 240,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -17,6 +17,15 @@
       "bytes": 1196,
       "sha256": "e060e489cf401c3b288da12abea76e16cc963e52c8c83cfd7ffd7181a9dd281f",
       "gitBlob": "3b86cacd8f16fbc91eedccf22c9c19cd570ea5c0",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": ".github/workflows/code-sandbox.yml",
+      "bytes": 1050,
+      "sha256": "3f001b69e2973ca03042bee046a758df50c6b04896e3a395e74849c9d0211321",
+      "gitBlob": "08c69d19928ee2e9f7b32e261a5e84812b908a35",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -140,9 +149,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 17271,
-      "sha256": "f62a1e0fa618a4c3e1d8b8f19b85caa762d4ae27558ca13c2b2e5329f0cf7c81",
-      "gitBlob": "b369fc369750058e0669e505e88dce9a4987112b",
+      "bytes": 17821,
+      "sha256": "ca2937382ba7882f3a326661eae48de0a784beacfbb6c4011859f45d537fe92e",
+      "gitBlob": "cbf4bf3038b7305e9b901295bcaae248000a8b9b",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -203,9 +212,9 @@
     },
     {
       "path": "docs/mana-local-skill-evolution.md",
-      "bytes": 7222,
-      "sha256": "8b5f129f6a57f2e18eef16f8aaf284acf38817b7a52f45e3f4ebf8f956e57467",
-      "gitBlob": "36616e6ceb2bc426586e98b6514733174594a112",
+      "bytes": 7607,
+      "sha256": "07822285df70c4ce4eb844436978985b124a130ae540c238acdd342a80db93d3",
+      "gitBlob": "69d009805d72bf58c419788ed8c7d3be49aa1a9d",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -251,6 +260,15 @@
       "bytes": 5498,
       "sha256": "031662e6ab88f08def80dc6681c0dd90879e0363daa7a66ef54a7518e86eacb9",
       "gitBlob": "35e84666e252315c547632c6d75c4229005fe897",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-python-code-repair.md",
+      "bytes": 5552,
+      "sha256": "55b4ec4612fa24353717967c957491a612de67b0d4eea0d2b9c4a1102f2574dc",
+      "gitBlob": "22ee6c2f1354686be55ad5103099bd4da35ea007",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -584,9 +602,9 @@
     },
     {
       "path": "mana-ai/code-local.cjs",
-      "bytes": 976,
-      "sha256": "428d14b4506e7f0df0dd5e8a21b6359919124b64131cd72035bbc7a57fecf725",
-      "gitBlob": "d185f6e34302193eb26e87beeeec1825fd8c7831",
+      "bytes": 1234,
+      "sha256": "e3d9e6c89a25a99a0126045c10bed2efa73b19e7df7e19429ad9e401e2293d98",
+      "gitBlob": "48691a303b02058fe449c14d502d9f9c7930e075",
       "dependencyCandidates": [
         {
           "value": "node:path",
@@ -605,7 +623,24 @@
           "line": 5
         }
       ],
-      "environmentCandidates": [],
+      "environmentCandidates": [
+        {
+          "value": "MANA_CODER_PORT",
+          "line": 6
+        },
+        {
+          "value": "MANA_CODER_MODEL",
+          "line": 6
+        },
+        {
+          "value": "MANA_CODER_PORT",
+          "line": 6
+        },
+        {
+          "value": "MANA_CODER_MODEL",
+          "line": 6
+        }
+      ],
       "testFile": false
     },
     {
@@ -667,9 +702,9 @@
     },
     {
       "path": "mana-ai/evolve-backlog.cjs",
-      "bytes": 1741,
-      "sha256": "7bb7d5b617422558cb18e7103d38f6fc4a4d5b2b4a0238f63f3561107f08ec2f",
-      "gitBlob": "581c546538a1e13169ab7509ff45e0df282b071b",
+      "bytes": 1874,
+      "sha256": "2a79669c33ac9362c9778fb488678709e4596e3c28e62f046ba632350ac6691b",
+      "gitBlob": "f1b6a3d445df755f1d6ce7083ccdd95456e8a64e",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -688,14 +723,23 @@
           "line": 5
         }
       ],
-      "environmentCandidates": [],
+      "environmentCandidates": [
+        {
+          "value": "MANA_CODER_PORT",
+          "line": 13
+        },
+        {
+          "value": "MANA_CODER_MODEL",
+          "line": 13
+        }
+      ],
       "testFile": false
     },
     {
       "path": "mana-ai/evolve-local.cjs",
-      "bytes": 846,
-      "sha256": "dec446f860764f8ca732fd14212ccae7fdff322e5059e8d5e53715b80ab65331",
-      "gitBlob": "23b860e0f9f5befe5918bea7e32b0566ea35cffb",
+      "bytes": 945,
+      "sha256": "a5d88371bfb67c789e4115dc1be500211eb64ef700507520ac88c9346c779bdb",
+      "gitBlob": "baf87767ff48b9bf463074a1ce35d7b03505ae99",
       "dependencyCandidates": [
         {
           "value": "node:path",
@@ -710,7 +754,16 @@
           "line": 4
         }
       ],
-      "environmentCandidates": [],
+      "environmentCandidates": [
+        {
+          "value": "MANA_CODER_PORT",
+          "line": 5
+        },
+        {
+          "value": "MANA_CODER_MODEL",
+          "line": 5
+        }
+      ],
       "testFile": false
     },
     {
@@ -727,6 +780,15 @@
       "bytes": 1481,
       "sha256": "dfa636503bf5eb7d6afcef731cb6c922f5a87c6a49334ef4719f19072c062159",
       "gitBlob": "a2ace04b4a9f5576e83066d6d7e39831eeb4a607",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/code-repair-task.json",
+      "bytes": 667,
+      "sha256": "f3b2680f0d80cad6921d176fbffcd4d87e95d51ee5d0a357f82d83c9add7e791",
+      "gitBlob": "6256bee35d83926fbee41fade76da1dd40abf0e1",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -974,6 +1036,101 @@
       "sha256": "99e390f0a50e47a80adec13aa8bde8a820425aed91d08ad7f80f99735fb0e43b",
       "gitBlob": "0336350c255b9daf349a2d6d14e3d374af7189e0",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/repair-local.cjs",
+      "bytes": 1275,
+      "sha256": "f9b20c3ae851d109b9d60c735a46193a0bbe6cff7292e60d1ac263b90693e340",
+      "gitBlob": "a217103aa9254994e052a17d7e4cc302802404aa",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./src/native/code-repair.cjs",
+          "line": 3
+        },
+        {
+          "value": "./src/native/code-workbench.cjs",
+          "line": 4
+        },
+        {
+          "value": "./src/native/python-code-sandbox.cjs",
+          "line": 5
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 6
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 7
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_CODER_PORT",
+          "line": 8
+        },
+        {
+          "value": "MANA_CODER_MODEL",
+          "line": 8
+        },
+        {
+          "value": "MANA_CODER_PORT",
+          "line": 8
+        },
+        {
+          "value": "MANA_CODER_MODEL",
+          "line": 8
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/sandbox-acceptance.cjs",
+      "bytes": 2119,
+      "sha256": "eb39701398386ce2ddcc68179c12d7c932045a052f28da4a4f7a05ca93907eb9",
+      "gitBlob": "d7a9d84dffe1f45af2404eebbd0f4e70876a5d85",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "./src/native/python-code-sandbox.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/sandbox-preflight.cjs",
+      "bytes": 255,
+      "sha256": "1ff5a8646b74454e90ae965a103d987eecf5ae493704313ccfad2c5d82954478",
+      "gitBlob": "eb5f58b91e38ad3ffbb229e66e15eff39b210f0f",
+      "dependencyCandidates": [
+        {
+          "value": "./src/native/python-code-sandbox.cjs",
+          "line": 2
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -1599,10 +1756,44 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/native/code-repair.cjs",
+      "bytes": 4729,
+      "sha256": "7c0c37d55eac5414c59e44df023140c3e81b25b2d0a096948618e888b8df292b",
+      "gitBlob": "d960b21ea6a9c7ddefb9ff332e80b46bb921bde1",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./code-workbench.cjs",
+          "line": 3
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 4
+        },
+        {
+          "value": "../exact-json.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/native/code-workbench.cjs",
-      "bytes": 4873,
-      "sha256": "13c9709c648e10c3a1d6f95898125d0e0b917b7d30fde782c8b60069e08fd9e8",
-      "gitBlob": "2a36a9a641faac33b406a2b252e2af8ae71039cc",
+      "bytes": 5156,
+      "sha256": "73d477614964cbe3b75eeeaafefb59462524b05ab8b1356adccf22d72d0462dc",
+      "gitBlob": "f89cc6964c59014b18367a44739151c0ccbf8ad0",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -1751,10 +1942,52 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/native/python-code-sandbox.cjs",
+      "bytes": 7278,
+      "sha256": "2c7fefb6ba370eda6fb0a462203d22b4ea96f8b81f4d2387d8d597836830262b",
+      "gitBlob": "7516aa714fef8bf394a7f515b8cd2b63e0f8c9af",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "../exact-json.cjs",
+          "line": 5
+        },
+        {
+          "value": "./skill-evolution.cjs",
+          "line": 6
+        },
+        {
+          "value": "node:util",
+          "line": 55
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/native/skill-evolution.cjs",
-      "bytes": 6910,
-      "sha256": "d6188422a618d70061fa6d5e360e631bcadcdfa5598388be0d8676018b0c140e",
-      "gitBlob": "b440ea57930dff5a0d77f7af5f0ee9e47d2d27cb",
+      "bytes": 7073,
+      "sha256": "a825bedce13981f416b91b17537b290662d77355815ad07d6d7cd0239f79812e",
+      "gitBlob": "a8a73325e90c37e1d63c94af7ffb45e93b1fb4e4",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -2575,6 +2808,52 @@
         {
           "value": "node:child_process",
           "line": 36
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/code-repair.test.cjs",
+      "bytes": 5381,
+      "sha256": "ca7fad15a0598439bcf26de9ba045c3dbde03a481a8f282df68634f9b7d03d92",
+      "gitBlob": "e1da6aa67c187c24dd0a3695fe8308fff81b9cfc",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "../src/native/code-repair.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/python-code-sandbox.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/native/code-workbench.cjs",
+          "line": 5
         }
       ],
       "environmentCandidates": [],

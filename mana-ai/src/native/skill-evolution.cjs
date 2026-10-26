@@ -11,9 +11,10 @@ function validateTask(t){
  for(const test of t.tests){if(!exact(test,['input','expected'])||!exact(test.input,t.fields))throw Error('Invalid test');evaluateExpression({value:test.expected},test.input,t.fields);}
  return t;
 }
-function proposeLocal({instruction,fields,feedback,port=8794,timeoutMs=120000,systemPrompt=null,maxTokens=1800,responseLimit=32768,contentLimit=16000}){
+function proposeLocal({instruction,fields,feedback,port,timeoutMs=120000,systemPrompt=null,model=null,maxTokens=1800,responseLimit=32768,contentLimit=16000}){
  if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>120000||!Number.isInteger(port)||port<1||port>65535)throw Error('Invalid port');
- const payload=JSON.stringify({messages:[{role:'system',content:systemPrompt??'Return ONLY a JSON expression, no markdown or JavaScript. Nodes: {"field":"name"}, {"value":number_or_boolean}, {"op":"add|subtract|multiply|divide|min|max|less|equal","args":[node,node]}, {"op":"if","args":[boolean_node,node,node]}. Maximum depth 12, 128 nodes. No other operations. This is approximate nonfinancial numeric arithmetic.'},{role:'user',content:JSON.stringify({instruction,fields,feedback})}],temperature:0.1,max_tokens:maxTokens});
+ if(model!==null&&(typeof model!=='string'||!model.trim()||model.length>300))throw Error('Explicit model identifier required');
+ const payload=JSON.stringify({...(model===null?{}:{model}),messages:[{role:'system',content:systemPrompt??'Return ONLY a JSON expression, no markdown or JavaScript. Nodes: {"field":"name"}, {"value":number_or_boolean}, {"op":"add|subtract|multiply|divide|min|max|less|equal","args":[node,node]}, {"op":"if","args":[boolean_node,node,node]}. Maximum depth 12, 128 nodes. No other operations. This is approximate nonfinancial numeric arithmetic.'},{role:'user',content:JSON.stringify({instruction,fields,feedback})}],temperature:0.1,max_tokens:maxTokens});
  return new Promise((resolve,reject)=>{let size=0,chunks=[];const timer=setTimeout(()=>{reject(Error('Local model deadline'));req.destroy();},timeoutMs);
   const req=http.request({host:'127.0.0.1',port,path:'/v1/chat/completions',method:'POST',headers:{'Content-Type':'application/json','Content-Length':Buffer.byteLength(payload)}},res=>{
    res.on('error',reject);res.on('data',chunk=>{size+=chunk.length;if(size>responseLimit){reject(Error('Model response too large'));req.destroy();}else chunks.push(chunk);});

@@ -15,7 +15,7 @@
 | Mission Runtime | Crash/restart / attempt evidence | ساخته‌شده و تست‌شده | SIGKILL during invocation; stale storage lock needs operator |
 | Mission Runtime | Outcome-based replanning | نمونه اولیه | failed-output replan; bounded generations/original budget; no unknown-effect replay; mana-development-acceptance.md |
 | Mission Runtime | General automatic repair | ساخته‌نشده | no general code/model self-repair or sandbox release pipeline |
-| Mission Runtime | Untrusted code sandbox / public progress UI | ساخته‌نشده | trusted adapters only; no public endpoint |
+| Mission Runtime | Untrusted code sandbox / public progress UI | نمونه اولیه / ساخته‌نشده | narrow Python pure-function namespace/seccomp verifier and bounded repair added separately; actual OS acceptance required per host; no public progress UI |
 | Intelligence | Multi-step planning / goal decomposition / WBS | نمونه اولیه | symbolic positive-fact bounded planner; no general language reasoning |
 | Intelligence | Evidence reasoning / uncertainty / Reality Check | نمونه اولیه | scope/conflict checks and defined output invariants only |
 | Intelligence | Council / scenario ranking | نمونه اولیه | deterministic weighted criteria/vetoes; no independent technical/legal/financial agents |
@@ -114,3 +114,6 @@
 
 
 توسعه و آموزش در دو مسیر: برنامه‌ریزی سلسله‌مراتبی به Mission Runtime مشترک وصل شد؛ خروجی بازخورد با تأیید میزبان به آموزش‌دهنده متصل و با fixture ساختگی آزموده شد. دادهٔ واقعی کاربر آموزش داده نشده است. قرارداد: `mana-parallel-development-and-learning.md`.
+
+
+چرخهٔ پیشنهاد کد پایتون، آزمون مستقل بیرون از فرایند نامزد و اصلاح محدود اضافه شد؛ اجرای بدون sandbox ممنوع است و مدل پیش‌فرض/Gemma خودکار انتخاب نمی‌شود. کیفیت مدل برنامه‌نویس و پذیرش میزبان همچنان بازند. قرارداد: `mana-python-code-repair.md`.
