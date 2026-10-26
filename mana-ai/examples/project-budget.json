@@ -1,0 +1,21 @@
+{
+  "tasks":[
+    {"id":"designA","duration":4,"dependsOn":[],"resources":{"team":1}},
+    {"id":"designB","duration":4,"dependsOn":[],"resources":{"team":1}},
+    {"id":"review","duration":1,"dependsOn":["designA","designB"],"resources":{}}
+  ],
+  "capacities":{"team":1},
+  "observations":[
+    {"taskId":"designA","organizationId":"local","projectId":"local","progressBps":0,"observedAt":1,"evidenceRef":"synthetic-A"},
+    {"taskId":"designB","organizationId":"local","projectId":"local","progressBps":0,"observedAt":1,"evidenceRef":"synthetic-B"},
+    {"taskId":"review","organizationId":"local","projectId":"local","progressBps":0,"observedAt":1,"evidenceRef":"synthetic-review"}
+  ],
+  "weights":{"designA":1,"designB":1,"review":1},"asOf":1,"horizon":30,
+  "scenarios":[
+    {"id":"base","capacities":{"team":1},"remainingEstimates":{"designA":{"duration":4,"resources":{"team":1}},"designB":{"duration":4,"resources":{"team":1}},"review":{"duration":1,"resources":{}}}},
+    {"id":"fast","capacities":{"team":2},"remainingEstimates":{"designA":{"duration":4,"resources":{"team":1}},"designB":{"duration":4,"resources":{"team":1}},"review":{"duration":1,"resources":{}}}}
+  ],
+  "timeUnit":"day",
+  "rateCard":{"currency":"IRT","timeUnit":"day","policyRef":"synthetic-example-not-market-rates","rounding":{"scale":2,"mode":"half_up","lineRounding":"invoice"},"resourceRates":{"team":"10.10"},"overheadRate":"1.25","fixedCosts":{"base":"0","fast":"12.50"}},
+  "budget":{"currency":"IRT","amount":"95"}
+}

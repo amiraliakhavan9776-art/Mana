@@ -9,6 +9,13 @@ function setup(t){
  const config={file:path.join(dir,'state.enc'),key:Buffer.alloc(32,13),tools,authorize:()=>true},args={principal,project,objective:'Produce verified draft claim',goals:['claim-report'],evidence:[{id:'e',orgId:'local',projectId:'sample',key:'claim-source',value:true,source:expectedSourceSha256,verification:'verified'}],inputs:Object.fromEntries(tools.map(t=>[t.id,{}])),requestKey:'claim-1'};
  return {dir,factory,tools,project,principal,config,args};
 }
+test('a changed shared arithmetic dependency fences an existing mission before any claim tool executes',async t=>{
+ const s=setup(t),copy=path.join(s.dir,'copied-source');
+ for(const relative of ['financial/claim-tools.cjs','financial/claims.cjs','financial/exact-decimal.cjs','exact-json.cjs','approval-store.cjs','encrypted-state.cjs']){const target=path.join(copy,relative);fs.mkdirSync(path.dirname(target),{recursive:true,mode:0o700});fs.copyFileSync(path.join(__dirname,'../src',relative),target);}
+ const factory=require(path.join(copy,'financial/claim-tools.cjs')).createClaimTools,config={...s.config,tools:factory(s.factory)},runtime=createMissionRuntime(config),mission=runtime.create(s.args).mission;
+ fs.appendFileSync(path.join(copy,'financial/exact-decimal.cjs'),'\n// Independent arithmetic revision\n');const restarted=createMissionRuntime({...config,tools:factory(s.factory)}),result=await restarted.runNext({principal:s.principal,project:s.project,missionId:mission.id});
+ assert.equal(result.status,'needs_replan');assert.ok(result.tasks.every(t=>t.attempts.length===0));
+});
 test('same durable runtime executes pinned claim inspection, exact calculation and verified file report across restart',async t=>{
  const s=setup(t);let runtime=createMissionRuntime(s.config);const mission=runtime.create(s.args).mission,context={principal:s.principal,project:s.project,missionId:mission.id};
  await runtime.runNext(context);runtime=createMissionRuntime({...s.config,tools:createClaimTools(s.factory)});await runtime.runNext(context);const done=await runtime.runNext(context);

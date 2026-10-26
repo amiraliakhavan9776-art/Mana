@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "abcc042aa80859d4e956fae5544f21de349cdce8d62abc40627ff83ebaa5e5d2",
-  "fileCount": 278,
+  "sourceSetDigest": "3c954f6f902fee16a8f4e69c258264eec6d9d3ca396aacaf73c46277bb2d00af",
+  "fileCount": 284,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -266,9 +266,9 @@
     },
     {
       "path": "docs/mana-native-audit-facade.md",
-      "bytes": 3176,
-      "sha256": "2bf50dd74a95d397ffbe1ea304dac544fd917911e8311f16ab165c4534fffed0",
-      "gitBlob": "df4a01c672af6209c16ba844dac7c3fc8d598d16",
+      "bytes": 3339,
+      "sha256": "feabde4141076e0fd11ad9b0c6165d469de896e1391408b8b5ade6d360b30f6e",
+      "gitBlob": "6ba9befea0ea5fdf1e732726d9b8b4f5f30e6d07",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -368,6 +368,15 @@
       "bytes": 2883,
       "sha256": "6a33bc1309b8ba9b7e0d1c18d0366f56240744a920f3ab7ada3181b197be077f",
       "gitBlob": "d6856416d8dc657a0b4ac90415efde8ff0d174be",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-scenario-budget.md",
+      "bytes": 4433,
+      "sha256": "1d978726637e5b1d365a7e9c6707bbc5fbd8f811b567db851019a570c0b4a8fb",
+      "gitBlob": "ce5fcdad84182f0e63fbec8189c9980c519f3c46",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -726,6 +735,48 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/budget-project.cjs",
+      "bytes": 2522,
+      "sha256": "ec2dc81a2685f55f76e0fe9b86205f628a8b3c193de6ceab8cced1cf5faf1408",
+      "gitBlob": "b3a593b36e7105c5294497badb07b25d4c2d82e8",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 4
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 5
+        },
+        {
+          "value": "./src/native/resource-scheduler.cjs",
+          "line": 6
+        },
+        {
+          "value": "./src/native/project-monitor.cjs",
+          "line": 7
+        },
+        {
+          "value": "./src/native/project-recovery.cjs",
+          "line": 8
+        },
+        {
+          "value": "./src/native/recovery-scenarios.cjs",
+          "line": 9
+        },
+        {
+          "value": "./src/native/scenario-budget.cjs",
+          "line": 10
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/code-local.cjs",
       "bytes": 1234,
       "sha256": "e3d9e6c89a25a99a0126045c10bed2efa73b19e7df7e19429ad9e401e2293d98",
@@ -1003,6 +1054,15 @@
       "bytes": 193,
       "sha256": "802ce22fdfe91c097a3c7b882b58bb54d60c524880f26c6410d61c08dc9c6c4f",
       "gitBlob": "ff95fee8be530398869eaba8a2aa9c4321f89fcf",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/project-budget.json",
+      "bytes": 1511,
+      "sha256": "de124fa86fdc6b53655622accd3f7eec1965fd7c339ab86aa3c26fa0e3caff7f",
+      "gitBlob": "ee5c8c73b5c64c8c1bf63cf4620a02d482a95e4a",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1727,9 +1787,9 @@
     },
     {
       "path": "mana-ai/src/financial/claim-tools.cjs",
-      "bytes": 5305,
-      "sha256": "b0fed46016ac96c6d655ca4c4fb61364b1688cf10d1a2597b40098f0771245e2",
-      "gitBlob": "39cf3807c83a4ce2b752bc92a299770039c87c53",
+      "bytes": 5325,
+      "sha256": "b44d2cf957af581e8f7842cffe393520010e94bd1bb67776b79ba35a33957bc2",
+      "gitBlob": "40bc82b0bf76606454d38f5676107729d37e6ee8",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -1761,15 +1821,28 @@
     },
     {
       "path": "mana-ai/src/financial/claims.cjs",
-      "bytes": 6705,
-      "sha256": "d22332d1f2357621642b02d9b0f5c870748cc6054e5cd6cf2cdf194b590d8824",
-      "gitBlob": "4f873f09502f32debfeb6f99bcbbd8fe30549ff9",
+      "bytes": 5692,
+      "sha256": "ef24d670df3d08367d1b1b2ea0d15f189286cc5df0d279e6200eec0fa749cb88",
+      "gitBlob": "6e2bc9a2f22025a995dbbf38420d7e48007b5a49",
       "dependencyCandidates": [
         {
           "value": "../approval-store.cjs",
           "line": 3
+        },
+        {
+          "value": "./exact-decimal.cjs",
+          "line": 4
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/financial/exact-decimal.cjs",
+      "bytes": 1234,
+      "sha256": "d9e4d54e01ee52b3e66623544eccabf13a011a67aa1357c6fb9ae17a9395b87b",
+      "gitBlob": "282525327019782a9dae6abaa5b93fea00efeef6",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -1956,9 +2029,9 @@
     },
     {
       "path": "mana-ai/src/native/audited-services.cjs",
-      "bytes": 3076,
-      "sha256": "03d06d03aa36334fcda6be5096078007a38fdd1d1d9d2d3b2bde7bc18aab2d98",
-      "gitBlob": "77435815563f1be83e280a3b72c8542435dd375e",
+      "bytes": 3268,
+      "sha256": "27b05bd0dc82f96075d557bbcaa5554bf54f3e5418b55a0793f4924dc3145acb",
+      "gitBlob": "09a2cb8b86d321aa65b690724297922dea963ebc",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2310,6 +2383,28 @@
         },
         {
           "value": "../approval-store.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/scenario-budget.cjs",
+      "bytes": 6231,
+      "sha256": "4709b860e17e37f7e0d5f4e6e098a4ad1f2f5fb03e29cd1b08d1f1df1d2437d7",
+      "gitBlob": "b03dee73705921ad29eb8eea6983884f54685f86",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        },
+        {
+          "value": "../financial/exact-decimal.cjs",
           "line": 4
         }
       ],
@@ -3160,9 +3255,9 @@
     },
     {
       "path": "mana-ai/tests/claim-mission.test.cjs",
-      "bytes": 5450,
-      "sha256": "8b1b092c9f0cb96b914409bd53d46611cd5990035280f82a151114c476c5ed30",
-      "gitBlob": "b6946c6d511f332b46a163fdf5760fc026ceb25d",
+      "bytes": 6546,
+      "sha256": "333109bfb91bc564dd8e3bd38cc3f6818a1d85849e7d865b6fffe58fb675b60b",
+      "gitBlob": "47cd5f1abe33c7846ce1e5028ce86f53e5593d6f",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -4651,6 +4746,56 @@
         {
           "value": "../src/engine.cjs",
           "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/scenario-budget.test.cjs",
+      "bytes": 6682,
+      "sha256": "350ea5f4b52bb40daede081b626f8c4576a3d0f4aca114851135b2179e0cb5e7",
+      "gitBlob": "f6d78334c9da673e0a205b8b3e9228dc3b3d94fa",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/native/scenario-budget.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/recovery-scenarios.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/native/project-recovery.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/project-monitor.cjs",
+          "line": 6
+        },
+        {
+          "value": "../src/native/resource-scheduler.cjs",
+          "line": 7
+        },
+        {
+          "value": "../src/native/audited-services.cjs",
+          "line": 8
+        },
+        {
+          "value": "node:path",
+          "line": 23
+        },
+        {
+          "value": "node:child_process",
+          "line": 23
         }
       ],
       "environmentCandidates": [],

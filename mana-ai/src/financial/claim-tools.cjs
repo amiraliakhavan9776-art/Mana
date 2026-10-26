@@ -12,7 +12,7 @@ function createClaimTools({sourceFile,outputDirectory,expectedSourceSha256,scope
  function read(){const fd=fs.openSync(source,fs.constants.O_RDONLY|fs.constants.O_NOFOLLOW);try{const s=fs.fstatSync(fd);if(!s.isFile()||s.size>12000)throw Error('Bounded claim source required');const b=fs.readFileSync(fd);if(hash(b)!==expectedSourceSha256)throw Error('Claim source changed');const document=parseExactJSON(b.toString('utf8'));calculateClaim(document,scope);return document;}finally{fs.closeSync(fd);}}
  // Fail before a mission is accepted if the host source/schema/policy is unsupported.
  read();
- const configurationDigest=payloadDigest({source,root,expectedSourceSha256,scope,code:['claims.cjs','../exact-json.cjs','../approval-store.cjs'].map(p=>hash(fs.readFileSync(path.resolve(__dirname,p))))});
+ const configurationDigest=payloadDigest({source,root,expectedSourceSha256,scope,code:['claims.cjs','exact-decimal.cjs','../exact-json.cjs','../approval-store.cjs'].map(p=>hash(fs.readFileSync(path.resolve(__dirname,p))))});
  const equal=(a,b)=>payloadDigest(a)===payloadDigest(b);
  function inspectResult(){return {schema:'MANA_CLAIM_SOURCE_V1',sourceSha256:expectedSourceSha256,document:read()};}
  function calculation(){return {schema:'MANA_SCOPED_CLAIM_RESULT_V1',sourceSha256:expectedSourceSha256,calculation:calculateClaim(read(),scope)};}

@@ -1,29 +1,13 @@
 'use strict';
 // Exact bounded arithmetic. No legal rates, approvals, payments or database writes.
 const {payloadDigest}=require('../approval-store.cjs');
+const {decimal,zero,add,sub,mul,cmp,round,format}=require('./exact-decimal.cjs');
 const MODES=new Set(['unit_price','lump_sum','area','labor','progress','mixed']);
 const ID=/^[A-Za-z0-9][A-Za-z0-9_.:-]{0,99}$/;
 function fields(x,allowed){if(!x||Object.getPrototypeOf(x)!==Object.prototype||Object.keys(x).some(k=>!allowed.includes(k)))throw Error('Unexpected claim fields');}
 function id(x){if(typeof x!=='string'||!ID.test(x))throw Error('Claim identifier required');return x;}
 function label(x,max=100){if(typeof x!=='string'||!x.trim()||x.length>max||/[\r\n\x00-\x1f]/.test(x))throw Error('Claim reference/label required');return x;}
-const power=s=>10n**BigInt(s),zero=()=>({n:0n,s:0});
-function decimal(x){
- if(typeof x!=='string'||! /^(?:0|[1-9]\d{0,23})(?:\.\d{1,6})?$/.test(x))throw Error('Exact unsigned decimal string required');
- const [whole,fraction='']=x.split('.');return {n:BigInt(whole+fraction),s:fraction.length};
-}
-function add(a,b){const s=Math.max(a.s,b.s);return {n:a.n*power(s-a.s)+b.n*power(s-b.s),s};}
-const neg=a=>({n:-a.n,s:a.s});
-const sub=(a,b)=>add(a,neg(b));
-const mul=(a,b)=>({n:a.n*b.n,s:a.s+b.s});
 const percent=(a,b)=>({n:a.n*b.n,s:a.s+b.s+2});
-const cmp=(a,b)=>{const x=sub(a,b).n;return x<0n?-1:x>0n?1:0;};
-function round(a,policy){
- const s=policy.scale;if(a.s<=s)return {n:a.n*power(s-a.s),s};
- const divisor=power(a.s-s),sign=a.n<0n?-1n:1n,absolute=a.n*sign,q=absolute/divisor,remainder=absolute%divisor;
- const up=policy.mode!=='toward_zero'&&(remainder*2n>divisor||(remainder*2n===divisor&&(policy.mode==='half_up'||q%2n===1n)));
- return {n:(q+(up?1n:0n))*sign,s};
-}
-function format(a){const sign=a.n<0n?'-':'',digits=(a.n<0n?-a.n:a.n).toString().padStart(a.s+1,'0');return sign+(a.s?digits.slice(0,-a.s)+'.'+digits.slice(-a.s):digits);}
 function policy(x){fields(x,['scale','mode','lineRounding']);if(!Number.isInteger(x.scale)||x.scale<0||x.scale>6||!['half_up','half_even','toward_zero'].includes(x.mode)||!['per_line','invoice'].includes(x.lineRounding))throw Error('Explicit rounding policy required');return x;}
 function rate(x){const d=decimal(x);if(cmp(d,decimal('100'))>0)throw Error('Rate exceeds 100 percent');return d;}
 function unique(rows,max){if(!Array.isArray(rows)||rows.length>max)throw Error('Bounded claim rows required');const ids=new Set();for(const r of rows){id(r?.id);if(ids.has(r.id))throw Error('Duplicate claim row');ids.add(r.id);}return rows;}
