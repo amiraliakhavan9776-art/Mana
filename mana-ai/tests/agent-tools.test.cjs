@@ -6,7 +6,7 @@ const {createAgentRunner}=require('../src/agent-runner.cjs');
 const {createAuditLog}=require('../src/audit.cjs');
 const projects=[{id:'p1',orgId:'org1',name:'One'},{id:'p2',orgId:'org2',name:'Two'}];
 const documents=[{id:'d1',orgId:'org1',projectId:'p1',title:'Budget',text:'The budget is approved.'},{id:'d2',orgId:'org2',projectId:'p2',title:'Budget',text:'Secret competitor budget.'}];
-const principal={id:'a',orgId:'org1',role:'analyst'};
+const principal={id:'a',orgId:'org1',role:'analyst',projectIds:['p1']};
 test('read-only tool returns only authorized project document',async()=>{
   const audit=createAuditLog();const runner=createAgentRunner({audit,tools:createReadOnlyAgentTools({projects,documents})});
   const ok=await runner.execute({principal,action:'documents:read',scope:'p1',input:{question:'budget'}});

@@ -4,7 +4,7 @@ const assert=require('node:assert/strict');
 const {createServer}=require('../src/server.cjs');
 const token='agent-endpoint-test-token-32-characters';
 async function withServer(fn){
- const server=createServer({token,projects:[{id:'p1',orgId:'local',name:'One'},{id:'p2',orgId:'other',name:'Two'}],documents:[{id:'d1',orgId:'local',projectId:'p1',title:'Budget',text:'Budget approved'},{id:'d2',orgId:'other',projectId:'p2',title:'Budget',text:'Secret budget'}]});
+ const server=createServer({token,principals:[{id:'a',orgId:'local',role:'viewer',token,projectIds:['p1']}],projects:[{id:'p1',orgId:'local',name:'One'},{id:'p2',orgId:'other',name:'Two'}],documents:[{id:'d1',orgId:'local',projectId:'p1',title:'Budget',text:'Budget approved'},{id:'d2',orgId:'other',projectId:'p2',title:'Budget',text:'Secret budget'}]});
  await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
  try {await fn('http://127.0.0.1:'+server.address().port+'/v1/agent/documents/search');}
  finally {await new Promise(resolve=>server.close(resolve));}

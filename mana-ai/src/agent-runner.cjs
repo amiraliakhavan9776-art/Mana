@@ -41,7 +41,7 @@ function createAgentRunner({ tools = {}, audit, timeoutMs = 5000 } = {}) {
       const controller = new AbortController();
       let timer;
       try {
-        const task = Promise.resolve().then(() => allowed.get(action)({principal:{id:principal.id,orgId:principal.orgId,role:principal.role},scope,input:safeInput,signal:controller.signal}));
+        const task = Promise.resolve().then(() => allowed.get(action)({principal:{id:principal.id,orgId:principal.orgId,role:principal.role,projectIds:[...(principal.projectIds || [])]},scope,input:safeInput,signal:controller.signal}));
         const deadline = new Promise((_, reject) => {
           timer = setTimeout(() => { controller.abort(); reject(new Error('Tool timeout')); }, timeoutMs);
         });

@@ -1,4 +1,5 @@
 'use strict';
+const { canAccessProject } = require('./security.cjs');
 const { can } = require('./security.cjs');
 function normalizeText(value) {
   return value.toLocaleLowerCase('fa').replace(/[ي]/g, 'ی').replace(/[ك]/g, 'ک')
@@ -9,7 +10,7 @@ function termsFor(value) {
 }
 function retrieve({ principal, projectId, question, projects, documents }) {
   if (!can(principal, 'projects:read')) throw new Error('Permission denied');
-  if (typeof projectId !== 'string' || !projects.some(p => p.id === projectId && p.orgId === principal.orgId)) throw new Error('Project not found');
+  if (typeof projectId !== 'string' || !projects.some(p => p.id === projectId && canAccessProject(principal, p))) throw new Error('Project not found');
   if (typeof question !== 'string' || question.length > 4000) throw new Error('Invalid question');
   const terms = termsFor(question);
   if (!terms.length) return [];

@@ -8,7 +8,7 @@ const projects = [
   { id: 'alpha', orgId: 'org1', name: 'Alpha Project' },
   { id: 'beta', orgId: 'org2', name: 'Secret Beta Project' }
 ];
-const principal = { id: 'viewer1', orgId: 'org1', role: 'viewer' };
+const principal = { id: 'viewer1', orgId: 'org1', role: 'viewer', projectIds: ['alpha'] };
 test('only requested same-organization project metadata reaches provider', async () => {
   let captured;
   const engine = createEngine({ model: 'test', provider: { complete: async req => {

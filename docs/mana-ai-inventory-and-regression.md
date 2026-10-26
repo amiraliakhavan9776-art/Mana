@@ -60,3 +60,7 @@ Line references below apply to the reviewed source SHA.
 | Model/design | Persian grounding/injection/provenance and verified editable CAD/BIM with professional review |
 
 No gate approval, production datastore, financial limits, project visibility or recovery objectives have been inferred. See [delivery gates](mana-ai-delivery-gates.md).
+
+## Follow-up verification
+
+See [control verification](mana-ai-control-verification.md) for 122 passing Node tests, scoped project grants, anchored-audit interfaces, encrypted backup/restore verification, static line-level inventory and separate browser CI. Historical observations above remain scoped to cc614aeb; this follow-up does not close G1/G2.

@@ -1,4 +1,5 @@
 'use strict';
+const { canAccessProject } = require('./security.cjs');
 const http = require('node:http');
 const { timingSafeEqual } = require('node:crypto');
 const { normalizePrincipals, authenticate, can } = require('./security.cjs');
@@ -37,6 +38,10 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
   if (typeof token !== 'string' || token.length < 32) {
     throw new Error('MANA_AI_TOKEN must be at least 32 characters');
   }
+  const recordAudit = (event, res) => {
+    try { audit.record(event); return true; }
+    catch { json(res, 503, { error: 'audit_unavailable' }); return false; }
+  };
   const users = normalizePrincipals(principals || [{ id: 'local-admin', orgId: 'local', role: 'admin', token }]);
   const safeProjects = validateProjects(projects);
   const safeDocuments = validateDocuments(documents);
@@ -68,11 +73,13 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
             typeof input.projectId !== 'string' || typeof input.question !== 'string') {
           return json(res, 400, { error: 'invalid_input' });
         }
-        if (!safeProjects.some(p => p.id === input.projectId && p.orgId === principal.orgId)) {
-          audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'denied' });
+        if (!safeProjects.some(p => p.id === input.projectId && canAccessProject(principal, p))) {
+          if (!recordAudit({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'denied' }, res)) return;
           return json(res, 404, { error: 'project_not_found' });
         }
-        const result = await agent.execute({ principal, action: 'documents:read', scope: input.projectId, input: { question: input.question } });
+        let result;
+        try { result = await agent.execute({ principal, action: 'documents:read', scope: input.projectId, input: { question: input.question } }); }
+        catch { return json(res, 503, { error: 'audit_unavailable' }); }
         return json(res, result.ok ? 200 : 400, result.ok ? result.result : { error: result.error });
       });
       return;
@@ -100,15 +107,15 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
           const input = JSON.parse(Buffer.concat(chunks).toString('utf8'));
           if (!input || typeof input !== 'object' || Array.isArray(input) ||
               Object.keys(input).some(k => k !== 'question' && k !== 'projectId' && k !== 'sessionId')) throw new Error('Invalid input');
-          if (input.projectId !== undefined && !safeProjects.some(p => p.id === input.projectId && p.orgId === principal.orgId)) {
-            audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'forbidden' });
+          if (input.projectId !== undefined && !safeProjects.some(p => p.id === input.projectId && canAccessProject(principal, p))) {
+            if (!recordAudit({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'forbidden' }, res)) return;
             return json(res, 404, { error: 'project_not_found' });
           }
           const result = await engine.ask({ principal, question: input.question, projectId: input.projectId, sessionId: input.sessionId, projects: safeProjects, documents: safeDocuments });
-          audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' });
+          if (!recordAudit({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' }, res)) return;
           return json(res, 200, result);
         } catch (err) {
-          audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'failed' });
+          if (!recordAudit({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'failed' }, res)) return;
           return json(res, 400, { error: 'ai_request_failed' });
         }
       });
@@ -125,7 +132,7 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
     const supplied = authorization.startsWith('Bearer ') ? authorization.slice(7) : '';
     const principal = authenticate(authorization, users);
     if (!principal) {
-      audit.record({ action: pathname, outcome: 'unauthorized' });
+      if (!recordAudit({ action: pathname, outcome: 'unauthorized' }, res)) return;
       res.setHeader('WWW-Authenticate', 'Bearer');
       return json(res, 401, { error: 'unauthorized' });
     }
@@ -133,14 +140,14 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
       pathname === '/v1/projects' ? 'projects:read' :
       pathname === '/v1/audit' ? 'audit:read' : null;
     if (!permission) {
-      audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'not_found' });
+      if (!recordAudit({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'not_found' }, res)) return;
       return json(res, 404, { error: 'not_found' });
     }
     if (!can(principal, permission)) {
-      audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'forbidden' });
+      if (!recordAudit({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'forbidden' }, res)) return;
       return json(res, 403, { error: 'forbidden' });
     }
-    audit.record({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' });
+    if (!recordAudit({ actorId: principal.id, orgId: principal.orgId, action: pathname, outcome: 'allowed' }, res)) return;
     if (pathname === '/v1/projects') return json(res, 200, { projects: projectsFor(principal, safeProjects) });
     if (pathname === '/v1/audit') return json(res, 200, { events: audit.list(principal.orgId) });
     if (pathname === '/v1/capabilities') {

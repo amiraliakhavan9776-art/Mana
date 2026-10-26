@@ -26,7 +26,8 @@ function normalizePrincipals(principals) {
     const hash = tokenFingerprint(p.token);
     if (seen.has(p.id) || hashes.has(hash)) throw new Error('Duplicate principal');
     seen.add(p.id); hashes.add(hash);
-    return Object.freeze({ id: p.id, orgId: p.orgId, role: p.role, token: p.token });
+    if (p.projectIds !== undefined && (!Array.isArray(p.projectIds) || p.projectIds.length > 10000 || p.projectIds.some(id => typeof id !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(id)) || new Set(p.projectIds).size !== p.projectIds.length)) throw new Error('Invalid project grants');
+    return Object.freeze({ id: p.id, orgId: p.orgId, role: p.role, token: p.token, projectIds: Object.freeze([...(p.projectIds || [])]) });
   });
 }
 function authenticate(header, principals) {
@@ -40,4 +41,10 @@ function authenticate(header, principals) {
 function can(principal, permission) {
   return !!principal && (ROLES[principal.role] || []).includes(permission);
 }
-module.exports = { ROLES, safeEqual, normalizePrincipals, authenticate, can };
+function hasProjectGrant(principal, projectId) {
+  return can(principal, 'projects:read') && Array.isArray(principal.projectIds) && principal.projectIds.includes(projectId);
+}
+function canAccessProject(principal, project) {
+  return !!project && project.orgId === principal?.orgId && hasProjectGrant(principal, project.id);
+}
+module.exports = { hasProjectGrant, canAccessProject, ROLES, safeEqual, normalizePrincipals, authenticate, can };

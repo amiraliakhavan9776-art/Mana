@@ -5,7 +5,7 @@ const { retrieve } = require('../src/retrieval.cjs');
 const { validateDocuments } = require('../src/documents.cjs');
 const { createEngine } = require('../src/engine.cjs');
 const projects = [{id:'p1',orgId:'o1',name:'First'},{id:'p2',orgId:'o2',name:'Second'}];
-const principal = {id:'u1',orgId:'o1',role:'viewer'};
+const principal = {id:'u1',orgId:'o1',role:'viewer',projectIds:['p1']};
 const documents = validateDocuments([
   {id:'d1',orgId:'o1',projectId:'p1',title:'Schedule',text:'Monday planning meeting'},
   {id:'d2',orgId:'o2',projectId:'p2',title:'Schedule',text:'Monday confidential plan'}

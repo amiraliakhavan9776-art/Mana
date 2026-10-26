@@ -23,7 +23,7 @@ test('projects are organization-scoped and sanitized', () => {
     { id: 'p1', orgId: 'org1', name: 'Project A', budget: 500 },
     { id: 'p2', orgId: 'org2', name: 'Project B' }
   ]);
-  const visible = projectsFor({ orgId: 'org1' }, data);
+  const visible = projectsFor({ id:'u', orgId:'org1', role:'viewer', projectIds:['p1'] }, data);
   assert.deepEqual(visible, [{ id: 'p1', name: 'Project A' }]);
   assert.throws(() => validateProjects([{ id: 'p1', orgId: 'org1', name: '' }]));
 });

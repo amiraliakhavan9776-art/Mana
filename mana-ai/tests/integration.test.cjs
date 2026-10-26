@@ -4,9 +4,9 @@ const assert = require('node:assert/strict');
 const { createServer } = require('../src/server.cjs');
 const { createAuditLog } = require('../src/audit.cjs');
 const users = [
-  { id: 'viewer1', orgId: 'org1', role: 'viewer', token: 'org1-viewer-token-with-at-least-32-chars' },
+  { id: 'viewer1', orgId: 'org1', role: 'viewer', projectIds:['a'], token: 'org1-viewer-token-with-at-least-32-chars' },
   { id: 'admin1', orgId: 'org1', role: 'admin', token: 'org1-admin-token-with-at-least-32-chars' },
-  { id: 'viewer2', orgId: 'org2', role: 'viewer', token: 'org2-viewer-token-with-at-least-32-chars' }
+  { id: 'viewer2', orgId: 'org2', role: 'viewer', projectIds:['b'], token: 'org2-viewer-token-with-at-least-32-chars' }
 ];
 async function run(fn) {
   const server = createServer({ token: users[0].token, principals: users,

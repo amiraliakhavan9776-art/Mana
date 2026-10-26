@@ -3,8 +3,8 @@ const test = require('node:test');
 const assert = require('node:assert/strict');
 const { createConversationMemory } = require('../src/memory.cjs');
 const { createEngine } = require('../src/engine.cjs');
-const a = {id:'a',orgId:'org1',role:'viewer'};
-const b = {id:'b',orgId:'org1',role:'viewer'};
+const a = {id:'a',orgId:'org1',role:'viewer',projectIds:['p1', 'p2']};
+const b = {id:'b',orgId:'org1',role:'viewer',projectIds:['p1', 'p2']};
 test('session memory is scoped to user, organization and project', () => {
   const memory = createConversationMemory({maxTurns:2});
   memory.append({principal:a,projectId:'p1',sessionId:'s1',question:'first',answer:'one'});

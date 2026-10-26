@@ -1,0 +1,6095 @@
+{
+  "sourceSha256": "9a359b045e01b1738646635375e0aef7a4e065ab57c57258d939d48c1924ab94",
+  "limitations": [
+    "Static candidates only; comments/strings can match.",
+    "Repeated names may be local to different closures. Resolve scope and effective overrides before changing code.",
+    "DB references are not a validated schema; dynamic keys and nested fields require review."
+  ],
+  "scripts": [
+    {
+      "ordinal": 1,
+      "startLine": 945,
+      "endLine": 960,
+      "sha256": "bd2c13b838d11628db033433c64a8850a092149aee3f22a8a1ec1088255300ab"
+    },
+    {
+      "ordinal": 2,
+      "startLine": 1008,
+      "endLine": 1297,
+      "sha256": "c45f013defcfc6344f84c64d6e2fb3199112ade386f346896e8f0abb8488f04b"
+    },
+    {
+      "ordinal": 3,
+      "startLine": 1298,
+      "endLine": 2066,
+      "sha256": "f78201bf0b525da6f4b1386a38c60b57d94d528b51ade59b018d1580fde07a20"
+    },
+    {
+      "ordinal": 4,
+      "startLine": 2068,
+      "endLine": 2896,
+      "sha256": "58971cdb3ab2c566884b04dcb9f61a60dea02f7dfbcb32756968783784066022"
+    },
+    {
+      "ordinal": 5,
+      "startLine": 2897,
+      "endLine": 3576,
+      "sha256": "44b2873e44d24cc94cbcc6981e6726f188edd159d60636ea9c105f8f3942f3f0"
+    },
+    {
+      "ordinal": 6,
+      "startLine": 3577,
+      "endLine": 3901,
+      "sha256": "a140ff204f6ea91b4020bf87cd9d97f8dbcaa614cb59e19ca726c902e998490e"
+    },
+    {
+      "ordinal": 7,
+      "startLine": 3902,
+      "endLine": 4231,
+      "sha256": "bb6e4b8520bc33936f1358c250ac738dee6f5ca3504ba4f99b3439aedbdd012a"
+    },
+    {
+      "ordinal": 8,
+      "startLine": 4232,
+      "endLine": 4815,
+      "sha256": "1162ad1b04693dc8ad3abb9a946caaefe3e66af82bbbd257f06bb4de0d5946a2"
+    },
+    {
+      "ordinal": 9,
+      "startLine": 4816,
+      "endLine": 5357,
+      "sha256": "f80b20af95fe2253b7fd6467896a6f571223c2dcb5e71a5422a3ea3bea08d4a7"
+    },
+    {
+      "ordinal": 10,
+      "startLine": 5358,
+      "endLine": 5869,
+      "sha256": "5f2292b180a72b1039ccd4c090894dd500889bb29069bc6ecbe7a764c9d9e0a9"
+    },
+    {
+      "ordinal": 11,
+      "startLine": 5870,
+      "endLine": 5971,
+      "sha256": "e282f5f0a04e445de64a46ff5c1885993c527fe6ced7bad1425c2bb3da3b0aff"
+    },
+    {
+      "ordinal": 12,
+      "startLine": 5972,
+      "endLine": 6220,
+      "sha256": "0fe53ecca78f256c50cb0215266841482401498623b5548537cac1049221ee6c"
+    },
+    {
+      "ordinal": 13,
+      "startLine": 6221,
+      "endLine": 6421,
+      "sha256": "c65866b90e7eb703f5ccf60c573119653a3bf6d543b46c3a198b8b9c5ad2334c"
+    },
+    {
+      "ordinal": 14,
+      "startLine": 6422,
+      "endLine": 6722,
+      "sha256": "9d0ab3801ffba3131d5333adfa1c2751444507a64071bb1b4cf79f0780110617"
+    },
+    {
+      "ordinal": 15,
+      "startLine": 6723,
+      "endLine": 6947,
+      "sha256": "6e56765de89bbf0b8242a36621f279653373d7ca7bdb364b4e96136d99304f3d"
+    },
+    {
+      "ordinal": 16,
+      "startLine": 7296,
+      "endLine": 7430,
+      "sha256": "45ca7b6f6be505a6fc83258fa835c93b11240de1b2b639ba037d71b712e679e9"
+    },
+    {
+      "ordinal": 17,
+      "startLine": 7431,
+      "endLine": 7554,
+      "sha256": "69160ae318d28c298f1e0f5fe9af0086724ce87e9d0382b537a97d64ac149b94"
+    },
+    {
+      "ordinal": 18,
+      "startLine": 7555,
+      "endLine": 7813,
+      "sha256": "624b903d09d1804371537b921af5a0630bc80ec9913fe50cbc557b020713f23e"
+    },
+    {
+      "ordinal": 19,
+      "startLine": 7814,
+      "endLine": 7839,
+      "sha256": "3012b59ededbc0ed861563106964e0931994848ec69736c1ec016aea79f507b0"
+    },
+    {
+      "ordinal": 20,
+      "startLine": 7840,
+      "endLine": 7891,
+      "sha256": "bd62de05fa7f8a92d8b90bbd24181a2e1da0e3df73d430cd56735261dcb97628"
+    },
+    {
+      "ordinal": 21,
+      "startLine": 7892,
+      "endLine": 8043,
+      "sha256": "4ef865f4892c0e30c6f0a0001f113552a9e1890d1977b2554af2fa1d1b5a758f"
+    },
+    {
+      "ordinal": 22,
+      "startLine": 8136,
+      "endLine": 8147,
+      "sha256": "5471b3e14960355af91cdee7cc97ecbd064fd6cb0adc9bbdf9f237ac14dd8bfd"
+    },
+    {
+      "ordinal": 23,
+      "startLine": 8148,
+      "endLine": 8532,
+      "sha256": "9037753bb12d86ec9a5999838cbfa10a4951dc00a21dab49fe3bf305127dc68e"
+    },
+    {
+      "ordinal": 24,
+      "startLine": 8533,
+      "endLine": 8907,
+      "sha256": "90f4bda9d35b0d1e97ed351b6078925effa6b9fd87c54d056e62700f1504b871"
+    },
+    {
+      "ordinal": 25,
+      "startLine": 8908,
+      "endLine": 9156,
+      "sha256": "e4580965f85423346e648290c04b72bedebba47f53ed15cc7ef15c1a78d4c916"
+    },
+    {
+      "ordinal": 26,
+      "startLine": 9157,
+      "endLine": 9449,
+      "sha256": "cfba1f719cddf6271bf45f0c2220532978e5ceaa8522cb166cd4a71bc12b9680"
+    },
+    {
+      "ordinal": 27,
+      "startLine": 9450,
+      "endLine": 9841,
+      "sha256": "2df388dd31569ae145fcaeae7adf872a5862af2c742a2d1baf083b6c559336e2"
+    },
+    {
+      "ordinal": 28,
+      "startLine": 9842,
+      "endLine": 10304,
+      "sha256": "b2266409734592ef3cb2558a9d114e9e07f8b0c91062bc818cd4e382208f847a"
+    },
+    {
+      "ordinal": 29,
+      "startLine": 10305,
+      "endLine": 10915,
+      "sha256": "349943be47b4341ee8d9e65b112ebbbc2c6227722ac324f9573b514e4cd9491c"
+    },
+    {
+      "ordinal": 30,
+      "startLine": 10916,
+      "endLine": 11926,
+      "sha256": "6fbf6ff3d8ea38e03d3eea31325e44942df8ee8c7f24e6fbc7e238157b47b492"
+    },
+    {
+      "ordinal": 31,
+      "startLine": 11927,
+      "endLine": 12646,
+      "sha256": "6c5eadbaabe0d292efa6b81cd85c3a3d42ede55a3ea8d12281c5f2335a230760"
+    },
+    {
+      "ordinal": 32,
+      "startLine": 12647,
+      "endLine": 13197,
+      "sha256": "2723e3159c7462497ddf68e6230b2af6cf3460abd33c8bbfabd97cc267662c6d"
+    }
+  ],
+  "functions": [
+    {
+      "name": "toEn",
+      "line": 1019
+    },
+    {
+      "name": "num",
+      "line": 1020
+    },
+    {
+      "name": "fmt",
+      "line": 1021
+    },
+    {
+      "name": "money",
+      "line": 1022
+    },
+    {
+      "name": "pct",
+      "line": 1023
+    },
+    {
+      "name": "clamp",
+      "line": 1024
+    },
+    {
+      "name": "sum",
+      "line": 1025
+    },
+    {
+      "name": "_div",
+      "line": 1027
+    },
+    {
+      "name": "_mod",
+      "line": 1028
+    },
+    {
+      "name": "jalCal",
+      "line": 1029
+    },
+    {
+      "name": "g2d",
+      "line": 1030
+    },
+    {
+      "name": "d2g",
+      "line": 1031
+    },
+    {
+      "name": "j2d",
+      "line": 1032
+    },
+    {
+      "name": "d2j",
+      "line": 1033
+    },
+    {
+      "name": "toJ",
+      "line": 1035
+    },
+    {
+      "name": "fromJ",
+      "line": 1036
+    },
+    {
+      "name": "jStr",
+      "line": 1037
+    },
+    {
+      "name": "jMonthLen",
+      "line": 1038
+    },
+    {
+      "name": "seedDB",
+      "line": 1044
+    },
+    {
+      "name": "loadDB",
+      "line": 1046
+    },
+    {
+      "name": "save",
+      "line": 1049
+    },
+    {
+      "name": "pushUndo",
+      "line": 1050
+    },
+    {
+      "name": "undo",
+      "line": 1051
+    },
+    {
+      "name": "toast",
+      "line": 1053
+    },
+    {
+      "name": "modal",
+      "line": 1054
+    },
+    {
+      "name": "closeModal",
+      "line": 1055
+    },
+    {
+      "name": "readForm",
+      "line": 1056
+    },
+    {
+      "name": "openDP",
+      "line": 1059
+    },
+    {
+      "name": "paint",
+      "line": 1059
+    },
+    {
+      "name": "closeDP",
+      "line": 1060
+    },
+    {
+      "name": "jInput",
+      "line": 1063
+    },
+    {
+      "name": "svgLineChart",
+      "line": 1065
+    },
+    {
+      "name": "svgBarChart",
+      "line": 1066
+    },
+    {
+      "name": "computeCPM",
+      "line": 1068
+    },
+    {
+      "name": "invoiceCalc",
+      "line": 1070
+    },
+    {
+      "name": "invoicePaid",
+      "line": 1071
+    },
+    {
+      "name": "defRoute",
+      "line": 1074
+    },
+    {
+      "name": "buildNav",
+      "line": 1110
+    },
+    {
+      "name": "render",
+      "line": 1111
+    },
+    {
+      "name": "logErr",
+      "line": 1113
+    },
+    {
+      "name": "act",
+      "line": 1117
+    },
+    {
+      "name": "projectStats",
+      "line": 1142
+    },
+    {
+      "name": "prjForm",
+      "line": 1211
+    },
+    {
+      "name": "currentProjectId",
+      "line": 1235
+    },
+    {
+      "name": "row",
+      "line": 1318
+    },
+    {
+      "name": "conForm",
+      "line": 1340
+    },
+    {
+      "name": "invForm",
+      "line": 1430
+    },
+    {
+      "name": "invRow",
+      "line": 1456
+    },
+    {
+      "name": "collectItems",
+      "line": 1470
+    },
+    {
+      "name": "refreshInvCalc",
+      "line": 1482
+    },
+    {
+      "name": "hourlyCost",
+      "line": 2077
+    },
+    {
+      "name": "recCost",
+      "line": 2078
+    },
+    {
+      "name": "isAct",
+      "line": 2079
+    },
+    {
+      "name": "renderPersonnel",
+      "line": 2108
+    },
+    {
+      "name": "renderAttendance",
+      "line": 2126
+    },
+    {
+      "name": "renderCost",
+      "line": 2146
+    },
+    {
+      "name": "psForm",
+      "line": 2178
+    },
+    {
+      "name": "taskForm",
+      "line": 2296
+    },
+    {
+      "name": "letterForm",
+      "line": 2345
+    },
+    {
+      "name": "inspItem",
+      "line": 2474
+    },
+    {
+      "name": "applyTheme",
+      "line": 2956
+    },
+    {
+      "name": "resolveTheme",
+      "line": 2962
+    },
+    {
+      "name": "toggle",
+      "line": 2969
+    },
+    {
+      "name": "openDb",
+      "line": 3009
+    },
+    {
+      "name": "compress",
+      "line": 3028
+    },
+    {
+      "name": "save",
+      "line": 3061
+    },
+    {
+      "name": "byOwner",
+      "line": 3083
+    },
+    {
+      "name": "removeAtt",
+      "line": 3097
+    },
+    {
+      "name": "renderGallery",
+      "line": 3124
+    },
+    {
+      "name": "getGPS",
+      "line": 3212
+    },
+    {
+      "name": "camSnap",
+      "line": 3227
+    },
+    {
+      "name": "load",
+      "line": 3376
+    },
+    {
+      "name": "saveCfg",
+      "line": 3383
+    },
+    {
+      "name": "enabled",
+      "line": 3386
+    },
+    {
+      "name": "apply",
+      "line": 3392
+    },
+    {
+      "name": "match",
+      "line": 3469
+    },
+    {
+      "name": "start",
+      "line": 3485
+    },
+    {
+      "name": "supForm",
+      "line": 3616
+    },
+    {
+      "name": "eqmForm",
+      "line": 3956
+    },
+    {
+      "name": "pos",
+      "line": 4271
+    },
+    {
+      "name": "start",
+      "line": 4278
+    },
+    {
+      "name": "move",
+      "line": 4285
+    },
+    {
+      "name": "end",
+      "line": 4293
+    },
+    {
+      "name": "subForm",
+      "line": 4692
+    },
+    {
+      "name": "mountBell",
+      "line": 5270
+    },
+    {
+      "name": "row",
+      "line": 5649
+    },
+    {
+      "name": "r2",
+      "line": 5699
+    },
+    {
+      "name": "invRowCard",
+      "line": 6270
+    },
+    {
+      "name": "vv",
+      "line": 6329
+    },
+    {
+      "name": "ivNum",
+      "line": 6734
+    },
+    {
+      "name": "nfIr",
+      "line": 6958
+    },
+    {
+      "name": "makeOverlay",
+      "line": 7434
+    },
+    {
+      "name": "doExport",
+      "line": 7442
+    },
+    {
+      "name": "doImport",
+      "line": 7483
+    },
+    {
+      "name": "fixButtons",
+      "line": 7517
+    },
+    {
+      "name": "numFix",
+      "line": 7562
+    },
+    {
+      "name": "buildForm",
+      "line": 7568
+    },
+    {
+      "name": "printHTML",
+      "line": 7751
+    },
+    {
+      "name": "showBanner",
+      "line": 7997
+    },
+    {
+      "name": "nfIr",
+      "line": 8235
+    },
+    {
+      "name": "addSearchBars",
+      "line": 8446
+    },
+    {
+      "name": "addEvent",
+      "line": 8726
+    },
+    {
+      "name": "paint",
+      "line": 8791
+    },
+    {
+      "name": "checkBackup",
+      "line": 8850
+    },
+    {
+      "name": "showBackupBanner",
+      "line": 8859
+    },
+    {
+      "name": "paint",
+      "line": 9278
+    },
+    {
+      "name": "showLock",
+      "line": 9548
+    },
+    {
+      "name": "applyTheme",
+      "line": 9634
+    },
+    {
+      "name": "shadeColor",
+      "line": 9644
+    },
+    {
+      "name": "paint",
+      "line": 9761
+    },
+    {
+      "name": "permitForm",
+      "line": 9921
+    },
+    {
+      "name": "paint",
+      "line": 10091
+    },
+    {
+      "name": "nf",
+      "line": 10312
+    },
+    {
+      "name": "calc",
+      "line": 10398
+    },
+    {
+      "name": "calc",
+      "line": 10453
+    },
+    {
+      "name": "calc",
+      "line": 10510
+    },
+    {
+      "name": "calc",
+      "line": 10562
+    },
+    {
+      "name": "calc",
+      "line": 10612
+    },
+    {
+      "name": "calc",
+      "line": 10659
+    },
+    {
+      "name": "calc",
+      "line": 10699
+    },
+    {
+      "name": "calc",
+      "line": 10744
+    },
+    {
+      "name": "render",
+      "line": 10784
+    },
+    {
+      "name": "calc",
+      "line": 10816
+    },
+    {
+      "name": "render",
+      "line": 10849
+    },
+    {
+      "name": "calc",
+      "line": 10879
+    },
+    {
+      "name": "nfv",
+      "line": 10923
+    },
+    {
+      "name": "calc",
+      "line": 11000
+    },
+    {
+      "name": "calc",
+      "line": 11035
+    },
+    {
+      "name": "calc",
+      "line": 11078
+    },
+    {
+      "name": "calc",
+      "line": 11118
+    },
+    {
+      "name": "calc",
+      "line": 11152
+    },
+    {
+      "name": "calc",
+      "line": 11185
+    },
+    {
+      "name": "calc",
+      "line": 11244
+    },
+    {
+      "name": "calc",
+      "line": 11349
+    },
+    {
+      "name": "render",
+      "line": 11453
+    },
+    {
+      "name": "calc",
+      "line": 11487
+    },
+    {
+      "name": "render",
+      "line": 11558
+    },
+    {
+      "name": "calc",
+      "line": 11592
+    },
+    {
+      "name": "render",
+      "line": 11689
+    },
+    {
+      "name": "calc",
+      "line": 11720
+    },
+    {
+      "name": "render",
+      "line": 11793
+    },
+    {
+      "name": "calc",
+      "line": 11826
+    },
+    {
+      "name": "render",
+      "line": 11882
+    },
+    {
+      "name": "calc",
+      "line": 11903
+    },
+    {
+      "name": "nfl",
+      "line": 11934
+    },
+    {
+      "name": "paint",
+      "line": 12019
+    },
+    {
+      "name": "nfa",
+      "line": 12654
+    },
+    {
+      "name": "updateActivityProgress",
+      "line": 12943
+    },
+    {
+      "name": "updateBadge",
+      "line": 13121
+    }
+  ],
+  "repeatedFunctionNames": [
+    {
+      "name": "save",
+      "lines": [
+        1049,
+        3061
+      ]
+    },
+    {
+      "name": "paint",
+      "lines": [
+        1059,
+        8791,
+        9278,
+        9761,
+        10091,
+        12019
+      ]
+    },
+    {
+      "name": "render",
+      "lines": [
+        1111,
+        10784,
+        10849,
+        11453,
+        11558,
+        11689,
+        11793,
+        11882
+      ]
+    },
+    {
+      "name": "row",
+      "lines": [
+        1318,
+        5649
+      ]
+    },
+    {
+      "name": "applyTheme",
+      "lines": [
+        2956,
+        9634
+      ]
+    },
+    {
+      "name": "start",
+      "lines": [
+        3485,
+        4278
+      ]
+    },
+    {
+      "name": "nfIr",
+      "lines": [
+        6958,
+        8235
+      ]
+    },
+    {
+      "name": "calc",
+      "lines": [
+        10398,
+        10453,
+        10510,
+        10562,
+        10612,
+        10659,
+        10699,
+        10744,
+        10816,
+        10879,
+        11000,
+        11035,
+        11078,
+        11118,
+        11152,
+        11185,
+        11244,
+        11349,
+        11487,
+        11592,
+        11720,
+        11826,
+        11903
+      ]
+    }
+  ],
+  "handlers": [
+    {
+      "name": "close-modal",
+      "line": 1120
+    },
+    {
+      "name": "toggle-nav",
+      "line": 1121
+    },
+    {
+      "name": "undo",
+      "line": 1122
+    },
+    {
+      "name": "export-json",
+      "line": 1123
+    },
+    {
+      "name": "import-json",
+      "line": 1124
+    },
+    {
+      "name": "pdf-current",
+      "line": 1127
+    },
+    {
+      "name": "go-cpm",
+      "line": 1186
+    },
+    {
+      "name": "prj-new",
+      "line": 1224
+    },
+    {
+      "name": "prj-edit",
+      "line": 1225
+    },
+    {
+      "name": "prj-save",
+      "line": 1226
+    },
+    {
+      "name": "prj-del",
+      "line": 1227
+    },
+    {
+      "name": "prj-act",
+      "line": 1229
+    },
+    {
+      "name": "act-add",
+      "line": 1231
+    },
+    {
+      "name": "act-del",
+      "line": 1233
+    },
+    {
+      "name": "evm-add",
+      "line": 1289
+    },
+    {
+      "name": "evm-save",
+      "line": 1290
+    },
+    {
+      "name": "con-new",
+      "line": 1356
+    },
+    {
+      "name": "con-add",
+      "line": 1362
+    },
+    {
+      "name": "con-save",
+      "line": 1369
+    },
+    {
+      "name": "con-approve",
+      "line": 1379
+    },
+    {
+      "name": "con-del",
+      "line": 1390
+    },
+    {
+      "name": "inv-addrow",
+      "line": 1515
+    },
+    {
+      "name": "inv-delrow",
+      "line": 1523
+    },
+    {
+      "name": "inv-new",
+      "line": 1525
+    },
+    {
+      "name": "inv-save",
+      "line": 1532
+    },
+    {
+      "name": "inv-view",
+      "line": 1546
+    },
+    {
+      "name": "inv-pay",
+      "line": 1567
+    },
+    {
+      "name": "pay-save",
+      "line": 1581
+    },
+    {
+      "name": "inv-del",
+      "line": 1591
+    },
+    {
+      "name": "inv-print",
+      "line": 1598
+    },
+    {
+      "name": "chk-new",
+      "line": 1668
+    },
+    {
+      "name": "chk-save",
+      "line": 1683
+    },
+    {
+      "name": "chk-status",
+      "line": 1691
+    },
+    {
+      "name": "chk-status-save",
+      "line": 1701
+    },
+    {
+      "name": "chk-del",
+      "line": 1718
+    },
+    {
+      "name": "pf-new",
+      "line": 1756
+    },
+    {
+      "name": "pf-save",
+      "line": 1766
+    },
+    {
+      "name": "pf-view",
+      "line": 1774
+    },
+    {
+      "name": "pt-new",
+      "line": 1801
+    },
+    {
+      "name": "pt-save",
+      "line": 1810
+    },
+    {
+      "name": "pt-del",
+      "line": 1820
+    },
+    {
+      "name": "cash-new",
+      "line": 1857
+    },
+    {
+      "name": "cash-save",
+      "line": 1868
+    },
+    {
+      "name": "cash-del",
+      "line": 1876
+    },
+    {
+      "name": "adj-create",
+      "line": 1945
+    },
+    {
+      "name": "adj-add-month",
+      "line": 1951
+    },
+    {
+      "name": "adj-del-month",
+      "line": 1968
+    },
+    {
+      "name": "item-new",
+      "line": 2013
+    },
+    {
+      "name": "item-save",
+      "line": 2025
+    },
+    {
+      "name": "item-del",
+      "line": 2033
+    },
+    {
+      "name": "item-move",
+      "line": 2040
+    },
+    {
+      "name": "item-move-save",
+      "line": 2053
+    },
+    {
+      "name": "eq-tab",
+      "line": 2192
+    },
+    {
+      "name": "ps-new",
+      "line": 2193
+    },
+    {
+      "name": "ps-edit",
+      "line": 2194
+    },
+    {
+      "name": "ps-save",
+      "line": 2195
+    },
+    {
+      "name": "ps-del",
+      "line": 2204
+    },
+    {
+      "name": "att-quick",
+      "line": 2205
+    },
+    {
+      "name": "att-mark-all",
+      "line": 2212
+    },
+    {
+      "name": "att-del",
+      "line": 2220
+    },
+    {
+      "name": "daily-new",
+      "line": 2242
+    },
+    {
+      "name": "daily-save",
+      "line": 2255
+    },
+    {
+      "name": "daily-view",
+      "line": 2256
+    },
+    {
+      "name": "daily-del",
+      "line": 2267
+    },
+    {
+      "name": "task-new",
+      "line": 2314
+    },
+    {
+      "name": "task-edit",
+      "line": 2315
+    },
+    {
+      "name": "task-save",
+      "line": 2316
+    },
+    {
+      "name": "task-del",
+      "line": 2324
+    },
+    {
+      "name": "letter-new",
+      "line": 2355
+    },
+    {
+      "name": "letter-save",
+      "line": 2356
+    },
+    {
+      "name": "letter-view",
+      "line": 2363
+    },
+    {
+      "name": "letter-del",
+      "line": 2375
+    },
+    {
+      "name": "risk-new",
+      "line": 2407
+    },
+    {
+      "name": "risk-save",
+      "line": 2416
+    },
+    {
+      "name": "risk-del",
+      "line": 2417
+    },
+    {
+      "name": "hse-new",
+      "line": 2418
+    },
+    {
+      "name": "hse-save",
+      "line": 2426
+    },
+    {
+      "name": "hse-del",
+      "line": 2427
+    },
+    {
+      "name": "insp-new",
+      "line": 2461
+    },
+    {
+      "name": "insp-add",
+      "line": 2484
+    },
+    {
+      "name": "insp-rm",
+      "line": 2485
+    },
+    {
+      "name": "insp-tpl",
+      "line": 2486
+    },
+    {
+      "name": "insp-save",
+      "line": 2495
+    },
+    {
+      "name": "insp-view",
+      "line": 2508
+    },
+    {
+      "name": "insp-del",
+      "line": 2520
+    },
+    {
+      "name": "ncr-new",
+      "line": 2545
+    },
+    {
+      "name": "ncr-save",
+      "line": 2559
+    },
+    {
+      "name": "ncr-view",
+      "line": 2567
+    },
+    {
+      "name": "ncr-del",
+      "line": 2578
+    },
+    {
+      "name": "min-new",
+      "line": 2598
+    },
+    {
+      "name": "min-save",
+      "line": 2608
+    },
+    {
+      "name": "min-view",
+      "line": 2617
+    },
+    {
+      "name": "min-totask",
+      "line": 2633
+    },
+    {
+      "name": "min-del",
+      "line": 2646
+    },
+    {
+      "name": "chg-new",
+      "line": 2674
+    },
+    {
+      "name": "chg-save",
+      "line": 2684
+    },
+    {
+      "name": "chg-approve",
+      "line": 2692
+    },
+    {
+      "name": "chg-reject",
+      "line": 2699
+    },
+    {
+      "name": "chg-del",
+      "line": 2706
+    },
+    {
+      "name": "rep-json",
+      "line": 2734
+    },
+    {
+      "name": "rep-csv",
+      "line": 2744
+    },
+    {
+      "name": "set-save",
+      "line": 2791
+    },
+    {
+      "name": "set-reset",
+      "line": 2805
+    },
+    {
+      "name": "cf-new",
+      "line": 2842
+    },
+    {
+      "name": "cf-save",
+      "line": 2856
+    },
+    {
+      "name": "cf-del",
+      "line": 2864
+    },
+    {
+      "name": "dbg-sample",
+      "line": 2883
+    },
+    {
+      "name": "dbg-clear-err",
+      "line": 2893
+    },
+    {
+      "name": "att-add",
+      "line": 3170
+    },
+    {
+      "name": "att-del",
+      "line": 3194
+    },
+    {
+      "name": "cam-snap",
+      "line": 3256
+    },
+    {
+      "name": "mb-new",
+      "line": 3311
+    },
+    {
+      "name": "mb-edit",
+      "line": 3321
+    },
+    {
+      "name": "mb-save",
+      "line": 3333
+    },
+    {
+      "name": "mb-del",
+      "line": 3348
+    },
+    {
+      "name": "dash-layout",
+      "line": 3416
+    },
+    {
+      "name": "dw-save",
+      "line": 3428
+    },
+    {
+      "name": "dw-reset",
+      "line": 3435
+    },
+    {
+      "name": "qr-scan",
+      "line": 3517
+    },
+    {
+      "name": "sup-new",
+      "line": 3633
+    },
+    {
+      "name": "sup-edit",
+      "line": 3634
+    },
+    {
+      "name": "sup-save",
+      "line": 3635
+    },
+    {
+      "name": "sup-del",
+      "line": 3643
+    },
+    {
+      "name": "po-new",
+      "line": 3692
+    },
+    {
+      "name": "po-save",
+      "line": 3711
+    },
+    {
+      "name": "po-receive",
+      "line": 3720
+    },
+    {
+      "name": "po-view",
+      "line": 3734
+    },
+    {
+      "name": "po-del",
+      "line": 3748
+    },
+    {
+      "name": "pl-new",
+      "line": 3807
+    },
+    {
+      "name": "pl-save",
+      "line": 3820
+    },
+    {
+      "name": "pl-status",
+      "line": 3830
+    },
+    {
+      "name": "pl-del",
+      "line": 3839
+    },
+    {
+      "name": "pl-print",
+      "line": 3846
+    },
+    {
+      "name": "eqm-new",
+      "line": 3971
+    },
+    {
+      "name": "eqm-edit",
+      "line": 3972
+    },
+    {
+      "name": "eqm-save",
+      "line": 3973
+    },
+    {
+      "name": "eqm-del",
+      "line": 3981
+    },
+    {
+      "name": "eqm-log",
+      "line": 3983
+    },
+    {
+      "name": "eqm-log-new",
+      "line": 4000
+    },
+    {
+      "name": "eqm-log-save",
+      "line": 4010
+    },
+    {
+      "name": "eqm-log-del",
+      "line": 4016
+    },
+    {
+      "name": "lv-new",
+      "line": 4084
+    },
+    {
+      "name": "lv-save",
+      "line": 4099
+    },
+    {
+      "name": "lv-approve",
+      "line": 4105
+    },
+    {
+      "name": "lv-reject",
+      "line": 4106
+    },
+    {
+      "name": "lv-del",
+      "line": 4107
+    },
+    {
+      "name": "ot-new",
+      "line": 4109
+    },
+    {
+      "name": "ot-save",
+      "line": 4122
+    },
+    {
+      "name": "ot-del",
+      "line": 4128
+    },
+    {
+      "name": "note-add",
+      "line": 4195
+    },
+    {
+      "name": "note-del",
+      "line": 4212
+    },
+    {
+      "name": "sig-add",
+      "line": 4372
+    },
+    {
+      "name": "sig-del",
+      "line": 4387
+    },
+    {
+      "name": "md-csv",
+      "line": 4516
+    },
+    {
+      "name": "md-xml",
+      "line": 4517
+    },
+    {
+      "name": "ins-csv",
+      "line": 4617
+    },
+    {
+      "name": "sub-new",
+      "line": 4711
+    },
+    {
+      "name": "sub-save",
+      "line": 4716
+    },
+    {
+      "name": "sub-del",
+      "line": 4731
+    },
+    {
+      "name": "sub-view",
+      "line": 4738
+    },
+    {
+      "name": "sub-pay",
+      "line": 4763
+    },
+    {
+      "name": "sub-pay-save",
+      "line": 4777
+    },
+    {
+      "name": "gantt-edit",
+      "line": 5011
+    },
+    {
+      "name": "bc-scan",
+      "line": 5097
+    },
+    {
+      "name": "notif-open",
+      "line": 5298
+    },
+    {
+      "name": "tpl-use",
+      "line": 5451
+    },
+    {
+      "name": "dd-calc",
+      "line": 5537
+    },
+    {
+      "name": "stl-print",
+      "line": 5688
+    },
+    {
+      "name": "cert-create",
+      "line": 5832
+    },
+    {
+      "name": "cert-print",
+      "line": 5843
+    },
+    {
+      "name": "cert-del",
+      "line": 5844
+    },
+    {
+      "name": "prj-act",
+      "line": 5879
+    },
+    {
+      "name": "act-edit-one",
+      "line": 5906
+    },
+    {
+      "name": "act-edit-save",
+      "line": 5942
+    },
+    {
+      "name": "act-edit-one",
+      "line": 6108
+    },
+    {
+      "name": "act-edit-save",
+      "line": 6143
+    },
+    {
+      "name": "inv-addrow",
+      "line": 6357
+    },
+    {
+      "name": "inv-delrow",
+      "line": 6368
+    },
+    {
+      "name": "act-add-fast",
+      "line": 6525
+    },
+    {
+      "name": "act-edit-fast",
+      "line": 6583
+    },
+    {
+      "name": "act-edit-save-fast",
+      "line": 6626
+    },
+    {
+      "name": "act-template",
+      "line": 6659
+    },
+    {
+      "name": "inv-print-go",
+      "line": 6884
+    },
+    {
+      "name": "export-json",
+      "line": 7306
+    },
+    {
+      "name": "exp-copy",
+      "line": 7319
+    },
+    {
+      "name": "exp-share",
+      "line": 7339
+    },
+    {
+      "name": "exp-dl",
+      "line": 7351
+    },
+    {
+      "name": "import-json",
+      "line": 7373
+    },
+    {
+      "name": "imp-go",
+      "line": 7383
+    },
+    {
+      "name": "imp-file",
+      "line": 7406
+    }
+  ],
+  "handlerOverrides": [
+    {
+      "name": "daily-view",
+      "line": 3156
+    },
+    {
+      "name": "daily-view",
+      "line": 3263
+    },
+    {
+      "name": "inv-print",
+      "line": 5127
+    },
+    {
+      "name": "prj-act",
+      "line": 5881
+    },
+    {
+      "name": "prj-act",
+      "line": 6088
+    },
+    {
+      "name": "inv-save",
+      "line": 6376
+    },
+    {
+      "name": "prj-act",
+      "line": 6437
+    },
+    {
+      "name": "inv-print",
+      "line": 6742
+    },
+    {
+      "name": "inv-view",
+      "line": 6928
+    },
+    {
+      "name": "inv-save",
+      "line": 6998
+    },
+    {
+      "name": "inv-print",
+      "line": 7044
+    },
+    {
+      "name": "inv-print-do",
+      "line": 7247
+    },
+    {
+      "name": "inv-print-quick",
+      "line": 7289
+    },
+    {
+      "name": "inv-print",
+      "line": 7794
+    },
+    {
+      "name": "inv-print",
+      "line": 7816
+    },
+    {
+      "name": "inv-print",
+      "line": 7841
+    },
+    {
+      "name": "inv-save",
+      "line": 8188
+    },
+    {
+      "name": "inv-print",
+      "line": 8240
+    },
+    {
+      "name": "rep-csv-adv",
+      "line": 8478
+    },
+    {
+      "name": "rep-csv-go",
+      "line": 8498
+    },
+    {
+      "name": "exp-copy",
+      "line": 8884
+    },
+    {
+      "name": "rating-save",
+      "line": 9040
+    },
+    {
+      "name": "rating-open",
+      "line": 9063
+    },
+    {
+      "name": "timer-start",
+      "line": 9148
+    },
+    {
+      "name": "excel-go",
+      "line": 9228
+    },
+    {
+      "name": "excel-open",
+      "line": 9248
+    },
+    {
+      "name": "gal-add",
+      "line": 9320
+    },
+    {
+      "name": "prj-gps",
+      "line": 9381
+    },
+    {
+      "name": "prj-gps-view",
+      "line": 9397
+    },
+    {
+      "name": "sec-enable",
+      "line": 9503
+    },
+    {
+      "name": "sec-disable",
+      "line": 9514
+    },
+    {
+      "name": "sec-change",
+      "line": 9523
+    },
+    {
+      "name": "sec-save-bio",
+      "line": 9533
+    },
+    {
+      "name": "sec-wipe",
+      "line": 9539
+    },
+    {
+      "name": "theme-apply",
+      "line": 9623
+    },
+    {
+      "name": "qr-print",
+      "line": 9681
+    },
+    {
+      "name": "qr-share",
+      "line": 9689
+    },
+    {
+      "name": "show-qr",
+      "line": 9721
+    },
+    {
+      "name": "show-comments",
+      "line": 9827
+    },
+    {
+      "name": "permit-new",
+      "line": 9944
+    },
+    {
+      "name": "permit-edit",
+      "line": 9950
+    },
+    {
+      "name": "permit-save",
+      "line": 9958
+    },
+    {
+      "name": "permit-del",
+      "line": 9972
+    },
+    {
+      "name": "gar-new",
+      "line": 10031
+    },
+    {
+      "name": "gar-save",
+      "line": 10059
+    },
+    {
+      "name": "gar-del",
+      "line": 10068
+    },
+    {
+      "name": "notif-request",
+      "line": 10281
+    },
+    {
+      "name": "act-materials",
+      "line": 12011
+    },
+    {
+      "name": "am-new",
+      "line": 12082
+    },
+    {
+      "name": "am-save",
+      "line": 12110
+    },
+    {
+      "name": "am-del",
+      "line": 12126
+    },
+    {
+      "name": "am-edit",
+      "line": 12135
+    },
+    {
+      "name": "am-edit-save",
+      "line": 12150
+    },
+    {
+      "name": "act-use-auto",
+      "line": 12165
+    },
+    {
+      "name": "am-from-calc",
+      "line": 12180
+    },
+    {
+      "name": "am-pick-calc",
+      "line": 12200
+    },
+    {
+      "name": "inv-save",
+      "line": 12342
+    },
+    {
+      "name": "prj-act",
+      "line": 12616
+    },
+    {
+      "name": "act-mat-open",
+      "line": 12640
+    },
+    {
+      "name": "inv-approve",
+      "line": 12866
+    },
+    {
+      "name": "inv-reject",
+      "line": 12895
+    },
+    {
+      "name": "inv-unapprove",
+      "line": 12914
+    },
+    {
+      "name": "inv-unreject",
+      "line": 12928
+    },
+    {
+      "name": "inv-save",
+      "line": 12969
+    },
+    {
+      "name": "inv-submit-for-approval",
+      "line": 13016
+    },
+    {
+      "name": "inv-view",
+      "line": 13156
+    }
+  ],
+  "routeCandidates": [
+    {
+      "name": "dashboard",
+      "line": 1077
+    },
+    {
+      "name": "projects",
+      "line": 1078
+    },
+    {
+      "name": "cpm",
+      "line": 1079
+    },
+    {
+      "name": "evm",
+      "line": 1080
+    },
+    {
+      "name": "contracts",
+      "line": 1082
+    },
+    {
+      "name": "invoices",
+      "line": 1083
+    },
+    {
+      "name": "checks",
+      "line": 1084
+    },
+    {
+      "name": "pettycash",
+      "line": 1085
+    },
+    {
+      "name": "cashflow",
+      "line": 1086
+    },
+    {
+      "name": "aging",
+      "line": 1087
+    },
+    {
+      "name": "adjust",
+      "line": 1088
+    },
+    {
+      "name": "inventory",
+      "line": 1090
+    },
+    {
+      "name": "equipment",
+      "line": 1091
+    },
+    {
+      "name": "daily",
+      "line": 1092
+    },
+    {
+      "name": "kanban",
+      "line": 1093
+    },
+    {
+      "name": "takeoff",
+      "line": 1094
+    },
+    {
+      "name": "plan",
+      "line": 1095
+    },
+    {
+      "name": "letters",
+      "line": 1097
+    },
+    {
+      "name": "inspections",
+      "line": 1098
+    },
+    {
+      "name": "ncrs",
+      "line": 1099
+    },
+    {
+      "name": "minutes",
+      "line": 1100
+    },
+    {
+      "name": "changes",
+      "line": 1101
+    },
+    {
+      "name": "reports",
+      "line": 1102
+    },
+    {
+      "name": "risks",
+      "line": 1103
+    },
+    {
+      "name": "baseline",
+      "line": 1104
+    },
+    {
+      "name": "custom-fields",
+      "line": 1106
+    },
+    {
+      "name": "settings",
+      "line": 1107
+    },
+    {
+      "name": "debug",
+      "line": 1108
+    },
+    {
+      "name": "todo",
+      "line": 2270
+    },
+    {
+      "name": "doing",
+      "line": 2270
+    },
+    {
+      "name": "review",
+      "line": 2270
+    },
+    {
+      "name": "done",
+      "line": 2270
+    },
+    {
+      "name": "projects",
+      "line": 2716
+    },
+    {
+      "name": "invoices",
+      "line": 2717
+    },
+    {
+      "name": "contracts",
+      "line": 2718
+    },
+    {
+      "name": "cash",
+      "line": 2719
+    },
+    {
+      "name": "items",
+      "line": 2720
+    },
+    {
+      "name": "tasks",
+      "line": 2721
+    },
+    {
+      "name": "members",
+      "line": 3357
+    },
+    {
+      "name": "members",
+      "line": 3358
+    },
+    {
+      "name": "kpi",
+      "line": 3371
+    },
+    {
+      "name": "projects",
+      "line": 3372
+    },
+    {
+      "name": "alerts",
+      "line": 3373
+    },
+    {
+      "name": "suppliers",
+      "line": 3652
+    },
+    {
+      "name": "purchases",
+      "line": 3757
+    },
+    {
+      "name": "punchlist",
+      "line": 3881
+    },
+    {
+      "name": "equipment-machine",
+      "line": 4024
+    },
+    {
+      "name": "leaves",
+      "line": 4132
+    },
+    {
+      "name": "moadian",
+      "line": 4521
+    },
+    {
+      "name": "insurance",
+      "line": 4642
+    },
+    {
+      "name": "subcontractors",
+      "line": 4791
+    },
+    {
+      "name": "gantt",
+      "line": 5015
+    },
+    {
+      "name": "templates",
+      "line": 5455
+    },
+    {
+      "name": "delay-damage",
+      "line": 5555
+    },
+    {
+      "name": "settlement",
+      "line": 5724
+    },
+    {
+      "name": "certificates",
+      "line": 5853
+    },
+    {
+      "name": "calculator",
+      "line": 8900
+    },
+    {
+      "name": "calendar",
+      "line": 8901
+    },
+    {
+      "name": "projects",
+      "line": 9209
+    },
+    {
+      "name": "invoices",
+      "line": 9210
+    },
+    {
+      "name": "contracts",
+      "line": 9211
+    },
+    {
+      "name": "cash",
+      "line": 9212
+    },
+    {
+      "name": "items",
+      "line": 9213
+    },
+    {
+      "name": "tasks",
+      "line": 9214
+    },
+    {
+      "name": "personnel",
+      "line": 9215
+    },
+    {
+      "name": "checks",
+      "line": 9216
+    },
+    {
+      "name": "suppliers",
+      "line": 9217
+    },
+    {
+      "name": "risks",
+      "line": 9218
+    },
+    {
+      "name": "gallery",
+      "line": 9443
+    },
+    {
+      "name": "security",
+      "line": 9834
+    },
+    {
+      "name": "themes",
+      "line": 9835
+    },
+    {
+      "name": "permits",
+      "line": 10289
+    },
+    {
+      "name": "guarantees",
+      "line": 10290
+    },
+    {
+      "name": "budget-actual",
+      "line": 10296
+    },
+    {
+      "name": "cash-forecast",
+      "line": 10297
+    },
+    {
+      "name": "concrete",
+      "line": 10320
+    },
+    {
+      "name": "rebar",
+      "line": 10321
+    },
+    {
+      "name": "brick",
+      "line": 10322
+    },
+    {
+      "name": "plaster",
+      "line": 10323
+    },
+    {
+      "name": "paint",
+      "line": 10324
+    },
+    {
+      "name": "insulation",
+      "line": 10325
+    },
+    {
+      "name": "electrical",
+      "line": 10326
+    },
+    {
+      "name": "plumbing",
+      "line": 10327
+    },
+    {
+      "name": "opening",
+      "line": 10328
+    },
+    {
+      "name": "general",
+      "line": 10329
+    },
+    {
+      "name": "calculator",
+      "line": 10909
+    },
+    {
+      "name": "concrete",
+      "line": 10931
+    },
+    {
+      "name": "rebar",
+      "line": 10932
+    },
+    {
+      "name": "brick",
+      "line": 10933
+    },
+    {
+      "name": "plaster",
+      "line": 10934
+    },
+    {
+      "name": "paint",
+      "line": 10935
+    },
+    {
+      "name": "insulation",
+      "line": 10936
+    },
+    {
+      "name": "electrical2",
+      "line": 10937
+    },
+    {
+      "name": "plumbing2",
+      "line": 10938
+    },
+    {
+      "name": "door",
+      "line": 10939
+    },
+    {
+      "name": "window",
+      "line": 10940
+    },
+    {
+      "name": "glass",
+      "line": 10941
+    },
+    {
+      "name": "stone",
+      "line": 10942
+    },
+    {
+      "name": "general",
+      "line": 10943
+    },
+    {
+      "name": "approvals",
+      "line": 13113
+    }
+  ],
+  "routeDefinitions": [
+    {
+      "name": "dashboard",
+      "line": 1144
+    },
+    {
+      "name": "projects",
+      "line": 1188
+    },
+    {
+      "name": "cpm",
+      "line": 1237
+    },
+    {
+      "name": "evm",
+      "line": 1261
+    },
+    {
+      "name": "contracts",
+      "line": 1307
+    },
+    {
+      "name": "invoices",
+      "line": 1398
+    },
+    {
+      "name": "checks",
+      "line": 1642
+    },
+    {
+      "name": "pettycash",
+      "line": 1726
+    },
+    {
+      "name": "cashflow",
+      "line": 1828
+    },
+    {
+      "name": "aging",
+      "line": 1883
+    },
+    {
+      "name": "adjust",
+      "line": 1913
+    },
+    {
+      "name": "inventory",
+      "line": 1984
+    },
+    {
+      "name": "equipment",
+      "line": 2081
+    },
+    {
+      "name": "daily",
+      "line": 2223
+    },
+    {
+      "name": "kanban",
+      "line": 2271
+    },
+    {
+      "name": "letters",
+      "line": 2327
+    },
+    {
+      "name": "risks",
+      "line": 2378
+    },
+    {
+      "name": "inspections",
+      "line": 2439
+    },
+    {
+      "name": "ncrs",
+      "line": 2526
+    },
+    {
+      "name": "minutes",
+      "line": 2581
+    },
+    {
+      "name": "changes",
+      "line": 2650
+    },
+    {
+      "name": "reports",
+      "line": 2709
+    },
+    {
+      "name": "settings",
+      "line": 2762
+    },
+    {
+      "name": "custom-fields",
+      "line": 2817
+    },
+    {
+      "name": "debug",
+      "line": 2867
+    },
+    {
+      "name": "members",
+      "line": 3291
+    },
+    {
+      "name": "suppliers",
+      "line": 3589
+    },
+    {
+      "name": "purchases",
+      "line": 3666
+    },
+    {
+      "name": "punchlist",
+      "line": 3771
+    },
+    {
+      "name": "equipment-machine",
+      "line": 3920
+    },
+    {
+      "name": "leaves",
+      "line": 4041
+    },
+    {
+      "name": "moadian",
+      "line": 4481
+    },
+    {
+      "name": "insurance",
+      "line": 4581
+    },
+    {
+      "name": "subcontractors",
+      "line": 4658
+    },
+    {
+      "name": "gantt",
+      "line": 4944
+    },
+    {
+      "name": "templates",
+      "line": 5428
+    },
+    {
+      "name": "delay-damage",
+      "line": 5490
+    },
+    {
+      "name": "settlement",
+      "line": 5622
+    },
+    {
+      "name": "certificates",
+      "line": 5802
+    },
+    {
+      "name": "gantt",
+      "line": 5983
+    },
+    {
+      "name": "calculator",
+      "line": 8541
+    },
+    {
+      "name": "calendar",
+      "line": 8716
+    },
+    {
+      "name": "gallery",
+      "line": 9253
+    },
+    {
+      "name": "security",
+      "line": 9458
+    },
+    {
+      "name": "themes",
+      "line": 9598
+    },
+    {
+      "name": "permits",
+      "line": 9864
+    },
+    {
+      "name": "guarantees",
+      "line": 9989
+    },
+    {
+      "name": "budget-actual",
+      "line": 10076
+    },
+    {
+      "name": "cash-forecast",
+      "line": 10135
+    },
+    {
+      "name": "calculator",
+      "line": 10315
+    },
+    {
+      "name": "approvals",
+      "line": 12765
+    }
+  ],
+  "renderAssignments": [
+    {
+      "name": "ROUTES.dashboard.render",
+      "line": 4915
+    },
+    {
+      "name": "ROUTES.inventory.render",
+      "line": 5088
+    },
+    {
+      "name": "ROUTES.invoices.render",
+      "line": 7268
+    },
+    {
+      "name": "ROUTES.kanban.render",
+      "line": 8955
+    },
+    {
+      "name": "ROUTES.subcontractors.render",
+      "line": 9053
+    },
+    {
+      "name": "ROUTES.reports.render",
+      "line": 9236
+    },
+    {
+      "name": "ROUTES.projects.render",
+      "line": 9413
+    },
+    {
+      "name": "ROUTES.invoices.render",
+      "line": 9700
+    },
+    {
+      "name": "ROUTES.projects.render",
+      "line": 9806
+    },
+    {
+      "name": "ROUTES.settings.render",
+      "line": 10272
+    },
+    {
+      "name": "ROUTES.calculator.render",
+      "line": 10929
+    },
+    {
+      "name": "ROUTES.gantt.render",
+      "line": 12387
+    },
+    {
+      "name": "ROUTES.invoices.render",
+      "line": 13044
+    },
+    {
+      "name": "ROUTES.gantt.render",
+      "line": 13084
+    }
+  ],
+  "assignmentCandidates": [
+    {
+      "name": "uid",
+      "line": 1012
+    },
+    {
+      "name": "esc",
+      "line": 1013
+    },
+    {
+      "name": "todayISO",
+      "line": 1014
+    },
+    {
+      "name": "d2n",
+      "line": 1015
+    },
+    {
+      "name": "n2d",
+      "line": 1016
+    },
+    {
+      "name": "addDays",
+      "line": 1017
+    },
+    {
+      "name": "daysBetween",
+      "line": 1018
+    },
+    {
+      "name": "doIt",
+      "line": 1049
+    },
+    {
+      "name": "X",
+      "line": 1065
+    },
+    {
+      "name": "Y",
+      "line": 1065
+    },
+    {
+      "name": "rd.onload",
+      "line": 1125
+    },
+    {
+      "name": "rq.onupgradeneeded",
+      "line": 3014
+    },
+    {
+      "name": "rq.onsuccess",
+      "line": 3021
+    },
+    {
+      "name": "rq.onerror",
+      "line": 3022
+    },
+    {
+      "name": "reader.onload",
+      "line": 3033
+    },
+    {
+      "name": "img.onload",
+      "line": 3035
+    },
+    {
+      "name": "img.onerror",
+      "line": 3053
+    },
+    {
+      "name": "reader.onerror",
+      "line": 3056
+    },
+    {
+      "name": "fr.onload",
+      "line": 3065
+    },
+    {
+      "name": "tx.oncomplete",
+      "line": 3072
+    },
+    {
+      "name": "tx.onerror",
+      "line": 3073
+    },
+    {
+      "name": "fr.onerror",
+      "line": 3077
+    },
+    {
+      "name": "rq.onsuccess",
+      "line": 3088
+    },
+    {
+      "name": "rq.onerror",
+      "line": 3092
+    },
+    {
+      "name": "tx.oncomplete",
+      "line": 3102
+    },
+    {
+      "name": "tx.onerror",
+      "line": 3103
+    },
+    {
+      "name": "rec.onstart",
+      "line": 3491
+    },
+    {
+      "name": "rec.onresult",
+      "line": 3492
+    },
+    {
+      "name": "rec.onerror",
+      "line": 3493
+    },
+    {
+      "name": "rec.onend",
+      "line": 3494
+    },
+    {
+      "name": "loop",
+      "line": 3531
+    },
+    {
+      "name": "window.__sigHasContent",
+      "line": 4302
+    },
+    {
+      "name": "window.__sigClear",
+      "line": 4303
+    },
+    {
+      "name": "window.__sigData",
+      "line": 4307
+    },
+    {
+      "name": "window.ManaCharts.donut",
+      "line": 4830
+    },
+    {
+      "name": "window.ManaCharts.downloadSVG",
+      "line": 4868
+    },
+    {
+      "name": "window.ManaCharts.downloadPNG",
+      "line": 4882
+    },
+    {
+      "name": "img.onload",
+      "line": 4888
+    },
+    {
+      "name": "ROUTES.dashboard.render",
+      "line": 4915
+    },
+    {
+      "name": "loop",
+      "line": 5045
+    },
+    {
+      "name": "ROUTES.inventory.render",
+      "line": 5088
+    },
+    {
+      "name": "_updateBadge",
+      "line": 5280
+    },
+    {
+      "name": "window.ManaCharts.donut",
+      "line": 6172
+    },
+    {
+      "name": "invForm",
+      "line": 6232
+    },
+    {
+      "name": "collectItems",
+      "line": 6300
+    },
+    {
+      "name": "refreshInvCalc",
+      "line": 6314
+    },
+    {
+      "name": "window.ManaDebugDate",
+      "line": 6400
+    },
+    {
+      "name": "window.ManaGanttHelp",
+      "line": 6708
+    },
+    {
+      "name": "invForm",
+      "line": 6972
+    },
+    {
+      "name": "ROUTES.invoices.render",
+      "line": 7268
+    },
+    {
+      "name": "rd.onload",
+      "line": 7415
+    },
+    {
+      "name": "rd.onerror",
+      "line": 7420
+    },
+    {
+      "name": "closeBtn.onclick",
+      "line": 7776
+    },
+    {
+      "name": "btn.onclick",
+      "line": 7807
+    },
+    {
+      "name": "btn.onclick",
+      "line": 7875
+    },
+    {
+      "name": "btn2.onclick",
+      "line": 7881
+    },
+    {
+      "name": "onclick",
+      "line": 8009
+    },
+    {
+      "name": "onclick",
+      "line": 8017
+    },
+    {
+      "name": "onclick",
+      "line": 8032
+    },
+    {
+      "name": "invForm",
+      "line": 8157
+    },
+    {
+      "name": "btn.onclick",
+      "line": 8432
+    },
+    {
+      "name": "btn2.onclick",
+      "line": 8439
+    },
+    {
+      "name": "input.oninput",
+      "line": 8457
+    },
+    {
+      "name": "window.render",
+      "line": 8472
+    },
+    {
+      "name": "window.calcConcrete",
+      "line": 8622
+    },
+    {
+      "name": "window.calcRebar",
+      "line": 8646
+    },
+    {
+      "name": "window.calcBrick",
+      "line": 8672
+    },
+    {
+      "name": "window.calcPlaster",
+      "line": 8691
+    },
+    {
+      "name": "window.calShowDay",
+      "line": 8822
+    },
+    {
+      "name": "onclick",
+      "line": 8834
+    },
+    {
+      "name": "onclick",
+      "line": 8837
+    },
+    {
+      "name": "onclick",
+      "line": 8871
+    },
+    {
+      "name": "onclick",
+      "line": 8876
+    },
+    {
+      "name": "ROUTES.kanban.render",
+      "line": 8955
+    },
+    {
+      "name": "btn.onclick",
+      "line": 8970
+    },
+    {
+      "name": "b.onclick",
+      "line": 9028
+    },
+    {
+      "name": "ROUTES.subcontractors.render",
+      "line": 9053
+    },
+    {
+      "name": "widget.onclick",
+      "line": 9128
+    },
+    {
+      "name": "ROUTES.reports.render",
+      "line": 9236
+    },
+    {
+      "name": "onchange",
+      "line": 9274
+    },
+    {
+      "name": "window.galView",
+      "line": 9298
+    },
+    {
+      "name": "window.galDel",
+      "line": 9307
+    },
+    {
+      "name": "onclick",
+      "line": 9330
+    },
+    {
+      "name": "inp.onchange",
+      "line": 9336
+    },
+    {
+      "name": "rd.onload",
+      "line": 9341
+    },
+    {
+      "name": "img.onload",
+      "line": 9343
+    },
+    {
+      "name": "img.onerror",
+      "line": 9369
+    },
+    {
+      "name": "ROUTES.projects.render",
+      "line": 9413
+    },
+    {
+      "name": "btn.onclick",
+      "line": 9431
+    },
+    {
+      "name": "inp.oninput",
+      "line": 9565
+    },
+    {
+      "name": "ROUTES.invoices.render",
+      "line": 9700
+    },
+    {
+      "name": "window.__cmtDel",
+      "line": 9781
+    },
+    {
+      "name": "send.onclick",
+      "line": 9792
+    },
+    {
+      "name": "ROUTES.projects.render",
+      "line": 9806
+    },
+    {
+      "name": "ROUTES.settings.render",
+      "line": 10272
+    },
+    {
+      "name": "b.onclick",
+      "line": 10343
+    },
+    {
+      "name": "window.__opUp",
+      "line": 10804
+    },
+    {
+      "name": "window.__opDel",
+      "line": 10815
+    },
+    {
+      "name": "onclick",
+      "line": 10826
+    },
+    {
+      "name": "window.__genUp",
+      "line": 10868
+    },
+    {
+      "name": "window.__genDel",
+      "line": 10878
+    },
+    {
+      "name": "onclick",
+      "line": 10885
+    },
+    {
+      "name": "onclick",
+      "line": 10889
+    },
+    {
+      "name": "ROUTES.calculator.render",
+      "line": 10929
+    },
+    {
+      "name": "b.onclick",
+      "line": 10956
+    },
+    {
+      "name": "window.__doorUp",
+      "line": 11480
+    },
+    {
+      "name": "window.__doorDel",
+      "line": 11485
+    },
+    {
+      "name": "onclick",
+      "line": 11511
+    },
+    {
+      "name": "window.__winUp",
+      "line": 11585
+    },
+    {
+      "name": "window.__winDel",
+      "line": 11590
+    },
+    {
+      "name": "onclick",
+      "line": 11648
+    },
+    {
+      "name": "window.__glassUp",
+      "line": 11713
+    },
+    {
+      "name": "window.__glassDel",
+      "line": 11718
+    },
+    {
+      "name": "onclick",
+      "line": 11746
+    },
+    {
+      "name": "window.__stoneUp",
+      "line": 11819
+    },
+    {
+      "name": "window.__stoneDel",
+      "line": 11824
+    },
+    {
+      "name": "onclick",
+      "line": 11861
+    },
+    {
+      "name": "window.__g2Up",
+      "line": 11898
+    },
+    {
+      "name": "window.__g2Del",
+      "line": 11902
+    },
+    {
+      "name": "onclick",
+      "line": 11907
+    },
+    {
+      "name": "onclick",
+      "line": 11911
+    },
+    {
+      "name": "invRowCard",
+      "line": 12219
+    },
+    {
+      "name": "window.__onActSelect",
+      "line": 12280
+    },
+    {
+      "name": "window.__onMatSelect",
+      "line": 12303
+    },
+    {
+      "name": "collectItems",
+      "line": 12323
+    },
+    {
+      "name": "ROUTES.gantt.render",
+      "line": 12387
+    },
+    {
+      "name": "window.__ganttActMat",
+      "line": 12512
+    },
+    {
+      "name": "window.CalcV2.render",
+      "line": 12543
+    },
+    {
+      "name": "window.__saveCalcToProject",
+      "line": 12559
+    },
+    {
+      "name": "sel.onchange",
+      "line": 12581
+    },
+    {
+      "name": "window.__saveCalcDo",
+      "line": 12591
+    },
+    {
+      "name": "window.isInvoiceEffective",
+      "line": 12686
+    },
+    {
+      "name": "window.ManaActMat.consumedFor",
+      "line": 12696
+    },
+    {
+      "name": "window.ManaActMat.costFor",
+      "line": 12712
+    },
+    {
+      "name": "window.recalcActivityMaterials",
+      "line": 12730
+    },
+    {
+      "name": "invForm",
+      "line": 12986
+    },
+    {
+      "name": "ROUTES.invoices.render",
+      "line": 13044
+    },
+    {
+      "name": "ROUTES.gantt.render",
+      "line": 13084
+    },
+    {
+      "name": "existing.onclick",
+      "line": 13135
+    }
+  ],
+  "databaseReferences": [
+    {
+      "name": "settings",
+      "line": 1070
+    },
+    {
+      "name": "meta",
+      "line": 1113
+    },
+    {
+      "name": "meta",
+      "line": 1113
+    },
+    {
+      "name": "meta",
+      "line": 1113
+    },
+    {
+      "name": "meta",
+      "line": 1125
+    },
+    {
+      "name": "meta",
+      "line": 1125
+    },
+    {
+      "name": "meta",
+      "line": 1125
+    },
+    {
+      "name": "meta",
+      "line": 1125
+    },
+    {
+      "name": "invoices",
+      "line": 1142
+    },
+    {
+      "name": "settings",
+      "line": 1146
+    },
+    {
+      "name": "projects",
+      "line": 1148
+    },
+    {
+      "name": "cash",
+      "line": 1151
+    },
+    {
+      "name": "cash",
+      "line": 1152
+    },
+    {
+      "name": "items",
+      "line": 1156
+    },
+    {
+      "name": "tasks",
+      "line": 1157
+    },
+    {
+      "name": "risks",
+      "line": 1158
+    },
+    {
+      "name": "projects",
+      "line": 1160
+    },
+    {
+      "name": "invoices",
+      "line": 1169
+    },
+    {
+      "name": "projects",
+      "line": 1194
+    },
+    {
+      "name": "projects",
+      "line": 1195
+    },
+    {
+      "name": "projects",
+      "line": 1225
+    },
+    {
+      "name": "projects",
+      "line": 1226
+    },
+    {
+      "name": "projects",
+      "line": 1226
+    },
+    {
+      "name": "projects",
+      "line": 1227
+    },
+    {
+      "name": "projects",
+      "line": 1227
+    },
+    {
+      "name": "projects",
+      "line": 1227
+    },
+    {
+      "name": "contracts",
+      "line": 1227
+    },
+    {
+      "name": "contracts",
+      "line": 1227
+    },
+    {
+      "name": "invoices",
+      "line": 1227
+    },
+    {
+      "name": "invoices",
+      "line": 1227
+    },
+    {
+      "name": "cash",
+      "line": 1227
+    },
+    {
+      "name": "cash",
+      "line": 1227
+    },
+    {
+      "name": "items",
+      "line": 1227
+    },
+    {
+      "name": "items",
+      "line": 1227
+    },
+    {
+      "name": "dailies",
+      "line": 1227
+    },
+    {
+      "name": "dailies",
+      "line": 1227
+    },
+    {
+      "name": "tasks",
+      "line": 1227
+    },
+    {
+      "name": "tasks",
+      "line": 1227
+    },
+    {
+      "name": "projects",
+      "line": 1229
+    },
+    {
+      "name": "projects",
+      "line": 1231
+    },
+    {
+      "name": "projects",
+      "line": 1233
+    },
+    {
+      "name": "projects",
+      "line": 1235
+    },
+    {
+      "name": "projects",
+      "line": 1241
+    },
+    {
+      "name": "projects",
+      "line": 1242
+    },
+    {
+      "name": "projects",
+      "line": 1242
+    },
+    {
+      "name": "projects",
+      "line": 1245
+    },
+    {
+      "name": "projects",
+      "line": 1265
+    },
+    {
+      "name": "projects",
+      "line": 1266
+    },
+    {
+      "name": "projects",
+      "line": 1266
+    },
+    {
+      "name": "projects",
+      "line": 1269
+    },
+    {
+      "name": "projects",
+      "line": 1289
+    },
+    {
+      "name": "projects",
+      "line": 1290
+    },
+    {
+      "name": "contracts",
+      "line": 1309
+    },
+    {
+      "name": "contracts",
+      "line": 1316
+    },
+    {
+      "name": "contracts",
+      "line": 1317
+    },
+    {
+      "name": "projects",
+      "line": 1319
+    },
+    {
+      "name": "contracts",
+      "line": 1332
+    },
+    {
+      "name": "projects",
+      "line": 1345
+    },
+    {
+      "name": "projects",
+      "line": 1357
+    },
+    {
+      "name": "contracts",
+      "line": 1363
+    },
+    {
+      "name": "contracts",
+      "line": 1375
+    },
+    {
+      "name": "contracts",
+      "line": 1380
+    },
+    {
+      "name": "contracts",
+      "line": 1393
+    },
+    {
+      "name": "contracts",
+      "line": 1393
+    },
+    {
+      "name": "invoices",
+      "line": 1400
+    },
+    {
+      "name": "invoices",
+      "line": 1407
+    },
+    {
+      "name": "invoices",
+      "line": 1408
+    },
+    {
+      "name": "projects",
+      "line": 1412
+    },
+    {
+      "name": "projects",
+      "line": 1435
+    },
+    {
+      "name": "settings",
+      "line": 1447
+    },
+    {
+      "name": "settings",
+      "line": 1448
+    },
+    {
+      "name": "settings",
+      "line": 1449
+    },
+    {
+      "name": "settings",
+      "line": 1450
+    },
+    {
+      "name": "projects",
+      "line": 1526
+    },
+    {
+      "name": "invoices",
+      "line": 1537
+    },
+    {
+      "name": "invoices",
+      "line": 1547
+    },
+    {
+      "name": "invoices",
+      "line": 1568
+    },
+    {
+      "name": "invoices",
+      "line": 1582
+    },
+    {
+      "name": "cash",
+      "line": 1587
+    },
+    {
+      "name": "invoices",
+      "line": 1594
+    },
+    {
+      "name": "invoices",
+      "line": 1594
+    },
+    {
+      "name": "invoices",
+      "line": 1599
+    },
+    {
+      "name": "projects",
+      "line": 1602
+    },
+    {
+      "name": "settings",
+      "line": 1607
+    },
+    {
+      "name": "checks",
+      "line": 1644
+    },
+    {
+      "name": "checks",
+      "line": 1651
+    },
+    {
+      "name": "checks",
+      "line": 1652
+    },
+    {
+      "name": "projects",
+      "line": 1677
+    },
+    {
+      "name": "checks",
+      "line": 1687
+    },
+    {
+      "name": "checks",
+      "line": 1692
+    },
+    {
+      "name": "checks",
+      "line": 1702
+    },
+    {
+      "name": "cash",
+      "line": 1709
+    },
+    {
+      "name": "cash",
+      "line": 1711
+    },
+    {
+      "name": "checks",
+      "line": 1721
+    },
+    {
+      "name": "checks",
+      "line": 1721
+    },
+    {
+      "name": "pettyFunds",
+      "line": 1728
+    },
+    {
+      "name": "pettyFunds",
+      "line": 1732
+    },
+    {
+      "name": "pettyTx",
+      "line": 1733
+    },
+    {
+      "name": "pettyTx",
+      "line": 1734
+    },
+    {
+      "name": "pettyFunds",
+      "line": 1738
+    },
+    {
+      "name": "pettyTx",
+      "line": 1739
+    },
+    {
+      "name": "pettyFunds",
+      "line": 1742
+    },
+    {
+      "name": "pettyFunds",
+      "line": 1743
+    },
+    {
+      "name": "pettyTx",
+      "line": 1744
+    },
+    {
+      "name": "pettyTx",
+      "line": 1745
+    },
+    {
+      "name": "pettyFunds",
+      "line": 1770
+    },
+    {
+      "name": "pettyFunds",
+      "line": 1775
+    },
+    {
+      "name": "pettyTx",
+      "line": 1777
+    },
+    {
+      "name": "pettyTx",
+      "line": 1815
+    },
+    {
+      "name": "pettyTx",
+      "line": 1823
+    },
+    {
+      "name": "pettyTx",
+      "line": 1823
+    },
+    {
+      "name": "cash",
+      "line": 1832
+    },
+    {
+      "name": "projects",
+      "line": 1861
+    },
+    {
+      "name": "cash",
+      "line": 1872
+    },
+    {
+      "name": "cash",
+      "line": 1878
+    },
+    {
+      "name": "cash",
+      "line": 1878
+    },
+    {
+      "name": "invoices",
+      "line": 1888
+    },
+    {
+      "name": "settings",
+      "line": 1892
+    },
+    {
+      "name": "projects",
+      "line": 1900
+    },
+    {
+      "name": "projects",
+      "line": 1917
+    },
+    {
+      "name": "projects",
+      "line": 1919
+    },
+    {
+      "name": "projects",
+      "line": 1919
+    },
+    {
+      "name": "adjustments",
+      "line": 1920
+    },
+    {
+      "name": "projects",
+      "line": 1923
+    },
+    {
+      "name": "adjustments",
+      "line": 1947
+    },
+    {
+      "name": "adjustments",
+      "line": 1952
+    },
+    {
+      "name": "adjustments",
+      "line": 1969
+    },
+    {
+      "name": "items",
+      "line": 1986
+    },
+    {
+      "name": "items",
+      "line": 1988
+    },
+    {
+      "name": "items",
+      "line": 1989
+    },
+    {
+      "name": "items",
+      "line": 1992
+    },
+    {
+      "name": "items",
+      "line": 1996
+    },
+    {
+      "name": "items",
+      "line": 1997
+    },
+    {
+      "name": "items",
+      "line": 2029
+    },
+    {
+      "name": "items",
+      "line": 2036
+    },
+    {
+      "name": "items",
+      "line": 2036
+    },
+    {
+      "name": "items",
+      "line": 2041
+    },
+    {
+      "name": "items",
+      "line": 2054
+    },
+    {
+      "name": "personnel",
+      "line": 2083
+    },
+    {
+      "name": "personnel",
+      "line": 2083
+    },
+    {
+      "name": "attendance",
+      "line": 2086
+    },
+    {
+      "name": "personnel",
+      "line": 2087
+    },
+    {
+      "name": "personnel",
+      "line": 2089
+    },
+    {
+      "name": "personnel",
+      "line": 2089
+    },
+    {
+      "name": "attendance",
+      "line": 2092
+    },
+    {
+      "name": "personnel",
+      "line": 2109
+    },
+    {
+      "name": "personnel",
+      "line": 2111
+    },
+    {
+      "name": "attendance",
+      "line": 2128
+    },
+    {
+      "name": "personnel",
+      "line": 2129
+    },
+    {
+      "name": "attendance",
+      "line": 2148
+    },
+    {
+      "name": "personnel",
+      "line": 2149
+    },
+    {
+      "name": "projects",
+      "line": 2168
+    },
+    {
+      "name": "personnel",
+      "line": 2194
+    },
+    {
+      "name": "personnel",
+      "line": 2200
+    },
+    {
+      "name": "personnel",
+      "line": 2201
+    },
+    {
+      "name": "personnel",
+      "line": 2204
+    },
+    {
+      "name": "personnel",
+      "line": 2204
+    },
+    {
+      "name": "attendance",
+      "line": 2207
+    },
+    {
+      "name": "attendance",
+      "line": 2209
+    },
+    {
+      "name": "personnel",
+      "line": 2214
+    },
+    {
+      "name": "attendance",
+      "line": 2214
+    },
+    {
+      "name": "attendance",
+      "line": 2217
+    },
+    {
+      "name": "attendance",
+      "line": 2220
+    },
+    {
+      "name": "attendance",
+      "line": 2220
+    },
+    {
+      "name": "dailies",
+      "line": 2225
+    },
+    {
+      "name": "dailies",
+      "line": 2227
+    },
+    {
+      "name": "projects",
+      "line": 2232
+    },
+    {
+      "name": "projects",
+      "line": 2243
+    },
+    {
+      "name": "projects",
+      "line": 2247
+    },
+    {
+      "name": "dailies",
+      "line": 2255
+    },
+    {
+      "name": "dailies",
+      "line": 2257
+    },
+    {
+      "name": "projects",
+      "line": 2259
+    },
+    {
+      "name": "dailies",
+      "line": 2267
+    },
+    {
+      "name": "dailies",
+      "line": 2267
+    },
+    {
+      "name": "tasks",
+      "line": 2273
+    },
+    {
+      "name": "tasks",
+      "line": 2278
+    },
+    {
+      "name": "projects",
+      "line": 2282
+    },
+    {
+      "name": "projects",
+      "line": 2302
+    },
+    {
+      "name": "tasks",
+      "line": 2315
+    },
+    {
+      "name": "tasks",
+      "line": 2320
+    },
+    {
+      "name": "tasks",
+      "line": 2321
+    },
+    {
+      "name": "tasks",
+      "line": 2324
+    },
+    {
+      "name": "tasks",
+      "line": 2324
+    },
+    {
+      "name": "letters",
+      "line": 2329
+    },
+    {
+      "name": "letters",
+      "line": 2331
+    },
+    {
+      "name": "letters",
+      "line": 2359
+    },
+    {
+      "name": "letters",
+      "line": 2360
+    },
+    {
+      "name": "letters",
+      "line": 2364
+    },
+    {
+      "name": "settings",
+      "line": 2368
+    },
+    {
+      "name": "letters",
+      "line": 2375
+    },
+    {
+      "name": "letters",
+      "line": 2375
+    },
+    {
+      "name": "risks",
+      "line": 2380
+    },
+    {
+      "name": "risks",
+      "line": 2384
+    },
+    {
+      "name": "risks",
+      "line": 2385
+    },
+    {
+      "name": "hse",
+      "line": 2395
+    },
+    {
+      "name": "hse",
+      "line": 2396
+    },
+    {
+      "name": "risks",
+      "line": 2416
+    },
+    {
+      "name": "risks",
+      "line": 2417
+    },
+    {
+      "name": "risks",
+      "line": 2417
+    },
+    {
+      "name": "hse",
+      "line": 2426
+    },
+    {
+      "name": "hse",
+      "line": 2427
+    },
+    {
+      "name": "hse",
+      "line": 2427
+    },
+    {
+      "name": "inspections",
+      "line": 2441
+    },
+    {
+      "name": "inspections",
+      "line": 2445
+    },
+    {
+      "name": "inspections",
+      "line": 2446
+    },
+    {
+      "name": "inspections",
+      "line": 2505
+    },
+    {
+      "name": "inspections",
+      "line": 2509
+    },
+    {
+      "name": "inspections",
+      "line": 2520
+    },
+    {
+      "name": "inspections",
+      "line": 2520
+    },
+    {
+      "name": "ncrs",
+      "line": 2528
+    },
+    {
+      "name": "ncrs",
+      "line": 2532
+    },
+    {
+      "name": "ncrs",
+      "line": 2533
+    },
+    {
+      "name": "ncrs",
+      "line": 2547
+    },
+    {
+      "name": "ncrs",
+      "line": 2564
+    },
+    {
+      "name": "ncrs",
+      "line": 2568
+    },
+    {
+      "name": "ncrs",
+      "line": 2578
+    },
+    {
+      "name": "ncrs",
+      "line": 2578
+    },
+    {
+      "name": "minutes",
+      "line": 2583
+    },
+    {
+      "name": "minutes",
+      "line": 2587
+    },
+    {
+      "name": "minutes",
+      "line": 2588
+    },
+    {
+      "name": "minutes",
+      "line": 2600
+    },
+    {
+      "name": "minutes",
+      "line": 2614
+    },
+    {
+      "name": "minutes",
+      "line": 2618
+    },
+    {
+      "name": "minutes",
+      "line": 2634
+    },
+    {
+      "name": "tasks",
+      "line": 2639
+    },
+    {
+      "name": "minutes",
+      "line": 2646
+    },
+    {
+      "name": "minutes",
+      "line": 2646
+    },
+    {
+      "name": "changes",
+      "line": 2652
+    },
+    {
+      "name": "changes",
+      "line": 2656
+    },
+    {
+      "name": "changes",
+      "line": 2657
+    },
+    {
+      "name": "changes",
+      "line": 2676
+    },
+    {
+      "name": "changes",
+      "line": 2689
+    },
+    {
+      "name": "changes",
+      "line": 2693
+    },
+    {
+      "name": "changes",
+      "line": 2700
+    },
+    {
+      "name": "changes",
+      "line": 2706
+    },
+    {
+      "name": "changes",
+      "line": 2706
+    },
+    {
+      "name": "settings",
+      "line": 2766
+    },
+    {
+      "name": "meta",
+      "line": 2783
+    },
+    {
+      "name": "settings",
+      "line": 2795
+    },
+    {
+      "name": "settings",
+      "line": 2796
+    },
+    {
+      "name": "settings",
+      "line": 2797
+    },
+    {
+      "name": "settings",
+      "line": 2798
+    },
+    {
+      "name": "settings",
+      "line": 2799
+    },
+    {
+      "name": "settings",
+      "line": 2800
+    },
+    {
+      "name": "settings",
+      "line": 2801
+    },
+    {
+      "name": "settings",
+      "line": 2802
+    },
+    {
+      "name": "customFields",
+      "line": 2819
+    },
+    {
+      "name": "customFields",
+      "line": 2824
+    },
+    {
+      "name": "customFields",
+      "line": 2861
+    },
+    {
+      "name": "customFields",
+      "line": 2864
+    },
+    {
+      "name": "customFields",
+      "line": 2864
+    },
+    {
+      "name": "meta",
+      "line": 2879
+    },
+    {
+      "name": "projects",
+      "line": 2886
+    },
+    {
+      "name": "projects",
+      "line": 2886
+    },
+    {
+      "name": "projects",
+      "line": 2886
+    },
+    {
+      "name": "tasks",
+      "line": 2887
+    },
+    {
+      "name": "tasks",
+      "line": 2888
+    },
+    {
+      "name": "risks",
+      "line": 2889
+    },
+    {
+      "name": "items",
+      "line": 2890
+    },
+    {
+      "name": "meta",
+      "line": 2893
+    },
+    {
+      "name": "members",
+      "line": 3293
+    },
+    {
+      "name": "members",
+      "line": 3293
+    },
+    {
+      "name": "members",
+      "line": 3297
+    },
+    {
+      "name": "members",
+      "line": 3298
+    },
+    {
+      "name": "members",
+      "line": 3322
+    },
+    {
+      "name": "members",
+      "line": 3339
+    },
+    {
+      "name": "members",
+      "line": 3343
+    },
+    {
+      "name": "members",
+      "line": 3351
+    },
+    {
+      "name": "members",
+      "line": 3351
+    },
+    {
+      "name": "suppliers",
+      "line": 3591
+    },
+    {
+      "name": "suppliers",
+      "line": 3598
+    },
+    {
+      "name": "suppliers",
+      "line": 3599
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3600
+    },
+    {
+      "name": "suppliers",
+      "line": 3634
+    },
+    {
+      "name": "suppliers",
+      "line": 3639
+    },
+    {
+      "name": "suppliers",
+      "line": 3640
+    },
+    {
+      "name": "suppliers",
+      "line": 3646
+    },
+    {
+      "name": "suppliers",
+      "line": 3646
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3668
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3675
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3676
+    },
+    {
+      "name": "suppliers",
+      "line": 3677
+    },
+    {
+      "name": "suppliers",
+      "line": 3693
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3695
+    },
+    {
+      "name": "suppliers",
+      "line": 3698
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3715
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3716
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3721
+    },
+    {
+      "name": "cash",
+      "line": 3728
+    },
+    {
+      "name": "items",
+      "line": 3730
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3735
+    },
+    {
+      "name": "suppliers",
+      "line": 3737
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3751
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3751
+    },
+    {
+      "name": "punchLists",
+      "line": 3773
+    },
+    {
+      "name": "punchLists",
+      "line": 3776
+    },
+    {
+      "name": "punchLists",
+      "line": 3777
+    },
+    {
+      "name": "punchLists",
+      "line": 3778
+    },
+    {
+      "name": "punchLists",
+      "line": 3779
+    },
+    {
+      "name": "punchLists",
+      "line": 3787
+    },
+    {
+      "name": "punchLists",
+      "line": 3792
+    },
+    {
+      "name": "punchLists",
+      "line": 3793
+    },
+    {
+      "name": "punchLists",
+      "line": 3826
+    },
+    {
+      "name": "punchLists",
+      "line": 3831
+    },
+    {
+      "name": "punchLists",
+      "line": 3842
+    },
+    {
+      "name": "punchLists",
+      "line": 3842
+    },
+    {
+      "name": "settings",
+      "line": 3849
+    },
+    {
+      "name": "punchLists",
+      "line": 3860
+    },
+    {
+      "name": "suppliers",
+      "line": 3890
+    },
+    {
+      "name": "suppliers",
+      "line": 3890
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3891
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 3891
+    },
+    {
+      "name": "punchLists",
+      "line": 3892
+    },
+    {
+      "name": "punchLists",
+      "line": 3892
+    },
+    {
+      "name": "members",
+      "line": 3893
+    },
+    {
+      "name": "members",
+      "line": 3893
+    },
+    {
+      "name": "equipment",
+      "line": 3914
+    },
+    {
+      "name": "equipment",
+      "line": 3914
+    },
+    {
+      "name": "equipmentLog",
+      "line": 3915
+    },
+    {
+      "name": "equipmentLog",
+      "line": 3915
+    },
+    {
+      "name": "equipment",
+      "line": 3922
+    },
+    {
+      "name": "equipment",
+      "line": 3924
+    },
+    {
+      "name": "equipment",
+      "line": 3925
+    },
+    {
+      "name": "equipment",
+      "line": 3926
+    },
+    {
+      "name": "equipment",
+      "line": 3930
+    },
+    {
+      "name": "equipment",
+      "line": 3938
+    },
+    {
+      "name": "equipment",
+      "line": 3939
+    },
+    {
+      "name": "equipmentLog",
+      "line": 3940
+    },
+    {
+      "name": "equipment",
+      "line": 3972
+    },
+    {
+      "name": "equipment",
+      "line": 3977
+    },
+    {
+      "name": "equipment",
+      "line": 3978
+    },
+    {
+      "name": "equipment",
+      "line": 3981
+    },
+    {
+      "name": "equipment",
+      "line": 3981
+    },
+    {
+      "name": "equipment",
+      "line": 3984
+    },
+    {
+      "name": "equipmentLog",
+      "line": 3986
+    },
+    {
+      "name": "projects",
+      "line": 3991
+    },
+    {
+      "name": "projects",
+      "line": 4005
+    },
+    {
+      "name": "equipmentLog",
+      "line": 4013
+    },
+    {
+      "name": "equipmentLog",
+      "line": 4018
+    },
+    {
+      "name": "equipmentLog",
+      "line": 4018
+    },
+    {
+      "name": "leaves",
+      "line": 4035
+    },
+    {
+      "name": "leaves",
+      "line": 4035
+    },
+    {
+      "name": "overtimes",
+      "line": 4036
+    },
+    {
+      "name": "overtimes",
+      "line": 4036
+    },
+    {
+      "name": "leaves",
+      "line": 4043
+    },
+    {
+      "name": "overtimes",
+      "line": 4043
+    },
+    {
+      "name": "leaves",
+      "line": 4048
+    },
+    {
+      "name": "leaves",
+      "line": 4049
+    },
+    {
+      "name": "personnel",
+      "line": 4050
+    },
+    {
+      "name": "overtimes",
+      "line": 4069
+    },
+    {
+      "name": "overtimes",
+      "line": 4070
+    },
+    {
+      "name": "personnel",
+      "line": 4071
+    },
+    {
+      "name": "personnel",
+      "line": 4085
+    },
+    {
+      "name": "personnel",
+      "line": 4088
+    },
+    {
+      "name": "leaves",
+      "line": 4102
+    },
+    {
+      "name": "leaves",
+      "line": 4105
+    },
+    {
+      "name": "leaves",
+      "line": 4106
+    },
+    {
+      "name": "leaves",
+      "line": 4107
+    },
+    {
+      "name": "leaves",
+      "line": 4107
+    },
+    {
+      "name": "personnel",
+      "line": 4110
+    },
+    {
+      "name": "personnel",
+      "line": 4113
+    },
+    {
+      "name": "overtimes",
+      "line": 4125
+    },
+    {
+      "name": "overtimes",
+      "line": 4128
+    },
+    {
+      "name": "overtimes",
+      "line": 4128
+    },
+    {
+      "name": "notes",
+      "line": 4143
+    },
+    {
+      "name": "notes",
+      "line": 4143
+    },
+    {
+      "name": "notes",
+      "line": 4149
+    },
+    {
+      "name": "notes",
+      "line": 4162
+    },
+    {
+      "name": "notes",
+      "line": 4167
+    },
+    {
+      "name": "notes",
+      "line": 4214
+    },
+    {
+      "name": "notes",
+      "line": 4214
+    },
+    {
+      "name": "signatures",
+      "line": 4244
+    },
+    {
+      "name": "signatures",
+      "line": 4244
+    },
+    {
+      "name": "signatures",
+      "line": 4328
+    },
+    {
+      "name": "signatures",
+      "line": 4341
+    },
+    {
+      "name": "signatures",
+      "line": 4389
+    },
+    {
+      "name": "signatures",
+      "line": 4389
+    },
+    {
+      "name": "invoices",
+      "line": 4411
+    },
+    {
+      "name": "projects",
+      "line": 4417
+    },
+    {
+      "name": "invoices",
+      "line": 4441
+    },
+    {
+      "name": "projects",
+      "line": 4446
+    },
+    {
+      "name": "invoices",
+      "line": 4468
+    },
+    {
+      "name": "invoices",
+      "line": 4501
+    },
+    {
+      "name": "invoices",
+      "line": 4502
+    },
+    {
+      "name": "projects",
+      "line": 4504
+    },
+    {
+      "name": "personnel",
+      "line": 4557
+    },
+    {
+      "name": "attendance",
+      "line": 4563
+    },
+    {
+      "name": "subcontractors",
+      "line": 4653
+    },
+    {
+      "name": "subcontractors",
+      "line": 4653
+    },
+    {
+      "name": "subcontractors",
+      "line": 4660
+    },
+    {
+      "name": "subcontractors",
+      "line": 4662
+    },
+    {
+      "name": "subcontractors",
+      "line": 4664
+    },
+    {
+      "name": "subcontractors",
+      "line": 4666
+    },
+    {
+      "name": "subcontractors",
+      "line": 4673
+    },
+    {
+      "name": "subcontractors",
+      "line": 4674
+    },
+    {
+      "name": "projects",
+      "line": 4700
+    },
+    {
+      "name": "subcontractors",
+      "line": 4721
+    },
+    {
+      "name": "subcontractors",
+      "line": 4726
+    },
+    {
+      "name": "subcontractors",
+      "line": 4734
+    },
+    {
+      "name": "subcontractors",
+      "line": 4734
+    },
+    {
+      "name": "subcontractors",
+      "line": 4739
+    },
+    {
+      "name": "subcontractors",
+      "line": 4764
+    },
+    {
+      "name": "subcontractors",
+      "line": 4778
+    },
+    {
+      "name": "cash",
+      "line": 4785
+    },
+    {
+      "name": "signatures",
+      "line": 4799
+    },
+    {
+      "name": "signatures",
+      "line": 4799
+    },
+    {
+      "name": "subcontractors",
+      "line": 4800
+    },
+    {
+      "name": "subcontractors",
+      "line": 4800
+    },
+    {
+      "name": "equipment",
+      "line": 4801
+    },
+    {
+      "name": "equipment",
+      "line": 4801
+    },
+    {
+      "name": "equipmentLog",
+      "line": 4802
+    },
+    {
+      "name": "equipmentLog",
+      "line": 4802
+    },
+    {
+      "name": "leaves",
+      "line": 4803
+    },
+    {
+      "name": "leaves",
+      "line": 4803
+    },
+    {
+      "name": "overtimes",
+      "line": 4804
+    },
+    {
+      "name": "overtimes",
+      "line": 4804
+    },
+    {
+      "name": "notes",
+      "line": 4805
+    },
+    {
+      "name": "notes",
+      "line": 4805
+    },
+    {
+      "name": "suppliers",
+      "line": 4806
+    },
+    {
+      "name": "suppliers",
+      "line": 4806
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 4807
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 4807
+    },
+    {
+      "name": "punchLists",
+      "line": 4808
+    },
+    {
+      "name": "punchLists",
+      "line": 4808
+    },
+    {
+      "name": "projects",
+      "line": 4918
+    },
+    {
+      "name": "tasks",
+      "line": 4919
+    },
+    {
+      "name": "invoices",
+      "line": 4920
+    },
+    {
+      "name": "checks",
+      "line": 4921
+    },
+    {
+      "name": "projects",
+      "line": 4948
+    },
+    {
+      "name": "projects",
+      "line": 4949
+    },
+    {
+      "name": "projects",
+      "line": 4949
+    },
+    {
+      "name": "projects",
+      "line": 4955
+    },
+    {
+      "name": "items",
+      "line": 5100
+    },
+    {
+      "name": "invoices",
+      "line": 5130
+    },
+    {
+      "name": "checks",
+      "line": 5160
+    },
+    {
+      "name": "checks",
+      "line": 5177
+    },
+    {
+      "name": "invoices",
+      "line": 5192
+    },
+    {
+      "name": "settings",
+      "line": 5197
+    },
+    {
+      "name": "items",
+      "line": 5212
+    },
+    {
+      "name": "risks",
+      "line": 5224
+    },
+    {
+      "name": "tasks",
+      "line": 5236
+    },
+    {
+      "name": "dailies",
+      "line": 5251
+    },
+    {
+      "name": "projects",
+      "line": 5252
+    },
+    {
+      "name": "signatures",
+      "line": 5341
+    },
+    {
+      "name": "signatures",
+      "line": 5341
+    },
+    {
+      "name": "subcontractors",
+      "line": 5342
+    },
+    {
+      "name": "subcontractors",
+      "line": 5342
+    },
+    {
+      "name": "suppliers",
+      "line": 5343
+    },
+    {
+      "name": "suppliers",
+      "line": 5343
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 5344
+    },
+    {
+      "name": "purchaseOrders",
+      "line": 5344
+    },
+    {
+      "name": "punchLists",
+      "line": 5345
+    },
+    {
+      "name": "punchLists",
+      "line": 5345
+    },
+    {
+      "name": "equipment",
+      "line": 5346
+    },
+    {
+      "name": "equipment",
+      "line": 5346
+    },
+    {
+      "name": "equipmentLog",
+      "line": 5347
+    },
+    {
+      "name": "equipmentLog",
+      "line": 5347
+    },
+    {
+      "name": "leaves",
+      "line": 5348
+    },
+    {
+      "name": "leaves",
+      "line": 5348
+    },
+    {
+      "name": "overtimes",
+      "line": 5349
+    },
+    {
+      "name": "overtimes",
+      "line": 5349
+    },
+    {
+      "name": "notes",
+      "line": 5350
+    },
+    {
+      "name": "notes",
+      "line": 5350
+    },
+    {
+      "name": "letters",
+      "line": 5412
+    },
+    {
+      "name": "settings",
+      "line": 5419
+    },
+    {
+      "name": "settings",
+      "line": 5420
+    },
+    {
+      "name": "projects",
+      "line": 5515
+    },
+    {
+      "name": "projects",
+      "line": 5569
+    },
+    {
+      "name": "contracts",
+      "line": 5572
+    },
+    {
+      "name": "contracts",
+      "line": 5573
+    },
+    {
+      "name": "invoices",
+      "line": 5578
+    },
+    {
+      "name": "cash",
+      "line": 5591
+    },
+    {
+      "name": "cash",
+      "line": 5592
+    },
+    {
+      "name": "projects",
+      "line": 5626
+    },
+    {
+      "name": "projects",
+      "line": 5627
+    },
+    {
+      "name": "projects",
+      "line": 5627
+    },
+    {
+      "name": "projects",
+      "line": 5630
+    },
+    {
+      "name": "projects",
+      "line": 5689
+    },
+    {
+      "name": "settings",
+      "line": 5694
+    },
+    {
+      "name": "settings",
+      "line": 5701
+    },
+    {
+      "name": "settings",
+      "line": 5712
+    },
+    {
+      "name": "certificates",
+      "line": 5735
+    },
+    {
+      "name": "certificates",
+      "line": 5735
+    },
+    {
+      "name": "projects",
+      "line": 5746
+    },
+    {
+      "name": "settings",
+      "line": 5757
+    },
+    {
+      "name": "certificates",
+      "line": 5760
+    },
+    {
+      "name": "certificates",
+      "line": 5765
+    },
+    {
+      "name": "projects",
+      "line": 5767
+    },
+    {
+      "name": "settings",
+      "line": 5771
+    },
+    {
+      "name": "certificates",
+      "line": 5804
+    },
+    {
+      "name": "projects",
+      "line": 5807
+    },
+    {
+      "name": "projects",
+      "line": 5809
+    },
+    {
+      "name": "certificates",
+      "line": 5818
+    },
+    {
+      "name": "certificates",
+      "line": 5819
+    },
+    {
+      "name": "certificates",
+      "line": 5847
+    },
+    {
+      "name": "certificates",
+      "line": 5847
+    },
+    {
+      "name": "projects",
+      "line": 5909
+    },
+    {
+      "name": "projects",
+      "line": 5945
+    },
+    {
+      "name": "projects",
+      "line": 5987
+    },
+    {
+      "name": "projects",
+      "line": 5988
+    },
+    {
+      "name": "projects",
+      "line": 5988
+    },
+    {
+      "name": "projects",
+      "line": 5994
+    },
+    {
+      "name": "projects",
+      "line": 6111
+    },
+    {
+      "name": "projects",
+      "line": 6146
+    },
+    {
+      "name": "projects",
+      "line": 6238
+    },
+    {
+      "name": "settings",
+      "line": 6257
+    },
+    {
+      "name": "settings",
+      "line": 6258
+    },
+    {
+      "name": "settings",
+      "line": 6259
+    },
+    {
+      "name": "settings",
+      "line": 6260
+    },
+    {
+      "name": "invoices",
+      "line": 6381
+    },
+    {
+      "name": "projects",
+      "line": 6438
+    },
+    {
+      "name": "projects",
+      "line": 6526
+    },
+    {
+      "name": "projects",
+      "line": 6586
+    },
+    {
+      "name": "projects",
+      "line": 6629
+    },
+    {
+      "name": "projects",
+      "line": 6660
+    },
+    {
+      "name": "invoices",
+      "line": 6743
+    },
+    {
+      "name": "projects",
+      "line": 6747
+    },
+    {
+      "name": "settings",
+      "line": 6758
+    },
+    {
+      "name": "settings",
+      "line": 6848
+    },
+    {
+      "name": "settings",
+      "line": 6870
+    },
+    {
+      "name": "invoices",
+      "line": 7030
+    },
+    {
+      "name": "invoices",
+      "line": 7037
+    },
+    {
+      "name": "invoices",
+      "line": 7045
+    },
+    {
+      "name": "projects",
+      "line": 7048
+    },
+    {
+      "name": "settings",
+      "line": 7049
+    },
+    {
+      "name": "meta",
+      "line": 7391
+    },
+    {
+      "name": "meta",
+      "line": 7391
+    },
+    {
+      "name": "meta",
+      "line": 7392
+    },
+    {
+      "name": "meta",
+      "line": 7392
+    },
+    {
+      "name": "meta",
+      "line": 7501
+    },
+    {
+      "name": "meta",
+      "line": 7501
+    },
+    {
+      "name": "meta",
+      "line": 7502
+    },
+    {
+      "name": "meta",
+      "line": 7502
+    },
+    {
+      "name": "projects",
+      "line": 7569
+    },
+    {
+      "name": "settings",
+      "line": 7570
+    },
+    {
+      "name": "invoices",
+      "line": 7795
+    },
+    {
+      "name": "invoices",
+      "line": 7817
+    },
+    {
+      "name": "invoices",
+      "line": 7842
+    },
+    {
+      "name": "invoices",
+      "line": 8221
+    },
+    {
+      "name": "invoices",
+      "line": 8228
+    },
+    {
+      "name": "invoices",
+      "line": 8241
+    },
+    {
+      "name": "projects",
+      "line": 8244
+    },
+    {
+      "name": "settings",
+      "line": 8245
+    },
+    {
+      "name": "tasks",
+      "line": 8732
+    },
+    {
+      "name": "checks",
+      "line": 8735
+    },
+    {
+      "name": "invoices",
+      "line": 8738
+    },
+    {
+      "name": "settings",
+      "line": 8740
+    },
+    {
+      "name": "projects",
+      "line": 8746
+    },
+    {
+      "name": "hse",
+      "line": 8749
+    },
+    {
+      "name": "timers",
+      "line": 8916
+    },
+    {
+      "name": "timers",
+      "line": 8916
+    },
+    {
+      "name": "timers",
+      "line": 8920
+    },
+    {
+      "name": "timers",
+      "line": 8922
+    },
+    {
+      "name": "timers",
+      "line": 8928
+    },
+    {
+      "name": "timers",
+      "line": 8937
+    },
+    {
+      "name": "timers",
+      "line": 8941
+    },
+    {
+      "name": "timers",
+      "line": 8969
+    },
+    {
+      "name": "ratings",
+      "line": 8983
+    },
+    {
+      "name": "ratings",
+      "line": 8983
+    },
+    {
+      "name": "ratings",
+      "line": 8988
+    },
+    {
+      "name": "ratings",
+      "line": 9000
+    },
+    {
+      "name": "ratings",
+      "line": 9006
+    },
+    {
+      "name": "timeLog",
+      "line": 9078
+    },
+    {
+      "name": "timeLog",
+      "line": 9078
+    },
+    {
+      "name": "timeLog",
+      "line": 9082
+    },
+    {
+      "name": "timeLog",
+      "line": 9088
+    },
+    {
+      "name": "timeLog",
+      "line": 9103
+    },
+    {
+      "name": "timeLog",
+      "line": 9112
+    },
+    {
+      "name": "gallery",
+      "line": 9251
+    },
+    {
+      "name": "gallery",
+      "line": 9251
+    },
+    {
+      "name": "gallery",
+      "line": 9255
+    },
+    {
+      "name": "projects",
+      "line": 9257
+    },
+    {
+      "name": "projects",
+      "line": 9263
+    },
+    {
+      "name": "gallery",
+      "line": 9279
+    },
+    {
+      "name": "gallery",
+      "line": 9299
+    },
+    {
+      "name": "gallery",
+      "line": 9310
+    },
+    {
+      "name": "gallery",
+      "line": 9310
+    },
+    {
+      "name": "gallery",
+      "line": 9355
+    },
+    {
+      "name": "projects",
+      "line": 9382
+    },
+    {
+      "name": "projects",
+      "line": 9398
+    },
+    {
+      "name": "projects",
+      "line": 9426
+    },
+    {
+      "name": "settings",
+      "line": 9460
+    },
+    {
+      "name": "settings",
+      "line": 9466
+    },
+    {
+      "name": "settings",
+      "line": 9486
+    },
+    {
+      "name": "settings",
+      "line": 9508
+    },
+    {
+      "name": "settings",
+      "line": 9516
+    },
+    {
+      "name": "settings",
+      "line": 9517
+    },
+    {
+      "name": "settings",
+      "line": 9525
+    },
+    {
+      "name": "settings",
+      "line": 9528
+    },
+    {
+      "name": "settings",
+      "line": 9534
+    },
+    {
+      "name": "settings",
+      "line": 9549
+    },
+    {
+      "name": "settings",
+      "line": 9567
+    },
+    {
+      "name": "settings",
+      "line": 9602
+    },
+    {
+      "name": "settings",
+      "line": 9627
+    },
+    {
+      "name": "invoices",
+      "line": 9727
+    },
+    {
+      "name": "comments",
+      "line": 9734
+    },
+    {
+      "name": "comments",
+      "line": 9734
+    },
+    {
+      "name": "comments",
+      "line": 9740
+    },
+    {
+      "name": "comments",
+      "line": 9751
+    },
+    {
+      "name": "comments",
+      "line": 9756
+    },
+    {
+      "name": "comments",
+      "line": 9783
+    },
+    {
+      "name": "comments",
+      "line": 9783
+    },
+    {
+      "name": "projects",
+      "line": 9828
+    },
+    {
+      "name": "permits",
+      "line": 9850
+    },
+    {
+      "name": "permits",
+      "line": 9850
+    },
+    {
+      "name": "permits",
+      "line": 9866
+    },
+    {
+      "name": "permits",
+      "line": 9872
+    },
+    {
+      "name": "permits",
+      "line": 9877
+    },
+    {
+      "name": "permits",
+      "line": 9895
+    },
+    {
+      "name": "permits",
+      "line": 9896
+    },
+    {
+      "name": "projects",
+      "line": 9903
+    },
+    {
+      "name": "projects",
+      "line": 9932
+    },
+    {
+      "name": "permits",
+      "line": 9951
+    },
+    {
+      "name": "permits",
+      "line": 9962
+    },
+    {
+      "name": "permits",
+      "line": 9966
+    },
+    {
+      "name": "permits",
+      "line": 9975
+    },
+    {
+      "name": "permits",
+      "line": 9975
+    },
+    {
+      "name": "guarantees",
+      "line": 9980
+    },
+    {
+      "name": "guarantees",
+      "line": 9980
+    },
+    {
+      "name": "guarantees",
+      "line": 9991
+    },
+    {
+      "name": "guarantees",
+      "line": 9993
+    },
+    {
+      "name": "guarantees",
+      "line": 9995
+    },
+    {
+      "name": "guarantees",
+      "line": 9997
+    },
+    {
+      "name": "guarantees",
+      "line": 10009
+    },
+    {
+      "name": "guarantees",
+      "line": 10010
+    },
+    {
+      "name": "projects",
+      "line": 10045
+    },
+    {
+      "name": "guarantees",
+      "line": 10063
+    },
+    {
+      "name": "guarantees",
+      "line": 10071
+    },
+    {
+      "name": "guarantees",
+      "line": 10071
+    },
+    {
+      "name": "projects",
+      "line": 10080
+    },
+    {
+      "name": "projects",
+      "line": 10084
+    },
+    {
+      "name": "projects",
+      "line": 10093
+    },
+    {
+      "name": "cash",
+      "line": 10097
+    },
+    {
+      "name": "invoices",
+      "line": 10099
+    },
+    {
+      "name": "invoices",
+      "line": 10101
+    },
+    {
+      "name": "checks",
+      "line": 10154
+    },
+    {
+      "name": "checks",
+      "line": 10162
+    },
+    {
+      "name": "invoices",
+      "line": 10170
+    },
+    {
+      "name": "settings",
+      "line": 10174
+    },
+    {
+      "name": "settings",
+      "line": 10225
+    },
+    {
+      "name": "settings",
+      "line": 10243
+    },
+    {
+      "name": "checks",
+      "line": 10247
+    },
+    {
+      "name": "permits",
+      "line": 10257
+    },
+    {
+      "name": "settings",
+      "line": 10883
+    },
+    {
+      "name": "settings",
+      "line": 10894
+    },
+    {
+      "name": "settings",
+      "line": 11905
+    },
+    {
+      "name": "activityMaterials",
+      "line": 11939
+    },
+    {
+      "name": "activityMaterials",
+      "line": 11939
+    },
+    {
+      "name": "activityMaterials",
+      "line": 11945
+    },
+    {
+      "name": "activityMaterials",
+      "line": 11962
+    },
+    {
+      "name": "invoices",
+      "line": 11968
+    },
+    {
+      "name": "invoices",
+      "line": 11995
+    },
+    {
+      "name": "projects",
+      "line": 12014
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12129
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12129
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12136
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12151
+    },
+    {
+      "name": "projects",
+      "line": 12166
+    },
+    {
+      "name": "materialCalcs",
+      "line": 12182
+    },
+    {
+      "name": "materialCalcs",
+      "line": 12201
+    },
+    {
+      "name": "projects",
+      "line": 12231
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12308
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12360
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12365
+    },
+    {
+      "name": "projects",
+      "line": 12388
+    },
+    {
+      "name": "projects",
+      "line": 12389
+    },
+    {
+      "name": "projects",
+      "line": 12389
+    },
+    {
+      "name": "projects",
+      "line": 12395
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12421
+    },
+    {
+      "name": "materialCalcs",
+      "line": 12519
+    },
+    {
+      "name": "materialCalcs",
+      "line": 12519
+    },
+    {
+      "name": "materialCalcs",
+      "line": 12524
+    },
+    {
+      "name": "projects",
+      "line": 12570
+    },
+    {
+      "name": "projects",
+      "line": 12582
+    },
+    {
+      "name": "invoices",
+      "line": 12671
+    },
+    {
+      "name": "invoices",
+      "line": 12697
+    },
+    {
+      "name": "invoices",
+      "line": 12713
+    },
+    {
+      "name": "activityMaterials",
+      "line": 12731
+    },
+    {
+      "name": "invoices",
+      "line": 12734
+    },
+    {
+      "name": "invoices",
+      "line": 12768
+    },
+    {
+      "name": "invoices",
+      "line": 12772
+    },
+    {
+      "name": "invoices",
+      "line": 12773
+    },
+    {
+      "name": "invoices",
+      "line": 12774
+    },
+    {
+      "name": "invoices",
+      "line": 12775
+    },
+    {
+      "name": "projects",
+      "line": 12798
+    },
+    {
+      "name": "settings",
+      "line": 12807
+    },
+    {
+      "name": "projects",
+      "line": 12828
+    },
+    {
+      "name": "projects",
+      "line": 12850
+    },
+    {
+      "name": "invoices",
+      "line": 12867
+    },
+    {
+      "name": "settings",
+      "line": 12871
+    },
+    {
+      "name": "settings",
+      "line": 12890
+    },
+    {
+      "name": "invoices",
+      "line": 12896
+    },
+    {
+      "name": "invoices",
+      "line": 12916
+    },
+    {
+      "name": "invoices",
+      "line": 12930
+    },
+    {
+      "name": "projects",
+      "line": 12944
+    },
+    {
+      "name": "invoices",
+      "line": 12973
+    },
+    {
+      "name": "invoices",
+      "line": 12973
+    },
+    {
+      "name": "invoices",
+      "line": 13017
+    },
+    {
+      "name": "settings",
+      "line": 13035
+    },
+    {
+      "name": "invoices",
+      "line": 13066
+    },
+    {
+      "name": "projects",
+      "line": 13088
+    },
+    {
+      "name": "projects",
+      "line": 13088
+    },
+    {
+      "name": "invoices",
+      "line": 13090
+    },
+    {
+      "name": "invoices",
+      "line": 13124
+    },
+    {
+      "name": "invoices",
+      "line": 13159
+    },
+    {
+      "name": "projects",
+      "line": 13189
+    }
+  ],
+  "storageOperations": [
+    {
+      "name": "localStorage.getItem",
+      "line": 1046
+    },
+    {
+      "name": "localStorage.setItem",
+      "line": 1049
+    },
+    {
+      "name": "localStorage.getItem",
+      "line": 2964
+    },
+    {
+      "name": "localStorage.setItem",
+      "line": 2972
+    },
+    {
+      "name": "indexedDB.open",
+      "line": 3013
+    },
+    {
+      "name": "localStorage.getItem",
+      "line": 3378
+    },
+    {
+      "name": "localStorage.setItem",
+      "line": 3384
+    },
+    {
+      "name": "localStorage.removeItem",
+      "line": 3436
+    },
+    {
+      "name": "sessionStorage.getItem",
+      "line": 7993
+    },
+    {
+      "name": "sessionStorage.setItem",
+      "line": 8019
+    },
+    {
+      "name": "sessionStorage.getItem",
+      "line": 8025
+    },
+    {
+      "name": "sessionStorage.setItem",
+      "line": 8034
+    },
+    {
+      "name": "localStorage.getItem",
+      "line": 8852
+    },
+    {
+      "name": "sessionStorage.getItem",
+      "line": 8861
+    },
+    {
+      "name": "localStorage.setItem",
+      "line": 8874
+    },
+    {
+      "name": "sessionStorage.setItem",
+      "line": 8878
+    },
+    {
+      "name": "localStorage.setItem",
+      "line": 8886
+    },
+    {
+      "name": "localStorage.clear",
+      "line": 9542
+    },
+    {
+      "name": "sessionStorage.getItem",
+      "line": 9550
+    },
+    {
+      "name": "sessionStorage.setItem",
+      "line": 9568
+    },
+    {
+      "name": "localStorage.setItem",
+      "line": 9641
+    },
+    {
+      "name": "localStorage.getItem",
+      "line": 9657
+    },
+    {
+      "name": "sessionStorage.getItem",
+      "line": 10251
+    },
+    {
+      "name": "sessionStorage.setItem",
+      "line": 10253
+    },
+    {
+      "name": "sessionStorage.getItem",
+      "line": 10263
+    },
+    {
+      "name": "sessionStorage.setItem",
+      "line": 10265
+    }
+  ],
+  "persistenceDeclarations": [
+    {
+      "name": "mana.db.v2",
+      "line": 1040
+    },
+    {
+      "name": "mana-attach",
+      "line": 3006
+    },
+    {
+      "name": "files",
+      "line": 3006
+    },
+    {
+      "name": "mana.dash.widgets",
+      "line": 3369
+    },
+    {
+      "name": "mana.lastBackup",
+      "line": 8849
+    }
+  ]
+}

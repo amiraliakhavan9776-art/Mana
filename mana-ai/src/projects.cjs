@@ -1,4 +1,5 @@
 'use strict';
+const { canAccessProject } = require('./security.cjs');
 function validateProjects(input) {
   if (!Array.isArray(input) || input.length > 10000) throw new Error('Invalid projects fixture');
   const ids = new Set();
@@ -12,7 +13,7 @@ function validateProjects(input) {
   });
 }
 function projectsFor(principal, projects) {
-  return projects.filter(p => p.orgId === principal.orgId)
+  return projects.filter(p => canAccessProject(principal, p))
     .map(p => ({ id: p.id, name: p.name }));
 }
 module.exports = { validateProjects, projectsFor };

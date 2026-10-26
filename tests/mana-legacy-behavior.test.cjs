@@ -77,3 +77,18 @@ test('storage failure reports an error without silently reporting success', () =
   assert.equal(messages[0].kind, 'err');
   assert.match(messages[0].message, /quota exceeded/);
 });
+
+test('invoice calculation preserves deductions, VAT base and Persian numeric inputs', () => {
+  const ctx = legacy(['toEn','num','invoiceCalc'], { DB:{settings:{retention:5,tax:3,insurance:2,vat:10}} });
+  const result=ctx.invoiceCalc({items:[{qty:'۲',price:'۱۰۰۰',coef:'۱٫۵'.replace('٫','.') }],otherDed:100});
+  assert.equal(result.gross,3000);
+  assert.equal(result.retention,150);assert.equal(result.tax,90);assert.equal(result.insurance,60);
+  assert.equal(result.otherDed,100);assert.equal(result.vat,260);assert.equal(result.net,2860);
+});
+
+test('invoice explicit zero rates override defaults; payments sum Persian and Arabic digits', () => {
+  const ctx=legacy(['toEn','num','sum','invoiceCalc','invoicePaid'],{DB:{settings:{retention:5,tax:3,insurance:2,vat:10}}});
+  assert.equal(ctx.invoiceCalc({items:[{qty:2,price:1000}],retention:0,tax:0,insurance:0,vat:0}).net,2000);
+  assert.equal(ctx.invoicePaid({payments:[{amount:'۱,۲۰۰'},{amount:'٨٠٠'}]}),2000);
+  assert.equal(ctx.invoiceCalc({items:[],retention:0,tax:0,insurance:0,vat:0}).net,0);
+});

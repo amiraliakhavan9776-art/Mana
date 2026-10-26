@@ -13,3 +13,8 @@ node --test mana-ai/tests/*.test.cjs
 ```
 
 At source cc614aeb, the existing 102 tests passed on Node v24.22.1 on 2026-10-26. This follow-up adds four passing legacy behavioral tests (106 total). Browser, full migration and production acceptance remain open. See [review evidence](../docs/mana-ai-inventory-and-regression.md) and [canonical gates](../docs/mana-ai-delivery-gates.md). No actual model runtime, GPU, production login system, mobile sync deployment or server provisioning has been completed. Next steps: run tests, fix failures, provision local inference, integrate safe authenticated voice/planning, and test across two devices behind HTTPS/VPN.
+
+
+## Control hardening follow-up
+
+122 local Node tests now pass. Project access requires explicit trusted projectIds grants; token-only bootstrap has none. Independent audit anchoring and encrypted backup verification are tested interfaces, not provisioned production services. Browser CI is separate and must be checked. See [verification and integration requirements](../docs/mana-ai-control-verification.md). G1/G2 and consequential-action approval remain open.
