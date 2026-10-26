@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "730f47b0a5becaf405ed64c17a6197e1715cefa6195fd9f8cec3582be93d8a75",
+  "sourceSetDigest": "a1b250e82f8a1ba33367007234d4470f4a2a2ac1f0aa2a6c61a95d67e6a31f8c",
   "fileCount": 190,
   "files": [
     {
@@ -131,9 +131,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 13779,
-      "sha256": "ec5db619151f1aa627270d3fcbf43553ef9172c101a8d6820cd946f7091821dc",
-      "gitBlob": "d36040ad827f9637169fdc3b76ee8c625eed8a91",
+      "bytes": 15560,
+      "sha256": "e744e2a40c5e8be170a70714c34d3f948f0e23f3483c467985fc2fed75f8f980",
+      "gitBlob": "81a1740574cc108f481ef45f5c1fb698c26a71c0",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false

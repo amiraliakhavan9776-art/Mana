@@ -2,13 +2,16 @@
 
 «ساخته‌شده و تست‌شده» فقط محدوده مشخص این جدول را تأیید می‌کند؛ هیچ ردیف به معنای آمادگی تولید نیست. مبنا: فایل‌های شاخه GitHub و آزمون‌های این مرحله؛ گزارش سرور مدرک پذیرش محسوب نمی‌شود.
 
+به‌روزرسانی تطبیق با کد تا `7d5fa6f`: وضعیت‌های قدیمیِ برنامه‌ریزی مجدد، حافظه شخصی، گردش‌های محدود فارسی و فایل‌های PDF/XLSX با پیاده‌سازی‌های بعدی تطبیق داده شدند. «نمونه اولیه» پذیرش عملیاتی یا تکمیل قابلیت عمومی نیست. گیت‌های G1/G2 و سه مأموریت واقعی همچنان بازند؛ هیچ تأیید بازبین فرض نشده است.
+
 | حوزه | قابلیت | وضعیت | شاهد / محدودیت |
 |---|---|---|---|
 | Mission Runtime | Dependency graph execution / typed dependency validation | ساخته‌شده و تست‌شده | mission-runtime; document-tools: 3-step file workflow |
 | Mission Runtime | Durable mission/task state / pause / resume / cancel | ساخته‌شده و تست‌شده | single-host encrypted pilot; cooperative cancellation |
 | Mission Runtime | Timeout / bounded retry / idempotency / unknown reconciliation | ساخته‌شده و تست‌شده | safe retry opt-in; unknown never replays |
 | Mission Runtime | Crash/restart / attempt evidence | ساخته‌شده و تست‌شده | SIGKILL during invocation; stale storage lock needs operator |
-| Mission Runtime | Automatic repair / outcome-based replanning | ساخته‌نشده | failure stops for review/retry |
+| Mission Runtime | Outcome-based replanning | نمونه اولیه | failed-output replan; bounded generations/original budget; no unknown-effect replay; mana-development-acceptance.md |
+| Mission Runtime | General automatic repair | ساخته‌نشده | no general code/model self-repair or sandbox release pipeline |
 | Mission Runtime | Untrusted code sandbox / public progress UI | ساخته‌نشده | trusted adapters only; no public endpoint |
 | Intelligence | Multi-step planning / goal decomposition / WBS | نمونه اولیه | symbolic positive-fact bounded planner; no general language reasoning |
 | Intelligence | Evidence reasoning / uncertainty / Reality Check | نمونه اولیه | scope/conflict checks and defined output invariants only |
@@ -31,18 +34,21 @@
 | Tools | Registry / scoped authorization / output contracts | ساخته‌شده و تست‌شده | factory registration; per-project capability checks |
 | Tools | Real file read / analysis / report artifact | ساخته‌شده و تست‌شده | pinned inventory JSON to verified Markdown |
 | Tools | Database / external API / software adapters | ساخته‌نشده | no authorized production connection |
-| Tools | Word / PDF / Excel / presentation generation | ساخته‌نشده | not implemented as runtime tools |
+| Tools | Bounded PDF report/booklet generation | نمونه اولیه | actual ReportLab runtime tools; generated benchmarks only; mana-executable-workflows.md |
+| Tools | Bounded financial XLSX generation | نمونه اولیه | actual local workbook evidence; host exporter required and not bundled/assumed in CI or servers |
+| Tools | Word / presentation generation | ساخته‌نشده | provider contracts are not executable accepted providers |
 | Tools | Document and image understanding | نمونه اولیه | text retrieval prototypes; no general multimodal pipeline |
 | Tools | Isolated browser / software control | ساخته‌نشده | no computer execution enabled |
 | AEC | Phase 0: land / climate / sun / wind / regulation / feasibility | ساخته‌نشده | licensed/source-backed adapter + specialist validation required |
-| AEC | Phase 1: concepts / plan / mass / facade / interior | ساخته‌نشده | licensed/source-backed adapter + specialist validation required |
+| AEC | Phase 1: concepts / plan / mass / facade / interior | نمونه اولیه | fixed rectangular two-bedroom schematic DXF only; no general design/massing/facade/interior; geometry-v2 limits apply |
 | AEC | Phase 2: execution drawings / sections / details | ساخته‌نشده | licensed/source-backed adapter + specialist validation required |
 | AEC | AutoCAD / Revit / BIM / 3D software integration | ساخته‌نشده | licensed/source-backed adapter + specialist validation required |
 | AEC | Editable DWG / IFC / native 3D with conversion QA | ساخته‌نشده | licensed/source-backed adapter + specialist validation required |
-| AEC | Renders / animation / architecture booklet | ساخته‌نشده | licensed/source-backed adapter + specialist validation required |
-| AEC | Drawing / specification / quantity consistency | ساخته‌نشده | licensed/source-backed adapter + specialist validation required |
+| AEC | Renders / animation | ساخته‌نشده | actual licensed/available renderer and independent validation required |
+| AEC | Bounded architecture PDF booklet | نمونه اولیه | schematic DXF/hash/quantity-linked PDF; not full phase-0-to-construction booklet |
+| AEC | Drawing / specification / quantity consistency | نمونه اولیه | saved DXF layers/IDs/hash and bounded area/room-side wall-surface checks; no complete specification/BoQ acceptance |
 | Technical office | WBS / schedule / CPM / progress | نمونه اولیه | WBS only; CPM/scheduling not accepted |
-| Technical office | Full takeoff / labor / equipment / MEP / finishes / facade | نمونه اولیه | limited facade deterministic pilot |
+| Technical office | Full takeoff / labor / equipment / MEP / finishes / facade | نمونه اولیه | limited facade pilot plus schematic floor/perimeter/room-side wall surfaces; no complete BoQ, MEP/labor/equipment costing |
 | Technical office | Quantity and cost optimization | ساخته‌نشده | full constrained optimization absent |
 | Technical office | Six payment-claim modes / mixed contracts | نمونه اولیه | legacy UI exists; complete regressions absent |
 | Technical office | Site evidence / approvals / deductions / guarantees / penalties / adjustment | نمونه اولیه | selected legacy rules and approval-store; no full pipeline |
@@ -63,12 +69,13 @@
 | Universal industries | Integration Studio | ساخته‌نشده | blueprints are not operational departments; isolated industry packs required |
 | Universal industries | Permissioned profession workflows | ساخته‌نشده | blueprints are not operational departments; isolated industry packs required |
 | Jarvis | Persian / multilingual voice | نمونه اولیه | existing voice/session experiments do not establish private Jarvis |
-| Jarvis | Tasks / meetings / documents / follow-up | ساخته‌نشده | existing voice/session experiments do not establish private Jarvis |
+| Jarvis | Tasks / meetings / documents / follow-up | نمونه اولیه | bounded personal document/design missions only; no calendar/meeting/account follow-up connector pipeline |
 | Jarvis | Personal and business decision support | ساخته‌نشده | existing voice/session experiments do not establish private Jarvis |
 | Jarvis | Income / investment scenarios and risk | ساخته‌نشده | existing voice/session experiments do not establish private Jarvis |
 | Jarvis | Branding / marketing / business advisory | ساخته‌نشده | existing voice/session experiments do not establish private Jarvis |
-| Jarvis | Conversational multi-step missions | ساخته‌نشده | existing voice/session experiments do not establish private Jarvis |
-| Jarvis | Separate encrypted personal memory / organization bridge | ساخته‌نشده | existing voice/session experiments do not establish private Jarvis |
+| Jarvis | Conversational multi-step missions | نمونه اولیه | two bounded Persian intents, revisions, verified artifacts and shared execution cycle; no general voice/language capability |
+| Jarvis | Separate encrypted personal memory | نمونه اولیه | owner/realm-bound consent, CAS correction, expiry and logical deletion; not production key/backup erasure acceptance |
+| Jarvis | Personal / organization bridge | ساخته‌نشده | no automatic transfer of private statements into organization memory, evidence or grants |
 | Jarvis | Sensitive and external action approval | ساخته‌نشده | existing voice/session experiments do not establish private Jarvis |
 | Creative | Image generation / editing | ساخته‌نشده | mandatory backlog; specialist model/tool adapter and rights/provenance required |
 | Creative | Video generation / editing | ساخته‌نشده | mandatory backlog; specialist model/tool adapter and rights/provenance required |
@@ -86,7 +93,7 @@
 | Security / production | Backup / restore | نمونه اولیه | legacy encrypted backup tests; full live restore acceptance open |
 | Security / production | Cost / quotas / resource use | نمونه اولیه | bounded inputs/states/deadlines; CPU/process quotas absent |
 | Security / production | Prompt injection / untrusted data / secret redaction | نمونه اولیه | no generated-code execution; general policy/redaction coverage incomplete |
-| Security / production | Legacy regressions / migration | نمونه اولیه | selected tests; complete semantic inventory/migration open |
+| Security / production | Legacy regressions / migration | نمونه اولیه | lexical scope/override evidence, exact snapshot comparison and selected approval/save regressions; complete semantic inventory/historical migration open |
 | Security / production | Staging / rollback / production readiness | نمونه اولیه | not deployed; staged rollback drill absent |
 
 ## ترتیب وابستگی و توقف
