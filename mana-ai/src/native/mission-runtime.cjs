@@ -37,6 +37,19 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
  function toolScope(principal,project,missionId=null){return Object.freeze({organizationId:project.orgId,projectId:project.id,actorId:principal.id,missionId})}
  function write(state,m,result=snapshot(m)){return {write:true,state,result}}
  function get({principal,project,missionId}){check(principal,project,'read');return transact(state=>({result:snapshot(find(state,missionId,project))}))}
+ function list({principal,project,limit=50,after=null}){
+  check(principal,project,'read');
+  if(!Number.isInteger(limit)||limit<1||limit>100||(after!==null&&(typeof after!=='string'||!/^[a-f0-9-]{36}$/.test(after))))throw Error('Invalid mission pagination');
+  return transact(state=>{
+   const rows=state.missions.filter(m=>m.orgId===project.orgId&&m.projectId===project.id).sort((a,b)=>b.createdAt-a.createdAt||(a.id<b.id?1:a.id>b.id?-1:0));
+   let start=0;if(after!==null){const index=rows.findIndex(m=>m.id===after);if(index<0)throw Error('Invalid mission cursor');start=index+1;}
+   const page=rows.slice(start,start+limit),items=page.map(m=>{
+    const counts={pending:0,running:0,succeeded:0,failed:0,unknown:0,superseded:0};for(const task of m.tasks){if(!Object.hasOwn(counts,task.status))throw Error('Invalid task state');counts[task.status]++;}
+    return {id:m.id,status:m.status,version:m.version,createdAt:m.createdAt,deadlineAt:m.deadlineAt,taskCounts:counts};
+   });
+   return {result:{items,nextCursor:start+limit<rows.length?page.at(-1).id:null}};
+  });
+ }
  function create({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits}){
   check(principal,project,'create');if(typeof requestKey!=='string'||!ID.test(requestKey))throw Error('Mission request key required');
   const supplied=clone(inputs);
@@ -168,6 +181,6 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    Object.assign(task.attempts.at(-1),{status:'reconciled',finishedAt:time(),evidenceReference});Object.assign(task,{status:'succeeded',result:recovered,resultDigest:payloadDigest(recovered),recoveryEvidence:evidenceReference});m.status=outcome(m);event(m,principal,'reconciled',taskId);return write(state,m);
   });
  }
- return Object.freeze({create,get,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry,replan});
+ return Object.freeze({create,get,list,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry,replan});
 }
 module.exports={createMissionRuntime};

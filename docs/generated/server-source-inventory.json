@@ -1,0 +1,1040 @@
+{
+  "contract": "MANA_SERVER_SOURCE_INVENTORY_V1",
+  "parser": {
+    "name": "acorn",
+    "version": "8.15.0"
+  },
+  "fileCount": 42,
+  "sourceBytes": 58754,
+  "syntaxErrorCount": 1,
+  "sourceSetDigest": "abf3f168cd9aa4ed077f0a9ed1fb2965cd2c857af26c862ee43e298cd0e7f76c",
+  "files": [
+    {
+      "path": "dashboard/server.cjs",
+      "bytes": 4872,
+      "sha256": "e6c8ad8cad176f0f0adf00e689334325d4f0a1f3ee7376d36111bb2511d7c56c",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:http",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "evolution/1818c852-d7bd-4974-8fe6-7cc133efa17c/candidate.cjs",
+      "bytes": 706,
+      "sha256": "4523080c5b9e6b6e6b0f2305ab5ee71b0ba24e5bfa2c51a8c4edaefe2c2de5bc",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "evolution/35afc008-c7f8-4db3-baeb-4aeb24864901/candidate.cjs",
+      "bytes": 88,
+      "sha256": "5b3aa7b820cbe685fde912cb265e500169a2cf8e20c7082308bf6911029ffaed",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 1,
+          "loader": "require",
+          "specifier": "fs",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "evolution/45df4499-859b-450e-8cf5-c0ea0deaad58/candidate.cjs",
+      "bytes": 361,
+      "sha256": "2dcaa56158acebe1169d3185525dd94b400d919255e74ecbba6d6c70182ee02e",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "evolution/4ea7bd41-7bcb-494f-802b-f5dcad8ca681/candidate.cjs",
+      "bytes": 224,
+      "sha256": "3702d32cc771137f37d07f1bb795d7abcb29695e08232e99174e76aa5f1affe2",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "evolution/9bedca19-ac44-4f61-b579-dad3f5fbc126/candidate.cjs",
+      "bytes": 43,
+      "sha256": "76fd75c96558655bd2f3e5537044fc9aefad78f09cb70cf2796233ee63e3ab1b",
+      "syntaxParsed": false,
+      "parseError": {
+        "message": "Unsupported or invalid JavaScript syntax",
+        "line": 1,
+        "column": 25
+      }
+    },
+    {
+      "path": "evolution/a41e3456-4ddb-47ba-8a00-55a14daa3324/candidate.cjs",
+      "bytes": 54,
+      "sha256": "fee8a9e7cbe2fe4261dc4728226ce00e7da4daf37ab582ee92cddd150e1d8d44",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "evolution/ce9c8ec9-063a-408b-81fb-e8de43c6c915/candidate.cjs",
+      "bytes": 492,
+      "sha256": "26ba6a36f2de9f94d04e3bc071ae08cbbd5eceb81d20b8394e66344e19ca4a9b",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "evolution/e500ffff-cee5-4ad4-b2d1-7c8dffdb9f00/candidate.cjs",
+      "bytes": 361,
+      "sha256": "2dcaa56158acebe1169d3185525dd94b400d919255e74ecbba6d6c70182ee02e",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-ai-coder.cjs",
+      "bytes": 2705,
+      "sha256": "5b4be0940c6d72e0f3e8ae65a7fd3a23aec71be343a03d6a08b82a191a1a3c0b",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:http",
+          "status": "node_builtin"
+        },
+        {
+          "line": 9,
+          "loader": "require",
+          "specifier": "./mana-self-evolution.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-self-evolution.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 37,
+          "call": "http.request",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-council.cjs",
+      "bytes": 2194,
+      "sha256": "50afb4a1a62489572a1787327e4c186ba851a7e88e5d0c6e9dd0bf3f33ed6280",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:assert/strict",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-decision-memory.cjs",
+      "bytes": 936,
+      "sha256": "36ea4f7d82d6fc903bc0f2a2dabb238d7bf8f2eb77de7241a9c14be5394cad06",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "./mana-council.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-council.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 24,
+          "call": "fs.appendFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-evolution-audit.cjs",
+      "bytes": 3777,
+      "sha256": "81a11ebb61865a3829276747baa327d7a0ad13b5efadced4e321459a281f0959",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "node:child_process",
+          "status": "node_builtin"
+        },
+        {
+          "line": 7,
+          "loader": "require",
+          "specifier": "./mana-quality-gate.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-quality-gate.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 87,
+          "call": "spawnSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 149,
+          "call": "fs.writeFileSync",
+          "activation": "top_level_candidate"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-finance.cjs",
+      "bytes": 2347,
+      "sha256": "f2413a5ab2851b35acffc004ac4c36b2885863f00052bf36b343e0fca92798c1",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-financial-council.cjs",
+      "bytes": 1774,
+      "sha256": "204ff5e36f90d041f654bb7a77d2751df405394f6e3456a661e0115482e9b090",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "../v0.6/mana-finance.cjs",
+          "status": "not_in_snapshot",
+          "resolved": "v0.6/mana-finance.cjs"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-general-runner.cjs",
+      "bytes": 1454,
+      "sha256": "d462e16db1dad40cf703037f33fbc1b7c32629e24ee3526d0836be33163d5f5f",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "./mana-native-gateway.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-native-gateway.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 43,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-intelligence-core-v5.cjs",
+      "bytes": 1289,
+      "sha256": "4e0da68590d89207999013c75c7fd30a9eb7670e4584a945958b8cf01e22da22",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "./mana-general-runner.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-general-runner.cjs"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "./mana-council.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-council.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 22,
+          "call": "fs.mkdirSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 24,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-local-ai.cjs",
+      "bytes": 1505,
+      "sha256": "bb813fa117c538caa1bb95dff4f13db36830b63ab78c0ba9dd3d05e1cecc1af1",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:http",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 23,
+          "call": "http.request",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-mission-engine.cjs",
+      "bytes": 2613,
+      "sha256": "eb5894260184139e60497c0b5470b3d3dd063cac3db965eb2638a1967b972516",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 95,
+          "call": "fs.mkdirSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 99,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-mission-memory-v51.cjs",
+      "bytes": 1205,
+      "sha256": "adddfad72a1e07ca87f50df05e50c506c9caa6936d77bbea4886c8de3c45e909",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "./mana-intelligence-core-v5.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-intelligence-core-v5.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 8,
+          "call": "fs.mkdirSync",
+          "activation": "top_level_candidate"
+        },
+        {
+          "line": 20,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-native-evaluator.cjs",
+      "bytes": 1949,
+      "sha256": "16538382af7d1a6a9cdc7c31a595093c4b650451d0e858d2e81a125eecbb4040",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "node:child_process",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 44,
+          "call": "spawnSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 72,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-native-gateway.cjs",
+      "bytes": 2330,
+      "sha256": "6da4018af4b419b3071b242f0fe0ff80a153808af06ce79d5d034a582068e46b",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-orchestrator.cjs",
+      "bytes": 2968,
+      "sha256": "382929d41b3c1140ce66523b84f4cb56e3866b53be2f6cfa032087ed0bbf2899",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 7,
+          "call": "fs.mkdirSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 19,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 20,
+          "call": "fs.renameSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-protected-memory.cjs",
+      "bytes": 1343,
+      "sha256": "2b7b79a5efc14193ab813707a49d996ac11cc3a1e5ae76cf3409eed93c415f8f",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "./mana-scoped-memory.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-scoped-memory.cjs"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-quality-gate.cjs",
+      "bytes": 1205,
+      "sha256": "9a193df65b0f2140adf02323ee7b6ed6aea664db19a80baf182edec189d47c84",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-scenarios.cjs",
+      "bytes": 1018,
+      "sha256": "dbd16caf960412cab2fe756f32def55a951bf081eaba2fea5a6e1261b404d714",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "./mana-council.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-council.cjs"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "modules/mana-scoped-memory.cjs",
+      "bytes": 1806,
+      "sha256": "786b484d66bc1b729421930976931a6299683fdc222b22994db3367535c9326b",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:module",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "createRequire",
+          "specifier": "/opt/mana-ai/security/users.cjs",
+          "status": "absolute_host_dependency"
+        },
+        {
+          "line": 8,
+          "loader": "appRequire",
+          "specifier": "better-sqlite3",
+          "status": "external_package"
+        },
+        {
+          "line": 9,
+          "loader": "require",
+          "specifier": "./mana-council.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-council.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 14,
+          "call": "db.exec",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-self-evolution.cjs",
+      "bytes": 2502,
+      "sha256": "367b2afec7bafbfb7eaa2ca3464249390293fe625d7e34a10da5a7237534f27c",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "node:child_process",
+          "status": "node_builtin"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 9,
+          "call": "fs.mkdirSync",
+          "activation": "top_level_candidate"
+        },
+        {
+          "line": 23,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 42,
+          "call": "fs.mkdirSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 70,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 90,
+          "call": "spawnSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 112,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-self-repair.cjs",
+      "bytes": 2285,
+      "sha256": "7dc8f5f8cbc33eb06df5ec294ee4208ab4588245e9a89e450e065aa1122ab726",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "./mana-ai-coder.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-ai-coder.cjs"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "./mana-self-evolution.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-self-evolution.cjs"
+        },
+        {
+          "line": 7,
+          "loader": "require",
+          "specifier": "./mana-native-evaluator.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-native-evaluator.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 35,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 52,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "modules/mana-unified-runtime-v4.cjs",
+      "bytes": 1860,
+      "sha256": "56cbd169bd864ef683383bd19518054d6927be7bcd854915b5e8f52a1dd21204",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:crypto",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "./mana-native-gateway.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-native-gateway.cjs"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "./mana-mission-engine.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-mission-engine.cjs"
+        }
+      ],
+      "effectCandidates": [
+        {
+          "line": 57,
+          "call": "fs.mkdirSync",
+          "activation": "function_body"
+        },
+        {
+          "line": 59,
+          "call": "fs.writeFileSync",
+          "activation": "function_body"
+        }
+      ]
+    },
+    {
+      "path": "tests/benchmark-v18/new.cjs",
+      "bytes": 706,
+      "sha256": "4523080c5b9e6b6e6b0f2305ab5ee71b0ba24e5bfa2c51a8c4edaefe2c2de5bc",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/benchmark-v18/next.cjs",
+      "bytes": 492,
+      "sha256": "26ba6a36f2de9f94d04e3bc071ae08cbbd5eceb81d20b8394e66344e19ca4a9b",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/benchmark-v18/old.cjs",
+      "bytes": 361,
+      "sha256": "2dcaa56158acebe1169d3185525dd94b400d919255e74ecbba6d6c70182ee02e",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/benchmark-v18/runner.cjs",
+      "bytes": 1490,
+      "sha256": "cb189105ab43c49a2a8075b8fd74742aa354ddb885b203e435cde781e257bee0",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 14,
+          "loader": "require",
+          "specifier": null,
+          "status": "dynamic"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/benchmark-v18/v3/new.cjs",
+      "bytes": 492,
+      "sha256": "26ba6a36f2de9f94d04e3bc071ae08cbbd5eceb81d20b8394e66344e19ca4a9b",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/benchmark-v18/v3/runner.cjs",
+      "bytes": 1490,
+      "sha256": "cb189105ab43c49a2a8075b8fd74742aa354ddb885b203e435cde781e257bee0",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 14,
+          "loader": "require",
+          "specifier": null,
+          "status": "dynamic"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/sandbox-fixture/area-test.cjs",
+      "bytes": 565,
+      "sha256": "538b849a40633feaf1635e29df00405b36e0d276df9bdcc612aaabec65c39750",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:assert/strict",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "./area.cjs",
+          "status": "in_snapshot",
+          "resolved": "tests/sandbox-fixture/area.cjs"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/sandbox-fixture/area.cjs",
+      "bytes": 338,
+      "sha256": "2a109863cd2d267ad654fe57de62318a356249b249f70734cfd77d2172ba8bd9",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/sandbox-fixture/generated-area.cjs",
+      "bytes": 361,
+      "sha256": "2dcaa56158acebe1169d3185525dd94b400d919255e74ecbba6d6c70182ee02e",
+      "syntaxParsed": true,
+      "imports": [],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/test-generated-area.cjs",
+      "bytes": 506,
+      "sha256": "2e91e1101aa22ce7adee37c3be647681af1dc8ee50d194759a6091ef4dc24e0c",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:assert/strict",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "./sandbox-fixture/generated-area.cjs",
+          "status": "in_snapshot",
+          "resolved": "tests/sandbox-fixture/generated-area.cjs"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/test-orchestrator.cjs",
+      "bytes": 2139,
+      "sha256": "63186f23b9be651575d80ee14fece21b6c527fb4b466d911a1142f196a864e6a",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 2,
+          "loader": "require",
+          "specifier": "node:assert/strict",
+          "status": "node_builtin"
+        },
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:os",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 6,
+          "loader": "require",
+          "specifier": "../modules/mana-orchestrator.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-orchestrator.cjs"
+        }
+      ],
+      "effectCandidates": []
+    },
+    {
+      "path": "tests/test-self-evolution.cjs",
+      "bytes": 1548,
+      "sha256": "45f27d222c25b64dec3adec768bf6dce6073cae197287a66cb76f293779cd5d3",
+      "syntaxParsed": true,
+      "imports": [
+        {
+          "line": 3,
+          "loader": "require",
+          "specifier": "node:assert/strict",
+          "status": "node_builtin"
+        },
+        {
+          "line": 4,
+          "loader": "require",
+          "specifier": "node:fs",
+          "status": "node_builtin"
+        },
+        {
+          "line": 5,
+          "loader": "require",
+          "specifier": "node:path",
+          "status": "node_builtin"
+        },
+        {
+          "line": 11,
+          "loader": "require",
+          "specifier": "../modules/mana-self-evolution.cjs",
+          "status": "in_snapshot",
+          "resolved": "modules/mana-self-evolution.cjs"
+        }
+      ],
+      "effectCandidates": []
+    }
+  ],
+  "limitations": [
+    "Provided source snapshot only; absent files/dependencies are not proof of absence on the live host.",
+    "Syntax errors are explicitly reported per file; unparsed files have no claimed import/effect coverage.",
+    "Function-body versus top-level call sites are lexical candidates, not an execution/call graph.",
+    "No source module was loaded, generated candidate executed, server contacted or data migrated.",
+    "JSON data/config/state, model weights, systemd/Nginx configuration and live identity/database dependencies require separate scoped evidence."
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "8519cb06a83dab623552d1e600ba1804a022df72e5b35cd4c0634bf98532e939",
-  "fileCount": 198,
+  "sourceSetDigest": "ffd64c285027198430cc83ecd09bbdb76223f8762ea30e8e9ab84680487fd734",
+  "fileCount": 203,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -131,9 +131,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 15680,
-      "sha256": "3b1fcdb3a78366c90f1f9526baa77e80a1d3304017def87ff0327cf58d1563a4",
-      "gitBlob": "e38f2552818995e0193465f89753c4e120e6ee1a",
+      "bytes": 15867,
+      "sha256": "f3a162f0e80086ff88385eb0c71d39aa27da54737acd4dab3e65cb8ffcadd26e",
+      "gitBlob": "87757d780ef46138330878236bac3f99798fdbf7",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -203,9 +203,9 @@
     },
     {
       "path": "docs/mana-mission-contract-v1.md",
-      "bytes": 6284,
-      "sha256": "00ef5fa7738eba36116620d1556470c34c878b35d4af68d2091fb3eb89205c84",
-      "gitBlob": "a7344559ef95e18ee1e3020e861b31398f0f9bdf",
+      "bytes": 6554,
+      "sha256": "c6cb747a8724b68724f63c26fd58868048885567b07d547812ac3d7c3d9e4588",
+      "gitBlob": "27e1941ca221036d36d0862038014d305d16522a",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -224,6 +224,15 @@
       "bytes": 3853,
       "sha256": "2962ee24db754ec0da310938833a8cc3ad30e09e2e287e8edc9fb9e8604461c3",
       "gitBlob": "d9f022b5df7d21da6a42d590d2595a1730d25682",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-server-source-review.md",
+      "bytes": 7744,
+      "sha256": "a57f15ed52f7a1f03aaa3cafa2b0bba019a3f238300c18044216f73f445caa94",
+      "gitBlob": "afe19df1f1fd7e8751598bf347565333f8f6b59c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1247,6 +1256,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/integration/mission-projection.cjs",
+      "bytes": 3765,
+      "sha256": "524673a932b0de6f1c97beaa64892736caf79611fae0fe812b3b02b6296e9e94",
+      "gitBlob": "265b2cf269a5d4821715b04090857a41053fec12",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/jarvis/personal-memory.cjs",
       "bytes": 3736,
       "sha256": "6f0fac9d5dd6e3f8c1d2dd99514b3ef8d2348a43824683d15d37d9bcc3890b3c",
@@ -1459,9 +1477,9 @@
     },
     {
       "path": "mana-ai/src/native/mission-runtime.cjs",
-      "bytes": 18411,
-      "sha256": "caaf61f4f09901445197b97df69ac62e89a2f63e03577566f40d247f5dd98304",
-      "gitBlob": "990e23f70113a018fd10d13b1bedff2cb01bce2c",
+      "bytes": 19491,
+      "sha256": "5c3b0e4272f9cd7c91fadefe177e308646958f5df553cc6f9ad0eb56e22cd18b",
+      "gitBlob": "e65df10f2d1f15accab1c481c6c1a2a2f3738b3e",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2907,6 +2925,52 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/mission-projection.test.cjs",
+      "bytes": 4954,
+      "sha256": "ff94291c2d3f92578d3ea39083bf9660757e1850ef6879ee26afdacd4329d693",
+      "gitBlob": "7b414e52dd5c0e26369d615ec158c0e8652588d0",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "../src/native/mission-runtime.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/integration/mission-projection.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/mission-runtime.test.cjs",
       "bytes": 11156,
       "sha256": "74edadd7b4e9f71582429cc510ef4fbf87619564a9b3f08d220e57f94d02286f",
@@ -3763,6 +3827,52 @@
       "testFile": true
     },
     {
+      "path": "tests/mana-server-inventory.test.cjs",
+      "bytes": 1654,
+      "sha256": "7a67f1ef04fc094a86d599b26fb20804cd8cbd2c4133260e00886808794597dc",
+      "gitBlob": "5914d7cf561b6a973536190f11b21bae3821339f",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "../tools/inventory-server.cjs",
+          "line": 3
+        },
+        {
+          "value": "node:fs",
+          "line": 6
+        },
+        {
+          "value": "./absent.cjs",
+          "line": 6
+        },
+        {
+          "value": "package-x",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "tools/inventory-ast.cjs",
       "bytes": 9777,
       "sha256": "e4b852a4eda94ab3a1e513e29e5661dc5f58447faa849674bf47ec515218f617",
@@ -3805,6 +3915,36 @@
         {
           "value": "node:crypto",
           "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "tools/inventory-server.cjs",
+      "bytes": 4688,
+      "sha256": "1e4049d4b446107f39af4694d8f2376e0c075e50d0dd429f24f0d0099fbed501",
+      "gitBlob": "bfb0a974f3fb6d396c186ae212a2c5388aae17c7",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "./parser/node_modules/acorn",
+          "line": 4
+        },
+        {
+          "value": "node:module",
+          "line": 5
         }
       ],
       "environmentCandidates": [],

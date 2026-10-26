@@ -25,12 +25,12 @@
 | Intelligence | Causal consequence simulation / resource scheduling | ساخته‌نشده | requires dedicated implementation/acceptance |
 | Intelligence | Knowledge graph with provenance | ساخته‌نشده | requires dedicated implementation/acceptance |
 | Intelligence | Controlled self-improvement pipeline | ساخته‌نشده | requires dedicated implementation/acceptance |
-| Server integration | Core v5 adapter | ساخته‌نشده | reported source unavailable; v1 contract documented; no live change |
-| Server integration | Memory v5.1 adapter | ساخته‌نشده | reported source unavailable; v1 contract documented; no live change |
-| Server integration | General runner / gateway / mission-engine adapter | ساخته‌نشده | reported source unavailable; v1 contract documented; no live change |
-| Server integration | Council / financial-council adapter | ساخته‌نشده | reported source unavailable; v1 contract documented; no live change |
-| Server integration | Protected / scoped-memory adapter | ساخته‌نشده | reported source unavailable; v1 contract documented; no live change |
-| Server integration | Dashboard v5.2 read-only projection | ساخته‌نشده | reported source unavailable; v1 contract documented; no live change |
+| Server integration | Core v5 adapter | ساخته‌نشده | source snapshot reviewed; wrapper/report writer not connected as a competing executor; mana-server-source-review.md |
+| Server integration | Memory v5.1 adapter | ساخته‌نشده | source received; unscoped plaintext history needs reviewed provenance/scope migration |
+| Server integration | General runner / gateway / mission-engine adapter | ساخته‌نشده | supplied execution paths mapped; no blind replay, competing state writer or live connection |
+| Server integration | Council / financial-council adapter | ساخته‌نشده | rule-based source reviewed; v0.6 dependency not in snapshot; no specialist-council acceptance |
+| Server integration | Protected / scoped-memory adapter | ساخته‌نشده | source reviewed; absolute host/SQLite dependency and production membership mapping remain open |
+| Server integration | Dashboard v5.2 read-only projection | نمونه اولیه | authenticated audited metadata handler over shared Runtime; source/API shape reviewed; not mounted on live host |
 | Tools | Registry / scoped authorization / output contracts | ساخته‌شده و تست‌شده | factory registration; per-project capability checks |
 | Tools | Real file read / analysis / report artifact | ساخته‌شده و تست‌شده | pinned inventory JSON to verified Markdown |
 | Tools | Database / external API / software adapters | ساخته‌نشده | no authorized production connection |

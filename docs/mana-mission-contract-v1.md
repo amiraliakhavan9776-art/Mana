@@ -25,7 +25,7 @@ The underlying exclusive lock intentionally fails closed if occupied. A process 
 
 ## Server adapter prerequisite
 
-Obtain source snapshots/hashes, license/dependencies, auth/tenant semantics, mission schema, durable storage path and key custody for all 10 reported server modules. Compare `mana-mission-engine`/`general-runner` execution and memory writers with this contract. Disable competing writers in an isolated integration environment before connecting a read-only dashboard projection. No server source or access was supplied in this workspace, so duplication beyond names is unverified. Do not expose 127.0.0.1:8891 or change the active service.
+Source follow-up: a 42-file user-supplied server snapshot has been received, hashed and statically reviewed; see `mana-server-source-review.md` and `generated/server-source-inventory.json`. Obtain remaining license/dependency, auth/tenant, active storage/key and service/proxy evidence before live connection. The supplied mission/general-runner/orchestrator writers are distinct execution/state paths; they are not wired beside the reference Runtime. An authenticated read-only compatibility handler now projects reference Runtime metadata without reading or trusting old report files. Disable competing writers in an isolated integration environment only after a reviewed cutover plan; no active server service has been changed. Do not expose 127.0.0.1:8891 or infer production approval from source receipt.
 
 ## Real file workflow
 
