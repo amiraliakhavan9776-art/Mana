@@ -1,10 +1,10 @@
 name: Native from-scratch training checks
 on:
   pull_request:
-    paths: ['mana-ai/training/**', '.github/workflows/native-training.yml']
+    paths: ['mana-ai/training/**', 'mana-ai/src/native/training-feedback.cjs', 'mana-ai/src/security.cjs', 'mana-ai/src/approval-store.cjs', '.github/workflows/native-training.yml']
   push:
     branches: [feature/mana-ai-foundation]
-    paths: ['mana-ai/training/**', '.github/workflows/native-training.yml']
+    paths: ['mana-ai/training/**', 'mana-ai/src/native/training-feedback.cjs', 'mana-ai/src/security.cjs', 'mana-ai/src/approval-store.cjs', '.github/workflows/native-training.yml']
 permissions:
   contents: read
 jobs:
@@ -13,6 +13,9 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'

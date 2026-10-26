@@ -1,6 +1,7 @@
 import contextlib
 import io
 import json
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -13,6 +14,30 @@ CORPUS = Path(__file__).with_name('research-corpus.jsonl')
 
 
 class TrainingTests(unittest.TestCase):
+    def test_reviewed_feedback_export_reaches_real_trainer(self):
+        # Synthetic host authority fixture only; never an approval of company data.
+        root = Path(__file__).resolve().parents[2]
+        script = """
+const fs=require('node:fs');
+const {createTrainingFeedbackExporter}=require('./mana-ai/src/native/training-feedback.cjs');
+const {payloadDigest}=require('./mana-ai/src/approval-store.cjs');
+const rows=fs.readFileSync('./mana-ai/training/research-corpus.jsonl','utf8').trim().split('\\n').map(JSON.parse);
+const records=rows.map(r=>({id:r.id,group:r.group,request:r.request,code:r.code,organizationId:'fixture-org',projectId:'fixture-project',requesterId:'fixture-requester',reviewerId:'fixture-reviewer',consentId:'synthetic-consent',reviewId:'synthetic-review',privacyReviewId:'synthetic-privacy',rightsRef:r.source}));
+const trusted=new Set(records.map(payloadDigest));
+const exporter=createTrainingFeedbackExporter({authorize:()=>true,verifyReview:({digest})=>trusted.has(digest)});
+process.stdout.write(exporter.export({principal:{id:'fixture-exporter',orgId:'fixture-org',role:'analyst',projectIds:['fixture-project'],capabilityIds:['native.training.export']},project:{id:'fixture-project',orgId:'fixture-org'},records}).jsonl);
+"""
+        result = subprocess.run(['node', '-e', script], cwd=root, capture_output=True, text=True, check=True, timeout=10)
+        with tempfile.TemporaryDirectory() as directory, contextlib.redirect_stdout(io.StringIO()):
+            corpus = Path(directory)/'reviewed.jsonl'
+            corpus.write_text(result.stdout)
+            _, manifest = load_corpus(corpus)
+            self.assertEqual(manifest['records'], 36)
+            checkpoint, report = train(corpus, Path(directory)/'run', steps=3, hidden=8, sequence=16)
+            self.assertTrue(checkpoint.is_dir())
+            self.assertEqual(report['step'], 3)
+            self.assertFalse(report['general_coding_acceptance'])
+
     def test_gradients_against_finite_differences(self):
         params, _, _ = initialize(8, 1)
         inputs, targets = [1, 7, 1, 2], [7, 1, 2, 3]

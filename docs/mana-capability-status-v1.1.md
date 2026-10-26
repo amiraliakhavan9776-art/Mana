@@ -24,7 +24,7 @@
 | Intelligence | Decision / mission / organizational memory | نمونه اولیه | encrypted decision and mission stores; organizational knowledge incomplete |
 | Intelligence | Research Engine | نمونه اولیه | existing retrieval/research prototypes; no validated open research mission |
 | Intelligence | Model Router | نمونه اولیه | existing provider abstraction; full routing/evaluation not accepted |
-| Intelligence | Hierarchical task network planning | ساخته‌نشده | requires dedicated implementation/acceptance |
+| Intelligence | Hierarchical task network planning | نمونه اولیه | ordered acyclic host methods, scoped facts/grants/budget, shared-runtime document execution; natural-language decomposition and hierarchical repair remain open |
 | Intelligence | Causal consequence simulation / resource scheduling | ساخته‌نشده | requires dedicated implementation/acceptance |
 | Intelligence | Knowledge graph with provenance | ساخته‌نشده | requires dedicated implementation/acceptance |
 | Intelligence | Controlled self-improvement pipeline | نمونه اولیه | bounded declarative skill propose/test/retry/checkpoint; real code drafts stop before unverified sandbox; mana-local-skill-evolution.md |
@@ -111,3 +111,6 @@
 
 
 آموزش مدل بومی: خط آموزش پژوهشی byte-RNN با وزن‌های تصادفی، ۳۷٬۳۱۳ پارامتر و ۱۰۰۰ گام اجرا شد؛ ۳۶ نمونهٔ ساختگی، نه پذیرش توان کدنویسی. مدل نهایی برنامه‌نویس هنوز ساخته نشده است. جزئیات: `mana-native-model-training.md`.
+
+
+توسعه و آموزش در دو مسیر: برنامه‌ریزی سلسله‌مراتبی به Mission Runtime مشترک وصل شد؛ خروجی بازخورد با تأیید میزبان به آموزش‌دهنده متصل و با fixture ساختگی آزموده شد. دادهٔ واقعی کاربر آموزش داده نشده است. قرارداد: `mana-parallel-development-and-learning.md`.

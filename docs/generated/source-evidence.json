@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "c5488f64c7f421f0193d6f01f6c48c79687f6c56b3b14e584871cf8993733846",
-  "fileCount": 226,
+  "sourceSetDigest": "301073c8624ac6c13d3164db1f777046717e402619abbb63e96db5bfddf91466",
+  "fileCount": 231,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -41,9 +41,9 @@
     },
     {
       "path": ".github/workflows/native-training.yml",
-      "bytes": 694,
-      "sha256": "c82734488c24fe43f72e2ecc7978a64e6f176055a526e7dc2960cd3b6a84dd1c",
-      "gitBlob": "e71eff58d2247c5050f0683e63cb2af688bc70cb",
+      "bytes": 985,
+      "sha256": "665d592e0283015b10658acb37a26fc976c09141b54fdad08820a07223af00a4",
+      "gitBlob": "3aa390bd590488e52ed0ad3bc8ec89502543401f",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -140,9 +140,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 16741,
-      "sha256": "8fb822105a0bcd259fe26ff983ad6e1c37e551f45ad7fc553fec6a4a1d3ef154",
-      "gitBlob": "daa842b65ae5adb80311d5ceb02b418b84f0bf3c",
+      "bytes": 17271,
+      "sha256": "f62a1e0fa618a4c3e1d8b8f19b85caa762d4ae27558ca13c2b2e5329f0cf7c81",
+      "gitBlob": "b369fc369750058e0669e505e88dce9a4987112b",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -242,6 +242,15 @@
       "bytes": 5338,
       "sha256": "5786e4345d5f69255893f959a7166c5af52f5a6c5732be874948d895f50e609a",
       "gitBlob": "50859ea3a507f418f45ab2d6d15427f66a013f63",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-parallel-development-and-learning.md",
+      "bytes": 5498,
+      "sha256": "031662e6ab88f08def80dc6681c0dd90879e0363daa7a66ef54a7518e86eacb9",
+      "gitBlob": "35e84666e252315c547632c6d75c4229005fe897",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -908,9 +917,9 @@
     },
     {
       "path": "mana-ai/mission-document-run.cjs",
-      "bytes": 2433,
-      "sha256": "18a353fd0254ba5c6be8e6ef73166f45126d66d99037f8572cb1fe9ab8e870be",
-      "gitBlob": "415f0d942486dd1f850e2acbfb187e782e7ede9a",
+      "bytes": 2904,
+      "sha256": "81fd8ad0237999fbf68ff628cf5b44a7dbe3f1b653c435ba4a44d638884f416c",
+      "gitBlob": "a8f33d59410cc8dc59add3c5ff269bbfac54940e",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -1686,10 +1695,32 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/native/hierarchical-planner.cjs",
+      "bytes": 5874,
+      "sha256": "7fc92816fd868cc46bc277f33fe7c7a281baea42daafb466f2ac90d600ee0bcd",
+      "gitBlob": "e9d6ecc507ce1a3a3d0595ff2f40494030c2d249",
+      "dependencyCandidates": [
+        {
+          "value": "./core.cjs",
+          "line": 3
+        },
+        {
+          "value": "../security.cjs",
+          "line": 4
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/native/mission-runtime.cjs",
-      "bytes": 19491,
-      "sha256": "5c3b0e4272f9cd7c91fadefe177e308646958f5df553cc6f9ad0eb56e22cd18b",
-      "gitBlob": "e65df10f2d1f15accab1c481c6c1a2a2f3738b3e",
+      "bytes": 20150,
+      "sha256": "c3f202a0fedd29740cabebb2f6490bc9ea62cfbb14613d66cbadebb330296f46",
+      "gitBlob": "df21715495509c3b45b92bd3879ee8bfc87167a7",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -1700,16 +1731,20 @@
           "line": 4
         },
         {
-          "value": "../encrypted-state.cjs",
+          "value": "./hierarchical-planner.cjs",
           "line": 5
         },
         {
-          "value": "../approval-store.cjs",
+          "value": "../encrypted-state.cjs",
           "line": 6
         },
         {
-          "value": "../security.cjs",
+          "value": "../approval-store.cjs",
           "line": 7
+        },
+        {
+          "value": "../security.cjs",
+          "line": 8
         }
       ],
       "environmentCandidates": [],
@@ -1755,6 +1790,24 @@
       "sha256": "1241583c48b400833938799ea5538a7585cd8862444c930fea0b580741829261",
       "gitBlob": "0094eaed10249977a95c607b803884564067b68d",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/training-feedback.cjs",
+      "bytes": 3015,
+      "sha256": "dcc062bd8a8d7491b39286802574c1adde9b9b9ae2b2354dd877c4476599f9ef",
+      "gitBlob": "8f7530e187d274228d8477dd643b84d800b8eb89",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -2922,6 +2975,48 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/hierarchical-planner.test.cjs",
+      "bytes": 5803,
+      "sha256": "f52c906fab268b5d106bdef25a17739c78baca965ba164a6f3c28982aaaf29cc",
+      "gitBlob": "c7e1fbfcb0a2168bb0674316658a911a27c83b4d",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "../src/native/hierarchical-planner.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/mission-runtime.cjs",
+          "line": 4
+        },
+        {
+          "value": "node:child_process",
+          "line": 38
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/import-boundary.test.cjs",
       "bytes": 1205,
       "sha256": "2959e3f86b53ddf4ce82101af88f84473aae92842e773b1f359ca87fe8456e0d",
@@ -3808,6 +3903,32 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/training-feedback.test.cjs",
+      "bytes": 2246,
+      "sha256": "15f7eee44b0c027c6c07350449753acb92a1c2ac819c2deee47588786f1dbad5",
+      "gitBlob": "7ae671cb3a529dd565303197225d60d59769349b",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/native/training-feedback.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/approval-store.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tools/architecture_geometry.py",
       "bytes": 4613,
       "sha256": "7c854292dcc618ac741cfa8a41458846b001a93c827ece97c1b8068327a9fdb4",
@@ -3989,10 +4110,23 @@
     },
     {
       "path": "mana-ai/training/test_training.py",
-      "bytes": 4508,
-      "sha256": "3c47a673f5e04662c139bb48b76ce9d6bf67dbb991d8ee7074c28b2a980850f1",
-      "gitBlob": "660977522f627cd3bcb59f248510f9e61b499638",
-      "dependencyCandidates": [],
+      "bytes": 6473,
+      "sha256": "44cc708a6d28837a79c7dcaab474571a054dc923fe3ea6fba2636ee5c771ed9d",
+      "gitBlob": "04bccbec405ad5586a4e1bf8385c6b33a2c4447e",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 21
+        },
+        {
+          "value": "./mana-ai/src/native/training-feedback.cjs",
+          "line": 22
+        },
+        {
+          "value": "./mana-ai/src/approval-store.cjs",
+          "line": 23
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },

@@ -2,12 +2,13 @@
 // Durable single-host mission execution. Only read/draft adapters may run here.
 const {randomUUID,createHash}=require('node:crypto');
 const {createNativeCore}=require('./core.cjs');
+const {createHierarchicalPlanner}=require('./hierarchical-planner.cjs');
 const {createEncryptedState}=require('../encrypted-state.cjs');
 const {payloadDigest}=require('../approval-store.cjs');
 const {canAccessProject}=require('../security.cjs');
 const ID=/^[A-Za-z0-9_-]{1,100}$/;
 function clone(value){payloadDigest(value);return JSON.parse(JSON.stringify(value))}
-function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2000,missionTtlMs=3600000,maxMissions=100}={}){
+function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2000,missionTtlMs=3600000,maxMissions=100,hierarchicalMethods=null}={}){
  if(!Array.isArray(tools)||tools.length>32||typeof authorize!=='function'||typeof now!=='function'||!Number.isInteger(timeoutMs)||timeoutMs<10||timeoutMs>30000||!Number.isInteger(missionTtlMs)||missionTtlMs<timeoutMs||missionTtlMs>86400000||!Number.isInteger(maxMissions)||maxMissions<1||maxMissions>1000)throw Error('Invalid mission runtime configuration');
  const registry=new Map(),capabilities=[];
  for(const t of tools){
@@ -17,7 +18,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
   const fingerprint=payloadDigest({configurationDigest:t.configurationDigest??null,descriptor,version:t.version,retrySafe:t.retrySafe===true,code:createHash('sha256').update(t.validateDependencies.toString()+t.validate.toString()+t.run.toString()+t.verify.toString()).digest('hex')});
   registry.set(t.id,Object.freeze({...descriptor,version:t.version,retrySafe:t.retrySafe===true,fingerprint,validate:t.validate,validateDependencies:t.validateDependencies,run:t.run,verify:t.verify}));capabilities.push(descriptor);
  }
- const core=createNativeCore({capabilities}),store=createEncryptedState({file,key,kind:'MANA_MISSION_RUNTIME_V1'}),active=new Map();
+ const core=createNativeCore({capabilities}),hierarchy=hierarchicalMethods===null?null:createHierarchicalPlanner({capabilities,methods:hierarchicalMethods}),store=createEncryptedState({file,key,kind:'MANA_MISSION_RUNTIME_V1'}),active=new Map();
  function time(){const value=now();if(!Number.isSafeInteger(value)||value<0||value>Number.MAX_SAFE_INTEGER-86400000)throw Error('Invalid mission clock');return value}
  function check(principal,project,operation){
   if(!principal||typeof principal.id!=='string'||!ID.test(principal.id)||!canAccessProject(principal,project)||!Array.isArray(principal.capabilityIds)||!principal.capabilityIds.includes('native.mission.'+operation)||authorize(principal,operation,{orgId:project.orgId,projectId:project.id})!==true)throw Error('Mission access denied');
@@ -50,20 +51,21 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    return {result:{items,nextCursor:start+limit<rows.length?page.at(-1).id:null}};
   });
  }
- function create({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits}){
+ function create({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits,tasks}){
   check(principal,project,'create');if(typeof requestKey!=='string'||!ID.test(requestKey))throw Error('Mission request key required');
   const supplied=clone(inputs);
   if(!supplied||typeof supplied!=='object'||Array.isArray(supplied))throw Error('Mission inputs required');
-  const plan=core.plan({principal,project,objective,goals,evidence,...(maxWorkUnits===undefined?{}:{maxWorkUnits})});
+  if(tasks!==undefined&&!hierarchy)throw Error('Host hierarchy configuration required');
+  const plan=(tasks===undefined?core:hierarchy).plan({principal,project,objective,goals,evidence,...(tasks===undefined?{}:{tasks}),...(maxWorkUnits===undefined?{}:{maxWorkUnits})});
   if(plan.status!=='PLAN_PROPOSED')return {created:false,analysis:plan};
   const used=new Set(plan.steps.map(s=>s.capabilityId));if(Object.keys(supplied).some(k=>!used.has(k)))throw Error('Unused tool input');
   for(const step of plan.steps){const adapter=registry.get(step.capabilityId);if(!Object.hasOwn(supplied,step.capabilityId)||adapter.validate(clone(supplied[step.capabilityId]),{scope:toolScope(principal,project)})!==true)throw Error('Invalid tool input')}
-  const digest=payloadDigest({objective,goals,evidence,inputs:supplied,maxWorkUnits:maxWorkUnits??null});
+  const digest=payloadDigest({objective,goals,evidence,inputs:supplied,maxWorkUnits:maxWorkUnits??null,...(tasks===undefined?{}:{tasks,hierarchyDigest:hierarchy.configurationDigest})});
   return transact(state=>{
    const existing=state.missions.find(m=>m.orgId===project.orgId&&m.projectId===project.id&&m.requesterId===principal.id&&m.requestKey===requestKey);
    if(existing){if(existing.requestDigest!==digest)throw Error('Request key reused with different content');return {result:{created:false,mission:snapshot(existing)}}}
    if(state.missions.length>=maxMissions)throw Error('Mission storage capacity reached');
-   const issued=time(),m={id:randomUUID(),version:0,orgId:project.orgId,projectId:project.id,requesterId:principal.id,requestKey,requestDigest:digest,workBudget:maxWorkUnits??1000000,objective,goals:[...goals],status:plan.steps.length?'queued':'completed',createdAt:issued,deadlineAt:issued+missionTtlMs,pauseRequested:false,cancelRequested:false,plan,inputs:supplied,tasks:plan.steps.map(s=>({...JSON.parse(JSON.stringify(s)),status:'pending',toolVersion:registry.get(s.capabilityId).version,toolFingerprint:registry.get(s.capabilityId).fingerprint,attemptId:null,attempts:[],result:null})),events:[]};
+   const issued=time(),m={id:randomUUID(),version:0,orgId:project.orgId,projectId:project.id,requesterId:principal.id,requestKey,requestDigest:digest,workBudget:maxWorkUnits??1000000,...(tasks===undefined?{}:{planningMode:'hierarchical',hierarchicalTasks:[...tasks]}),objective,goals:[...goals],status:plan.steps.length?'queued':'completed',createdAt:issued,deadlineAt:issued+missionTtlMs,pauseRequested:false,cancelRequested:false,plan,inputs:supplied,tasks:plan.steps.map(s=>({...JSON.parse(JSON.stringify(s)),status:'pending',toolVersion:registry.get(s.capabilityId).version,toolFingerprint:registry.get(s.capabilityId).fingerprint,attemptId:null,attempts:[],result:null})),events:[]};
    event(m,principal,'created');state.missions.push(m);return write(state,m,{created:true,mission:snapshot(m)});
   });
  }
@@ -151,6 +153,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
   return transact(state=>{
    const m=find(state,missionId,project);
    if(m.version!==expectedVersion)throw Error('Mission version conflict');
+   if(m.planningMode==='hierarchical')throw Error('Hierarchical replan denied pending method-preserving recovery contract');
    if(m.status!=='failed'||m.cancelRequested||time()>=m.deadlineAt||(m.generation??1)>=3||m.tasks.some(t=>['running','unknown'].includes(t.status)))throw Error('Replan denied');
    const succeeded=m.tasks.filter(t=>t.status==='succeeded');
    for(const t of succeeded){if(registry.get(t.capabilityId)?.fingerprint!==t.toolFingerprint||!principal.capabilityIds.includes(t.capabilityId))throw Error('Successful evidence no longer trusted')}
