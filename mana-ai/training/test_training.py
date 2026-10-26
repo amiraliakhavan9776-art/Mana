@@ -80,6 +80,7 @@ class TrainingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)/'run'
             root.mkdir(mode=0o755)
+            root.chmod(0o755)  # Explicit despite restrictive caller umask.
             with self.assertRaisesRegex(ValueError, 'Private'):
                 train(CORPUS, root, steps=1)
             root.chmod(0o700)

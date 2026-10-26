@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "ed1e0461f9182d3d1be56f3898e89d6504c89e7558db9b89ff7ea866df89fd63",
+  "sourceSetDigest": "c5488f64c7f421f0193d6f01f6c48c79687f6c56b3b14e584871cf8993733846",
   "fileCount": 226,
   "files": [
     {
@@ -3989,9 +3989,9 @@
     },
     {
       "path": "mana-ai/training/test_training.py",
-      "bytes": 4432,
-      "sha256": "b2b838a5440ddafe249fb45569178c565a957b45024b9f384c477ecbeae0aa16",
-      "gitBlob": "e43e42db371c2f216c73073a698cd45b9603fa1f",
+      "bytes": 4508,
+      "sha256": "3c47a673f5e04662c139bb48b76ce9d6bf67dbb991d8ee7074c28b2a980850f1",
+      "gitBlob": "660977522f627cd3bcb59f248510f9e61b499638",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
