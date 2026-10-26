@@ -30,7 +30,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
  }
  function outcome(m){
   if(m.cancelRequested)return 'cancelled';
-  if(m.tasks.every(t=>t.status==='succeeded'))return 'completed';
+  if(m.tasks.every(t=>['succeeded','superseded'].includes(t.status)))return 'completed';
   return m.pauseRequested?'paused':'queued';
  }
  function snapshot(m){return JSON.parse(JSON.stringify(m))}
@@ -49,7 +49,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    const existing=state.missions.find(m=>m.orgId===project.orgId&&m.projectId===project.id&&m.requesterId===principal.id&&m.requestKey===requestKey);
    if(existing){if(existing.requestDigest!==digest)throw Error('Request key reused with different content');return {result:{created:false,mission:snapshot(existing)}}}
    if(state.missions.length>=maxMissions)throw Error('Mission storage capacity reached');
-   const issued=time(),m={id:randomUUID(),version:0,orgId:project.orgId,projectId:project.id,requesterId:principal.id,requestKey,requestDigest:digest,objective,goals:[...goals],status:plan.steps.length?'queued':'completed',createdAt:issued,deadlineAt:issued+missionTtlMs,pauseRequested:false,cancelRequested:false,plan,inputs:supplied,tasks:plan.steps.map(s=>({...JSON.parse(JSON.stringify(s)),status:'pending',toolVersion:registry.get(s.capabilityId).version,toolFingerprint:registry.get(s.capabilityId).fingerprint,attemptId:null,attempts:[],result:null})),events:[]};
+   const issued=time(),m={id:randomUUID(),version:0,orgId:project.orgId,projectId:project.id,requesterId:principal.id,requestKey,requestDigest:digest,workBudget:maxWorkUnits??1000000,objective,goals:[...goals],status:plan.steps.length?'queued':'completed',createdAt:issued,deadlineAt:issued+missionTtlMs,pauseRequested:false,cancelRequested:false,plan,inputs:supplied,tasks:plan.steps.map(s=>({...JSON.parse(JSON.stringify(s)),status:'pending',toolVersion:registry.get(s.capabilityId).version,toolFingerprint:registry.get(s.capabilityId).fingerprint,attemptId:null,attempts:[],result:null})),events:[]};
    event(m,principal,'created');state.missions.push(m);return write(state,m,{created:true,mission:snapshot(m)});
   });
  }
@@ -81,6 +81,8 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    if(!adapter||adapter.fingerprint!==task.toolFingerprint){m.status='needs_replan';event(m,principal,'tool_version_changed',task.taskId);return write(state,m,{invoke:false,mission:snapshot(m)})}
    if(!['read','draft'].includes(adapter.risk)){m.status='awaiting_approval';event(m,principal,'consequential_execution_disabled',task.taskId);return write(state,m,{invoke:false,mission:snapshot(m)})}
    if(!principal.capabilityIds.includes(task.capabilityId))throw Error('Tool capability revoked');
+   const spent=m.tasks.reduce((n,t)=>n+t.workUnits*t.attempts.length,0);
+   if(spent+task.workUnits>(m.workBudget??1000000)){m.status='budget_exhausted';event(m,principal,'budget_exhausted',task.taskId);return write(state,m,{invoke:false,mission:snapshot(m)})}
    const attemptId=randomUUID();Object.assign(task,{status:'running',attemptId,leaseUntil:Math.min(time()+timeoutMs,m.deadlineAt)});task.attempts.push({attemptId,startedAt:time(),status:'running'});m.status='running';event(m,principal,'claimed',task.taskId);
    return write(state,m,{invoke:true,task:JSON.parse(JSON.stringify(task)),input:clone(m.inputs[task.capabilityId]),dependencies:m.tasks.filter(t=>task.dependsOn.includes(t.taskId)).map(t=>({taskId:t.taskId,capabilityId:t.capabilityId,result:clone(t.result)})),leaseUntil:task.leaseUntil});
   });
@@ -129,6 +131,30 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    t.status='pending';m.status='queued';event(m,principal,'retry_requested',taskId);return write(state,m);
   });
  }
+ function replan({principal,project,missionId,expectedVersion,evidence,inputs,maxWorkUnits}){
+  check(principal,project,'replan');const supplied=clone(inputs);
+  if(!supplied||typeof supplied!=='object'||Array.isArray(supplied))throw Error('Replan inputs required');
+  return transact(state=>{
+   const m=find(state,missionId,project);
+   if(m.version!==expectedVersion)throw Error('Mission version conflict');
+   if(m.status!=='failed'||m.cancelRequested||time()>=m.deadlineAt||(m.generation??1)>=3||m.tasks.some(t=>['running','unknown'].includes(t.status)))throw Error('Replan denied');
+   const succeeded=m.tasks.filter(t=>t.status==='succeeded');
+   for(const t of succeeded){if(registry.get(t.capabilityId)?.fingerprint!==t.toolFingerprint||!principal.capabilityIds.includes(t.capabilityId))throw Error('Successful evidence no longer trusted')}
+   const excluded=new Set(m.tasks.filter(t=>t.status==='failed'||t.previousStatus==='failed').map(t=>t.capabilityId));
+   const receipts=succeeded.flatMap((t,i)=>registry.get(t.capabilityId).produces.map((key,j)=>({id:'receipt_'+i+'_'+j,orgId:m.orgId,projectId:m.projectId,key,value:true,source:'verified-task:'+t.taskId+':'+t.resultDigest,verification:'verified'})));
+   const remaining=(m.workBudget??1000000)-m.tasks.reduce((n,t)=>n+t.workUnits*t.attempts.length,0);
+   if(maxWorkUnits!==undefined&&(!Number.isSafeInteger(maxWorkUnits)||maxWorkUnits<0||maxWorkUnits>remaining))throw Error('Replan budget increase denied');
+   const plan=createNativeCore({capabilities:capabilities.filter(c=>!excluded.has(c.id))}).plan({principal,project,objective:m.objective,goals:m.goals,evidence:[...clone(evidence),...receipts],maxWorkUnits:maxWorkUnits??remaining});
+   if(plan.status!=='PLAN_PROPOSED')return {result:{replanned:false,analysis:plan}};
+   const used=new Set(plan.steps.map(t=>t.capabilityId));
+   if(Object.keys(supplied).some(k=>!used.has(k)))throw Error('Unused replan input');
+   for(const step of plan.steps)if(!Object.hasOwn(supplied,step.capabilityId)||registry.get(step.capabilityId).validate(clone(supplied[step.capabilityId]))!==true)throw Error('Invalid replan input');
+   const generation=(m.generation??1)+1,rename=id=>'g'+generation+'-'+id;
+   for(const t of m.tasks)if(['failed','pending'].includes(t.status)){t.previousStatus=t.status;t.status='superseded'}
+   const tasks=plan.steps.map(step=>({...snapshot(step),taskId:rename(step.taskId),dependsOn:[...step.dependsOn.map(rename),...succeeded.filter(t=>registry.get(t.capabilityId).produces.some(f=>registry.get(step.capabilityId).requires.includes(f))).map(t=>t.taskId)],status:'pending',toolVersion:registry.get(step.capabilityId).version,toolFingerprint:registry.get(step.capabilityId).fingerprint,attemptId:null,attempts:[],result:null}));
+   m.planHistory=[...(m.planHistory??[]),m.plan];m.plan=plan;m.generation=generation;m.tasks.push(...tasks);Object.assign(m.inputs,supplied);m.status=tasks.length?'queued':outcome(m);event(m,principal,'replanned');return write(state,m,{replanned:true,mission:snapshot(m)});
+  });
+ }
  function reconcile({principal,project,missionId,expectedVersion,taskId,attemptId,result,evidenceReference}){
   check(principal,project,'reconcile');if(typeof evidenceReference!=='string'||!evidenceReference.trim()||evidenceReference.length>1000)throw Error('Recovery evidence required');
   const recovered=clone(result);
@@ -141,6 +167,6 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    Object.assign(task.attempts.at(-1),{status:'reconciled',finishedAt:time(),evidenceReference});Object.assign(task,{status:'succeeded',result:recovered,resultDigest:payloadDigest(recovered),recoveryEvidence:evidenceReference});m.status=outcome(m);event(m,principal,'reconciled',taskId);return write(state,m);
   });
  }
- return Object.freeze({create,get,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry});
+ return Object.freeze({create,get,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry,replan});
 }
 module.exports={createMissionRuntime};
