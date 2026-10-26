@@ -7,6 +7,7 @@ const { validateProjects, projectsFor } = require('./projects.cjs');
 const { createAuditLog } = require('./audit.cjs');
 const { createDurableAuditLog } = require('./durable-audit.cjs');
 const { loadAuditAnchor } = require('./file-audit-anchor.cjs');
+const { createNativeApi } = require('./native/api.cjs');
 const { loadProjectSnapshot } = require('./snapshot.cjs');
 const { loadDocuments, validateDocuments } = require('./documents.cjs');
 const { createEngine, createLocalOpenAICompatibleProvider } = require('./engine.cjs');
@@ -35,7 +36,7 @@ function tokenMatches(supplied, expected) {
   const b = Buffer.from(expected);
   return a.length === b.length && a.length > 0 && timingSafeEqual(a, b);
 }
-function createServer({ token, principals, projects = [], audit = createAuditLog(), engine = null, documents = [] } = {}) {
+function createServer({ token, principals, projects = [], audit = createAuditLog(), engine = null, documents = [], nativeCore = null, nativeEvidence = [] } = {}) {
   if (typeof token !== 'string' || token.length < 32) {
     throw new Error('MANA_AI_TOKEN must be at least 32 characters');
   }
@@ -46,12 +47,14 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
   const users = normalizePrincipals(principals || [{ id: 'local-admin', orgId: 'local', role: 'admin', token }]);
   const safeProjects = validateProjects(projects);
   const safeDocuments = validateDocuments(documents);
+  const nativeApi=nativeCore?createNativeApi({core:nativeCore,authenticate:req=>authenticate(req.headers.authorization||'',users),projects:safeProjects,evidence:nativeEvidence,audit}):null;
   const agent = createAgentRunner({ audit, tools: createReadOnlyAgentTools({ projects: safeProjects, documents: safeDocuments }) });
   return http.createServer((req, res) => {
     if (!req.url || req.url.length > MAX_URL_LENGTH) {
       return json(res, 414, { error: 'uri_too_long' });
     }
     const pathname = req.url.split('?')[0];
+    if(nativeApi&&['/v1/native/plan','/v1/native/evaluate'].includes(pathname)){void nativeApi(req,res);return;}
     if (req.method === 'POST' && pathname === '/v1/agent/documents/search') {
       const principal = authenticate(req.headers.authorization || '', users);
       if (!principal) return json(res, 401, { error: 'unauthorized' });
@@ -156,8 +159,9 @@ function createServer({ token, principals, projects = [], audit = createAuditLog
         service: 'mana-ai',
         mode: 'read-only-foundation',
         aiEnabled: !!engine,
+        nativeCoreEnabled: !!nativeCore,
         dataConnected: false,
-        capabilities: ['health', 'capabilities', 'projects:read', 'audit:read', 'agent:documents:search'].concat(engine ? ['ai:ask'] : []),
+        capabilities: ['health', 'capabilities', 'projects:read', 'audit:read', 'agent:documents:search'].concat(engine ? ['ai:ask'] : [], nativeCore ? ['native:plan','native:evaluate'] : []),
         humanApprovalRequiredForConsequentialActions: true
       });
     }

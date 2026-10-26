@@ -27,7 +27,8 @@ function normalizePrincipals(principals) {
     if (seen.has(p.id) || hashes.has(hash)) throw new Error('Duplicate principal');
     seen.add(p.id); hashes.add(hash);
     if (p.projectIds !== undefined && (!Array.isArray(p.projectIds) || p.projectIds.length > 10000 || p.projectIds.some(id => typeof id !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(id)) || new Set(p.projectIds).size !== p.projectIds.length)) throw new Error('Invalid project grants');
-    return Object.freeze({ id: p.id, orgId: p.orgId, role: p.role, token: p.token, projectIds: Object.freeze([...(p.projectIds || [])]) });
+    if (p.capabilityIds !== undefined && (!Array.isArray(p.capabilityIds) || p.capabilityIds.length > 128 || p.capabilityIds.some(id => typeof id !== 'string' || !/^[A-Za-z][A-Za-z0-9_.-]{0,79}$/.test(id)) || new Set(p.capabilityIds).size !== p.capabilityIds.length)) throw new Error('Invalid capability grants');
+    return Object.freeze({ id: p.id, orgId: p.orgId, role: p.role, token: p.token, projectIds: Object.freeze([...(p.projectIds || [])]), capabilityIds: Object.freeze([...(p.capabilityIds || [])]) });
   });
 }
 function authenticate(header, principals) {
