@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "937229d26ec39e94b35c397f9c32f5f19a9d1f1c57ba56fa209bc0b3388e8d7a",
-  "fileCount": 245,
+  "sourceSetDigest": "e6518c443d991e32ed3e8685efafcacad25366538d96267a09edb5c077699869",
+  "fileCount": 252,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -149,9 +149,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 18258,
-      "sha256": "939cff2c53de4d069f98ec521d0e76c1201882a77e0690f94507a22017713e60",
-      "gitBlob": "13c9a72ec521801748e89d443e66efa4cd410c25",
+      "bytes": 18722,
+      "sha256": "c26a94aa3814a0f622611f92f860b44caee2617c7db25881f96aef40b22428ff",
+      "gitBlob": "a3153ddc2f80e53f428a7141bd287f3d53ec5a49",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -260,6 +260,15 @@
       "bytes": 5338,
       "sha256": "5786e4345d5f69255893f959a7166c5af52f5a6c5732be874948d895f50e609a",
       "gitBlob": "50859ea3a507f418f45ab2d6d15427f66a013f63",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-offline-scheduling-and-model-comparison.md",
+      "bytes": 3666,
+      "sha256": "a56912f275592f229b81c0698c924035aff33863f364379f97653606344bce33",
+      "gitBlob": "ae306157d87651d2d37e119df908be5362ea21cf",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -892,6 +901,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/examples/project-schedule.json",
+      "bytes": 464,
+      "sha256": "bda13df6463b520f420deb5bc763421577e5b3eb620a631753102bdaeaf4099d",
+      "gitBlob": "0ced88766fd5ba703208390c2836340763063595",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/examples/projects.snapshot.example.json",
       "bytes": 144,
       "sha256": "6a3d2591837b3142a29c27282ee885e0aeb1c24a8f4c4dfa2c1ace7961809fa1",
@@ -1071,6 +1089,32 @@
       "sha256": "99e390f0a50e47a80adec13aa8bde8a820425aed91d08ad7f80f99735fb0e43b",
       "gitBlob": "0336350c255b9daf349a2d6d14e3d374af7189e0",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/plan-project.cjs",
+      "bytes": 1010,
+      "sha256": "3d3ebe46c2744f4c88b3a1a64564faceedaecd600e67fb6d79b837a99b8555ce",
+      "gitBlob": "ba1e37f086e9e70e88dc758764347823bc22ba23",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 4
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 5
+        },
+        {
+          "value": "./src/native/resource-scheduler.cjs",
+          "line": 6
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -2017,6 +2061,24 @@
         {
           "value": "node:util",
           "line": 55
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/resource-scheduler.cjs",
+      "bytes": 5999,
+      "sha256": "0bdb326cf31c335eb3b48074c5c331edbef0ff8844d20a16bd184a9770bc05bf",
+      "gitBlob": "d7e560769a41d8c2b384ba6a1342e8477aca993a",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 3
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
@@ -4033,6 +4095,28 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/resource-scheduler.test.cjs",
+      "bytes": 2964,
+      "sha256": "d720bd6a8244d2c2acc5aab469cf259e971695fd65a8e6db29c6554dd2e4f95a",
+      "gitBlob": "a4cae01774df0bc3f24e6663b7ee10c1aa423c65",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/native/resource-scheduler.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/retrieval.test.cjs",
       "bytes": 2416,
       "sha256": "0e472dc5e350ee7fbbeff29ec9fb186d419cf7696eeb4e2c2c1bfd7e48e7055d",
@@ -4391,6 +4475,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/training/compare_coding_reports.py",
+      "bytes": 4231,
+      "sha256": "4ecd63813e9541b84f5e2fcebebe2d3313cde7b498c132888a575fd57f4df4f8",
+      "gitBlob": "ccc0142d7f475938af5c3bc3e28dd8c24cbfb823",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/training/evaluate_native_code.py",
       "bytes": 7718,
       "sha256": "f525f420f3411bce1febd546f1e93e46f33cddf3b41ddae09bf50a3b47bbbca8",
@@ -4449,6 +4542,15 @@
       "bytes": 3727,
       "sha256": "dff25a3225508cd95336d7737fee343760140a7368c206132929658b5a35da0e",
       "gitBlob": "c5438836a88debc8a09543e06d056b26a90b9017",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/test_comparison.py",
+      "bytes": 3287,
+      "sha256": "209848b805f1476fd4991db500f96ab04b3753406ba9265e8d9e7829e079c4f3",
+      "gitBlob": "134f9d6caf888f18d1bf8551725328930ef1b881",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false

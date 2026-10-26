@@ -25,7 +25,7 @@
 | Intelligence | Research Engine | نمونه اولیه | existing retrieval/research prototypes; no validated open research mission |
 | Intelligence | Model Router | نمونه اولیه | existing provider abstraction; full routing/evaluation not accepted |
 | Intelligence | Hierarchical task network planning | نمونه اولیه | ordered acyclic host methods, scoped facts/grants/budget, shared-runtime document execution; natural-language decomposition and hierarchical repair remain open |
-| Intelligence | Causal consequence simulation / resource scheduling | ساخته‌نشده | requires dedicated implementation/acceptance |
+| Intelligence | Causal consequence simulation / resource scheduling | ساخته‌نشده / نمونه اولیه | resource-feasible relative-time proposals with explicit estimates and scoped mission-plan bridge; no causal simulation or scheduling optimality claim |
 | Intelligence | Knowledge graph with provenance | ساخته‌نشده | requires dedicated implementation/acceptance |
 | Intelligence | Controlled self-improvement pipeline | نمونه اولیه | bounded declarative skill propose/test/retry/checkpoint; real code drafts stop before unverified sandbox; mana-local-skill-evolution.md |
 | Server integration | Core v5 adapter | ساخته‌نشده | source snapshot reviewed; wrapper/report writer not connected as a competing executor; mana-server-source-review.md |
@@ -120,3 +120,6 @@
 
 
 ارزیابی کد مدل بومی به sandbox واقعی متصل شد: سه خانوادهٔ خارج از آموزش، پاسخ مرجع مستقل، ثبت pass@1 و منع استفاده از مدل آماده یا جواب آزمون در تولید. این یک سنجش محدود است؛ مدل برنامه‌نویس عمومی هنوز پذیرفته نشده است. قرارداد: `mana-native-coding-evaluation.md`.
+
+
+زمان‌بندی منابع و مقایسهٔ عملکرد نسخه‌های مدل اضافه شد؛ افت حتی یک مورد آزمون مانع انتخاب نامزد می‌شود. هیچ نسخه‌ای خودکار فعال یا حذف نمی‌شود. قرارداد: `mana-offline-scheduling-and-model-comparison.md`.
