@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "b3b74883042b8f881e0c25570e68bb304e9cbc8032213fe9d9a774faa42b12b4",
+  "sourceSha256": "21b48a30f132e5a8ded84debe51c25367edebdbe2e6dca28a642c7c200ad52e4",
   "limitations": [
     "Static candidates only; comments/strings can match.",
     "Repeated names may be local to different closures. Resolve scope and effective overrides before changing code.",
@@ -81,122 +81,122 @@
     {
       "ordinal": 13,
       "startLine": 6221,
-      "endLine": 6421,
-      "sha256": "c65866b90e7eb703f5ccf60c573119653a3bf6d543b46c3a198b8b9c5ad2334c"
+      "endLine": 6422,
+      "sha256": "96bb69b7eefbd3f24ac31e3f4aaee54e7483d3ba90699deb8eae9bfe3edda570"
     },
     {
       "ordinal": 14,
-      "startLine": 6422,
-      "endLine": 6722,
+      "startLine": 6423,
+      "endLine": 6723,
       "sha256": "9d0ab3801ffba3131d5333adfa1c2751444507a64071bb1b4cf79f0780110617"
     },
     {
       "ordinal": 15,
-      "startLine": 6723,
-      "endLine": 6947,
+      "startLine": 6724,
+      "endLine": 6948,
       "sha256": "6e56765de89bbf0b8242a36621f279653373d7ca7bdb364b4e96136d99304f3d"
     },
     {
       "ordinal": 16,
-      "startLine": 7296,
-      "endLine": 7430,
+      "startLine": 7297,
+      "endLine": 7431,
       "sha256": "45ca7b6f6be505a6fc83258fa835c93b11240de1b2b639ba037d71b712e679e9"
     },
     {
       "ordinal": 17,
-      "startLine": 7431,
-      "endLine": 7554,
+      "startLine": 7432,
+      "endLine": 7555,
       "sha256": "69160ae318d28c298f1e0f5fe9af0086724ce87e9d0382b537a97d64ac149b94"
     },
     {
       "ordinal": 18,
-      "startLine": 7555,
-      "endLine": 7813,
+      "startLine": 7556,
+      "endLine": 7814,
       "sha256": "624b903d09d1804371537b921af5a0630bc80ec9913fe50cbc557b020713f23e"
     },
     {
       "ordinal": 19,
-      "startLine": 7814,
-      "endLine": 7839,
+      "startLine": 7815,
+      "endLine": 7840,
       "sha256": "3012b59ededbc0ed861563106964e0931994848ec69736c1ec016aea79f507b0"
     },
     {
       "ordinal": 20,
-      "startLine": 7840,
-      "endLine": 7891,
+      "startLine": 7841,
+      "endLine": 7892,
       "sha256": "bd62de05fa7f8a92d8b90bbd24181a2e1da0e3df73d430cd56735261dcb97628"
     },
     {
       "ordinal": 21,
-      "startLine": 7892,
-      "endLine": 8043,
+      "startLine": 7893,
+      "endLine": 8044,
       "sha256": "4ef865f4892c0e30c6f0a0001f113552a9e1890d1977b2554af2fa1d1b5a758f"
     },
     {
       "ordinal": 22,
-      "startLine": 8136,
-      "endLine": 8147,
+      "startLine": 8137,
+      "endLine": 8148,
       "sha256": "5471b3e14960355af91cdee7cc97ecbd064fd6cb0adc9bbdf9f237ac14dd8bfd"
     },
     {
       "ordinal": 23,
-      "startLine": 8148,
-      "endLine": 8532,
-      "sha256": "9037753bb12d86ec9a5999838cbfa10a4951dc00a21dab49fe3bf305127dc68e"
+      "startLine": 8149,
+      "endLine": 8537,
+      "sha256": "4212c9e1de410ea01f9fd57f1e212365a1007b2f56852bffb1c38e3f2d142e69"
     },
     {
       "ordinal": 24,
-      "startLine": 8533,
-      "endLine": 8907,
+      "startLine": 8538,
+      "endLine": 8912,
       "sha256": "90f4bda9d35b0d1e97ed351b6078925effa6b9fd87c54d056e62700f1504b871"
     },
     {
       "ordinal": 25,
-      "startLine": 8908,
-      "endLine": 9156,
+      "startLine": 8913,
+      "endLine": 9161,
       "sha256": "e4580965f85423346e648290c04b72bedebba47f53ed15cc7ef15c1a78d4c916"
     },
     {
       "ordinal": 26,
-      "startLine": 9157,
-      "endLine": 9449,
+      "startLine": 9162,
+      "endLine": 9454,
       "sha256": "cfba1f719cddf6271bf45f0c2220532978e5ceaa8522cb166cd4a71bc12b9680"
     },
     {
       "ordinal": 27,
-      "startLine": 9450,
-      "endLine": 9841,
+      "startLine": 9455,
+      "endLine": 9846,
       "sha256": "2df388dd31569ae145fcaeae7adf872a5862af2c742a2d1baf083b6c559336e2"
     },
     {
       "ordinal": 28,
-      "startLine": 9842,
-      "endLine": 10304,
+      "startLine": 9847,
+      "endLine": 10309,
       "sha256": "b2266409734592ef3cb2558a9d114e9e07f8b0c91062bc818cd4e382208f847a"
     },
     {
       "ordinal": 29,
-      "startLine": 10305,
-      "endLine": 10915,
+      "startLine": 10310,
+      "endLine": 10920,
       "sha256": "349943be47b4341ee8d9e65b112ebbbc2c6227722ac324f9573b514e4cd9491c"
     },
     {
       "ordinal": 30,
-      "startLine": 10916,
-      "endLine": 11926,
+      "startLine": 10921,
+      "endLine": 11931,
       "sha256": "6fbf6ff3d8ea38e03d3eea31325e44942df8ee8c7f24e6fbc7e238157b47b492"
     },
     {
       "ordinal": 31,
-      "startLine": 11927,
-      "endLine": 12646,
-      "sha256": "6c5eadbaabe0d292efa6b81cd85c3a3d42ede55a3ea8d12281c5f2335a230760"
+      "startLine": 11932,
+      "endLine": 12623,
+      "sha256": "d74a432ddfa80792bda17d79241b7480f526058885750823c470fbcff3903a9a"
     },
     {
       "ordinal": 32,
-      "startLine": 12647,
-      "endLine": 13197,
-      "sha256": "222d3d368ca950d56a44ad70c88741238ba726d6f946d4e446197a2779d8ecc9"
+      "startLine": 12624,
+      "endLine": 13171,
+      "sha256": "2c19a7348f70bf365862284a5091b571247773533b9a31f326751bddf60bdfcf"
     }
   ],
   "functions": [
@@ -549,252 +549,248 @@
       "line": 5699
     },
     {
-      "name": "invRowCard",
-      "line": 6270
-    },
-    {
       "name": "vv",
-      "line": 6329
+      "line": 6330
     },
     {
       "name": "ivNum",
-      "line": 6734
+      "line": 6735
     },
     {
       "name": "nfIr",
-      "line": 6958
+      "line": 6959
     },
     {
       "name": "makeOverlay",
-      "line": 7434
+      "line": 7435
     },
     {
       "name": "doExport",
-      "line": 7442
+      "line": 7443
     },
     {
       "name": "doImport",
-      "line": 7483
+      "line": 7484
     },
     {
       "name": "fixButtons",
-      "line": 7517
+      "line": 7518
     },
     {
       "name": "numFix",
-      "line": 7562
+      "line": 7563
     },
     {
       "name": "buildForm",
-      "line": 7568
+      "line": 7569
     },
     {
       "name": "printHTML",
-      "line": 7751
+      "line": 7752
     },
     {
       "name": "showBanner",
-      "line": 7997
+      "line": 7998
     },
     {
       "name": "nfIr",
-      "line": 8235
+      "line": 8240
     },
     {
       "name": "addSearchBars",
-      "line": 8446
+      "line": 8451
     },
     {
       "name": "addEvent",
-      "line": 8726
+      "line": 8731
     },
     {
       "name": "paint",
-      "line": 8791
+      "line": 8796
     },
     {
       "name": "checkBackup",
-      "line": 8850
+      "line": 8855
     },
     {
       "name": "showBackupBanner",
-      "line": 8859
+      "line": 8864
     },
     {
       "name": "paint",
-      "line": 9278
+      "line": 9283
     },
     {
       "name": "showLock",
-      "line": 9548
+      "line": 9553
     },
     {
       "name": "applyTheme",
-      "line": 9634
+      "line": 9639
     },
     {
       "name": "shadeColor",
-      "line": 9644
+      "line": 9649
     },
     {
       "name": "paint",
-      "line": 9761
+      "line": 9766
     },
     {
       "name": "permitForm",
-      "line": 9921
+      "line": 9926
     },
     {
       "name": "paint",
-      "line": 10091
+      "line": 10096
     },
     {
       "name": "nf",
-      "line": 10312
+      "line": 10317
     },
     {
       "name": "calc",
-      "line": 10398
+      "line": 10403
     },
     {
       "name": "calc",
-      "line": 10453
+      "line": 10458
     },
     {
       "name": "calc",
-      "line": 10510
+      "line": 10515
     },
     {
       "name": "calc",
-      "line": 10562
+      "line": 10567
     },
     {
       "name": "calc",
-      "line": 10612
+      "line": 10617
     },
     {
       "name": "calc",
-      "line": 10659
+      "line": 10664
     },
     {
       "name": "calc",
-      "line": 10699
+      "line": 10704
     },
     {
       "name": "calc",
-      "line": 10744
+      "line": 10749
     },
     {
       "name": "render",
-      "line": 10784
+      "line": 10789
     },
     {
       "name": "calc",
-      "line": 10816
+      "line": 10821
     },
     {
       "name": "render",
-      "line": 10849
+      "line": 10854
     },
     {
       "name": "calc",
-      "line": 10879
+      "line": 10884
     },
     {
       "name": "nfv",
-      "line": 10923
+      "line": 10928
     },
     {
       "name": "calc",
-      "line": 11000
+      "line": 11005
     },
     {
       "name": "calc",
-      "line": 11035
+      "line": 11040
     },
     {
       "name": "calc",
-      "line": 11078
+      "line": 11083
     },
     {
       "name": "calc",
-      "line": 11118
+      "line": 11123
     },
     {
       "name": "calc",
-      "line": 11152
+      "line": 11157
     },
     {
       "name": "calc",
-      "line": 11185
+      "line": 11190
     },
     {
       "name": "calc",
-      "line": 11244
+      "line": 11249
     },
     {
       "name": "calc",
-      "line": 11349
+      "line": 11354
     },
     {
       "name": "render",
-      "line": 11453
+      "line": 11458
     },
     {
       "name": "calc",
-      "line": 11487
+      "line": 11492
     },
     {
       "name": "render",
-      "line": 11558
+      "line": 11563
     },
     {
       "name": "calc",
-      "line": 11592
+      "line": 11597
     },
     {
       "name": "render",
-      "line": 11689
+      "line": 11694
     },
     {
       "name": "calc",
-      "line": 11720
+      "line": 11725
     },
     {
       "name": "render",
-      "line": 11793
+      "line": 11798
     },
     {
       "name": "calc",
-      "line": 11826
+      "line": 11831
     },
     {
       "name": "render",
-      "line": 11882
+      "line": 11887
     },
     {
       "name": "calc",
-      "line": 11903
+      "line": 11908
     },
     {
       "name": "nfl",
-      "line": 11934
+      "line": 11939
     },
     {
       "name": "paint",
-      "line": 12019
+      "line": 12024
     },
     {
       "name": "nfa",
-      "line": 12654
+      "line": 12631
     },
     {
       "name": "updateActivityProgress",
-      "line": 12943
+      "line": 12920
     },
     {
       "name": "updateBadge",
-      "line": 13121
+      "line": 13095
     }
   ],
   "repeatedFunctionNames": [
@@ -809,24 +805,24 @@
       "name": "paint",
       "lines": [
         1059,
-        8791,
-        9278,
-        9761,
-        10091,
-        12019
+        8796,
+        9283,
+        9766,
+        10096,
+        12024
       ]
     },
     {
       "name": "render",
       "lines": [
         1111,
-        10784,
-        10849,
-        11453,
-        11558,
-        11689,
-        11793,
-        11882
+        10789,
+        10854,
+        11458,
+        11563,
+        11694,
+        11798,
+        11887
       ]
     },
     {
@@ -840,7 +836,7 @@
       "name": "applyTheme",
       "lines": [
         2956,
-        9634
+        9639
       ]
     },
     {
@@ -853,36 +849,36 @@
     {
       "name": "nfIr",
       "lines": [
-        6958,
-        8235
+        6959,
+        8240
       ]
     },
     {
       "name": "calc",
       "lines": [
-        10398,
-        10453,
-        10510,
-        10562,
-        10612,
-        10659,
-        10699,
-        10744,
-        10816,
-        10879,
-        11000,
-        11035,
-        11078,
-        11118,
-        11152,
-        11185,
-        11244,
-        11349,
-        11487,
-        11592,
-        11720,
-        11826,
-        11903
+        10403,
+        10458,
+        10515,
+        10567,
+        10617,
+        10664,
+        10704,
+        10749,
+        10821,
+        10884,
+        11005,
+        11040,
+        11083,
+        11123,
+        11157,
+        11190,
+        11249,
+        11354,
+        11492,
+        11597,
+        11725,
+        11831,
+        11908
       ]
     }
   ],
@@ -1593,59 +1589,59 @@
     },
     {
       "name": "inv-addrow",
-      "line": 6357
+      "line": 6358
     },
     {
       "name": "inv-delrow",
-      "line": 6368
+      "line": 6369
     },
     {
       "name": "act-add-fast",
-      "line": 6525
+      "line": 6526
     },
     {
       "name": "act-edit-fast",
-      "line": 6583
+      "line": 6584
     },
     {
       "name": "act-edit-save-fast",
-      "line": 6626
+      "line": 6627
     },
     {
       "name": "act-template",
-      "line": 6659
+      "line": 6660
     },
     {
       "name": "inv-print-go",
-      "line": 6884
+      "line": 6885
     },
     {
       "name": "export-json",
-      "line": 7306
+      "line": 7307
     },
     {
       "name": "exp-copy",
-      "line": 7319
+      "line": 7320
     },
     {
       "name": "exp-share",
-      "line": 7339
+      "line": 7340
     },
     {
       "name": "exp-dl",
-      "line": 7351
+      "line": 7352
     },
     {
       "name": "import-json",
-      "line": 7373
+      "line": 7374
     },
     {
       "name": "imp-go",
-      "line": 7383
+      "line": 7384
     },
     {
       "name": "imp-file",
-      "line": 7406
+      "line": 7407
     }
   ],
   "handlerOverrides": [
@@ -1671,247 +1667,247 @@
     },
     {
       "name": "inv-save",
-      "line": 6376
+      "line": 6377
     },
     {
       "name": "prj-act",
-      "line": 6437
+      "line": 6438
     },
     {
       "name": "inv-print",
-      "line": 6742
+      "line": 6743
     },
     {
       "name": "inv-view",
-      "line": 6928
+      "line": 6929
     },
     {
       "name": "inv-save",
-      "line": 6998
+      "line": 6999
     },
     {
       "name": "inv-print",
-      "line": 7044
+      "line": 7045
     },
     {
       "name": "inv-print-do",
-      "line": 7247
+      "line": 7248
     },
     {
       "name": "inv-print-quick",
-      "line": 7289
+      "line": 7290
     },
     {
       "name": "inv-print",
-      "line": 7794
+      "line": 7795
     },
     {
       "name": "inv-print",
-      "line": 7816
+      "line": 7817
     },
     {
       "name": "inv-print",
-      "line": 7841
+      "line": 7842
     },
     {
       "name": "inv-save",
-      "line": 8188
+      "line": 8189
     },
     {
       "name": "inv-print",
-      "line": 8240
+      "line": 8245
     },
     {
       "name": "rep-csv-adv",
-      "line": 8478
+      "line": 8483
     },
     {
       "name": "rep-csv-go",
-      "line": 8498
+      "line": 8503
     },
     {
       "name": "exp-copy",
-      "line": 8884
+      "line": 8889
     },
     {
       "name": "rating-save",
-      "line": 9040
+      "line": 9045
     },
     {
       "name": "rating-open",
-      "line": 9063
+      "line": 9068
     },
     {
       "name": "timer-start",
-      "line": 9148
+      "line": 9153
     },
     {
       "name": "excel-go",
-      "line": 9228
+      "line": 9233
     },
     {
       "name": "excel-open",
-      "line": 9248
+      "line": 9253
     },
     {
       "name": "gal-add",
-      "line": 9320
+      "line": 9325
     },
     {
       "name": "prj-gps",
-      "line": 9381
+      "line": 9386
     },
     {
       "name": "prj-gps-view",
-      "line": 9397
+      "line": 9402
     },
     {
       "name": "sec-enable",
-      "line": 9503
+      "line": 9508
     },
     {
       "name": "sec-disable",
-      "line": 9514
+      "line": 9519
     },
     {
       "name": "sec-change",
-      "line": 9523
+      "line": 9528
     },
     {
       "name": "sec-save-bio",
-      "line": 9533
+      "line": 9538
     },
     {
       "name": "sec-wipe",
-      "line": 9539
+      "line": 9544
     },
     {
       "name": "theme-apply",
-      "line": 9623
+      "line": 9628
     },
     {
       "name": "qr-print",
-      "line": 9681
+      "line": 9686
     },
     {
       "name": "qr-share",
-      "line": 9689
+      "line": 9694
     },
     {
       "name": "show-qr",
-      "line": 9721
+      "line": 9726
     },
     {
       "name": "show-comments",
-      "line": 9827
+      "line": 9832
     },
     {
       "name": "permit-new",
-      "line": 9944
+      "line": 9949
     },
     {
       "name": "permit-edit",
-      "line": 9950
+      "line": 9955
     },
     {
       "name": "permit-save",
-      "line": 9958
+      "line": 9963
     },
     {
       "name": "permit-del",
-      "line": 9972
+      "line": 9977
     },
     {
       "name": "gar-new",
-      "line": 10031
+      "line": 10036
     },
     {
       "name": "gar-save",
-      "line": 10059
+      "line": 10064
     },
     {
       "name": "gar-del",
-      "line": 10068
+      "line": 10073
     },
     {
       "name": "notif-request",
-      "line": 10281
+      "line": 10286
     },
     {
       "name": "act-materials",
-      "line": 12011
+      "line": 12016
     },
     {
       "name": "am-new",
-      "line": 12082
+      "line": 12087
     },
     {
       "name": "am-save",
-      "line": 12110
+      "line": 12115
     },
     {
       "name": "am-del",
-      "line": 12126
+      "line": 12131
     },
     {
       "name": "am-edit",
-      "line": 12135
+      "line": 12140
     },
     {
       "name": "am-edit-save",
-      "line": 12150
+      "line": 12155
     },
     {
       "name": "act-use-auto",
-      "line": 12165
+      "line": 12170
     },
     {
       "name": "am-from-calc",
-      "line": 12180
+      "line": 12185
     },
     {
       "name": "am-pick-calc",
-      "line": 12200
+      "line": 12205
     },
     {
       "name": "inv-save",
-      "line": 12342
+      "line": 12347
     },
     {
       "name": "prj-act",
-      "line": 12616
+      "line": 12593
     },
     {
       "name": "act-mat-open",
-      "line": 12640
+      "line": 12617
     },
     {
       "name": "inv-approve",
-      "line": 12866
+      "line": 12843
     },
     {
       "name": "inv-reject",
-      "line": 12895
+      "line": 12872
     },
     {
       "name": "inv-unapprove",
-      "line": 12914
+      "line": 12891
     },
     {
       "name": "inv-unreject",
-      "line": 12928
+      "line": 12905
     },
     {
       "name": "inv-save",
-      "line": 12969
+      "line": 12946
     },
     {
       "name": "inv-submit-for-approval",
-      "line": 13016
+      "line": 12990
     },
     {
       "name": "inv-view",
-      "line": 13156
+      "line": 13130
     }
   ],
   "routeCandidates": [
@@ -2141,179 +2137,179 @@
     },
     {
       "name": "calculator",
-      "line": 8900
+      "line": 8905
     },
     {
       "name": "calendar",
-      "line": 8901
+      "line": 8906
     },
     {
       "name": "projects",
-      "line": 9209
-    },
-    {
-      "name": "invoices",
-      "line": 9210
-    },
-    {
-      "name": "contracts",
-      "line": 9211
-    },
-    {
-      "name": "cash",
-      "line": 9212
-    },
-    {
-      "name": "items",
-      "line": 9213
-    },
-    {
-      "name": "tasks",
       "line": 9214
     },
     {
-      "name": "personnel",
+      "name": "invoices",
       "line": 9215
     },
     {
-      "name": "checks",
+      "name": "contracts",
       "line": 9216
     },
     {
-      "name": "suppliers",
+      "name": "cash",
       "line": 9217
     },
     {
-      "name": "risks",
+      "name": "items",
       "line": 9218
     },
     {
+      "name": "tasks",
+      "line": 9219
+    },
+    {
+      "name": "personnel",
+      "line": 9220
+    },
+    {
+      "name": "checks",
+      "line": 9221
+    },
+    {
+      "name": "suppliers",
+      "line": 9222
+    },
+    {
+      "name": "risks",
+      "line": 9223
+    },
+    {
       "name": "gallery",
-      "line": 9443
+      "line": 9448
     },
     {
       "name": "security",
-      "line": 9834
+      "line": 9839
     },
     {
       "name": "themes",
-      "line": 9835
+      "line": 9840
     },
     {
       "name": "permits",
-      "line": 10289
+      "line": 10294
     },
     {
       "name": "guarantees",
-      "line": 10290
+      "line": 10295
     },
     {
       "name": "budget-actual",
-      "line": 10296
+      "line": 10301
     },
     {
       "name": "cash-forecast",
-      "line": 10297
+      "line": 10302
     },
     {
       "name": "concrete",
-      "line": 10320
-    },
-    {
-      "name": "rebar",
-      "line": 10321
-    },
-    {
-      "name": "brick",
-      "line": 10322
-    },
-    {
-      "name": "plaster",
-      "line": 10323
-    },
-    {
-      "name": "paint",
-      "line": 10324
-    },
-    {
-      "name": "insulation",
       "line": 10325
     },
     {
-      "name": "electrical",
+      "name": "rebar",
       "line": 10326
     },
     {
-      "name": "plumbing",
+      "name": "brick",
       "line": 10327
     },
     {
-      "name": "opening",
+      "name": "plaster",
       "line": 10328
     },
     {
-      "name": "general",
+      "name": "paint",
       "line": 10329
     },
     {
-      "name": "calculator",
-      "line": 10909
-    },
-    {
-      "name": "concrete",
-      "line": 10931
-    },
-    {
-      "name": "rebar",
-      "line": 10932
-    },
-    {
-      "name": "brick",
-      "line": 10933
-    },
-    {
-      "name": "plaster",
-      "line": 10934
-    },
-    {
-      "name": "paint",
-      "line": 10935
-    },
-    {
       "name": "insulation",
-      "line": 10936
+      "line": 10330
     },
     {
-      "name": "electrical2",
-      "line": 10937
+      "name": "electrical",
+      "line": 10331
     },
     {
-      "name": "plumbing2",
-      "line": 10938
+      "name": "plumbing",
+      "line": 10332
     },
     {
-      "name": "door",
-      "line": 10939
-    },
-    {
-      "name": "window",
-      "line": 10940
-    },
-    {
-      "name": "glass",
-      "line": 10941
-    },
-    {
-      "name": "stone",
-      "line": 10942
+      "name": "opening",
+      "line": 10333
     },
     {
       "name": "general",
+      "line": 10334
+    },
+    {
+      "name": "calculator",
+      "line": 10914
+    },
+    {
+      "name": "concrete",
+      "line": 10936
+    },
+    {
+      "name": "rebar",
+      "line": 10937
+    },
+    {
+      "name": "brick",
+      "line": 10938
+    },
+    {
+      "name": "plaster",
+      "line": 10939
+    },
+    {
+      "name": "paint",
+      "line": 10940
+    },
+    {
+      "name": "insulation",
+      "line": 10941
+    },
+    {
+      "name": "electrical2",
+      "line": 10942
+    },
+    {
+      "name": "plumbing2",
       "line": 10943
     },
     {
+      "name": "door",
+      "line": 10944
+    },
+    {
+      "name": "window",
+      "line": 10945
+    },
+    {
+      "name": "glass",
+      "line": 10946
+    },
+    {
+      "name": "stone",
+      "line": 10947
+    },
+    {
+      "name": "general",
+      "line": 10948
+    },
+    {
       "name": "approvals",
-      "line": 13113
+      "line": 13087
     }
   ],
   "routeDefinitions": [
@@ -2479,47 +2475,47 @@
     },
     {
       "name": "calculator",
-      "line": 8541
+      "line": 8546
     },
     {
       "name": "calendar",
-      "line": 8716
+      "line": 8721
     },
     {
       "name": "gallery",
-      "line": 9253
+      "line": 9258
     },
     {
       "name": "security",
-      "line": 9458
+      "line": 9463
     },
     {
       "name": "themes",
-      "line": 9598
+      "line": 9603
     },
     {
       "name": "permits",
-      "line": 9864
+      "line": 9869
     },
     {
       "name": "guarantees",
-      "line": 9989
+      "line": 9994
     },
     {
       "name": "budget-actual",
-      "line": 10076
+      "line": 10081
     },
     {
       "name": "cash-forecast",
-      "line": 10135
+      "line": 10140
     },
     {
       "name": "calculator",
-      "line": 10315
+      "line": 10320
     },
     {
       "name": "approvals",
-      "line": 12765
+      "line": 12742
     }
   ],
   "renderAssignments": [
@@ -2533,51 +2529,51 @@
     },
     {
       "name": "ROUTES.invoices.render",
-      "line": 7268
+      "line": 7269
     },
     {
       "name": "ROUTES.kanban.render",
-      "line": 8955
+      "line": 8960
     },
     {
       "name": "ROUTES.subcontractors.render",
-      "line": 9053
+      "line": 9058
     },
     {
       "name": "ROUTES.reports.render",
-      "line": 9236
+      "line": 9241
     },
     {
       "name": "ROUTES.projects.render",
-      "line": 9413
+      "line": 9418
     },
     {
       "name": "ROUTES.invoices.render",
-      "line": 9700
+      "line": 9705
     },
     {
       "name": "ROUTES.projects.render",
-      "line": 9806
+      "line": 9811
     },
     {
       "name": "ROUTES.settings.render",
-      "line": 10272
+      "line": 10277
     },
     {
       "name": "ROUTES.calculator.render",
-      "line": 10929
+      "line": 10934
     },
     {
       "name": "ROUTES.gantt.render",
-      "line": 12387
+      "line": 12364
     },
     {
       "name": "ROUTES.invoices.render",
-      "line": 13044
+      "line": 13018
     },
     {
       "name": "ROUTES.gantt.render",
-      "line": 13084
+      "line": 13058
     }
   ],
   "assignmentCandidates": [
@@ -2755,387 +2751,391 @@
     },
     {
       "name": "invForm",
-      "line": 6232
+      "line": 6233
+    },
+    {
+      "name": "invRowCard",
+      "line": 6271
     },
     {
       "name": "collectItems",
-      "line": 6300
+      "line": 6301
     },
     {
       "name": "refreshInvCalc",
-      "line": 6314
+      "line": 6315
     },
     {
       "name": "window.ManaDebugDate",
-      "line": 6400
+      "line": 6401
     },
     {
       "name": "window.ManaGanttHelp",
-      "line": 6708
+      "line": 6709
     },
     {
       "name": "invForm",
-      "line": 6972
+      "line": 6973
     },
     {
       "name": "ROUTES.invoices.render",
-      "line": 7268
+      "line": 7269
     },
     {
       "name": "rd.onload",
-      "line": 7415
+      "line": 7416
     },
     {
       "name": "rd.onerror",
-      "line": 7420
+      "line": 7421
     },
     {
       "name": "closeBtn.onclick",
-      "line": 7776
+      "line": 7777
     },
     {
       "name": "btn.onclick",
-      "line": 7807
+      "line": 7808
     },
     {
       "name": "btn.onclick",
-      "line": 7875
+      "line": 7876
     },
     {
       "name": "btn2.onclick",
-      "line": 7881
+      "line": 7882
     },
     {
       "name": "onclick",
-      "line": 8009
+      "line": 8010
     },
     {
       "name": "onclick",
-      "line": 8017
+      "line": 8018
     },
     {
       "name": "onclick",
-      "line": 8032
+      "line": 8033
     },
     {
       "name": "invForm",
-      "line": 8157
+      "line": 8158
     },
     {
       "name": "btn.onclick",
-      "line": 8432
+      "line": 8437
     },
     {
       "name": "btn2.onclick",
-      "line": 8439
+      "line": 8444
     },
     {
       "name": "input.oninput",
-      "line": 8457
+      "line": 8462
     },
     {
       "name": "window.render",
-      "line": 8472
+      "line": 8477
     },
     {
       "name": "window.calcConcrete",
-      "line": 8622
+      "line": 8627
     },
     {
       "name": "window.calcRebar",
-      "line": 8646
+      "line": 8651
     },
     {
       "name": "window.calcBrick",
-      "line": 8672
+      "line": 8677
     },
     {
       "name": "window.calcPlaster",
-      "line": 8691
+      "line": 8696
     },
     {
       "name": "window.calShowDay",
-      "line": 8822
+      "line": 8827
     },
     {
       "name": "onclick",
-      "line": 8834
+      "line": 8839
     },
     {
       "name": "onclick",
-      "line": 8837
-    },
-    {
-      "name": "onclick",
-      "line": 8871
+      "line": 8842
     },
     {
       "name": "onclick",
       "line": 8876
     },
     {
+      "name": "onclick",
+      "line": 8881
+    },
+    {
       "name": "ROUTES.kanban.render",
-      "line": 8955
+      "line": 8960
     },
     {
       "name": "btn.onclick",
-      "line": 8970
+      "line": 8975
     },
     {
       "name": "b.onclick",
-      "line": 9028
+      "line": 9033
     },
     {
       "name": "ROUTES.subcontractors.render",
-      "line": 9053
+      "line": 9058
     },
     {
       "name": "widget.onclick",
-      "line": 9128
+      "line": 9133
     },
     {
       "name": "ROUTES.reports.render",
-      "line": 9236
+      "line": 9241
     },
     {
       "name": "onchange",
-      "line": 9274
+      "line": 9279
     },
     {
       "name": "window.galView",
-      "line": 9298
+      "line": 9303
     },
     {
       "name": "window.galDel",
-      "line": 9307
+      "line": 9312
     },
     {
       "name": "onclick",
-      "line": 9330
+      "line": 9335
     },
     {
       "name": "inp.onchange",
-      "line": 9336
-    },
-    {
-      "name": "rd.onload",
       "line": 9341
     },
     {
+      "name": "rd.onload",
+      "line": 9346
+    },
+    {
       "name": "img.onload",
-      "line": 9343
+      "line": 9348
     },
     {
       "name": "img.onerror",
-      "line": 9369
+      "line": 9374
     },
     {
       "name": "ROUTES.projects.render",
-      "line": 9413
+      "line": 9418
     },
     {
       "name": "btn.onclick",
-      "line": 9431
+      "line": 9436
     },
     {
       "name": "inp.oninput",
-      "line": 9565
+      "line": 9570
     },
     {
       "name": "ROUTES.invoices.render",
-      "line": 9700
+      "line": 9705
     },
     {
       "name": "window.__cmtDel",
-      "line": 9781
+      "line": 9786
     },
     {
       "name": "send.onclick",
-      "line": 9792
+      "line": 9797
     },
     {
       "name": "ROUTES.projects.render",
-      "line": 9806
+      "line": 9811
     },
     {
       "name": "ROUTES.settings.render",
-      "line": 10272
+      "line": 10277
     },
     {
       "name": "b.onclick",
-      "line": 10343
+      "line": 10348
     },
     {
       "name": "window.__opUp",
-      "line": 10804
+      "line": 10809
     },
     {
       "name": "window.__opDel",
-      "line": 10815
+      "line": 10820
     },
     {
       "name": "onclick",
-      "line": 10826
+      "line": 10831
     },
     {
       "name": "window.__genUp",
-      "line": 10868
+      "line": 10873
     },
     {
       "name": "window.__genDel",
-      "line": 10878
+      "line": 10883
     },
     {
       "name": "onclick",
-      "line": 10885
+      "line": 10890
     },
     {
       "name": "onclick",
-      "line": 10889
+      "line": 10894
     },
     {
       "name": "ROUTES.calculator.render",
-      "line": 10929
+      "line": 10934
     },
     {
       "name": "b.onclick",
-      "line": 10956
+      "line": 10961
     },
     {
       "name": "window.__doorUp",
-      "line": 11480
-    },
-    {
-      "name": "window.__doorDel",
       "line": 11485
     },
     {
+      "name": "window.__doorDel",
+      "line": 11490
+    },
+    {
       "name": "onclick",
-      "line": 11511
+      "line": 11516
     },
     {
       "name": "window.__winUp",
-      "line": 11585
-    },
-    {
-      "name": "window.__winDel",
       "line": 11590
     },
     {
+      "name": "window.__winDel",
+      "line": 11595
+    },
+    {
       "name": "onclick",
-      "line": 11648
+      "line": 11653
     },
     {
       "name": "window.__glassUp",
-      "line": 11713
-    },
-    {
-      "name": "window.__glassDel",
       "line": 11718
     },
     {
+      "name": "window.__glassDel",
+      "line": 11723
+    },
+    {
       "name": "onclick",
-      "line": 11746
+      "line": 11751
     },
     {
       "name": "window.__stoneUp",
-      "line": 11819
-    },
-    {
-      "name": "window.__stoneDel",
       "line": 11824
     },
     {
+      "name": "window.__stoneDel",
+      "line": 11829
+    },
+    {
       "name": "onclick",
-      "line": 11861
+      "line": 11866
     },
     {
       "name": "window.__g2Up",
-      "line": 11898
+      "line": 11903
     },
     {
       "name": "window.__g2Del",
-      "line": 11902
-    },
-    {
-      "name": "onclick",
       "line": 11907
     },
     {
       "name": "onclick",
-      "line": 11911
+      "line": 11912
+    },
+    {
+      "name": "onclick",
+      "line": 11916
     },
     {
       "name": "invRowCard",
-      "line": 12219
+      "line": 12224
     },
     {
       "name": "window.__onActSelect",
-      "line": 12280
+      "line": 12285
     },
     {
       "name": "window.__onMatSelect",
-      "line": 12303
+      "line": 12308
     },
     {
       "name": "collectItems",
-      "line": 12323
+      "line": 12328
     },
     {
       "name": "ROUTES.gantt.render",
-      "line": 12387
+      "line": 12364
     },
     {
       "name": "window.__ganttActMat",
-      "line": 12512
+      "line": 12489
     },
     {
       "name": "window.CalcV2.render",
-      "line": 12543
+      "line": 12520
     },
     {
       "name": "window.__saveCalcToProject",
-      "line": 12559
+      "line": 12536
     },
     {
       "name": "sel.onchange",
-      "line": 12581
+      "line": 12558
     },
     {
       "name": "window.__saveCalcDo",
-      "line": 12591
+      "line": 12568
     },
     {
       "name": "window.isInvoiceEffective",
-      "line": 12686
+      "line": 12663
     },
     {
       "name": "window.ManaActMat.consumedFor",
-      "line": 12696
+      "line": 12673
     },
     {
       "name": "window.ManaActMat.costFor",
-      "line": 12712
+      "line": 12689
     },
     {
       "name": "window.recalcActivityMaterials",
-      "line": 12730
+      "line": 12707
     },
     {
       "name": "invForm",
-      "line": 12986
+      "line": 12960
     },
     {
       "name": "ROUTES.invoices.render",
-      "line": 13044
+      "line": 13018
     },
     {
       "name": "ROUTES.gantt.render",
-      "line": 13084
+      "line": 13058
     },
     {
       "name": "existing.onclick",
-      "line": 13135
+      "line": 13109
     }
   ],
   "databaseReferences": [
@@ -5157,11 +5157,7 @@
     },
     {
       "name": "projects",
-      "line": 6238
-    },
-    {
-      "name": "settings",
-      "line": 6257
+      "line": 6239
     },
     {
       "name": "settings",
@@ -5176,76 +5172,72 @@
       "line": 6260
     },
     {
-      "name": "invoices",
-      "line": 6381
-    },
-    {
-      "name": "projects",
-      "line": 6438
-    },
-    {
-      "name": "projects",
-      "line": 6526
-    },
-    {
-      "name": "projects",
-      "line": 6586
-    },
-    {
-      "name": "projects",
-      "line": 6629
-    },
-    {
-      "name": "projects",
-      "line": 6660
+      "name": "settings",
+      "line": 6261
     },
     {
       "name": "invoices",
-      "line": 6743
+      "line": 6382
     },
     {
       "name": "projects",
-      "line": 6747
+      "line": 6439
+    },
+    {
+      "name": "projects",
+      "line": 6527
+    },
+    {
+      "name": "projects",
+      "line": 6587
+    },
+    {
+      "name": "projects",
+      "line": 6630
+    },
+    {
+      "name": "projects",
+      "line": 6661
+    },
+    {
+      "name": "invoices",
+      "line": 6744
+    },
+    {
+      "name": "projects",
+      "line": 6748
     },
     {
       "name": "settings",
-      "line": 6758
+      "line": 6759
     },
     {
       "name": "settings",
-      "line": 6848
+      "line": 6849
     },
     {
       "name": "settings",
-      "line": 6870
+      "line": 6871
     },
     {
       "name": "invoices",
-      "line": 7030
+      "line": 7031
     },
     {
       "name": "invoices",
-      "line": 7037
+      "line": 7038
     },
     {
       "name": "invoices",
-      "line": 7045
+      "line": 7046
     },
     {
       "name": "projects",
-      "line": 7048
-    },
-    {
-      "name": "settings",
       "line": 7049
     },
     {
-      "name": "meta",
-      "line": 7391
-    },
-    {
-      "name": "meta",
-      "line": 7391
+      "name": "settings",
+      "line": 7050
     },
     {
       "name": "meta",
@@ -5257,11 +5249,15 @@
     },
     {
       "name": "meta",
-      "line": 7501
+      "line": 7393
     },
     {
       "name": "meta",
-      "line": 7501
+      "line": 7393
+    },
+    {
+      "name": "meta",
+      "line": 7502
     },
     {
       "name": "meta",
@@ -5269,111 +5265,111 @@
     },
     {
       "name": "meta",
-      "line": 7502
+      "line": 7503
+    },
+    {
+      "name": "meta",
+      "line": 7503
     },
     {
       "name": "projects",
-      "line": 7569
-    },
-    {
-      "name": "settings",
       "line": 7570
     },
     {
-      "name": "invoices",
-      "line": 7795
+      "name": "settings",
+      "line": 7571
     },
     {
       "name": "invoices",
-      "line": 7817
+      "line": 7796
     },
     {
       "name": "invoices",
-      "line": 7842
+      "line": 7818
     },
     {
       "name": "invoices",
-      "line": 8221
-    },
-    {
-      "name": "invoices",
-      "line": 8228
-    },
-    {
-      "name": "invoices",
-      "line": 8241
+      "line": 7843
     },
     {
       "name": "projects",
-      "line": 8244
+      "line": 8193
+    },
+    {
+      "name": "invoices",
+      "line": 8195
+    },
+    {
+      "name": "invoices",
+      "line": 8232
+    },
+    {
+      "name": "invoices",
+      "line": 8246
+    },
+    {
+      "name": "projects",
+      "line": 8249
     },
     {
       "name": "settings",
-      "line": 8245
+      "line": 8250
     },
     {
       "name": "tasks",
-      "line": 8732
+      "line": 8737
     },
     {
       "name": "checks",
-      "line": 8735
-    },
-    {
-      "name": "invoices",
-      "line": 8738
-    },
-    {
-      "name": "settings",
       "line": 8740
     },
     {
+      "name": "invoices",
+      "line": 8743
+    },
+    {
+      "name": "settings",
+      "line": 8745
+    },
+    {
       "name": "projects",
-      "line": 8746
+      "line": 8751
     },
     {
       "name": "hse",
-      "line": 8749
+      "line": 8754
     },
     {
       "name": "timers",
-      "line": 8916
+      "line": 8921
     },
     {
       "name": "timers",
-      "line": 8916
+      "line": 8921
     },
     {
       "name": "timers",
-      "line": 8920
+      "line": 8925
     },
     {
       "name": "timers",
-      "line": 8922
+      "line": 8927
     },
     {
       "name": "timers",
-      "line": 8928
+      "line": 8933
     },
     {
       "name": "timers",
-      "line": 8937
+      "line": 8942
     },
     {
       "name": "timers",
-      "line": 8941
+      "line": 8946
     },
     {
       "name": "timers",
-      "line": 8969
-    },
-    {
-      "name": "ratings",
-      "line": 8983
-    },
-    {
-      "name": "ratings",
-      "line": 8983
+      "line": 8974
     },
     {
       "name": "ratings",
@@ -5381,159 +5377,163 @@
     },
     {
       "name": "ratings",
-      "line": 9000
+      "line": 8988
     },
     {
       "name": "ratings",
-      "line": 9006
+      "line": 8993
+    },
+    {
+      "name": "ratings",
+      "line": 9005
+    },
+    {
+      "name": "ratings",
+      "line": 9011
     },
     {
       "name": "timeLog",
-      "line": 9078
+      "line": 9083
     },
     {
       "name": "timeLog",
-      "line": 9078
+      "line": 9083
     },
     {
       "name": "timeLog",
-      "line": 9082
+      "line": 9087
     },
     {
       "name": "timeLog",
-      "line": 9088
+      "line": 9093
     },
     {
       "name": "timeLog",
-      "line": 9103
+      "line": 9108
     },
     {
       "name": "timeLog",
-      "line": 9112
+      "line": 9117
     },
     {
       "name": "gallery",
-      "line": 9251
+      "line": 9256
     },
     {
       "name": "gallery",
-      "line": 9251
+      "line": 9256
     },
     {
       "name": "gallery",
-      "line": 9255
+      "line": 9260
     },
     {
       "name": "projects",
-      "line": 9257
+      "line": 9262
     },
     {
       "name": "projects",
-      "line": 9263
+      "line": 9268
     },
     {
       "name": "gallery",
-      "line": 9279
+      "line": 9284
     },
     {
       "name": "gallery",
-      "line": 9299
+      "line": 9304
     },
     {
       "name": "gallery",
-      "line": 9310
+      "line": 9315
     },
     {
       "name": "gallery",
-      "line": 9310
+      "line": 9315
     },
     {
       "name": "gallery",
-      "line": 9355
+      "line": 9360
     },
     {
       "name": "projects",
-      "line": 9382
+      "line": 9387
     },
     {
       "name": "projects",
-      "line": 9398
+      "line": 9403
     },
     {
       "name": "projects",
-      "line": 9426
+      "line": 9431
     },
     {
       "name": "settings",
-      "line": 9460
+      "line": 9465
     },
     {
       "name": "settings",
-      "line": 9466
+      "line": 9471
     },
     {
       "name": "settings",
-      "line": 9486
+      "line": 9491
     },
     {
       "name": "settings",
-      "line": 9508
+      "line": 9513
     },
     {
       "name": "settings",
-      "line": 9516
+      "line": 9521
     },
     {
       "name": "settings",
-      "line": 9517
+      "line": 9522
     },
     {
       "name": "settings",
-      "line": 9525
+      "line": 9530
     },
     {
       "name": "settings",
-      "line": 9528
+      "line": 9533
     },
     {
       "name": "settings",
-      "line": 9534
+      "line": 9539
     },
     {
       "name": "settings",
-      "line": 9549
+      "line": 9554
     },
     {
       "name": "settings",
-      "line": 9567
+      "line": 9572
     },
     {
       "name": "settings",
-      "line": 9602
+      "line": 9607
     },
     {
       "name": "settings",
-      "line": 9627
+      "line": 9632
     },
     {
       "name": "invoices",
-      "line": 9727
+      "line": 9732
     },
     {
       "name": "comments",
-      "line": 9734
+      "line": 9739
     },
     {
       "name": "comments",
-      "line": 9734
+      "line": 9739
     },
     {
       "name": "comments",
-      "line": 9740
-    },
-    {
-      "name": "comments",
-      "line": 9751
+      "line": 9745
     },
     {
       "name": "comments",
@@ -5541,31 +5541,31 @@
     },
     {
       "name": "comments",
-      "line": 9783
+      "line": 9761
     },
     {
       "name": "comments",
-      "line": 9783
+      "line": 9788
+    },
+    {
+      "name": "comments",
+      "line": 9788
     },
     {
       "name": "projects",
-      "line": 9828
+      "line": 9833
     },
     {
       "name": "permits",
-      "line": 9850
+      "line": 9855
     },
     {
       "name": "permits",
-      "line": 9850
+      "line": 9855
     },
     {
       "name": "permits",
-      "line": 9866
-    },
-    {
-      "name": "permits",
-      "line": 9872
+      "line": 9871
     },
     {
       "name": "permits",
@@ -5573,395 +5573,395 @@
     },
     {
       "name": "permits",
-      "line": 9895
+      "line": 9882
     },
     {
       "name": "permits",
-      "line": 9896
+      "line": 9900
+    },
+    {
+      "name": "permits",
+      "line": 9901
     },
     {
       "name": "projects",
-      "line": 9903
+      "line": 9908
     },
     {
       "name": "projects",
-      "line": 9932
+      "line": 9937
     },
     {
       "name": "permits",
-      "line": 9951
+      "line": 9956
     },
     {
       "name": "permits",
-      "line": 9962
+      "line": 9967
     },
     {
       "name": "permits",
-      "line": 9966
+      "line": 9971
     },
     {
       "name": "permits",
-      "line": 9975
+      "line": 9980
     },
     {
       "name": "permits",
-      "line": 9975
-    },
-    {
-      "name": "guarantees",
       "line": 9980
     },
     {
       "name": "guarantees",
-      "line": 9980
+      "line": 9985
     },
     {
       "name": "guarantees",
-      "line": 9991
+      "line": 9985
     },
     {
       "name": "guarantees",
-      "line": 9993
+      "line": 9996
     },
     {
       "name": "guarantees",
-      "line": 9995
+      "line": 9998
     },
     {
       "name": "guarantees",
-      "line": 9997
+      "line": 10000
     },
     {
       "name": "guarantees",
-      "line": 10009
+      "line": 10002
     },
     {
       "name": "guarantees",
-      "line": 10010
+      "line": 10014
+    },
+    {
+      "name": "guarantees",
+      "line": 10015
     },
     {
       "name": "projects",
-      "line": 10045
+      "line": 10050
     },
     {
       "name": "guarantees",
-      "line": 10063
+      "line": 10068
     },
     {
       "name": "guarantees",
-      "line": 10071
+      "line": 10076
     },
     {
       "name": "guarantees",
-      "line": 10071
+      "line": 10076
     },
     {
       "name": "projects",
-      "line": 10080
+      "line": 10085
     },
     {
       "name": "projects",
-      "line": 10084
+      "line": 10089
     },
     {
       "name": "projects",
-      "line": 10093
+      "line": 10098
     },
     {
       "name": "cash",
-      "line": 10097
+      "line": 10102
     },
     {
       "name": "invoices",
-      "line": 10099
+      "line": 10104
     },
     {
       "name": "invoices",
-      "line": 10101
+      "line": 10106
     },
     {
       "name": "checks",
-      "line": 10154
+      "line": 10159
     },
     {
       "name": "checks",
-      "line": 10162
+      "line": 10167
     },
     {
       "name": "invoices",
-      "line": 10170
+      "line": 10175
     },
     {
       "name": "settings",
-      "line": 10174
+      "line": 10179
     },
     {
       "name": "settings",
-      "line": 10225
+      "line": 10230
     },
     {
       "name": "settings",
-      "line": 10243
+      "line": 10248
     },
     {
       "name": "checks",
-      "line": 10247
+      "line": 10252
     },
     {
       "name": "permits",
-      "line": 10257
+      "line": 10262
     },
     {
       "name": "settings",
-      "line": 10883
+      "line": 10888
     },
     {
       "name": "settings",
-      "line": 10894
+      "line": 10899
     },
     {
       "name": "settings",
-      "line": 11905
+      "line": 11910
     },
     {
       "name": "activityMaterials",
-      "line": 11939
+      "line": 11944
     },
     {
       "name": "activityMaterials",
-      "line": 11939
+      "line": 11944
     },
     {
       "name": "activityMaterials",
-      "line": 11945
+      "line": 11950
     },
     {
       "name": "activityMaterials",
-      "line": 11962
+      "line": 11967
     },
     {
       "name": "invoices",
-      "line": 11968
+      "line": 11973
     },
     {
       "name": "invoices",
-      "line": 11995
+      "line": 12000
     },
     {
       "name": "projects",
-      "line": 12014
+      "line": 12019
     },
     {
       "name": "activityMaterials",
-      "line": 12129
+      "line": 12134
     },
     {
       "name": "activityMaterials",
-      "line": 12129
+      "line": 12134
     },
     {
       "name": "activityMaterials",
-      "line": 12136
+      "line": 12141
     },
     {
       "name": "activityMaterials",
-      "line": 12151
+      "line": 12156
     },
     {
       "name": "projects",
-      "line": 12166
+      "line": 12171
     },
     {
       "name": "materialCalcs",
-      "line": 12182
+      "line": 12187
     },
     {
       "name": "materialCalcs",
-      "line": 12201
+      "line": 12206
     },
     {
       "name": "projects",
-      "line": 12231
+      "line": 12236
     },
     {
       "name": "activityMaterials",
-      "line": 12308
+      "line": 12313
     },
     {
-      "name": "activityMaterials",
-      "line": 12360
+      "name": "invoices",
+      "line": 12348
     },
     {
-      "name": "activityMaterials",
+      "name": "invoices",
+      "line": 12351
+    },
+    {
+      "name": "projects",
       "line": 12365
     },
     {
       "name": "projects",
-      "line": 12388
+      "line": 12366
     },
     {
       "name": "projects",
-      "line": 12389
+      "line": 12366
     },
     {
       "name": "projects",
-      "line": 12389
-    },
-    {
-      "name": "projects",
-      "line": 12395
+      "line": 12372
     },
     {
       "name": "activityMaterials",
-      "line": 12421
+      "line": 12398
     },
     {
       "name": "materialCalcs",
-      "line": 12519
+      "line": 12496
     },
     {
       "name": "materialCalcs",
-      "line": 12519
+      "line": 12496
     },
     {
       "name": "materialCalcs",
-      "line": 12524
+      "line": 12501
     },
     {
       "name": "projects",
-      "line": 12570
+      "line": 12547
     },
     {
       "name": "projects",
-      "line": 12582
+      "line": 12559
     },
     {
       "name": "invoices",
-      "line": 12671
+      "line": 12648
     },
     {
       "name": "invoices",
-      "line": 12697
+      "line": 12674
     },
     {
       "name": "invoices",
-      "line": 12713
+      "line": 12690
     },
     {
       "name": "activityMaterials",
-      "line": 12731
+      "line": 12708
     },
     {
       "name": "invoices",
-      "line": 12734
+      "line": 12711
     },
     {
       "name": "invoices",
-      "line": 12768
+      "line": 12745
     },
     {
       "name": "invoices",
-      "line": 12772
+      "line": 12749
     },
     {
       "name": "invoices",
-      "line": 12773
+      "line": 12750
     },
     {
       "name": "invoices",
-      "line": 12774
+      "line": 12751
     },
     {
       "name": "invoices",
+      "line": 12752
+    },
+    {
+      "name": "projects",
       "line": 12775
     },
     {
-      "name": "projects",
-      "line": 12798
-    },
-    {
       "name": "settings",
-      "line": 12807
+      "line": 12784
     },
     {
       "name": "projects",
-      "line": 12828
+      "line": 12805
     },
     {
       "name": "projects",
-      "line": 12850
+      "line": 12827
     },
     {
       "name": "invoices",
+      "line": 12844
+    },
+    {
+      "name": "settings",
+      "line": 12848
+    },
+    {
+      "name": "settings",
       "line": 12867
     },
     {
-      "name": "settings",
-      "line": 12871
-    },
-    {
-      "name": "settings",
-      "line": 12890
+      "name": "invoices",
+      "line": 12873
     },
     {
       "name": "invoices",
-      "line": 12896
+      "line": 12893
     },
     {
       "name": "invoices",
-      "line": 12916
-    },
-    {
-      "name": "invoices",
-      "line": 12930
+      "line": 12907
     },
     {
       "name": "projects",
-      "line": 12944
+      "line": 12921
     },
     {
       "name": "invoices",
-      "line": 12973
+      "line": 12949
     },
     {
       "name": "invoices",
-      "line": 12973
-    },
-    {
-      "name": "invoices",
-      "line": 13017
+      "line": 12991
     },
     {
       "name": "settings",
-      "line": 13035
+      "line": 13009
     },
     {
       "name": "invoices",
-      "line": 13066
+      "line": 13040
     },
     {
       "name": "projects",
-      "line": 13088
+      "line": 13062
     },
     {
       "name": "projects",
-      "line": 13088
+      "line": 13062
     },
     {
       "name": "invoices",
-      "line": 13090
+      "line": 13064
     },
     {
       "name": "invoices",
-      "line": 13124
+      "line": 13098
     },
     {
       "name": "invoices",
-      "line": 13159
+      "line": 13133
     },
     {
       "name": "projects",
-      "line": 13189
+      "line": 13163
     }
   ],
   "storageOperations": [
@@ -5999,75 +5999,75 @@
     },
     {
       "name": "sessionStorage.getItem",
-      "line": 7993
+      "line": 7994
     },
     {
       "name": "sessionStorage.setItem",
-      "line": 8019
+      "line": 8020
     },
     {
       "name": "sessionStorage.getItem",
-      "line": 8025
+      "line": 8026
     },
     {
       "name": "sessionStorage.setItem",
-      "line": 8034
+      "line": 8035
     },
     {
       "name": "localStorage.getItem",
-      "line": 8852
+      "line": 8857
     },
     {
       "name": "sessionStorage.getItem",
-      "line": 8861
+      "line": 8866
     },
     {
       "name": "localStorage.setItem",
-      "line": 8874
+      "line": 8879
     },
     {
       "name": "sessionStorage.setItem",
-      "line": 8878
+      "line": 8883
     },
     {
       "name": "localStorage.setItem",
-      "line": 8886
+      "line": 8891
     },
     {
       "name": "localStorage.clear",
-      "line": 9542
+      "line": 9547
     },
     {
       "name": "sessionStorage.getItem",
-      "line": 9550
+      "line": 9555
     },
     {
       "name": "sessionStorage.setItem",
-      "line": 9568
+      "line": 9573
     },
     {
       "name": "localStorage.setItem",
-      "line": 9641
+      "line": 9646
     },
     {
       "name": "localStorage.getItem",
-      "line": 9657
+      "line": 9662
     },
     {
       "name": "sessionStorage.getItem",
-      "line": 10251
+      "line": 10256
     },
     {
       "name": "sessionStorage.setItem",
-      "line": 10253
+      "line": 10258
     },
     {
       "name": "sessionStorage.getItem",
-      "line": 10263
+      "line": 10268
     },
     {
       "name": "sessionStorage.setItem",
-      "line": 10265
+      "line": 10270
     }
   ],
   "persistenceDeclarations": [
@@ -6089,7 +6089,7 @@
     },
     {
       "name": "mana.lastBackup",
-      "line": 8849
+      "line": 8854
     }
   ]
 }

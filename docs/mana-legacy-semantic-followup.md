@@ -12,7 +12,7 @@ The baseline generated graph contains 4,052 scopes, 4,598 events and 53 unresolv
 
 ## Manually traced invoice path
 
-Line references apply to the source digest recorded in `docs/generated/legacy-lexical-summary.json`.
+This historical trace and its line references apply to commit 44943ed9e32acb3662515850b727a6c385721bef. Later generated evidence describes its own source digest; see `mana-invoice-save-correction.md` for the subsequent initialization/reachability and save-effect fixes.
 
 | Source | Behavior and evidence boundary |
 |---|---|

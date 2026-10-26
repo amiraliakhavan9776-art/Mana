@@ -6224,6 +6224,7 @@ console.log('%c[PATCH-GANTT-EDIT] ok', 'color:#2fa88f;font-weight:bold');
    ۱) جدول آیتم‌های صورت‌وضعیت — کارتی در موبایل
    ۲) تشخیص باگ تاریخ
    ============================================================ */
+var invRowCard;
 (function(){
 'use strict';
 
@@ -6267,7 +6268,7 @@ invForm = function(inv){
 };
 
 /* ردیف آیتم به‌صورت کارت — مناسب موبایل */
-function invRowCard(it, i){
+invRowCard = function(it, i){
   it = it || { desc: '', qty: 1, unit: '', price: 0, coef: 1 };
   var coef = num(it.coef) || 1;
   var rowTotal = num(it.qty) * num(it.price) * coef;
@@ -8189,6 +8190,10 @@ ACT['inv-save'] = function(t){
   var f = readForm($('#overlay'));
   var items = collectItems().filter(function(x){ return x.desc || x.price; });
   if(!items.length) return toast('حداقل یک ردیف وارد کنید', 'err');
+  if(!DB.projects.some(function(p){ return p.id === f.projectId; })) return toast('پروژه انتخاب‌شده معتبر نیست', 'err');
+  var editId = t && t.dataset && t.dataset.id;
+  var existing = editId && DB.invoices.find(function(x){ return x.id === editId; });
+  if(editId && !existing) return toast('صورت‌وضعیت پیدا نشد', 'err');
   pushUndo('inv-save');
   
   var newInv = {
@@ -8217,18 +8222,18 @@ ACT['inv-save'] = function(t){
     payments: []
   };
   
-  if(t && t.dataset && t.dataset.id){
-    var old = DB.invoices.find(function(x){ return x.id === t.dataset.id; });
-    if(old){
-      newInv.id = old.id;
-      newInv.payments = old.payments || [];
-      Object.assign(old, newInv);
-    }
+  if(existing){
+    newInv.id = existing.id;
+    newInv.payments = existing.payments || [];
+    Object.assign(existing, newInv);
+    newInv = existing;
   } else {
+    newInv.status = 'draft';
     DB.invoices.push(newInv);
   }
   
   save(); closeModal(); render(); toast('ذخیره شد ✅', 'ok');
+  return newInv;
 };
 
 /* ============ ۲) چاپ حرفه‌ای A4 ============ */
@@ -12340,43 +12345,15 @@ collectItems = function(){
    ============================================================ */
 var _origInvSaveLink = ACT['inv-save'];
 ACT['inv-save'] = function(t){
-  /* قبل از ذخیره، آیتم‌ها رو جمع کن */
-  var items = collectItems().filter(function(x){ return x.desc || x.price; });
-  var ov = document.getElementById('overlay');
-  var pid = '';
-  if(ov){
-    var pSel = ov.querySelector('[name=projectId]');
-    if(pSel) pid = pSel.value;
-  }
-  
-  /* ذخیره */
+  var before = t && t.dataset && DB.invoices.find(function(x){ return x.id === t.dataset.id; });
+  var previousProject = before && before.projectId;
   var res = _origInvSaveLink.apply(this, arguments);
-  
-  /* بعد از ذخیره، مصرف مصالح رو به‌روز کن */
-  setTimeout(function(){
-    items.forEach(function(item){
-      if(!item.activityId) return;
-      /* مصالح مرتبط با فعالیت رو به‌روز کن */
-      var mats = DB.activityMaterials.filter(function(m){
-        return m.projectId === pid && m.activityId === item.activityId;
-      });
-      /* اگه materialId مشخصه، همون رو به‌روز کن */
-      if(item.materialId){
-        var m = DB.activityMaterials.find(function(x){ return x.id === item.materialId; });
-        if(m){
-          m.consumed = num(m.consumed) + num(item.qty) * (num(item.coef) || 1);
-        }
-      } else {
-        /* اگه materialId نیست، اولین مصالح با همون نام رو پیدا کن */
-        var matching = mats.find(function(m){ return m.name === item.desc || (m.name && item.desc && m.name.indexOf(item.desc) > -1); });
-        if(matching){
-          matching.consumed = num(matching.consumed) + num(item.qty) * (num(item.coef) || 1);
-        }
-      }
-    });
-    save();
-  }, 300);
-  
+  if(!res || DB.invoices.indexOf(res) === -1) return res;
+  /* فقط از رکورد ذخیره‌شده و صورت‌وضعیت‌های تأییدشده بازمحاسبه کن. */
+  if(typeof window.recalcActivityMaterials === 'function'){
+    if(previousProject && previousProject !== res.projectId) window.recalcActivityMaterials(previousProject);
+    window.recalcActivityMaterials(res.projectId);
+  }
   return res;
 };
 
@@ -12968,14 +12945,11 @@ function updateActivityProgress(projectId){
 var _origInvSaveFinal = ACT['inv-save'];
 ACT['inv-save'] = function(t){
   var res = _origInvSaveFinal.apply(this, arguments);
-  /* بعد از ذخیره، وضعیت رو draft بذار */
-  setTimeout(function(){
-    var last = DB.invoices[DB.invoices.length - 1];
-    if(last && !last.status){
-      last.status = 'draft';
-      save();
-    }
-  }, 100);
+  /* رکورد دقیق ذخیره‌شده؛ ذخیره ناموفق نباید آخرین رکورد را تغییر دهد. */
+  if(res && DB.invoices.indexOf(res) !== -1 && !res.status){
+    res.status = 'draft';
+    save();
+  }
   return res;
 };
 

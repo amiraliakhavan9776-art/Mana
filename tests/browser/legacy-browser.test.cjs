@@ -10,16 +10,46 @@ async function browserFixture(run){
  let browser;
  try{
   browser=await chromium.launch({headless:true});
-  const context=await browser.newContext({locale:'fa-IR'}),page=await context.newPage();
+  const context=await browser.newContext({locale:'fa-IR'}),page=await context.newPage(),pageErrors=[];
+  page.on('pageerror',error=>pageErrors.push(error.message));
   // Test data and local origin only; optional external integrations are denied.
   const base='http://127.0.0.1:'+server.address().port;
   await context.route('**/*',route=>route.request().url().startsWith(base+'/')?route.continue():route.abort());
   page.on('dialog',dialog=>dialog.accept(dialog.type()==='prompt'?'ناظر آزمایشی':undefined));
   await page.goto(base+'/#/projects');
   await page.waitForFunction(()=>typeof DB==='object' && DB && typeof save==='function');
-  await run(page,base);
+  await run(page,base,pageErrors);
  }finally{if(browser)await browser.close();await new Promise(resolve=>server.close(resolve))}
 }
+test('legacy scripts initialize without uncaught errors and share the invoice row renderer', {timeout:60000},()=>browserFixture(async(page,base,errors)=>{
+ assert.deepEqual(errors,[]);
+ assert.equal(await page.evaluate(()=>typeof invRowCard),'function');
+ assert.equal(await page.evaluate(()=>typeof window.ManaCalcSave),'object');
+}));
+
+test('actual invoice form saves a linked draft without consuming unapproved materials', {timeout:60000},()=>browserFixture(async(page)=>{
+ // Let the existing one-time startup reconciliation finish before exercising save timers.
+ await page.waitForTimeout(600);
+ await page.evaluate(()=>{
+  DB.projects=[{id:'draft-project',name:'Synthetic',activities:[{id:'activity',name:'Concrete',dur:10,progress:0}]}];
+  DB.invoices=[];DB.activityMaterials=[{id:'material',projectId:'draft-project',activityId:'activity',name:'concrete',unit:'m3',unitPrice:100,planned:10,consumed:0}];
+  ACT['inv-new']({dataset:{}});
+ });
+ // Added rows are built after the modal exists, so its project is available.
+ await page.locator('#overlay [data-act="inv-addrow"]').click();
+ await page.locator('#overlay .inv-row-card').first().locator('[data-act="inv-delrow"]').click();
+ await page.locator('#overlay [data-f="activityId"]').selectOption('activity');
+ await page.locator('#overlay [data-f="materialId"]').selectOption('material');
+ await page.locator('#overlay [data-f="qty"]').fill('5');
+ await page.locator('#overlay [data-act="inv-save"]').click();
+ assert.equal(await page.evaluate(()=>DB.invoices[0].status),'draft');
+ await page.waitForTimeout(400);
+ const values=await page.evaluate(()=>({count:DB.invoices.length,activity:DB.invoices[0].items[0].activityId,material:DB.invoices[0].items[0].materialId,consumed:DB.activityMaterials[0].consumed}));
+ assert.deepEqual(values,{count:1,activity:'activity',material:'material',consumed:0});
+ await page.reload();
+ assert.equal(await page.evaluate(()=>DB.invoices[0].status),'draft');
+ assert.equal(await page.evaluate(()=>DB.activityMaterials[0].consumed),0);
+}));
 test('RTL project UI creates, edits and reloads a synthetic project', {timeout:60000},()=>browserFixture(async(page,base)=>{
  assert.equal(await page.locator('html').getAttribute('dir'),'rtl');
  await page.locator('[data-act="prj-new"]').first().click();

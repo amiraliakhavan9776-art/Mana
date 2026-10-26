@@ -4,7 +4,7 @@
     "name": "acorn",
     "version": "8.15.0"
   },
-  "sourceSha256": "b3b74883042b8f881e0c25570e68bb304e9cbc8032213fe9d9a774faa42b12b4",
+  "sourceSha256": "21b48a30f132e5a8ded84debe51c25367edebdbe2e6dca28a642c7c200ad52e4",
   "scripts": [
     {
       "ordinal": 1,
@@ -73,102 +73,102 @@
     },
     {
       "ordinal": 14,
-      "line": 6422,
+      "line": 6423,
       "parsed": true
     },
     {
       "ordinal": 15,
-      "line": 6723,
+      "line": 6724,
       "parsed": true
     },
     {
       "ordinal": 16,
-      "line": 7296,
+      "line": 7297,
       "parsed": true
     },
     {
       "ordinal": 17,
-      "line": 7431,
+      "line": 7432,
       "parsed": true
     },
     {
       "ordinal": 18,
-      "line": 7555,
+      "line": 7556,
       "parsed": true
     },
     {
       "ordinal": 19,
-      "line": 7814,
+      "line": 7815,
       "parsed": true
     },
     {
       "ordinal": 20,
-      "line": 7840,
+      "line": 7841,
       "parsed": true
     },
     {
       "ordinal": 21,
-      "line": 7892,
+      "line": 7893,
       "parsed": true
     },
     {
       "ordinal": 22,
-      "line": 8136,
+      "line": 8137,
       "parsed": true
     },
     {
       "ordinal": 23,
-      "line": 8148,
+      "line": 8149,
       "parsed": true
     },
     {
       "ordinal": 24,
-      "line": 8533,
+      "line": 8538,
       "parsed": true
     },
     {
       "ordinal": 25,
-      "line": 8908,
+      "line": 8913,
       "parsed": true
     },
     {
       "ordinal": 26,
-      "line": 9157,
+      "line": 9162,
       "parsed": true
     },
     {
       "ordinal": 27,
-      "line": 9450,
+      "line": 9455,
       "parsed": true
     },
     {
       "ordinal": 28,
-      "line": 9842,
+      "line": 9847,
       "parsed": true
     },
     {
       "ordinal": 29,
-      "line": 10305,
+      "line": 10310,
       "parsed": true
     },
     {
       "ordinal": 30,
-      "line": 10916,
+      "line": 10921,
       "parsed": true
     },
     {
       "ordinal": 31,
-      "line": 11927,
+      "line": 11932,
       "parsed": true
     },
     {
       "ordinal": 32,
-      "line": 12647,
+      "line": 12624,
       "parsed": true
     }
   ],
-  "scopeCount": 4052,
-  "eventCount": 4598,
+  "scopeCount": 4037,
+  "eventCount": 4597,
   "handlerChains": [
     {
       "identity": "global:ACT:ACT.export-json",
@@ -181,7 +181,7 @@
           "scope": "global"
         },
         {
-          "line": 7306,
+          "line": 7307,
           "script": 16,
           "activation": "immediate",
           "kind": "registration",
@@ -200,7 +200,7 @@
           "scope": "global"
         },
         {
-          "line": 7373,
+          "line": 7374,
           "script": 16,
           "activation": "immediate",
           "kind": "registration",
@@ -233,18 +233,18 @@
           "scope": "scope-2280"
         },
         {
-          "line": 6437,
+          "line": 6438,
           "script": 14,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "scope-2371"
         },
         {
-          "line": 12616,
+          "line": 12593,
           "script": 31,
           "activation": "immediate",
           "kind": "assignment",
-          "scope": "scope-3690"
+          "scope": "scope-3691"
         }
       ]
     },
@@ -259,7 +259,7 @@
           "scope": "global"
         },
         {
-          "line": 6357,
+          "line": 6358,
           "script": 13,
           "activation": "immediate",
           "kind": "registration",
@@ -278,7 +278,7 @@
           "scope": "global"
         },
         {
-          "line": 6368,
+          "line": 6369,
           "script": 13,
           "activation": "immediate",
           "kind": "registration",
@@ -297,32 +297,32 @@
           "scope": "global"
         },
         {
-          "line": 6376,
+          "line": 6377,
           "script": 13,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "scope-2335"
         },
         {
-          "line": 8188,
+          "line": 8189,
           "script": 23,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "scope-2668"
         },
         {
-          "line": 12342,
+          "line": 12347,
           "script": 31,
           "activation": "immediate",
           "kind": "assignment",
-          "scope": "scope-3690"
+          "scope": "scope-3691"
         },
         {
-          "line": 12969,
+          "line": 12946,
           "script": 32,
           "activation": "immediate",
           "kind": "assignment",
-          "scope": "scope-3877"
+          "scope": "scope-3864"
         }
       ]
     },
@@ -337,18 +337,18 @@
           "scope": "global"
         },
         {
-          "line": 6928,
+          "line": 6929,
           "script": 15,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "scope-2469"
         },
         {
-          "line": 13156,
+          "line": 13130,
           "script": 32,
           "activation": "immediate",
           "kind": "assignment",
-          "scope": "scope-3877"
+          "scope": "scope-3864"
         }
       ]
     },
@@ -370,35 +370,35 @@
           "scope": "scope-2040"
         },
         {
-          "line": 6742,
+          "line": 6743,
           "script": 15,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "scope-2429"
         },
         {
-          "line": 7794,
+          "line": 7795,
           "script": 18,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "scope-2575"
         },
         {
-          "line": 7816,
+          "line": 7817,
           "script": 19,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "scope-2611"
         },
         {
-          "line": 7841,
+          "line": 7842,
           "script": 20,
           "activation": "immediate",
           "kind": "assignment",
           "scope": "global"
         },
         {
-          "line": 8240,
+          "line": 8245,
           "script": 23,
           "activation": "immediate",
           "kind": "assignment",
@@ -493,18 +493,18 @@
       "identity": "global:ACT:ACT.exp-copy",
       "sites": [
         {
-          "line": 7319,
+          "line": 7320,
           "script": 16,
           "activation": "immediate",
           "kind": "registration",
           "scope": "scope-2475"
         },
         {
-          "line": 8884,
+          "line": 8889,
           "script": 24,
           "activation": "conditional",
           "kind": "assignment",
-          "scope": "scope-2821"
+          "scope": "scope-2822"
         }
       ]
     }
@@ -952,8 +952,8 @@
     },
     {
       "script": 24,
-      "line": 8541,
-      "scope": "scope-2732",
+      "line": 8546,
+      "scope": "scope-2733",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -963,8 +963,8 @@
     },
     {
       "script": 24,
-      "line": 8716,
-      "scope": "scope-2732",
+      "line": 8721,
+      "scope": "scope-2733",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -974,8 +974,8 @@
     },
     {
       "script": 26,
-      "line": 9253,
-      "scope": "scope-2935",
+      "line": 9258,
+      "scope": "scope-2936",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -985,8 +985,8 @@
     },
     {
       "script": 27,
-      "line": 9458,
-      "scope": "scope-3034",
+      "line": 9463,
+      "scope": "scope-3035",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -996,8 +996,8 @@
     },
     {
       "script": 27,
-      "line": 9598,
-      "scope": "scope-3034",
+      "line": 9603,
+      "scope": "scope-3035",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -1007,8 +1007,8 @@
     },
     {
       "script": 28,
-      "line": 9864,
-      "scope": "scope-3150",
+      "line": 9869,
+      "scope": "scope-3151",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -1018,8 +1018,8 @@
     },
     {
       "script": 28,
-      "line": 9989,
-      "scope": "scope-3150",
+      "line": 9994,
+      "scope": "scope-3151",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -1029,8 +1029,8 @@
     },
     {
       "script": 28,
-      "line": 10076,
-      "scope": "scope-3150",
+      "line": 10081,
+      "scope": "scope-3151",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -1040,8 +1040,8 @@
     },
     {
       "script": 28,
-      "line": 10135,
-      "scope": "scope-3150",
+      "line": 10140,
+      "scope": "scope-3151",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -1051,8 +1051,8 @@
     },
     {
       "script": 29,
-      "line": 10315,
-      "scope": "scope-3313",
+      "line": 10320,
+      "scope": "scope-3314",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -1062,8 +1062,8 @@
     },
     {
       "script": 32,
-      "line": 12765,
-      "scope": "scope-3877",
+      "line": 12742,
+      "scope": "scope-3864",
       "activation": "immediate",
       "kind": "registration",
       "target": "defRoute",
@@ -1163,7 +1163,7 @@
     },
     {
       "script": 21,
-      "line": 7993,
+      "line": 7994,
       "scope": "scope-2647",
       "activation": "deferred",
       "kind": "storage",
@@ -1174,7 +1174,7 @@
     },
     {
       "script": 21,
-      "line": 8019,
+      "line": 8020,
       "scope": "scope-2655",
       "activation": "deferred",
       "kind": "storage",
@@ -1185,7 +1185,7 @@
     },
     {
       "script": 21,
-      "line": 8025,
+      "line": 8026,
       "scope": "scope-2633",
       "activation": "conditional",
       "kind": "storage",
@@ -1196,7 +1196,7 @@
     },
     {
       "script": 21,
-      "line": 8034,
+      "line": 8035,
       "scope": "scope-2660",
       "activation": "deferred",
       "kind": "storage",
@@ -1207,8 +1207,8 @@
     },
     {
       "script": 24,
-      "line": 8852,
-      "scope": "scope-2805",
+      "line": 8857,
+      "scope": "scope-2806",
       "activation": "deferred",
       "kind": "storage",
       "target": "localStorage.getItem",
@@ -1218,8 +1218,8 @@
     },
     {
       "script": 24,
-      "line": 8861,
-      "scope": "scope-2810",
+      "line": 8866,
+      "scope": "scope-2811",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.getItem",
@@ -1229,8 +1229,8 @@
     },
     {
       "script": 24,
-      "line": 8874,
-      "scope": "scope-2816",
+      "line": 8879,
+      "scope": "scope-2817",
       "activation": "deferred",
       "kind": "storage",
       "target": "localStorage.setItem",
@@ -1240,8 +1240,8 @@
     },
     {
       "script": 24,
-      "line": 8878,
-      "scope": "scope-2820",
+      "line": 8883,
+      "scope": "scope-2821",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.setItem",
@@ -1251,8 +1251,8 @@
     },
     {
       "script": 24,
-      "line": 8886,
-      "scope": "scope-2824",
+      "line": 8891,
+      "scope": "scope-2825",
       "activation": "deferred",
       "kind": "storage",
       "target": "localStorage.setItem",
@@ -1262,8 +1262,8 @@
     },
     {
       "script": 27,
-      "line": 9542,
-      "scope": "scope-3050",
+      "line": 9547,
+      "scope": "scope-3051",
       "activation": "deferred",
       "kind": "storage",
       "target": "localStorage.clear",
@@ -1273,8 +1273,8 @@
     },
     {
       "script": 27,
-      "line": 9550,
-      "scope": "scope-3054",
+      "line": 9555,
+      "scope": "scope-3055",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.getItem",
@@ -1284,8 +1284,8 @@
     },
     {
       "script": 27,
-      "line": 9568,
-      "scope": "scope-3058",
+      "line": 9573,
+      "scope": "scope-3059",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.setItem",
@@ -1295,8 +1295,8 @@
     },
     {
       "script": 27,
-      "line": 9641,
-      "scope": "scope-3072",
+      "line": 9646,
+      "scope": "scope-3073",
       "activation": "deferred",
       "kind": "storage",
       "target": "localStorage.setItem",
@@ -1306,8 +1306,8 @@
     },
     {
       "script": 27,
-      "line": 9657,
-      "scope": "scope-3077",
+      "line": 9662,
+      "scope": "scope-3078",
       "activation": "conditional",
       "kind": "storage",
       "target": "localStorage.getItem",
@@ -1317,8 +1317,8 @@
     },
     {
       "script": 28,
-      "line": 10251,
-      "scope": "scope-3283",
+      "line": 10256,
+      "scope": "scope-3284",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.getItem",
@@ -1328,8 +1328,8 @@
     },
     {
       "script": 28,
-      "line": 10253,
-      "scope": "scope-3284",
+      "line": 10258,
+      "scope": "scope-3285",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.setItem",
@@ -1339,8 +1339,8 @@
     },
     {
       "script": 28,
-      "line": 10263,
-      "scope": "scope-3288",
+      "line": 10268,
+      "scope": "scope-3289",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.getItem",
@@ -1350,8 +1350,8 @@
     },
     {
       "script": 28,
-      "line": 10265,
-      "scope": "scope-3289",
+      "line": 10270,
+      "scope": "scope-3290",
       "activation": "deferred",
       "kind": "storage",
       "target": "sessionStorage.setItem",
@@ -1391,39 +1391,39 @@
         5712,
         5757,
         5771,
-        6257,
         6258,
         6259,
         6260,
-        6758,
-        6848,
-        6870,
-        7570,
-        8245,
-        8740,
-        9460,
-        9466,
-        9486,
-        9508,
-        9516,
-        9517,
-        9525,
-        9528,
-        9534,
-        9549,
-        9567,
-        9602,
-        9627,
-        10174,
-        10225,
-        10243,
-        10883,
-        10894,
-        11905,
-        12807,
-        12871,
-        12890,
-        13035
+        6261,
+        6759,
+        6849,
+        6871,
+        7571,
+        8250,
+        8745,
+        9465,
+        9471,
+        9491,
+        9513,
+        9521,
+        9522,
+        9530,
+        9533,
+        9539,
+        9554,
+        9572,
+        9607,
+        9632,
+        10179,
+        10230,
+        10248,
+        10888,
+        10899,
+        11910,
+        12784,
+        12848,
+        12867,
+        13009
       ]
     },
     {
@@ -1434,10 +1434,10 @@
         2783,
         2879,
         2893,
-        7391,
         7392,
-        7501,
-        7502
+        7393,
+        7502,
+        7503
       ]
     },
     {
@@ -1465,40 +1465,42 @@
         5130,
         5192,
         5578,
-        6381,
-        6743,
-        7795,
-        7817,
-        7842,
-        8221,
-        8228,
-        8241,
-        8738,
-        9727,
-        10099,
-        10101,
-        10170,
-        11968,
-        11995,
-        12671,
-        12697,
-        12713,
-        12734,
-        12768,
-        12772,
-        12773,
-        12774,
-        12775,
-        12867,
-        12896,
-        12916,
-        12930,
-        12973,
-        13017,
-        13066,
-        13090,
-        13124,
-        13159
+        6382,
+        6744,
+        7796,
+        7818,
+        7843,
+        8195,
+        8232,
+        8246,
+        8743,
+        9732,
+        10104,
+        10106,
+        10175,
+        11973,
+        12000,
+        12348,
+        12351,
+        12648,
+        12674,
+        12690,
+        12711,
+        12745,
+        12749,
+        12750,
+        12751,
+        12752,
+        12844,
+        12873,
+        12893,
+        12907,
+        12949,
+        12991,
+        13040,
+        13064,
+        13098,
+        13133
       ]
     },
     {
@@ -1572,42 +1574,43 @@
         5994,
         6111,
         6146,
-        6238,
-        6438,
-        6526,
-        6586,
-        6629,
-        6660,
-        6747,
-        7569,
-        8244,
-        8746,
-        9257,
-        9263,
-        9382,
-        9398,
-        9426,
-        9828,
-        9903,
-        9932,
-        10045,
-        10080,
-        10084,
-        10093,
-        12014,
-        12166,
-        12231,
-        12388,
-        12389,
-        12395,
-        12570,
-        12582,
-        12798,
-        12828,
-        12850,
-        12944,
-        13088,
-        13189
+        6239,
+        6439,
+        6527,
+        6587,
+        6630,
+        6661,
+        6748,
+        7570,
+        8193,
+        8249,
+        8751,
+        9262,
+        9268,
+        9387,
+        9403,
+        9431,
+        9833,
+        9908,
+        9937,
+        10050,
+        10085,
+        10089,
+        10098,
+        12019,
+        12171,
+        12236,
+        12365,
+        12366,
+        12372,
+        12547,
+        12559,
+        12775,
+        12805,
+        12827,
+        12921,
+        13062,
+        13163
       ]
     },
     {
@@ -1626,7 +1629,7 @@
         4785,
         5591,
         5592,
-        10097
+        10102
       ]
     },
     {
@@ -1666,7 +1669,7 @@
         2888,
         4919,
         5236,
-        8732
+        8737
       ]
     },
     {
@@ -1723,10 +1726,10 @@
         4921,
         5160,
         5177,
-        8735,
-        10154,
-        10162,
-        10247
+        8740,
+        10159,
+        10167,
+        10252
       ]
     },
     {
@@ -1821,7 +1824,7 @@
         2396,
         2426,
         2427,
-        8749
+        8754
       ]
     },
     {
@@ -2070,108 +2073,106 @@
     {
       "identity": "global:DB:timers",
       "lines": [
-        8916,
-        8920,
-        8922,
-        8928,
-        8937,
-        8941,
-        8969
+        8921,
+        8925,
+        8927,
+        8933,
+        8942,
+        8946,
+        8974
       ]
     },
     {
       "identity": "global:DB:ratings",
       "lines": [
-        8983,
         8988,
-        9000,
-        9006
+        8993,
+        9005,
+        9011
       ]
     },
     {
       "identity": "global:DB:timeLog",
       "lines": [
-        9078,
-        9082,
-        9088,
-        9103,
-        9112
+        9083,
+        9087,
+        9093,
+        9108,
+        9117
       ]
     },
     {
       "identity": "global:DB:gallery",
       "lines": [
-        9251,
-        9255,
-        9279,
-        9299,
-        9310,
-        9355
+        9256,
+        9260,
+        9284,
+        9304,
+        9315,
+        9360
       ]
     },
     {
       "identity": "global:DB:comments",
       "lines": [
-        9734,
-        9740,
-        9751,
+        9739,
+        9745,
         9756,
-        9783
+        9761,
+        9788
       ]
     },
     {
       "identity": "global:DB:permits",
       "lines": [
-        9850,
-        9866,
-        9872,
+        9855,
+        9871,
         9877,
-        9895,
-        9896,
-        9951,
-        9962,
-        9966,
-        9975,
-        10257
+        9882,
+        9900,
+        9901,
+        9956,
+        9967,
+        9971,
+        9980,
+        10262
       ]
     },
     {
       "identity": "global:DB:guarantees",
       "lines": [
-        9980,
-        9991,
-        9993,
-        9995,
-        9997,
-        10009,
-        10010,
-        10063,
-        10071
+        9985,
+        9996,
+        9998,
+        10000,
+        10002,
+        10014,
+        10015,
+        10068,
+        10076
       ]
     },
     {
       "identity": "global:DB:activityMaterials",
       "lines": [
-        11939,
-        11945,
-        11962,
-        12129,
-        12136,
-        12151,
-        12308,
-        12360,
-        12365,
-        12421,
-        12731
+        11944,
+        11950,
+        11967,
+        12134,
+        12141,
+        12156,
+        12313,
+        12398,
+        12708
       ]
     },
     {
       "identity": "global:DB:materialCalcs",
       "lines": [
-        12182,
-        12201,
-        12519,
-        12524
+        12187,
+        12206,
+        12496,
+        12501
       ]
     }
   ],
@@ -2394,7 +2395,7 @@
     },
     {
       "script": 14,
-      "line": 6672,
+      "line": 6673,
       "scope": "scope-2421",
       "activation": "deferred",
       "reason": "computed-assignment",
@@ -2402,7 +2403,7 @@
     },
     {
       "script": 16,
-      "line": 7395,
+      "line": 7396,
       "scope": "scope-2510",
       "activation": "deferred",
       "reason": "computed-assignment",
@@ -2410,7 +2411,7 @@
     },
     {
       "script": 17,
-      "line": 7505,
+      "line": 7506,
       "scope": "scope-2561",
       "activation": "deferred",
       "reason": "computed-assignment",
@@ -2418,184 +2419,184 @@
     },
     {
       "script": 24,
-      "line": 8728,
-      "scope": "scope-2756",
+      "line": 8733,
+      "scope": "scope-2757",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "events"
     },
     {
       "script": 24,
-      "line": 8852,
-      "scope": "scope-2805",
+      "line": 8857,
+      "scope": "scope-2806",
       "activation": "deferred",
       "reason": "dynamic-call-argument",
       "target": "localStorage.getItem"
     },
     {
       "script": 24,
-      "line": 8874,
-      "scope": "scope-2816",
+      "line": 8879,
+      "scope": "scope-2817",
       "activation": "deferred",
       "reason": "dynamic-call-argument",
       "target": "localStorage.setItem"
     },
     {
       "script": 24,
-      "line": 8886,
-      "scope": "scope-2824",
+      "line": 8891,
+      "scope": "scope-2825",
       "activation": "deferred",
       "reason": "dynamic-call-argument",
       "target": "localStorage.setItem"
     },
     {
       "script": 27,
-      "line": 9542,
-      "scope": "scope-3050",
+      "line": 9547,
+      "scope": "scope-3051",
       "activation": "deferred",
       "reason": "dynamic-call-argument",
       "target": "localStorage.clear"
     },
     {
       "script": 28,
-      "line": 10251,
-      "scope": "scope-3283",
-      "activation": "deferred",
-      "reason": "dynamic-call-argument",
-      "target": "sessionStorage.getItem"
-    },
-    {
-      "script": 28,
-      "line": 10253,
+      "line": 10256,
       "scope": "scope-3284",
       "activation": "deferred",
       "reason": "dynamic-call-argument",
+      "target": "sessionStorage.getItem"
+    },
+    {
+      "script": 28,
+      "line": 10258,
+      "scope": "scope-3285",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
       "target": "sessionStorage.setItem"
     },
     {
       "script": 28,
-      "line": 10263,
-      "scope": "scope-3288",
+      "line": 10268,
+      "scope": "scope-3289",
       "activation": "deferred",
       "reason": "dynamic-call-argument",
       "target": "sessionStorage.getItem"
     },
     {
       "script": 28,
-      "line": 10265,
-      "scope": "scope-3289",
+      "line": 10270,
+      "scope": "scope-3290",
       "activation": "deferred",
       "reason": "dynamic-call-argument",
       "target": "sessionStorage.setItem"
     },
     {
       "script": 29,
-      "line": 10805,
-      "scope": "scope-3427",
+      "line": 10810,
+      "scope": "scope-3428",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 29,
-      "line": 10869,
-      "scope": "scope-3446",
+      "line": 10874,
+      "scope": "scope-3447",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11481,
-      "scope": "scope-3577",
+      "line": 11486,
+      "scope": "scope-3578",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11482,
-      "scope": "scope-3577",
+      "line": 11487,
+      "scope": "scope-3578",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11494,
-      "scope": "scope-3583",
+      "line": 11499,
+      "scope": "scope-3584",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "byMat"
     },
     {
       "script": 30,
-      "line": 11586,
-      "scope": "scope-3603",
+      "line": 11591,
+      "scope": "scope-3604",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11587,
-      "scope": "scope-3603",
+      "line": 11592,
+      "scope": "scope-3604",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11613,
-      "scope": "scope-3609",
+      "line": 11618,
+      "scope": "scope-3610",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "byType"
     },
     {
       "script": 30,
-      "line": 11614,
-      "scope": "scope-3609",
+      "line": 11619,
+      "scope": "scope-3610",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "glassThickness"
     },
     {
       "script": 30,
-      "line": 11714,
-      "scope": "scope-3627",
+      "line": 11719,
+      "scope": "scope-3628",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11715,
-      "scope": "scope-3627",
+      "line": 11720,
+      "scope": "scope-3628",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11820,
-      "scope": "scope-3647",
+      "line": 11825,
+      "scope": "scope-3648",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11821,
-      "scope": "scope-3647",
+      "line": 11826,
+      "scope": "scope-3648",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"
     },
     {
       "script": 30,
-      "line": 11899,
-      "scope": "scope-3668",
+      "line": 11904,
+      "scope": "scope-3669",
       "activation": "deferred",
       "reason": "computed-assignment",
       "root": "items"

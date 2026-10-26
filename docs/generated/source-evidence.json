@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "dbab36a407a4e7f1f8101fbe0fa14090eee16148833c040a78dda7d35ca08c72",
-  "fileCount": 188,
+  "sourceSetDigest": "730f47b0a5becaf405ed64c17a6197e1715cefa6195fd9f8cec3582be93d8a75",
+  "fileCount": 190,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -157,6 +157,15 @@
       "testFile": false
     },
     {
+      "path": "docs/mana-invoice-save-correction.md",
+      "bytes": 3539,
+      "sha256": "83e87073576d85d6787b051f3f823b3f33cc3e547effb38c580ba3756b76d7de",
+      "gitBlob": "18a9084a9a313ee862d5dc2d02ca7d49f8a26284",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "docs/mana-jarvis-shared-core.md",
       "bytes": 5195,
       "sha256": "29dacc363897332c49a9964f0723e6477f33aac3daef6d1674e1890d5d82d722",
@@ -167,9 +176,9 @@
     },
     {
       "path": "docs/mana-legacy-semantic-followup.md",
-      "bytes": 5338,
-      "sha256": "1558a7ab869de8345b32e5994952dd3b370deb80e10e8b0630aa4c7f54d0db47",
-      "gitBlob": "b783b632779def3034509d872af6925ab4339dc9",
+      "bytes": 5507,
+      "sha256": "ccfed40d6627cc94124ef36ee45d6193f7c61ba281a57ec5103f50653fd259f6",
+      "gitBlob": "c59219a8c55c6cc307a8a3521ec480a52d3aff34",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -212,9 +221,9 @@
     },
     {
       "path": "index.html",
-      "bytes": 703223,
-      "sha256": "b3b74883042b8f881e0c25570e68bb304e9cbc8032213fe9d9a774faa42b12b4",
-      "gitBlob": "74f333a7ec86eff212643a6c2426f0e25acb6af8",
+      "bytes": 702684,
+      "sha256": "21b48a30f132e5a8ded84debe51c25367edebdbe2e6dca28a642c7c200ad52e4",
+      "gitBlob": "7f9036f6275392ecc40b17c0ae005495ae984433",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -3362,9 +3371,9 @@
     },
     {
       "path": "tests/browser/legacy-browser.test.cjs",
-      "bytes": 7765,
-      "sha256": "c4ebf37c61ef6ed9af37c61da9dd8ec8e67e0cab9d71293e31113077454bca57",
-      "gitBlob": "316866a44e0a93cfbc59c7dfa5a1996ac88d2aa5",
+      "bytes": 9888,
+      "sha256": "8ba1c2165e1912a08d2dbd5394093b751979f6fb7aaad93d9f5bb2bcee2dd22b",
+      "gitBlob": "50caf422fb6c98a0af0018e11c22096c5bc4e262",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -3502,6 +3511,40 @@
         },
         {
           "value": "../tools/inventory-legacy.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "tests/mana-invoice-save-effects.test.cjs",
+      "bytes": 3897,
+      "sha256": "d1ef131176d0df9a876339c60725767388fe38560d3cbd35ac73ec21d3942200",
+      "gitBlob": "0f091e9905613d4047757240f433e121103740eb",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:vm",
+          "line": 2
+        },
+        {
+          "value": "../tools/parser/node_modules/acorn",
           "line": 3
         }
       ],
