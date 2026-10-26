@@ -1,5 +1,8 @@
 # وضعیت قابلیت‌های سند جامع ۱.۱ — ۲۰۲۶/۱۰/۲۶
 
+
+افزودهٔ توسعه: چرخهٔ محلی ساخت/آزمون مهارت‌های محدود و تولید فایل کد از درخواست فارسی اضافه شده است؛ کد دلخواه هنوز sandbox تأییدشده یا اعمال خودکار ندارد و کیفیت مدل واقعی ارزیابی نشده است. قرارداد و محدودیت‌ها: `mana-local-skill-evolution.md`.
+
 «ساخته‌شده و تست‌شده» فقط محدوده مشخص این جدول را تأیید می‌کند؛ هیچ ردیف به معنای آمادگی تولید نیست. مبنا: فایل‌های شاخه GitHub و آزمون‌های این مرحله؛ گزارش سرور مدرک پذیرش محسوب نمی‌شود.
 
 به‌روزرسانی تطبیق با کد تا `7d5fa6f`: وضعیت‌های قدیمیِ برنامه‌ریزی مجدد، حافظه شخصی، گردش‌های محدود فارسی و فایل‌های PDF/XLSX با پیاده‌سازی‌های بعدی تطبیق داده شدند. «نمونه اولیه» پذیرش عملیاتی یا تکمیل قابلیت عمومی نیست. گیت‌های G1/G2 و سه مأموریت واقعی همچنان بازند؛ هیچ تأیید بازبین فرض نشده است.
@@ -24,7 +27,7 @@
 | Intelligence | Hierarchical task network planning | ساخته‌نشده | requires dedicated implementation/acceptance |
 | Intelligence | Causal consequence simulation / resource scheduling | ساخته‌نشده | requires dedicated implementation/acceptance |
 | Intelligence | Knowledge graph with provenance | ساخته‌نشده | requires dedicated implementation/acceptance |
-| Intelligence | Controlled self-improvement pipeline | ساخته‌نشده | requires dedicated implementation/acceptance |
+| Intelligence | Controlled self-improvement pipeline | نمونه اولیه | bounded declarative skill propose/test/retry/checkpoint; real code drafts stop before unverified sandbox; mana-local-skill-evolution.md |
 | Server integration | Core v5 adapter | ساخته‌نشده | source snapshot reviewed; wrapper/report writer not connected as a competing executor; mana-server-source-review.md |
 | Server integration | Memory v5.1 adapter | ساخته‌نشده | source received; unscoped plaintext history needs reviewed provenance/scope migration |
 | Server integration | General runner / gateway / mission-engine adapter | ساخته‌نشده | supplied execution paths mapped; no blind replay, competing state writer or live connection |

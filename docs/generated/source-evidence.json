@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "ffd64c285027198430cc83ecd09bbdb76223f8762ea30e8e9ab84680487fd734",
-  "fileCount": 203,
+  "sourceSetDigest": "e677af18935fee1724e4210f7da5d33279bc871a61620abd837acacea1d4398c",
+  "fileCount": 218,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -131,9 +131,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 15867,
-      "sha256": "f3a162f0e80086ff88385eb0c71d39aa27da54737acd4dab3e65cb8ffcadd26e",
-      "gitBlob": "87757d780ef46138330878236bac3f99798fdbf7",
+      "bytes": 16374,
+      "sha256": "aa6b3834c31bccd77055d6c56dbaec10c5854ae7796c0eb7a2607ce3d9c10913",
+      "gitBlob": "8680c8995d62e924cff0f8fdcf95095880c5c4b2",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -188,6 +188,15 @@
       "bytes": 5507,
       "sha256": "ccfed40d6627cc94124ef36ee45d6193f7c61ba281a57ec5103f50653fd259f6",
       "gitBlob": "c59219a8c55c6cc307a8a3521ec480a52d3aff34",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-local-skill-evolution.md",
+      "bytes": 7222,
+      "sha256": "8b5f129f6a57f2e18eef16f8aaf284acf38817b7a52f45e3f4ebf8f956e57467",
+      "gitBlob": "36616e6ceb2bc426586e98b6514733174594a112",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -547,6 +556,32 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/code-local.cjs",
+      "bytes": 976,
+      "sha256": "428d14b4506e7f0df0dd5e8a21b6359919124b64131cd72035bbc7a57fecf725",
+      "gitBlob": "d185f6e34302193eb26e87beeeec1825fd8c7831",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 3
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 4
+        },
+        {
+          "value": "./src/native/code-workbench.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/dev-chat.cjs",
       "bytes": 1821,
       "sha256": "6a81187ebbb5b8782c6c4fb8d208c3604cb0f887e2d20d9362aed30d672019f1",
@@ -570,6 +605,88 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/evolution-check.cjs",
+      "bytes": 1362,
+      "sha256": "b09255f337487bbad5a338adcafa7998cf8c2e6e932baa040d29ffa4c44d08bc",
+      "gitBlob": "21e66cb18f99821af15e193b001e2c561822a03a",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 4
+        },
+        {
+          "value": "./examples/skill.clamp-percent.json",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/evolve-backlog.cjs",
+      "bytes": 1741,
+      "sha256": "7bb7d5b617422558cb18e7103d38f6fc4a4d5b2b4a0238f63f3561107f08ec2f",
+      "gitBlob": "581c546538a1e13169ab7509ff45e0df282b071b",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 4
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/evolve-local.cjs",
+      "bytes": 846,
+      "sha256": "dec446f860764f8ca732fd14212ccae7fdff322e5059e8d5e53715b80ab65331",
+      "gitBlob": "23b860e0f9f5befe5918bea7e32b0566ea35cffb",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 3
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/examples/business-autopilot.example.json",
       "bytes": 252,
       "sha256": "25df2dd4fefbf1bb3bb1bc4c07101f08d5f3e4bc546b131e2526c5256ee43ff1",
@@ -588,10 +705,46 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/examples/code-request.json",
+      "bytes": 566,
+      "sha256": "d7d7b7f2c4db1be31c6a639ddeb9f57bdc6fb798da59bbe3cef2a213dfe40dda",
+      "gitBlob": "f086fbac9787b6c86ae13d5f75d8dea9c2552225",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/examples/documents.snapshot.example.json",
       "bytes": 260,
       "sha256": "8dd9dd654389871f5695b8600d6198c75a62921cbee6b6c911a157acceb06c31",
       "gitBlob": "eec2231db83527d9b36fa01cc582d64a8c6cb4a1",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/evolution-backlog/01-clamp.json",
+      "bytes": 362,
+      "sha256": "ebd5737feeb0cca95b918ce801c9ab78027293b850960048c3e5dc977908e91e",
+      "gitBlob": "7677f3ae815c9cc1f9cb09926c491cdfe68c48d9",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/evolution-backlog/02-remaining.json",
+      "bytes": 444,
+      "sha256": "3d04cf6bb7e1a1be7adcd544d4fe007b1ef755652aac7e53cf1ee567a303c1a4",
+      "gitBlob": "faa86e2d1391269c5de4dd6586a99107ba804d9a",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/evolution-backlog/03-variance.json",
+      "bytes": 504,
+      "sha256": "e2cb5cb9eef95acafdea557ca0490c071b5e2aeac833157678eff085a6934b1f",
+      "gitBlob": "3539c05d7ed3bea5aa13f36678724124c0dac77d",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -619,6 +772,15 @@
       "bytes": 144,
       "sha256": "6a3d2591837b3142a29c27282ee885e0aeb1c24a8f4c4dfa2c1ace7961809fa1",
       "gitBlob": "eab203d75288e8ad652682d589ecc1203ad65516",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/skill.clamp-percent.json",
+      "bytes": 513,
+      "sha256": "0916ccdaa75cfdb5f65afcdb9c784afee64d81948210900ce7b197a9e4cbc840",
+      "gitBlob": "c82bb684204fa416f9b6a7edb91e68a87d1ef027",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1410,6 +1572,36 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/native/code-workbench.cjs",
+      "bytes": 4873,
+      "sha256": "13c9709c648e10c3a1d6f95898125d0e0b917b7d30fde782c8b60069e08fd9e8",
+      "gitBlob": "2a36a9a641faac33b406a2b252e2af8ae71039cc",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "../exact-json.cjs",
+          "line": 4
+        },
+        {
+          "value": "./skill-evolution.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/native/core.cjs",
       "bytes": 11438,
       "sha256": "6344fad45e3320da94d2b595b5967fac93a1f37d53a5ab7705a12f0256c0482b",
@@ -1502,6 +1694,49 @@
           "line": 7
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/skill-evolution.cjs",
+      "bytes": 6887,
+      "sha256": "6406caf5e704233f06393bdd000ccc67dad5335b360bbe97ca545e47bab40d61",
+      "gitBlob": "01c00f25c53452baf70b61098392d57c8e493ce6",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "../exact-json.cjs",
+          "line": 3
+        },
+        {
+          "value": "./skill-expression.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/skill-expression.cjs",
+      "bytes": 2343,
+      "sha256": "1241583c48b400833938799ea5538a7585cd8862444c930fea0b580741829261",
+      "gitBlob": "0094eaed10249977a95c607b803884564067b68d",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -2269,6 +2504,40 @@
         {
           "value": "node:child_process",
           "line": 36
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/code-workbench.test.cjs",
+      "bytes": 2734,
+      "sha256": "38f0b3669db81f0f5669aaf0b8ba46cef9360fbd7b5e3bec81bde93a3d1d4b3d",
+      "gitBlob": "51019918642e37cc87c1e8d28c54bc552900785c",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "../src/native/code-workbench.cjs",
+          "line": 3
         }
       ],
       "environmentCandidates": [],
@@ -3465,6 +3734,56 @@
         {
           "value": "../src/session-auth.cjs",
           "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/skill-evolution.test.cjs",
+      "bytes": 5787,
+      "sha256": "22ee591894a5a9590216ac3cfce44241b8c019d7e3dd693865bd8a43c218d05d",
+      "gitBlob": "67794f203a2b180729fd83a39103280f46a2079e",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "../src/native/skill-expression.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/skill-evolution.cjs",
+          "line": 4
+        },
+        {
+          "value": "../examples/skill.clamp-percent.json",
+          "line": 5
+        },
+        {
+          "value": "fs",
+          "line": 24
         }
       ],
       "environmentCandidates": [],

@@ -1,0 +1,1 @@
+{"schema":"MANA_SKILL_TASK_V1","id":"clamp-percent","instruction":"Clamp the numeric percent input to zero through one hundred inclusive; a nonfinancial display helper.","fields":["percent"],"tests":[{"input":{"percent":-10},"expected":0},{"input":{"percent":35},"expected":35},{"input":{"percent":150},"expected":100},{"input":{"percent":100},"expected":100}]}
