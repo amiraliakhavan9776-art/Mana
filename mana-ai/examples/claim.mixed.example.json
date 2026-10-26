@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "synthetic-claim",
+  "organizationId": "local",
+  "projectId": "sample",
+  "currency": "IRR",
+  "mode": "mixed",
+  "policyRef": "synthetic-policy-for-testing-only",
+  "rounding": { "scale": 2, "mode": "half_even", "lineRounding": "per_line" },
+  "lines": [
+    { "id": "priced", "mode": "unit_price", "description": "Synthetic measured items", "sourceRef": "synthetic:contract:1", "quantity": "2", "unitPrice": "100", "unit": "item" },
+    { "id": "area", "mode": "area", "description": "Synthetic measured area", "sourceRef": "synthetic:measurement:2", "quantity": "12.5", "unitPrice": "200", "unit": "m2" },
+    { "id": "labor", "mode": "labor", "description": "Synthetic labor", "sourceRef": "synthetic:timesheet:3", "quantity": "8", "unitPrice": "100", "unit": "hour" },
+    { "id": "tranche", "mode": "lump_sum", "description": "Synthetic period tranche", "sourceRef": "synthetic:contract:4", "amount": "3500" },
+    { "id": "progress", "mode": "progress", "description": "Synthetic period progress", "sourceRef": "synthetic:measurement:5", "baseAmount": "10000", "periodPercent": "25" }
+  ],
+  "deductions": [
+    { "id": "retention", "kind": "percent", "rate": "5", "base": "gross", "sourceRef": "synthetic:policy:retention" },
+    { "id": "fixed", "kind": "fixed", "amount": "2", "sourceRef": "synthetic:policy:fixed" }
+  ],
+  "tax": { "rate": "10", "base": "after_deductions", "sourceRef": "synthetic:policy:tax" },
+  "paidToDate": "500"
+}

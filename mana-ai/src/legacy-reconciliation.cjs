@@ -1,6 +1,7 @@
 'use strict';
 // Read-only, lossless reconciliation. Does not import, normalize money, or approve data.
 const {createHash}=require('node:crypto');
+const {parseExactJSON:parseExact}=require('./exact-json.cjs');
 const MAX=20*1024*1024;
 function canonical(value){
  if(value===null||typeof value!=='object')return JSON.stringify(value);
@@ -8,24 +9,6 @@ function canonical(value){
  return '{'+Object.keys(value).sort().map(k=>JSON.stringify(k)+':'+canonical(value[k])).join(',')+'}';
 }
 const digest=value=>createHash('sha256').update(value).digest('hex');
-function parseExact(text){
- const parsed=JSON.parse(text),stack=[];
- // Syntax is already checked by JSON.parse. Inspect ORIGINAL tokens before rounding
- // or duplicate-key overwrites can hide differences in a financial snapshot.
- const tokens=text.matchAll(/"(?:\\.|[^"\\])*"|[{}\[\],:]|-?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?|true|false|null/g);
- for(const [token] of tokens){
-  const top=stack[stack.length-1];
-  if(token==='{')stack.push({keys:new Set(),expectKey:true});
-  else if(token==='[')stack.push({keys:null});
-  else if(token==='}'||token===']')stack.pop();
-  else if(token===','&&top?.keys)top.expectKey=true;
-  else if(token===':'&&top?.keys)top.expectKey=false;
-  else if(token[0]==='"'&&top?.keys&&top.expectKey){
-   const key=JSON.parse(token);if(top.keys.has(key))throw Error('Duplicate JSON key requires quarantine');top.keys.add(key);
-  }else if(/^-?\d/.test(token)&&(!/^-?(?:0|[1-9]\d*)$/.test(token)||!Number.isSafeInteger(Number(token))))throw Error('Unsafe numeric representation requires reviewed string mapping');
- }
- return parsed;
-}
 function exactNumbers(value){
  if(typeof value==='number'&&!Number.isSafeInteger(value))throw Error('Unsafe numeric representation; exact decimals and large integers require a reviewed string mapping');
  if(value&&typeof value==='object')for(const child of Object.values(value))exactNumbers(child);

@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "a1b250e82f8a1ba33367007234d4470f4a2a2ac1f0aa2a6c61a95d67e6a31f8c",
-  "fileCount": 190,
+  "sourceSetDigest": "8519cb06a83dab623552d1e600ba1804a022df72e5b35cd4c0634bf98532e939",
+  "fileCount": 198,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -131,9 +131,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 15560,
-      "sha256": "e744e2a40c5e8be170a70714c34d3f948f0e23f3483c467985fc2fed75f8f980",
-      "gitBlob": "81a1740574cc108f481ef45f5c1fb698c26a71c0",
+      "bytes": 15680,
+      "sha256": "3b1fcdb3a78366c90f1f9526baa77e80a1d3304017def87ff0327cf58d1563a4",
+      "gitBlob": "e38f2552818995e0193465f89753c4e120e6ee1a",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -143,6 +143,15 @@
       "bytes": 4961,
       "sha256": "44b2c5cabd0f324f42dfe10d64c936b29dbdcca7c12d6e7c5799ab655b01085f",
       "gitBlob": "d213f6621f0a4d454a726089cff53ba30b3fc039",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-exact-claims.md",
+      "bytes": 5650,
+      "sha256": "aea0e540620e9c4395995110e8f6fc06e4113da97a991fbfb22bdd59a445e603",
+      "gitBlob": "aa07b721ef1777f4b4cdd4dae4affc3f58da79ef",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -194,9 +203,9 @@
     },
     {
       "path": "docs/mana-mission-contract-v1.md",
-      "bytes": 5910,
-      "sha256": "b355dbf3b993cc0db0b9da442e270f167ce7efb74b0dedfa8ee4cab1ec918e89",
-      "gitBlob": "d081b87fa027475a5b4a73082022649bcbc03fe0",
+      "bytes": 6284,
+      "sha256": "00ef5fa7738eba36116620d1556470c34c878b35d4af68d2091fb3eb89205c84",
+      "gitBlob": "a7344559ef95e18ee1e3020e861b31398f0f9bdf",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -561,6 +570,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/examples/claim.mixed.example.json",
+      "bytes": 1481,
+      "sha256": "dfa636503bf5eb7d6afcef731cb6c922f5a87c6a49334ef4719f19072c062159",
+      "gitBlob": "a2ace04b4a9f5576e83066d6d7e39831eeb4a607",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/examples/documents.snapshot.example.json",
       "bytes": 260,
       "sha256": "8dd9dd654389871f5695b8600d6198c75a62921cbee6b6c911a157acceb06c31",
@@ -667,6 +685,36 @@
           "line": 126
         }
       ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/mission-claim-run.cjs",
+      "bytes": 3238,
+      "sha256": "3f9461cfd7aab1b7115cbaee8cd97b26d38f4189e31728b7f0f70d484cb46d29",
+      "gitBlob": "a3f992ab219f0046007e0717f072cbb6645e58e7",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "./src/native/mission-runtime.cjs",
+          "line": 4
+        },
+        {
+          "value": "./src/financial/claim-tools.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
       "testFile": false
     },
     {
@@ -1075,6 +1123,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/exact-json.cjs",
+      "bytes": 1087,
+      "sha256": "6991fc39b917fea5441df51fa1d7c7fea9449de9ecc3839dd827127b4f7bca2b",
+      "gitBlob": "99f14baf6b2980b6f4356ef24b8a612b2cca7950",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/export-loader.cjs",
       "bytes": 680,
       "sha256": "b9c19b05ce7c54e61673ec2672fef17ea2a94e9754aa5a02a39072bc98bf75f4",
@@ -1108,6 +1165,54 @@
         },
         {
           "value": "./encrypted-state.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/financial/claim-tools.cjs",
+      "bytes": 5305,
+      "sha256": "b0fed46016ac96c6d655ca4c4fb61364b1688cf10d1a2597b40098f0771245e2",
+      "gitBlob": "39cf3807c83a4ce2b752bc92a299770039c87c53",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./claims.cjs",
+          "line": 3
+        },
+        {
+          "value": "../exact-json.cjs",
+          "line": 3
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/financial/claims.cjs",
+      "bytes": 6705,
+      "sha256": "d22332d1f2357621642b02d9b0f5c870748cc6054e5cd6cf2cdf194b590d8824",
+      "gitBlob": "4f873f09502f32debfeb6f99bcbbd8fe30549ff9",
+      "dependencyCandidates": [
+        {
+          "value": "../approval-store.cjs",
           "line": 3
         }
       ],
@@ -1205,13 +1310,17 @@
     },
     {
       "path": "mana-ai/src/legacy-reconciliation.cjs",
-      "bytes": 6074,
-      "sha256": "4c7d3e48672114be4e54329eb55decf687505ae66ca30fde24ba8d378e69e786",
-      "gitBlob": "7d517089f21c8c882e53c327cede2b1d7423a07f",
+      "bytes": 5081,
+      "sha256": "f4799b688397432af99fdf198ecb6c140324ba0ebbe9bfb32075b910b20a48a4",
+      "gitBlob": "7f164674da309f8663a82dbe8ed1d8edd5d33a1e",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
           "line": 3
+        },
+        {
+          "value": "./exact-json.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
@@ -1350,9 +1459,9 @@
     },
     {
       "path": "mana-ai/src/native/mission-runtime.cjs",
-      "bytes": 17985,
-      "sha256": "9abe830abe58162e5c244f345047087a3212803a93e8b842517b193d95640191",
-      "gitBlob": "fcb87e1b07b81d560828655891687f8677b9d30a",
+      "bytes": 18411,
+      "sha256": "caaf61f4f09901445197b97df69ac62e89a2f63e03577566f40d247f5dd98304",
+      "gitBlob": "990e23f70113a018fd10d13b1bedff2cb01bce2c",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2070,6 +2179,78 @@
         {
           "value": "../src/chat.cjs",
           "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/claim-mission.test.cjs",
+      "bytes": 5450,
+      "sha256": "8b1b092c9f0cb96b914409bd53d46611cd5990035280f82a151114c476c5ed30",
+      "gitBlob": "b6946c6d511f332b46a163fdf5760fc026ceb25d",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 2
+        },
+        {
+          "value": "../src/financial/claim-tools.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/mission-runtime.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/claims.test.cjs",
+      "bytes": 6034,
+      "sha256": "30bc6b99285f3cd861924ce2e3699f03e5b8b71c25925eeccf9684beca186230",
+      "gitBlob": "72b8fc1a8fed115b44f38a9ac205d079712401df",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/financial/claims.cjs",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 36
         }
       ],
       "environmentCandidates": [],

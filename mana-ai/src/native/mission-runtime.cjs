@@ -34,6 +34,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
   return m.pauseRequested?'paused':'queued';
  }
  function snapshot(m){return JSON.parse(JSON.stringify(m))}
+ function toolScope(principal,project,missionId=null){return Object.freeze({organizationId:project.orgId,projectId:project.id,actorId:principal.id,missionId})}
  function write(state,m,result=snapshot(m)){return {write:true,state,result}}
  function get({principal,project,missionId}){check(principal,project,'read');return transact(state=>({result:snapshot(find(state,missionId,project))}))}
  function create({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits}){
@@ -43,7 +44,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
   const plan=core.plan({principal,project,objective,goals,evidence,...(maxWorkUnits===undefined?{}:{maxWorkUnits})});
   if(plan.status!=='PLAN_PROPOSED')return {created:false,analysis:plan};
   const used=new Set(plan.steps.map(s=>s.capabilityId));if(Object.keys(supplied).some(k=>!used.has(k)))throw Error('Unused tool input');
-  for(const step of plan.steps){const adapter=registry.get(step.capabilityId);if(!Object.hasOwn(supplied,step.capabilityId)||adapter.validate(clone(supplied[step.capabilityId]))!==true)throw Error('Invalid tool input')}
+  for(const step of plan.steps){const adapter=registry.get(step.capabilityId);if(!Object.hasOwn(supplied,step.capabilityId)||adapter.validate(clone(supplied[step.capabilityId]),{scope:toolScope(principal,project)})!==true)throw Error('Invalid tool input')}
   const digest=payloadDigest({objective,goals,evidence,inputs:supplied,maxWorkUnits:maxWorkUnits??null});
   return transact(state=>{
    const existing=state.missions.find(m=>m.orgId===project.orgId&&m.projectId===project.id&&m.requesterId===principal.id&&m.requestKey===requestKey);
@@ -101,12 +102,12 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
      const current=transact(state=>({result:snapshot(find(state,missionId,project))}));
      if(current.status!=='running'||current.tasks.find(t=>t.taskId===claim.task.taskId)?.attemptId!==claim.task.attemptId)throw Error('Stale execution claim');
      if(adapter.validateDependencies(clone(claim.dependencies))!==true)throw Error('Invalid dependency output');
-     if(adapter.validate(clone(claim.input))!==true)throw Error('Invalid tool input');
-     return adapter.run({idempotencyKey:missionId+':'+claim.task.taskId,input:clone(claim.input),dependencies:JSON.parse(JSON.stringify(claim.dependencies)),signal:controller.signal,attemptId:claim.task.attemptId});
+     if(adapter.validate(clone(claim.input),{scope:toolScope(principal,project,missionId)})!==true)throw Error('Invalid tool input');
+     return adapter.run({scope:toolScope(principal,project,missionId),idempotencyKey:missionId+':'+claim.task.taskId,input:clone(claim.input),dependencies:JSON.parse(JSON.stringify(claim.dependencies)),signal:controller.signal,attemptId:claim.task.attemptId});
     });
     result=clone(await Promise.race([operation,interrupted]));
     if(controller.signal.aborted)throw Error('Aborted');
-    verified=(await Promise.race([Promise.resolve().then(()=>adapter.verify({input:clone(claim.input),result:clone(result),dependencies:JSON.parse(JSON.stringify(claim.dependencies))})),interrupted]))===true;
+    verified=(await Promise.race([Promise.resolve().then(()=>adapter.verify({scope:toolScope(principal,project,missionId),input:clone(claim.input),result:clone(result),dependencies:JSON.parse(JSON.stringify(claim.dependencies))})),interrupted]))===true;
     kind=verified?'succeeded':'failed';
    }finally{if(signal)signal.removeEventListener('abort',onExternalAbort)}
   }catch{kind='unknown'}finally{clearTimeout(timer);if(abortHandler)controller.signal.removeEventListener('abort',abortHandler);active.delete(claim.task.attemptId)}
@@ -148,7 +149,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    if(plan.status!=='PLAN_PROPOSED')return {result:{replanned:false,analysis:plan}};
    const used=new Set(plan.steps.map(t=>t.capabilityId));
    if(Object.keys(supplied).some(k=>!used.has(k)))throw Error('Unused replan input');
-   for(const step of plan.steps)if(!Object.hasOwn(supplied,step.capabilityId)||registry.get(step.capabilityId).validate(clone(supplied[step.capabilityId]))!==true)throw Error('Invalid replan input');
+   for(const step of plan.steps)if(!Object.hasOwn(supplied,step.capabilityId)||registry.get(step.capabilityId).validate(clone(supplied[step.capabilityId]),{scope:toolScope(principal,project,missionId)})!==true)throw Error('Invalid replan input');
    const generation=(m.generation??1)+1,rename=id=>'g'+generation+'-'+id;
    for(const t of m.tasks)if(['failed','pending'].includes(t.status)){t.previousStatus=t.status;t.status='superseded'}
    const tasks=plan.steps.map(step=>({...snapshot(step),taskId:rename(step.taskId),dependsOn:[...step.dependsOn.map(rename),...succeeded.filter(t=>registry.get(t.capabilityId).produces.some(f=>registry.get(step.capabilityId).requires.includes(f))).map(t=>t.taskId)],status:'pending',toolVersion:registry.get(step.capabilityId).version,toolFingerprint:registry.get(step.capabilityId).fingerprint,attemptId:null,attempts:[],result:null}));
@@ -163,7 +164,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    const task=m.tasks.find(t=>t.taskId===taskId),adapter=task&&registry.get(task.capabilityId);
    if(m.status!=='unknown'||!task||task.status!=='unknown'||task.attemptId!==attemptId||!adapter||adapter.fingerprint!==task.toolFingerprint)throw Error('Invalid recovery target');
    const dependencies=m.tasks.filter(t=>task.dependsOn.includes(t.taskId)).map(t=>({taskId:t.taskId,capabilityId:t.capabilityId,result:clone(t.result)}));
-   if(adapter.verify({input:clone(m.inputs[task.capabilityId]),result:clone(recovered),dependencies})!==true)throw Error('Recovery verification failed');
+   if(adapter.verify({scope:toolScope(principal,project,missionId),input:clone(m.inputs[task.capabilityId]),result:clone(recovered),dependencies})!==true)throw Error('Recovery verification failed');
    Object.assign(task.attempts.at(-1),{status:'reconciled',finishedAt:time(),evidenceReference});Object.assign(task,{status:'succeeded',result:recovered,resultDigest:payloadDigest(recovered),recoveryEvidence:evidenceReference});m.status=outcome(m);event(m,principal,'reconciled',taskId);return write(state,m);
   });
  }

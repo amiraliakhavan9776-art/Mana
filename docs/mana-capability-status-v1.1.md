@@ -50,7 +50,7 @@
 | Technical office | WBS / schedule / CPM / progress | نمونه اولیه | WBS only; CPM/scheduling not accepted |
 | Technical office | Full takeoff / labor / equipment / MEP / finishes / facade | نمونه اولیه | limited facade pilot plus schematic floor/perimeter/room-side wall surfaces; no complete BoQ, MEP/labor/equipment costing |
 | Technical office | Quantity and cost optimization | ساخته‌نشده | full constrained optimization absent |
-| Technical office | Six payment-claim modes / mixed contracts | نمونه اولیه | legacy UI exists; complete regressions absent |
+| Technical office | Six payment-claim modes / mixed contracts | نمونه اولیه | exact six-mode period calculator + shared-runtime draft report; cumulative/correction/contract approval and real-project acceptance remain open; mana-exact-claims.md |
 | Technical office | Site evidence / approvals / deductions / guarantees / penalties / adjustment | نمونه اولیه | selected legacy rules and approval-store; no full pipeline |
 | Technical office | Orders / claims / contracts / addenda | نمونه اولیه | legacy structures; no complete native workflow |
 | Technical office | Costs / receipts / payments / management contracting | نمونه اولیه | legacy UI; financial integration absent |
