@@ -19,6 +19,9 @@ See `mana-schedule-sensitivity.md` for precedence and resource-delay limitations
 An optional `budgeting` service exposes audited read-only `budgeting.compare`.
 See `mana-scenario-budget.md` for exact arithmetic, cost basis and explicit units.
 
+An optional `budgetRanges` service exposes audited read-only `budgetRanges.analyze`.
+See `mana-budget-range.md` for conditional rate-bound affordability and exclusions.
+
 Methods are asynchronous. The caller must await the result. The boundary captures
 a private JSON snapshot before waiting for the audit sink, then records an intent
 with an operation identifier and exact input digest. It invokes the service only

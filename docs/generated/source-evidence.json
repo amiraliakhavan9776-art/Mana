@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "3c954f6f902fee16a8f4e69c258264eec6d9d3ca396aacaf73c46277bb2d00af",
-  "fileCount": 284,
+  "sourceSetDigest": "b8dd4b3ce8ea3b1726159957730a97ac7e933f532f063b358d79fd18e7423dec",
+  "fileCount": 288,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -148,6 +148,15 @@
       "testFile": false
     },
     {
+      "path": "docs/mana-budget-range.md",
+      "bytes": 3700,
+      "sha256": "128289eb19720969c80d8b0a58d559ec9b09b17ef08c734b37c64f31e766922f",
+      "gitBlob": "0393d6a16c15a236f1006f9932be1878f2698274",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "docs/mana-capability-status-v1.1.md",
       "bytes": 18722,
       "sha256": "c26a94aa3814a0f622611f92f860b44caee2617c7db25881f96aef40b22428ff",
@@ -230,9 +239,9 @@
     },
     {
       "path": "docs/mana-master-implementation-map.md",
-      "bytes": 7857,
-      "sha256": "eb8866ccd1838bc42ee6959bcb644d069911110af6e589b05e99e3c739797deb",
-      "gitBlob": "a2aa643c8f45d7e0e548c139a8f4ecce6f41cecb",
+      "bytes": 7899,
+      "sha256": "8913943b564f7416775f16e1967fd57ac4eb702af69f253aa4bd4cb7923bac4b",
+      "gitBlob": "9cb8cc2555af2c2bf59c87631ee374a54c75a2c5",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -266,9 +275,9 @@
     },
     {
       "path": "docs/mana-native-audit-facade.md",
-      "bytes": 3339,
-      "sha256": "feabde4141076e0fd11ad9b0c6165d469de896e1391408b8b5ade6d360b30f6e",
-      "gitBlob": "6ba9befea0ea5fdf1e732726d9b8b4f5f30e6d07",
+      "bytes": 3509,
+      "sha256": "11129953ba252cae6cd2c9c3f8b1b65f036c813d2cb7fdd9ede581d651d22c30",
+      "gitBlob": "a596f8f974652849986da2af1b5f3f5481368c73",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -736,9 +745,9 @@
     },
     {
       "path": "mana-ai/budget-project.cjs",
-      "bytes": 2522,
-      "sha256": "ec2dc81a2685f55f76e0fe9b86205f628a8b3c193de6ceab8cced1cf5faf1408",
-      "gitBlob": "b3a593b36e7105c5294497badb07b25d4c2d82e8",
+      "bytes": 2978,
+      "sha256": "cafdfda52034ce68ce97db38863e8032263027eea0e546ad51d9ae8808876492",
+      "gitBlob": "9e0632a158929b24f00f7efe02697753ab1b320b",
       "dependencyCandidates": [
         {
           "value": "node:path",
@@ -771,6 +780,10 @@
         {
           "value": "./src/native/scenario-budget.cjs",
           "line": 10
+        },
+        {
+          "value": "./src/native/budget-range.cjs",
+          "line": 11
         }
       ],
       "environmentCandidates": [],
@@ -1054,6 +1067,15 @@
       "bytes": 193,
       "sha256": "802ce22fdfe91c097a3c7b882b58bb54d60c524880f26c6410d61c08dc9c6c4f",
       "gitBlob": "ff95fee8be530398869eaba8a2aa9c4321f89fcf",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/project-budget-range.json",
+      "bytes": 2855,
+      "sha256": "82733e5bb5a486c3a0d446b8df1837f383f19f6e4f5a35e7a58aed68b20a861c",
+      "gitBlob": "219b2ab6cf7e9b8027f3ddca73f3bd0246b80f3b",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2029,9 +2051,9 @@
     },
     {
       "path": "mana-ai/src/native/audited-services.cjs",
-      "bytes": 3268,
-      "sha256": "27b05bd0dc82f96075d557bbcaa5554bf54f3e5418b55a0793f4924dc3145acb",
-      "gitBlob": "09a2cb8b86d321aa65b690724297922dea963ebc",
+      "bytes": 3475,
+      "sha256": "a4ffb57bd9aafb836dc9a70e4e14d5c9ca8f18567cdc58a707f5af06ec205ca4",
+      "gitBlob": "129615bf7cf401b8dc9541b6b172096da0541984",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2040,6 +2062,28 @@
         {
           "value": "../approval-store.cjs",
           "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/budget-range.cjs",
+      "bytes": 5010,
+      "sha256": "9cd90bebb2859b26a635c4521eacf30d4061f4df87d490a481ccb6153e689114",
+      "gitBlob": "b92f7326111e48e7a2b689bd0a2f2fa678aba346",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        },
+        {
+          "value": "../financial/exact-decimal.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
@@ -3204,6 +3248,64 @@
         {
           "value": "../src/autopilot-orchestrator.cjs",
           "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/budget-range.test.cjs",
+      "bytes": 7206,
+      "sha256": "bbe0752e2a868d1e8f2417206f8a2f41270f94389ea09d954fd6aa9680ca2efc",
+      "gitBlob": "7df65fef8b56dc400beaecc5c99915e226b72f81",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 2
+        },
+        {
+          "value": "../src/native/budget-range.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/scenario-budget.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/native/recovery-scenarios.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/project-recovery.cjs",
+          "line": 6
+        },
+        {
+          "value": "../src/native/project-monitor.cjs",
+          "line": 7
+        },
+        {
+          "value": "../src/native/resource-scheduler.cjs",
+          "line": 8
+        },
+        {
+          "value": "../src/native/audited-services.cjs",
+          "line": 9
         }
       ],
       "environmentCandidates": [],

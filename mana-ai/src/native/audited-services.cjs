@@ -2,13 +2,14 @@
 const {randomUUID}=require('node:crypto');
 const {payloadDigest}=require('../approval-store.cjs');
 // Trusted host facade. State services keep their own authorization and consent checks.
-function createAuditedNativeServices({experience,recovery,review=null,scenarios=null,sensitivity=null,budgeting=null,audit}={}){
+function createAuditedNativeServices({experience,recovery,review=null,scenarios=null,sensitivity=null,budgeting=null,budgetRanges=null,audit}={}){
  if(!experience||!['remember','recall','forget'].every(k=>typeof experience[k]==='function')||!recovery||typeof recovery.propose!=='function'||!audit||typeof audit.record!=='function')throw Error('Native services and audit sink required');
  if(review!==null&&!['request','decide','current'].every(k=>typeof review[k]==='function'))throw Error('Invalid recovery review service');
  if(scenarios!==null&&typeof scenarios.compare!=='function')throw Error('Invalid recovery scenario service');
  if(sensitivity!==null&&typeof sensitivity.analyze!=='function')throw Error('Invalid schedule sensitivity service');
  if(budgeting!==null&&typeof budgeting.compare!=='function')throw Error('Invalid scenario budget service');
- const services={experience,recovery,review,scenarios,sensitivity,budgeting};
+ if(budgetRanges!==null&&typeof budgetRanges.analyze!=='function')throw Error('Invalid budget range service');
+ const services={experience,recovery,review,scenarios,sensitivity,budgeting,budgetRanges};
  function wrap(service,method,mutates){return async input=>{
   // Bind a private snapshot before awaiting an asynchronous audit sink.
   payloadDigest(input);const snapshot=JSON.parse(JSON.stringify(input)),inputDigest=payloadDigest(snapshot),operationId=randomUUID();
@@ -30,6 +31,7 @@ function createAuditedNativeServices({experience,recovery,review=null,scenarios=
  if(scenarios!==null)operations.scenarios={compare:false};
  if(sensitivity!==null)operations.sensitivity={analyze:false};
  if(budgeting!==null)operations.budgeting={compare:false};
+ if(budgetRanges!==null)operations.budgetRanges={analyze:false};
  return Object.freeze(Object.fromEntries(Object.entries(operations).map(([service,methods])=>[service,Object.freeze(Object.fromEntries(Object.entries(methods).map(([method,mutates])=>[method,wrap(service,method,mutates)])))])));
 }
 module.exports={createAuditedNativeServices};
