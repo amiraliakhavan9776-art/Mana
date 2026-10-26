@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "e677af18935fee1724e4210f7da5d33279bc871a61620abd837acacea1d4398c",
+  "sourceSetDigest": "668b09bc43095675d93d55767b299a7a2dc7209a7cc460ccc3ef34865cab7011",
   "fileCount": 218,
   "files": [
     {
@@ -1699,9 +1699,9 @@
     },
     {
       "path": "mana-ai/src/native/skill-evolution.cjs",
-      "bytes": 6887,
-      "sha256": "6406caf5e704233f06393bdd000ccc67dad5335b360bbe97ca545e47bab40d61",
-      "gitBlob": "01c00f25c53452baf70b61098392d57c8e493ce6",
+      "bytes": 6910,
+      "sha256": "d6188422a618d70061fa6d5e360e631bcadcdfa5598388be0d8676018b0c140e",
+      "gitBlob": "b440ea57930dff5a0d77f7af5f0ee9e47d2d27cb",
       "dependencyCandidates": [
         {
           "value": "node:fs",

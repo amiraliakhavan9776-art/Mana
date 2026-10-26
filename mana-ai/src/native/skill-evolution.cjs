@@ -14,9 +14,9 @@ function validateTask(t){
 function proposeLocal({instruction,fields,feedback,port=8794,timeoutMs=120000,systemPrompt=null,maxTokens=1800,responseLimit=32768,contentLimit=16000}){
  if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>120000||!Number.isInteger(port)||port<1||port>65535)throw Error('Invalid port');
  const payload=JSON.stringify({messages:[{role:'system',content:systemPrompt??'Return ONLY a JSON expression, no markdown or JavaScript. Nodes: {"field":"name"}, {"value":number_or_boolean}, {"op":"add|subtract|multiply|divide|min|max|less|equal","args":[node,node]}, {"op":"if","args":[boolean_node,node,node]}. Maximum depth 12, 128 nodes. No other operations. This is approximate nonfinancial numeric arithmetic.'},{role:'user',content:JSON.stringify({instruction,fields,feedback})}],temperature:0.1,max_tokens:maxTokens});
- return new Promise((resolve,reject)=>{let size=0,chunks=[];const timer=setTimeout(()=>req.destroy(Error('Local model deadline')),timeoutMs);
+ return new Promise((resolve,reject)=>{let size=0,chunks=[];const timer=setTimeout(()=>{reject(Error('Local model deadline'));req.destroy();},timeoutMs);
   const req=http.request({host:'127.0.0.1',port,path:'/v1/chat/completions',method:'POST',headers:{'Content-Type':'application/json','Content-Length':Buffer.byteLength(payload)}},res=>{
-   res.on('error',reject);res.on('data',chunk=>{size+=chunk.length;if(size>responseLimit)req.destroy(Error('Model response too large'));else chunks.push(chunk);});
+   res.on('error',reject);res.on('data',chunk=>{size+=chunk.length;if(size>responseLimit){reject(Error('Model response too large'));req.destroy();}else chunks.push(chunk);});
    res.on('end',()=>{try{if(res.statusCode!==200)throw Error('Local model unavailable');const body=parseExactJSON(Buffer.concat(chunks).toString('utf8'));const content=body.choices?.[0]?.message?.content;if(typeof content!=='string'||Buffer.byteLength(content)>contentLimit)throw Error('Invalid model content');resolve(content);}catch(e){reject(e);}});
   });req.on('error',reject);req.on('close',()=>clearTimeout(timer));req.end(payload);
  });
