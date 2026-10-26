@@ -15,10 +15,16 @@ jobs:
         with:
           node-version: '22'
       - name: Run non-mutating source baseline checks
+        # Parser is development-only; npm ci verifies the committed integrity lock.
+        # Install before root tests, which exercise lexical source analysis.
+        run: npm ci --prefix tools/parser --ignore-scripts --no-audit --no-fund
+      - name: Run source and behavioral baseline tests
         run: node --test tests/*.test.cjs
       - name: Verify tracked source evidence matches this revision
         run: |
           node tools/inventory-source.cjs > /tmp/mana-source-evidence.json
           cmp docs/generated/source-evidence.json /tmp/mana-source-evidence.json
+          node tools/inventory-ast.cjs --summary > /tmp/mana-lexical-summary.json
+          cmp docs/generated/legacy-lexical-summary.json /tmp/mana-lexical-summary.json
       - name: Run Mana AI foundation tests
         run: node --test mana-ai/tests/*.test.cjs

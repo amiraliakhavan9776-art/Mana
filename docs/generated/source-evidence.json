@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "707a5fc1090c4826348859c709922e5b1a14d90a8174ca8a7cc0acaf4d76bd1a",
-  "fileCount": 181,
+  "sourceSetDigest": "dbab36a407a4e7f1f8101fbe0fa14090eee16148833c040a78dda7d35ca08c72",
+  "fileCount": 188,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -14,9 +14,9 @@
     },
     {
       "path": ".github/workflows/baseline.yml",
-      "bytes": 730,
-      "sha256": "bf488c98881874457eb1b661dcb427d45dedb6f4de003c175df9f9790179bf83",
-      "gitBlob": "a53b9767484a428cd067895a84ef1ab221dc2918",
+      "bytes": 1196,
+      "sha256": "e060e489cf401c3b288da12abea76e16cc963e52c8c83cfd7ffd7181a9dd281f",
+      "gitBlob": "3b86cacd8f16fbc91eedccf22c9c19cd570ea5c0",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -166,6 +166,15 @@
       "testFile": false
     },
     {
+      "path": "docs/mana-legacy-semantic-followup.md",
+      "bytes": 5338,
+      "sha256": "1558a7ab869de8345b32e5994952dd3b370deb80e10e8b0630aa4c7f54d0db47",
+      "gitBlob": "b783b632779def3034509d872af6925ab4339dc9",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "docs/mana-master-implementation-map.md",
       "bytes": 7743,
       "sha256": "643b872df6ab3ac143c78416e0b86333701302b85beb546d8f5d05c5ea8748b3",
@@ -203,9 +212,9 @@
     },
     {
       "path": "index.html",
-      "bytes": 703192,
-      "sha256": "a966113bebe75b44000ab11ff87df25ffe2bbbe5ff54302a2dab784c789168f2",
-      "gitBlob": "abaee494c42c6e9dcb84996bb2aedfe67a1861ba",
+      "bytes": 703223,
+      "sha256": "b3b74883042b8f881e0c25570e68bb304e9cbc8032213fe9d9a774faa42b12b4",
+      "gitBlob": "74f333a7ec86eff212643a6c2426f0e25acb6af8",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -3353,9 +3362,9 @@
     },
     {
       "path": "tests/browser/legacy-browser.test.cjs",
-      "bytes": 6397,
-      "sha256": "36fb6b98bdcee8d961e9fabc4216e65361a56c2412784d0263a78b878a52d682",
-      "gitBlob": "229b35c1da47e30c0fc245fa2f3e4fc1325fb869",
+      "bytes": 7765,
+      "sha256": "c4ebf37c61ef6ed9af37c61da9dd8ec8e67e0cab9d71293e31113077454bca57",
+      "gitBlob": "316866a44e0a93cfbc59c7dfa5a1996ac88d2aa5",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -3396,6 +3405,58 @@
       "sha256": "f80579ffe21230534904d39b0ee59536b74c4a62bae05ba1a75171cffcb8de64",
       "gitBlob": "94978b2c4f94f3e77886628714c5c73bc5101455",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "tests/mana-approval-effects.test.cjs",
+      "bytes": 2817,
+      "sha256": "48560e8330290bee3a9ae6382d6f4eefd747e61eac732501a0fd0bc64313dff0",
+      "gitBlob": "eeb201d820f9b1499aac8c8ceb31a27db1ef376e",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:vm",
+          "line": 2
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "tests/mana-ast-inventory.test.cjs",
+      "bytes": 3043,
+      "sha256": "4786e281aeacadcc4b8ae2d3243e8639c09b536aea731cfcf903f6a1864dd8f3",
+      "gitBlob": "3129b310d543e46ac27aae1e7525387be86e9d3c",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../tools/inventory-ast.cjs",
+          "line": 3
+        }
+      ],
       "environmentCandidates": [],
       "testFile": true
     },
@@ -3478,6 +3539,32 @@
       "testFile": true
     },
     {
+      "path": "tools/inventory-ast.cjs",
+      "bytes": 9777,
+      "sha256": "e4b852a4eda94ab3a1e513e29e5661dc5f58447faa849674bf47ec515218f617",
+      "gitBlob": "32e41392aa51a3b9b80e7f04a355422047ac9814",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "./parser/node_modules/acorn",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "tools/inventory-legacy.cjs",
       "bytes": 2176,
       "sha256": "f424cb5f03851aefa236e2bcd69cb778276419dd2dcef4c766f6c90927af6676",
@@ -3522,6 +3609,33 @@
           "line": 3
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "tools/parser/.gitignore",
+      "bytes": 14,
+      "sha256": "4d56952b0fb13bf8f9b6c13a6d4c34a075bac3af447636a1df4335d7576e2f97",
+      "gitBlob": "c2658d7d1b31848c3b71960543cb0368e56cd4c7",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "tools/parser/package-lock.json",
+      "bytes": 647,
+      "sha256": "84301f99061ca6c028ae98cb7b1723b55fa1813e706eeb133030bbeda664ad91",
+      "gitBlob": "eb24158d6a8291061d6b91200ae83313f77763b3",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "tools/parser/package.json",
+      "bytes": 214,
+      "sha256": "b20574c69586f0c73934300e92afad71a2de280054d42c314a8fe980aecdd2b6",
+      "gitBlob": "710675930d192869f5a468175b8a0b861370bf81",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },

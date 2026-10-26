@@ -58,6 +58,22 @@ test('legacy invoice approval state transitions persist and reverse', {timeout:6
  assert.equal(await page.evaluate(()=>DB.invoices.find(i=>i.id==='regression-invoice').status),'pending');
 }));
 
+test('approval reversal persists zero automatic progress and preserves manual activity progress', {timeout:60000},()=>browserFixture(async(page)=>{
+ await page.evaluate(()=>{
+  DB.projects=[{id:'approval-project',activities:[{id:'auto',dur:10,progress:0},{id:'manual',dur:10,progress:25}]}];
+  DB.activityMaterials=[{id:'material',projectId:'approval-project',activityId:'auto',name:'concrete',planned:10,consumed:0}];
+  DB.invoices=[{id:'effects-invoice',projectId:'approval-project',status:'pending',items:[{activityId:'auto',materialId:'material',qty:5,price:100}]}];
+  ACT['inv-approve']({dataset:{id:'effects-invoice'}});
+ });
+ assert.equal(await page.evaluate(()=>DB.projects[0].activities[0].progress),50);
+ assert.equal(await page.evaluate(()=>DB.projects[0].progress),37.5);
+ await page.evaluate(()=>ACT['inv-unapprove']({dataset:{id:'effects-invoice'}}));
+ await page.waitForFunction(()=>JSON.parse(localStorage.getItem('mana.db.v2'))?.projects?.[0]?.activities?.[0]?.progress===0);
+ await page.reload();
+ const values=await page.evaluate(()=>({automatic:DB.projects[0].activities[0].progress,manual:DB.projects[0].activities[1].progress,total:DB.projects[0].progress,consumed:DB.activityMaterials[0].consumed,cost:window.ManaActMat.costFor('approval-project','auto')}));
+ assert.deepEqual(values,{automatic:0,manual:25,total:12.5,consumed:0,cost:0});
+}));
+
 test('final settlement renders with an invoice and preserves paid totals', {timeout:60000},()=>browserFixture(async(page,base)=>{
  await page.evaluate(()=>{
   const project=DB.projects[0];

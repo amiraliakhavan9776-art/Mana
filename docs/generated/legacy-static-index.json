@@ -1,5 +1,5 @@
 {
-  "sourceSha256": "a966113bebe75b44000ab11ff87df25ffe2bbbe5ff54302a2dab784c789168f2",
+  "sourceSha256": "b3b74883042b8f881e0c25570e68bb304e9cbc8032213fe9d9a774faa42b12b4",
   "limitations": [
     "Static candidates only; comments/strings can match.",
     "Repeated names may be local to different closures. Resolve scope and effective overrides before changing code.",
@@ -196,7 +196,7 @@
       "ordinal": 32,
       "startLine": 12647,
       "endLine": 13197,
-      "sha256": "2723e3159c7462497ddf68e6230b2af6cf3460abd33c8bbfabd97cc267662c6d"
+      "sha256": "222d3d368ca950d56a44ad70c88741238ba726d6f946d4e446197a2779d8ecc9"
     }
   ],
   "functions": [

@@ -12945,7 +12945,7 @@ function updateActivityProgress(projectId){
   if(!p) return;
   (p.activities || []).forEach(function(a){
     var auto = window.ManaActMat.progressFor(projectId, a.id);
-    if(auto > 0){
+    if(auto > 0 || a.progressSource === 'auto'){
       a.progress = Math.round(auto * 10) / 10;
       a.progressSource = 'auto';
       a.progressUpdated = todayISO();
