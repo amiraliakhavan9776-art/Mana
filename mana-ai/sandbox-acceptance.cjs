@@ -12,6 +12,8 @@ if(probe.status!=='SANDBOX_PREFLIGHT_PASSED'){console.log(JSON.stringify(probe))
   fs.writeFileSync(sourceFile,`import os,socket\ndef solve(x):\n    assert not os.path.exists(${JSON.stringify(secret)})\n    for action in [lambda: socket.socket(), lambda: os.fork(), lambda: open('/candidate.py','a')]:\n        try:\n            action()\n        except OSError:\n            pass\n        else:\n            return False\n    return True\n`);
   assert.equal(sandbox.evaluate({sourceFile,tests:[{input:0,expected:true},{input:1,expected:true},{input:2,expected:true}]}).status,'BENCHMARK_PASSED_AWAITING_REVIEW');
   fs.writeFileSync(sourceFile,'def solve(x):\n    while True: pass\n');assert.equal(sandbox.evaluate({sourceFile,tests}).status,'BENCHMARK_FAILED');assert.equal(fs.readFileSync(secret,'utf8'),'host-private');
-  console.log(JSON.stringify({status:'REAL_SANDBOX_ACCEPTANCE_PASSED',policy:probe.policy,correctCode:true,wrongCodeRejected:true,hostFilesHidden:true,networkAndForkDenied:true,sourceReadOnly:true,cpuTimeoutRejected:true,productionDeploymentAllowed:false}));
+  const benchmarks=require('./training/native-code-benchmark.json').tasks,corpus=fs.readFileSync(path.join(__dirname,'training/research-corpus.jsonl'),'utf8').trim().split('\n').map(JSON.parse);
+  for(const task of benchmarks){const reference=corpus.find(row=>row.group===task.group);assert.ok(reference);fs.writeFileSync(sourceFile,reference.code);assert.equal(sandbox.evaluate({sourceFile,functionName:task.functionName,tests:task.tests}).status,'BENCHMARK_PASSED_AWAITING_REVIEW');}
+  console.log(JSON.stringify({status:'REAL_SANDBOX_ACCEPTANCE_PASSED',policy:probe.policy,correctCode:true,wrongCodeRejected:true,hostFilesHidden:true,networkAndForkDenied:true,sourceReadOnly:true,cpuTimeoutRejected:true,heldOutReferenceTasksPassed:benchmarks.length,productionDeploymentAllowed:false}));
  }finally{fs.rmSync(root,{recursive:true,force:true});}
 }
