@@ -34,6 +34,9 @@ function createApprovalStore({file,key,authorize,now=Date.now}={}){
  })}
  function instant(){const value=now();if(!Number.isSafeInteger(value)||value<0)throw Error('Invalid approval clock');return value}
  return Object.freeze({
+  inspect({principal,approvalId}){
+   return transaction(state=>{const record=state.records.find(r=>r.id===approvalId);if(!record)throw Error('Approval not found');check(principal,'read',record);return {result:{...record}};});
+  },
   request({principal,action,projectId,resourceId,dataVersion,toolVersion,payload,ttlMs=300000}){
    if(![projectId,resourceId,dataVersion,toolVersion].every(x=>typeof x==='string'&&ID.test(x))||typeof action!=='string'||!action||action.length>100||!Number.isInteger(ttlMs)||ttlMs<1000||ttlMs>3600000)throw Error('Invalid approval request');
    const issuedAt=instant();

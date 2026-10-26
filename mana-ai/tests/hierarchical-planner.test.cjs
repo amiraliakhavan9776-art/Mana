@@ -40,3 +40,13 @@ test('actual hierarchical document CLI creates a checked report and reuses compl
  const run=()=>{const result=spawnSync(process.execPath,[path.join(__dirname,'../mission-document-run.cjs'),source,workspace,'--hierarchical'],{encoding:'utf8',timeout:10000});assert.equal(result.status,0,result.stderr);return JSON.parse(result.stdout);};
  const first=run(),second=run();assert.equal(first.status,'completed');assert.equal(first.planningMode,'hierarchical');assert.equal(second.missionId,first.missionId);assert.match(fs.readFileSync(first.artifact,'utf8'),/Inventory replenishment/);
 });
+test('hierarchical recovery retries the failed review without dropping phases or repeating completed inspection',async t=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'mana-htn-recovery-'));t.after(()=>fs.rmSync(root,{recursive:true,force:true}));const calls=[];let reviews=0;
+ const tools=capabilities.map(c=>({...c,version:'v1',retrySafe:true,validate:()=>true,validateDependencies:()=>true,run:async()=>{calls.push(c.id);return {ok:c.id!=='review'||++reviews>1}},verify:({result})=>result.ok===true}));
+ const who={...principal,capabilityIds:[...principal.capabilityIds,'native.mission.control']},runtime=createMissionRuntime({file:path.join(root,'state'),key:Buffer.alloc(32,8),tools,hierarchicalMethods:methods,authorize:()=>true});
+ const mission=runtime.create({...input,principal:who,maxWorkUnits:10,inputs:{inspect:{},review:{},draft:{}},requestKey:'recover'}).mission,ctx={principal:who,project,missionId:mission.id};
+ await runtime.runNext(ctx);const failed=await runtime.runNext(ctx);assert.equal(failed.status,'failed');
+ const before=fs.readFileSync(path.join(root,'state')),proposal=runtime.recoveryPlan(ctx);assert.equal(proposal.status,'SAME_TASK_RETRY_PROPOSED');assert.equal(proposal.actionsExecuted,0);assert.deepEqual(fs.readFileSync(path.join(root,'state')),before);
+ runtime.retry({...ctx,expectedVersion:proposal.expectedVersion,taskId:proposal.taskId});await runtime.runNext(ctx);const done=await runtime.runNext(ctx);
+ assert.equal(done.status,'completed');assert.deepEqual(calls,['inspect','review','review','draft']);assert.deepEqual(done.plan.methodTrace,mission.plan.methodTrace);
+});

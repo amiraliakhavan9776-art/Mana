@@ -7,6 +7,21 @@ function setup(t,override={}){const dir=fs.mkdtempSync(path.join(os.tmpdir(),'ma
  const config={file:path.join(dir,'state'),key:Buffer.alloc(32,3),tools,authorize:()=>true,timeoutMs:500};const runtime=createMissionRuntime(config);
  const args={principal,project,objective:'Produce report',goals:['ready'],evidence:[{id:'e',orgId:'org',projectId:'p',key:'source',value:true,source:'fixture',verification:'verified'}],inputs:{read:{text:'verified source'},report:{format:'markdown'}},requestKey:'req'};
  const mission=runtime.create(args).mission;return {runtime,config,args,mission,ctx:{principal,project,missionId:mission.id},calls:()=>calls};}
+test('recovery advice refuses unknown outcomes and revoked authority without changing state',async t=>{
+ const uncertain=setup(t,{run:async()=>{throw Error('unconfirmed effect')}});await uncertain.runtime.runNext(uncertain.ctx);
+ const bytes=fs.readFileSync(uncertain.config.file);assert.equal(uncertain.runtime.recoveryPlan(uncertain.ctx).status,'RECONCILIATION_REQUIRED');assert.deepEqual(fs.readFileSync(uncertain.config.file),bytes);assert.equal(uncertain.calls(),0);
+ const failed=setup(t,{verify:()=>false});await failed.runtime.runNext(failed.ctx);
+ const revoked={...principal,capabilityIds:principal.capabilityIds.filter(x=>x!=='native.mission.run')};assert.equal(failed.runtime.recoveryPlan({...failed.ctx,principal:revoked}).status,'REVIEW_REQUIRED');
+ const hostRevoked=createMissionRuntime({...failed.config,authorize:(_p,operation)=>operation==='read'});assert.equal(hostRevoked.recoveryPlan(failed.ctx).retryAllowed,false);
+ assert.throws(()=>failed.runtime.recoveryPlan({...failed.ctx,project:{id:'other',orgId:'org'}}),/denied/);
+});
+test('recovery advice binds adapter version and refuses exhausted work budget',async t=>{
+ const s=setup(t,{verify:()=>false});const mission=s.runtime.create({...s.args,requestKey:'recovery-budget',maxWorkUnits:2}).mission,ctx={...s.ctx,missionId:mission.id};
+ let failed=await s.runtime.runNext(ctx);assert.equal(s.runtime.recoveryPlan(ctx).retryAllowed,true);
+ const changed=createMissionRuntime({...s.config,tools:s.config.tools.map(tool=>({...tool,version:'v2'}))});assert.equal(changed.recoveryPlan(ctx).status,'REVIEW_REQUIRED');
+ s.runtime.retry({...ctx,expectedVersion:failed.version,taskId:failed.tasks[0].taskId});failed=await s.runtime.runNext(ctx);
+ const advice=s.runtime.recoveryPlan(ctx);assert.equal(advice.remainingWorkUnits,0);assert.equal(advice.retryAllowed,false);assert.equal(s.calls(),2);
+});
 test('dependency results, durable restart, completion and idempotent request',async t=>{const s=setup(t);assert.equal(s.runtime.create(s.args).mission.id,s.mission.id);assert.throws(()=>s.runtime.create({...s.args,objective:'different'}));let m=await s.runtime.runNext(s.ctx);assert.equal(m.tasks[0].status,'succeeded');m=await createMissionRuntime(s.config).runNext(s.ctx);assert.equal(m.status,'completed');assert.equal(m.tasks[1].result.report,'VERIFIED SOURCE');await s.runtime.runNext(s.ctx);assert.equal(s.calls(),1);assert.doesNotMatch(fs.readFileSync(s.config.file).toString(),/verified source/);});
 test('concurrent runners claim once',async t=>{const s=setup(t,{run:async()=>{await new Promise(r=>setTimeout(r,15));return {text:'done'}}});const other=createMissionRuntime(s.config);await Promise.all([s.runtime.runNext(s.ctx),other.runNext(s.ctx)]);assert.equal(s.runtime.get(s.ctx).tasks[0].attempts.length,1);});
 test('pause, resume and cancel use version fencing',async t=>{const s=setup(t);let m=s.runtime.pause({...s.ctx,expectedVersion:s.mission.version});assert.equal((await s.runtime.runNext(s.ctx)).status,'paused');assert.throws(()=>s.runtime.resume({...s.ctx,expectedVersion:0}));m=s.runtime.resume({...s.ctx,expectedVersion:m.version});m=s.runtime.cancel({...s.ctx,expectedVersion:m.version});assert.equal((await s.runtime.runNext(s.ctx)).status,'cancelled');});

@@ -1,0 +1,11 @@
+{
+  "tasks": [
+    {"id":"designA","duration":4,"dependsOn":[],"resources":{"team":1}},
+    {"id":"designB","duration":2,"dependsOn":[],"resources":{"team":1}},
+    {"id":"review","duration":1,"dependsOn":["designA","designB"],"resources":{}}
+  ],
+  "capacities": {"team":1},
+  "horizon":20,
+  "taskIds":["designA","designB"],
+  "delayUnits":1
+}

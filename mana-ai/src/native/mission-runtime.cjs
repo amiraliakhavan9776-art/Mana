@@ -138,6 +138,19 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
   });
   if(revoked)throw Error('Mission access denied after execution');return finished;
  }
+ function recoveryPlan({principal,project,missionId}){
+  check(principal,project,'read');return transact(state=>{
+   const m=find(state,missionId,project),spent=m.tasks.reduce((n,t)=>n+t.workUnits*t.attempts.length,0),remaining=Math.max(0,(m.workBudget??1000000)-spent);
+   const base={schema:'MANA_MISSION_RECOVERY_PROPOSAL_V1',missionId:m.id,expectedVersion:m.version,planningMode:m.planningMode??'symbolic',remainingWorkUnits:remaining,actionsExecuted:0,approved:false};
+   if(m.tasks.some(t=>t.status==='unknown')||m.status==='unknown')return {result:{...base,status:'RECONCILIATION_REQUIRED',retryAllowed:false}};
+   if(time()>=m.deadlineAt||m.cancelRequested)return {result:{...base,status:'STOPPED',retryAllowed:false}};
+   const failed=m.tasks.find(t=>t.status==='failed');if(!failed)return {result:{...base,status:'NO_FAILED_TASK',retryAllowed:false}};
+   const adapter=registry.get(failed.capabilityId),unchanged=m.tasks.filter(t=>t.status!=='superseded').every(t=>registry.get(t.capabilityId)?.fingerprint===t.toolFingerprint);
+   const permitted=principal.capabilityIds.includes('native.mission.control')&&principal.capabilityIds.includes('native.mission.run')&&principal.capabilityIds.includes(failed.capabilityId)&&authorize(principal,'control',{orgId:project.orgId,projectId:project.id})===true&&authorize(principal,'run',{orgId:project.orgId,projectId:project.id})===true;
+   const safe=m.status==='failed'&&unchanged&&permitted&&adapter?.retrySafe===true&&failed.attempts.length<3&&failed.workUnits<=remaining;
+   return {result:{...base,status:safe?'SAME_TASK_RETRY_PROPOSED':'REVIEW_REQUIRED',taskId:failed.taskId,retryAllowed:safe,preservesOriginalMethod:true,completedTaskIds:m.tasks.filter(t=>t.status==='succeeded').map(t=>t.taskId)}};
+  });
+ }
  function retry({principal,project,missionId,expectedVersion,taskId}){
   check(principal,project,'control');return transact(state=>{
    const m=find(state,missionId,project),t=m.tasks.find(t=>t.taskId===taskId);
@@ -184,6 +197,6 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    Object.assign(task.attempts.at(-1),{status:'reconciled',finishedAt:time(),evidenceReference});Object.assign(task,{status:'succeeded',result:recovered,resultDigest:payloadDigest(recovered),recoveryEvidence:evidenceReference});m.status=outcome(m);event(m,principal,'reconciled',taskId);return write(state,m);
   });
  }
- return Object.freeze({create,get,list,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry,replan});
+ return Object.freeze({create,get,list,recoveryPlan,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry,replan});
 }
 module.exports={createMissionRuntime};
