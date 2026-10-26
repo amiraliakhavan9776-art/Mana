@@ -30,7 +30,7 @@ test('RTL project UI creates, edits and reloads a synthetic project', {timeout:6
  await page.locator('[data-act="prj-edit"][data-id="'+id+'"]').click();
  await page.locator('#overlay input[name="name"]').fill('پروژهٔ ویرایش‌شده');
  await page.locator('[data-act="prj-save"]').click();
- await page.waitForFunction(()=>JSON.parse(localStorage.getItem('mana.db.v2')).projects.some(p=>p.name==='پروژهٔ ویرایش‌شده'));
+ await page.waitForFunction(()=>JSON.parse(localStorage.getItem('mana.db.v2'))?.projects?.some(p=>p.name==='پروژهٔ ویرایش‌شده'));
  await page.reload();
  assert.equal(await page.evaluate(id=>DB.projects.find(p=>p.id===id).budget,id),1200000);
  assert.equal(await page.evaluate(id=>DB.projects.find(p=>p.id===id).name,id),'پروژهٔ ویرایش‌شده');
@@ -52,7 +52,7 @@ test('legacy invoice approval state transitions persist and reverse', {timeout:6
  await page.evaluate(()=>ACT['inv-approve']({dataset:{id:'regression-invoice'}}));
  assert.equal(await page.evaluate(()=>DB.invoices.find(i=>i.id==='regression-invoice').status),'approved');
  await page.evaluate(()=>ACT['inv-unapprove']({dataset:{id:'regression-invoice'}}));
- await page.waitForFunction(()=>JSON.parse(localStorage.getItem('mana.db.v2')).invoices.some(i=>i.id==='regression-invoice'&&i.status==='pending'));
+ await page.waitForFunction(()=>JSON.parse(localStorage.getItem('mana.db.v2'))?.invoices?.some(i=>i.id==='regression-invoice'&&i.status==='pending'));
  await page.reload();
  assert.equal(await page.evaluate(()=>DB.invoices.find(i=>i.id==='regression-invoice').status),'pending');
 }));
