@@ -33,3 +33,7 @@ No claim that these three missions passed. No new server-upload archive or insta
 5. Server-source adapter review, production identity/audit/sandbox/restore/migration gates, then owner review before deployment.
 
 Render limits: no GPU/renderer availability demonstrated here. No rendering, image/video/music synthesis or DWG/Revit export capability claimed without the actual supported engines/providers and successfully reopened artifacts. Language/multimodal interpretation still requires suitable models; deterministic planner/replan/memory controls remain model-independent.
+
+## Follow-up: limited executable artifact workflows
+
+See mana-executable-workflows.md for three real-tool runs using generated engineering inputs. They add bounded Persian grounding, editable schematic DXF, linked area takeoff, PDF and exact reconciliation/XLSX exports, plus shared-cycle Jarvis revisions. These do NOT close the real-project professional acceptance gates above; provider/model/geometry limits are explicit. No deployment is authorized.
