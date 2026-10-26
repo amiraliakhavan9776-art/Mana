@@ -26,6 +26,6 @@ Scope: static inspection of the repository's root `index.html`; no browser execu
 
 Run `node --test tests/*.test.cjs` from repository root (Node.js 20+ recommended). Tests are static source checks, **not** proof that UI or workflows function. No dependencies or installation required.
 
-## Proposed next milestone
+## Current milestone
 
-Build a minimal standalone API skeleton with authenticated read-only endpoints and tests, without wiring the legacy application or changing its storage behavior. Define API contracts and RBAC first.
+Executable service prototypes now exist in this PR; this initial audit does not establish a complete codebase inventory. Before extending or connecting them, complete G1/G2 in [the canonical delivery gates](mana-ai-delivery-gates.md). Current evidence and regression gaps are tracked in [inventory and regression](mana-ai-inventory-and-regression.md). Static baseline checks alone do not satisfy this gate.

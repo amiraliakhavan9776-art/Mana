@@ -1,0 +1,470 @@
+{
+  "sourceCommit": "cc614aeb0af87a20216b563c114bc8d353465d05",
+  "truncated": false,
+  "files": [
+    {
+      "path": ".github/workflows/baseline.yml",
+      "sha": "7795d6d98888b8d67f0000576081cc4149f54fd6"
+    },
+    {
+      "path": ".github/workflows/mana-ai-tests.yml",
+      "sha": "8601070550c3bedd04b6c89b9f89bab7adc10d46"
+    },
+    {
+      "path": "docs/legacy-audit.md",
+      "sha": "55ce1b2e2edfddce99c5d21ab2586c5b77a15d79"
+    },
+    {
+      "path": "docs/mana-ai-foundation.md",
+      "sha": "f348bd13cbc3faa5ffa3464d4f58d868a48c33be"
+    },
+    {
+      "path": "docs/mana-ai-target-architecture.md",
+      "sha": "75c4f113ba6970abf81ecd9b537b871b6370fb98"
+    },
+    {
+      "path": "index.html",
+      "sha": "136e7b4267967df47b62a8491da96ac5f5694211"
+    },
+    {
+      "path": "mana-ai/.gitignore",
+      "sha": "8db969f459c16b6ebd7d96a065d1afa5bbed592e"
+    },
+    {
+      "path": "mana-ai/AUTOPILOT-EXECUTION.md",
+      "sha": "0ec7f505e64f601360b00b30d0a5f65095990c3e"
+    },
+    {
+      "path": "mana-ai/AUTOPILOT-LOCAL.md",
+      "sha": "75f4cb98b2907adfb62cc8061b8b7d5ec13497c6"
+    },
+    {
+      "path": "mana-ai/BUSINESS-AUTOPILOT-PILOT.md",
+      "sha": "b9bff2298d20eb95d804275587dbdab5244476ee"
+    },
+    {
+      "path": "mana-ai/CONVERSATION-API.md",
+      "sha": "5bcc17e36040ace943bda87e4aaf6bcc986123cc"
+    },
+    {
+      "path": "mana-ai/CONVERSATION-SERVER-INTEGRATION.md",
+      "sha": "ce483b5cc31a535ddcba2ad8ce82241cafed6bb5"
+    },
+    {
+      "path": "mana-ai/ENCRYPTED-CONVERSATIONS.md",
+      "sha": "b0986afc4fd2debb46b8eb41706ea9042463e8c1"
+    },
+    {
+      "path": "mana-ai/EXECUTION-READINESS.md",
+      "sha": "da99fe56e7bd89ebc85c0fdbc3134d08feb7bc02"
+    },
+    {
+      "path": "mana-ai/FACADE-PILOT.md",
+      "sha": "932b7d2c37237e19e87ac5dfa2034a3d54addb8d"
+    },
+    {
+      "path": "mana-ai/INTEGRATED-DEMO.md",
+      "sha": "8aed40b5e987e0c520d0955bcf36e1fb47dbfc18"
+    },
+    {
+      "path": "mana-ai/LOCAL-CHAT-UI.md",
+      "sha": "4d7b53714930bd7620c9dd8decf75abb2ac7ae4d"
+    },
+    {
+      "path": "mana-ai/LOCAL-VOICE-ENGINE.md",
+      "sha": "3235f718c7d22fbdf2c3393ec2b7517eb6939846"
+    },
+    {
+      "path": "mana-ai/LOGIN-SERVER-PILOT.md",
+      "sha": "a6d2006422525518a72f074d65fc7d587446b231"
+    },
+    {
+      "path": "mana-ai/MOBILE-ACCOUNT-PILOT.md",
+      "sha": "7ab368fabe7fffe00ae5f6b9d777aebfa40390e1"
+    },
+    {
+      "path": "mana-ai/MOBILE-LOCAL-VOICE.md",
+      "sha": "0120c3d016c2443b00e86f8463b7c5e4ead2b86b"
+    },
+    {
+      "path": "mana-ai/MOBILE-PILOT.md",
+      "sha": "3eb94c906909b0078fab03299f6927a82fac0b85"
+    },
+    {
+      "path": "mana-ai/MOBILE-SESSION-FOUNDATION.md",
+      "sha": "0d93803af7f5d37f2be7900e1a01a8ad28442b26"
+    },
+    {
+      "path": "mana-ai/MOBILE-VOICE.md",
+      "sha": "db04785b5345ce640516bd9d473e7a46df9124f3"
+    },
+    {
+      "path": "mana-ai/OPENAI-PILOT.md",
+      "sha": "98e1faea012f41531f338174ae48d1b516f1e9ef"
+    },
+    {
+      "path": "mana-ai/PERSISTENT-CHAT-PILOT.md",
+      "sha": "d0bc4c011c29b033c09205153066287581b610a5"
+    },
+    {
+      "path": "mana-ai/README.md",
+      "sha": "7c97c6236aa9b14ca1efc1d1b0211de907b6f2ec"
+    },
+    {
+      "path": "mana-ai/SECURE-PILOT-RUNBOOK.md",
+      "sha": "e6433aa427efb5fa9495b3a645a67195ff2bb889"
+    },
+    {
+      "path": "mana-ai/SECURE-SYNC-CHECKLIST.md",
+      "sha": "1478814b18c7df14a7a546a30b0d263607c35054"
+    },
+    {
+      "path": "mana-ai/SESSION-AUTH-PILOT.md",
+      "sha": "aac2f12a712109f9f101aeba4b88e292d637ea24"
+    },
+    {
+      "path": "mana-ai/VOICE-GATEWAY-SETUP.md",
+      "sha": "5d301b5ef91816109b7c2c5b75fe2cc5f4a5df05"
+    },
+    {
+      "path": "mana-ai/autopilot-demo.cjs",
+      "sha": "44318a3337e2151afde3cbb36ab28629dabe818e"
+    },
+    {
+      "path": "mana-ai/autopilot-local.cjs",
+      "sha": "5be3bd8293c33a684ec79238b1e3dc3c28c44786"
+    },
+    {
+      "path": "mana-ai/dev-chat.cjs",
+      "sha": "c8ba01abe5fa60d69b119021ac5fe0199746b631"
+    },
+    {
+      "path": "mana-ai/examples/business-autopilot.example.json",
+      "sha": "b39b9e29abb62cd81031b0676e48a3d92d20f6f2"
+    },
+    {
+      "path": "mana-ai/examples/documents.snapshot.example.json",
+      "sha": "eec2231db83527d9b36fa01cc582d64a8c6cb4a1"
+    },
+    {
+      "path": "mana-ai/examples/facade-pilot.example.json",
+      "sha": "c39ebb0a4cd482295cc05be6a31065e9d2a42cb8"
+    },
+    {
+      "path": "mana-ai/examples/projects.snapshot.example.json",
+      "sha": "eab203d75288e8ad652682d589ecc1203ad65516"
+    },
+    {
+      "path": "mana-ai/facade-pilot.cjs",
+      "sha": "2dcf74a2706ecac394ad05411ac253c67f7aed33"
+    },
+    {
+      "path": "mana-ai/local-chat-ui.cjs",
+      "sha": "47158121dec1923dacbb8e2d9e4388d15c054c85"
+    },
+    {
+      "path": "mana-ai/mobile-ui.cjs",
+      "sha": "8907cc91fce42d001e31d4531a558c119c1d27b0"
+    },
+    {
+      "path": "mana-ai/package.json",
+      "sha": "1772e522529e0ab706339695c13311bb9099fc43"
+    },
+    {
+      "path": "mana-ai/secure-pilot.cjs",
+      "sha": "013e62afaeebc730dcf3380cb1d2f5309e54220c"
+    },
+    {
+      "path": "mana-ai/specs/facade-phase2-and-quantity-takeoff.md",
+      "sha": "c249e488ac3ca71b9f69daf362d98d6a60ce9bee"
+    },
+    {
+      "path": "mana-ai/specs/self-hosted-independent-ai.md",
+      "sha": "7acdc6d97d9e06ecfe7c96ea3536061363dbab0b"
+    },
+    {
+      "path": "mana-ai/specs/strategy-rnd-brand-creative-studios.md",
+      "sha": "51aee947fb2527f3bce7e2a4914326c6f4fe2155"
+    },
+    {
+      "path": "mana-ai/specs/universal-business-autopilot.md",
+      "sha": "3591e128d51db167185b29f5cfc26aa721798b89"
+    },
+    {
+      "path": "mana-ai/src/agent-runner.cjs",
+      "sha": "d5fdec394d5e25aa46a2a489a9bd733c64d458a0"
+    },
+    {
+      "path": "mana-ai/src/agent-tools.cjs",
+      "sha": "f6ae93bcf7e0defc8a6f3783c58fdadde1f8f329"
+    },
+    {
+      "path": "mana-ai/src/audit.cjs",
+      "sha": "2f7a217fb9878d48acfcd305d90298383033ad6d"
+    },
+    {
+      "path": "mana-ai/src/autopilot-executor.cjs",
+      "sha": "224b30847bf14056d01d4e346476cd06ae2aae60"
+    },
+    {
+      "path": "mana-ai/src/autopilot-orchestrator.cjs",
+      "sha": "807225769721a0486a0b6777f8bf0d4d51313b1e"
+    },
+    {
+      "path": "mana-ai/src/business-autopilot.cjs",
+      "sha": "9ca51381babc65f5fe3b66e4d8b7a0334592591e"
+    },
+    {
+      "path": "mana-ai/src/chat.cjs",
+      "sha": "49ad7b2beb5985b66e6da928919f9602355a2e00"
+    },
+    {
+      "path": "mana-ai/src/context.cjs",
+      "sha": "5e87abd1f485351a0f270cc2ce9131a2a7883520"
+    },
+    {
+      "path": "mana-ai/src/conversation-api.cjs",
+      "sha": "8c04b81f85a290b7d831a28ade890deab936dd47"
+    },
+    {
+      "path": "mana-ai/src/documents.cjs",
+      "sha": "67528d52dc7aa65b194551465aba77a7e72a3c91"
+    },
+    {
+      "path": "mana-ai/src/durable-audit.cjs",
+      "sha": "805123216c16169f5d04a4a90c0db0e59d6a7295"
+    },
+    {
+      "path": "mana-ai/src/encrypted-conversations.cjs",
+      "sha": "7b7bfaa75ef9a151147a34efdb0ef83bd8b784f8"
+    },
+    {
+      "path": "mana-ai/src/engine.cjs",
+      "sha": "6c4d4a9e10db2027f8f6e47d283c5d59aefd5d51"
+    },
+    {
+      "path": "mana-ai/src/export-loader.cjs",
+      "sha": "b1ae2bb208f57c4aba096d378f509f67857e1e0f"
+    },
+    {
+      "path": "mana-ai/src/governance.cjs",
+      "sha": "8fc29c03b81531b0fb47b3eb347727d5270a3124"
+    },
+    {
+      "path": "mana-ai/src/import-boundary.cjs",
+      "sha": "e784dee080a151d4228523ed933f02842ecab8e7"
+    },
+    {
+      "path": "mana-ai/src/local-voice.cjs",
+      "sha": "81514ee5d76387c353746c675931fc13ff61c391"
+    },
+    {
+      "path": "mana-ai/src/mana-engine.cjs",
+      "sha": "3eb832092744b2c4746ce95579bc6a3fe8dd36f5"
+    },
+    {
+      "path": "mana-ai/src/memory.cjs",
+      "sha": "4d528ba89cd9399e33c96c4888fd0ea553063480"
+    },
+    {
+      "path": "mana-ai/src/mobile-session.cjs",
+      "sha": "5803d778e0eb643c3ce2f3f04e5747d59ba4c34b"
+    },
+    {
+      "path": "mana-ai/src/openai-provider.cjs",
+      "sha": "e66374b8f850805114855d45539553a72e5ae70d"
+    },
+    {
+      "path": "mana-ai/src/projects.cjs",
+      "sha": "b760251a935c1a214bba57cb936b08cf87e5a53a"
+    },
+    {
+      "path": "mana-ai/src/research.cjs",
+      "sha": "ed5ec6cff3fa609ed212b8f565599eac6eb4117f"
+    },
+    {
+      "path": "mana-ai/src/retrieval.cjs",
+      "sha": "2b712fa6adad16aefa16d428c3d3a8ca3e4ee6d9"
+    },
+    {
+      "path": "mana-ai/src/security.cjs",
+      "sha": "48f5f0471f47b1ce811fac18531c87aa44df1c48"
+    },
+    {
+      "path": "mana-ai/src/server.cjs",
+      "sha": "ec6ecbda0179a71f99d20481a0ac1fdbba4a8fc0"
+    },
+    {
+      "path": "mana-ai/src/session-auth.cjs",
+      "sha": "fb72d2d382e7769d74604c8a0f56fe5fb960e269"
+    },
+    {
+      "path": "mana-ai/src/snapshot.cjs",
+      "sha": "f85d9a460a14bf8b8246f2dd628bb15c23a89b6b"
+    },
+    {
+      "path": "mana-ai/tests/agent-endpoint.test.cjs",
+      "sha": "0f5392a3e161db3ce3758e2cd2804d2c765cc512"
+    },
+    {
+      "path": "mana-ai/tests/agent-runner.test.cjs",
+      "sha": "ba10b724461be770b7884388b25234252608d0ce"
+    },
+    {
+      "path": "mana-ai/tests/agent-tools.test.cjs",
+      "sha": "44b1a34342f8bb1ff19be8f20e7535e367fb1ae7"
+    },
+    {
+      "path": "mana-ai/tests/ai-policy.test.cjs",
+      "sha": "8a29e4870c3af88d54e5b049bdafc2060427eb90"
+    },
+    {
+      "path": "mana-ai/tests/autopilot-demo.test.cjs",
+      "sha": "ab0b2805586ce025974df08ecc1dd5dcc9253214"
+    },
+    {
+      "path": "mana-ai/tests/autopilot-executor.test.cjs",
+      "sha": "874dd7d89fac904b7d37cbd1a997e02c8cc618b5"
+    },
+    {
+      "path": "mana-ai/tests/autopilot-orchestrator.test.cjs",
+      "sha": "0b500519a249426ab0fa02b13b91b92303541a19"
+    },
+    {
+      "path": "mana-ai/tests/business-autopilot.test.cjs",
+      "sha": "61f65ba3804ed6459f82f6e4b11d69c8e87a5223"
+    },
+    {
+      "path": "mana-ai/tests/chat.test.cjs",
+      "sha": "47e0991b34ddf0cde74e01024abcd6fd856119dd"
+    },
+    {
+      "path": "mana-ai/tests/context.test.cjs",
+      "sha": "95136fae58e23c0f9539814fd646168c1ea865ae"
+    },
+    {
+      "path": "mana-ai/tests/conversation-api.test.cjs",
+      "sha": "93957a3ea0dc5dd7b9d2dc78c36fefbba7b731cc"
+    },
+    {
+      "path": "mana-ai/tests/conversation-encrypted-integration.test.cjs",
+      "sha": "970cada421d1e85a3fac81dd058c1079131cd031"
+    },
+    {
+      "path": "mana-ai/tests/conversation-server-integration.test.cjs",
+      "sha": "b52a4a9b0dd431aa3d1da8fe3ec30f20ea7330d2"
+    },
+    {
+      "path": "mana-ai/tests/encrypted-conversations.test.cjs",
+      "sha": "8168ad228c281c663ea4a781747f3b0564693429"
+    },
+    {
+      "path": "mana-ai/tests/engine.test.cjs",
+      "sha": "8b5dd28b166f477281768d006763ae7c774822bd"
+    },
+    {
+      "path": "mana-ai/tests/export-loader.test.cjs",
+      "sha": "8a45d94409ca70618d24ccdc786c9869836712d7"
+    },
+    {
+      "path": "mana-ai/tests/facade-pilot.test.cjs",
+      "sha": "4cc1f2f577936c3690168aeab5e4d1720e3b2ca3"
+    },
+    {
+      "path": "mana-ai/tests/governance.test.cjs",
+      "sha": "fb0959638231458a6c22047abfbbf07ff57c6ee6"
+    },
+    {
+      "path": "mana-ai/tests/import-boundary.test.cjs",
+      "sha": "92dbb2a0c18f452d31344de4fe1f254040ea8448"
+    },
+    {
+      "path": "mana-ai/tests/integration.test.cjs",
+      "sha": "8cf917a17ad5fbf0a8c6b0a24d249f0ad05e8f8f"
+    },
+    {
+      "path": "mana-ai/tests/local-chat-ui.test.cjs",
+      "sha": "47a721eb6ea3b6b8a685e80bcdd06994858c5cac"
+    },
+    {
+      "path": "mana-ai/tests/local-voice-api.test.cjs",
+      "sha": "bd8d02500ae150da88388691f5fd8f4fc3f55b2c"
+    },
+    {
+      "path": "mana-ai/tests/local-voice.test.cjs",
+      "sha": "d7ee8a345158797266f3da41ffe2a2e001de1ac0"
+    },
+    {
+      "path": "mana-ai/tests/login-server.test.cjs",
+      "sha": "52d623b27399328b74d5aa7b0dc92a92e65ad745"
+    },
+    {
+      "path": "mana-ai/tests/mana-engine.test.cjs",
+      "sha": "6a8dc887142fd730393da89b3df62d1b3ef30eab"
+    },
+    {
+      "path": "mana-ai/tests/memory.test.cjs",
+      "sha": "0c868675d40c0825e6f51e5d608aba7fd44d6e3b"
+    },
+    {
+      "path": "mana-ai/tests/mobile-account-ui.test.cjs",
+      "sha": "50ebe03d26abf84eed73fd29ec83e4f93371189f"
+    },
+    {
+      "path": "mana-ai/tests/mobile-local-voice.test.cjs",
+      "sha": "2b2b756d7e9827864666334247702a879adab316"
+    },
+    {
+      "path": "mana-ai/tests/mobile-session.test.cjs",
+      "sha": "cb5d141be53e4ea90a2c0a31e2b513bd7c493acd"
+    },
+    {
+      "path": "mana-ai/tests/mobile-ui.test.cjs",
+      "sha": "cb8c574431a99487da593d63c6fefff87a51d7c9"
+    },
+    {
+      "path": "mana-ai/tests/mobile-voice.test.cjs",
+      "sha": "a509f470ee657d0c0bad4c5fbe6684ed1ed2de39"
+    },
+    {
+      "path": "mana-ai/tests/persistence.test.cjs",
+      "sha": "6eb2d23f17593798a3f6d86a7e432f20c4c51d34"
+    },
+    {
+      "path": "mana-ai/tests/persistent-chat.test.cjs",
+      "sha": "89a46339062de21ce3fca5677d09586e2df0f2a2"
+    },
+    {
+      "path": "mana-ai/tests/research.test.cjs",
+      "sha": "ac09f9b1ef6593b74dfa5ce0bfba5391b8cf1c1d"
+    },
+    {
+      "path": "mana-ai/tests/retrieval.test.cjs",
+      "sha": "1e9428b3be1a14a7a5fd6fcf6213a2ad734362be"
+    },
+    {
+      "path": "mana-ai/tests/secure-pilot.test.cjs",
+      "sha": "557fb821119be522eee49b6b3124eefd8344328f"
+    },
+    {
+      "path": "mana-ai/tests/security.test.cjs",
+      "sha": "192becda6c44e2f9be0a75c9d114ea11309eb267"
+    },
+    {
+      "path": "mana-ai/tests/server.test.cjs",
+      "sha": "e6135de61ba9f5f5e3ca850a41e51e30760b5275"
+    },
+    {
+      "path": "mana-ai/tests/session-auth.test.cjs",
+      "sha": "425132251676958cf08e6a8cefc18dee8d0230c1"
+    },
+    {
+      "path": "mana-ai/voice-gateway.py",
+      "sha": "c0b3479464ef662154bdce45d3162f8a7294abbe"
+    },
+    {
+      "path": "tests/mana-baseline.test.cjs",
+      "sha": "f265a23ffc12152d0079676d79197df40c34d574"
+    }
+  ]
+}

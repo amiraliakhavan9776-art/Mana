@@ -12,4 +12,4 @@ Run:
 node --test mana-ai/tests/*.test.cjs
 ```
 
-Tests have been committed but not verified as passing. No actual model runtime, GPU, production login system, mobile sync deployment or server provisioning has been completed. Next steps: run tests, fix failures, provision local inference, integrate safe authenticated voice/planning, and test across two devices behind HTTPS/VPN.
+At source cc614aeb, the existing 102 tests passed on Node v24.22.1 on 2026-10-26. This follow-up adds four passing legacy behavioral tests (106 total). Browser, full migration and production acceptance remain open. See [review evidence](../docs/mana-ai-inventory-and-regression.md) and [canonical gates](../docs/mana-ai-delivery-gates.md). No actual model runtime, GPU, production login system, mobile sync deployment or server provisioning has been completed. Next steps: run tests, fix failures, provision local inference, integrate safe authenticated voice/planning, and test across two devices behind HTTPS/VPN.

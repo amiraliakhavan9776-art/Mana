@@ -1,36 +1,34 @@
-# Mana AI target architecture and security gates
+# Mana AI target architecture and security boundaries
 
-Status: approved product direction, **not implemented end-to-end**.
+Status: target product direction; not implemented end-to-end.
+Canonical phase order and stop rules: [delivery gates](mana-ai-delivery-gates.md). This document does not define a second roadmap.
 
 ## Product goal
-A general-purpose, profession-agnostic company operating system with an AI orchestrator, multiple replaceable models, controlled tool agents, internal knowledge retrieval, public research, strategy generation, voice, design/engineering integrations, and auditable business workflows. Construction is the first deployment, not a limitation.
+A profession-agnostic company operating system with a MANA-owned intelligence core, replaceable inference adapters, controlled tools, retrieval, strategy, voice and engineering integrations. Construction is the first deployment.
+Self-hosting and Iran-local offline-capable core operation are requirements, not verified capabilities. See ../mana-ai/specs/self-hosted-independent-ai.md.
+
+## Trust boundaries and ownership
+| Boundary | Responsibility |
+| --- | --- |
+| Client -> API | Trusted server identity, schema validation, rate/size limits, CSRF/session controls |
+| API -> domain module | Resource/project authorization and business invariants on every operation |
+| Domain -> persistence | Transactions, data version, idempotency and ownership |
+| Context -> inference | Minimum authorized fields; untrusted content is evidence, never tool authority |
+| Plan -> tool worker | Allowlisted capability, scoped credentials, quotas, isolated filesystem/network and termination |
+| Execution -> audit | Durable attributable evidence and independent integrity verification |
+| Local -> external | Explicit transfer authorization, redaction, provider policy; no silent fallback |
+
+Default proposed topology: a modular backend deployable as one application, separate inference and restricted workers where isolation is needed. Do not introduce independent domain services before contracts and operational need justify them.
 
 ## Execution lifecycle
-1. Identify user, organization, project, purpose and permissions.
-2. Plan and classify the requested operation and data sensitivity.
-3. Retrieve only authorized internal context; if insufficient, propose or perform explicitly permitted public research with redacted queries.
-4. Select an allowlisted model/tool and impose time, token, cost and request limits.
-5. Validate sources, outputs, policy and intended side effects.
-6. For consequential operations, obtain specific authorized human approval and any required licensed professional sign-off.
-7. Execute through least-privilege connectors, record evidence and audit events, verify outcome and support recovery.
+1. Verify actor, organization, project membership, purpose and data sensitivity.
+2. Classify and plan using only authorized context; separate MANA core responsibilities from inference.
+3. Select allowlisted tools/models with data-transfer policy and cost/time/resource limits.
+4. Validate evidence, outputs, business invariants and intended effects.
+5. Bind consequential operations to authorized, unexpired, payload/version-specific approval and professional sign-off where required.
+6. Reauthorize and execute idempotently; record durable audit, verify outcome and reconcile unknown results before retry.
+7. Recover through tested rollback or compensation.
 
-## Non-negotiable security gates
-- Tenant isolation at storage, retrieval, tool and model-context boundaries; deny by default.
-- Strong identity (SSO/MFA), role- and attribute-based authorization, short-lived credentials, secrets vault and key rotation.
-- Encryption in transit and at rest; classified data and explicit outbound-transfer policies.
-- Prompt-injection-resistant tool mediation; untrusted documents/webpages are evidence, never authority.
-- Sandboxed execution with network/filesystem restrictions, egress allowlists, quotas and emergency kill switches.
-- Immutable or externally anchored audit, observability, abuse detection, backups and disaster recovery.
-- Human approval for payments, signatures, deletion, permission grants, high-risk changes and safety-critical decisions.
-- Independent security reviews, threat modeling, adversarial tests, supply-chain checks and staged rollout.
-
-## Delivery phases
-1. Read-only core, validated snapshots, access controls and tests.
-2. Scoped research and retrieval with source verification and privacy-preserving search.
-3. Persistent encrypted tenant-scoped memory and semantic retrieval.
-4. Model router with policy-based provider selection and fallback.
-5. Sandboxed tool-agent orchestration, approval workflow and audit.
-6. Domain-specific connectors, voice, CAD/BIM, strategy and profession packs.
-7. Production readiness: SSO, databases, deployment security, monitoring and disaster recovery.
-
-The current foundation has only partial prototypes of phases 1-2. Do not expose it publicly or connect sensitive production data. Never merge to main without explicit approval.
+## Required controls
+Deny-by-default tenant/project/field isolation, strong production identity, short-lived credentials, managed secrets, transport/storage encryption, restricted egress, sandboxed tools, kill switches, adversarial tests, dependency integrity and staged rollout.
+Do not expose experimental servers publicly or attach sensitive production data. Follow G0–G6; existing prototypes do not establish completion of any gate.

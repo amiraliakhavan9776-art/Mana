@@ -1,49 +1,24 @@
-# Mana AI — Foundation and architecture
+# Mana AI — Foundation and delivery contract
 
-Status: initial architecture proposal; no production AI integration yet.
+Status: draft architecture under review. This PR contains documentation, executable prototypes, UI/API code, persistence, voice adapters and tests. It is not documentation-only and is not production-ready. Keep it Draft; do not merge without explicit owner review.
 
-## Existing application
+## Authority and scope
+[Delivery gates](mana-ai-delivery-gates.md) is the canonical phase order and acceptance contract. [Target architecture](mana-ai-target-architecture.md) describes the target, not completed features. [Inventory and regression evidence](mana-ai-inventory-and-regression.md) records observations and remaining coverage. Older pilot documents describe individual experiments and do not override these gates.
 
-The current repository contains a large Persian RTL browser application in `index.html` (approximately 664k characters). It includes project management, schedules/Gantt, contracts, invoices/progress claims, approval actions, and browser-side persistence. The file includes successive function overrides; changing it directly before regression testing is risky.
+The legacy Persian RTL application remains in index.html. Preserve its behavior and stored data while inventory and regression work proceeds. Existing prototypes are not evidence that earlier gates were satisfied retroactively. Pause expansion of the backend until G1 and G2 have reviewable evidence.
 
-## Architecture principles
+## Architecture
+Start with a modular application backend in one deployable unit, plus separate inference and restricted tool workers where isolation requires it. This is a proposed implementation default, not a claim about existing deployment.
+- Clients: existing browser application, desktop and mobile adapters. Clients never enforce the final authorization decision.
+- API/identity/policy: one server-verified identity contract; versioned APIs; tenant and project authorization; approval lifecycle.
+- Domain modules: contracts, claims, costs, schedules and profession packs own their rules and write through explicit service contracts.
+- Persistence: versioned schema, transactional writes, concurrency control and migration ledger. Source of truth and legacy coexistence remain decisions to resolve before migration.
+- MANA intelligence core: MANA-owned planning, reasoning workflow, memory policy, evaluation and governed self-improvement; replaceable inference providers are adapters. Local hosting or a provider wrapper alone does not establish a proprietary reasoning engine.
+- Tool execution: allowlisted capabilities, restricted workers, bounded resources, independently enforced permissions and approved effects.
+- Evidence: provenance, audit, operational monitoring and recovery.
 
-1. Preserve the existing application and `main` branch. Develop on feature branches and merge only after human review.
-2. Separate the browser UI, API gateway, AI orchestration, domain modules, persistence, and integration adapters.
-3. AI-led automation is permissioned: role-based access, audit trails, explicit approval for consequential actions, and licensed sign-off for regulated or safety-critical outputs.
-4. Design the Strategy Architect for any profession or industry. Construction is the first deployment, not a hard-coded constraint.
-5. Self-hosting and integration with the existing desktop/web Mana system are deployment requirements.
-6. Treat user-provided documents, external sources, and model outputs as untrusted. Validate inputs and outputs and protect credentials server-side.
+Construction is the first profession pack. Strategy Architect and the core must remain profession-agnostic. CAD/BIM output requires editable-artifact verification and professional sign-off.
 
-## Proposed components
-
-- **API and identity:** authentication, authorization, organization/project tenancy, approvals and audit logs.
-- **AI orchestration:** tool registry, task plans, human approval gates, provenance and execution logs.
-- **Strategy Architect:** profession interview, industry-specific frameworks, objectives, KPIs, scenarios, resource plans, execution monitoring.
-- **Construction adapters:** progress claims, site evidence, contracts, change orders, schedules, costs, procurement and technical office.
-- **Company OS:** cross-department workflows and exception handling.
-- **Intelligence modules:** Reality Check, Contract Intelligence, Risk Sentinel, Partner Intelligence, Meeting Intelligence, Regulatory Intelligence, Executive Audit, Mana Academy and Integration Studio.
-- **Design pipeline (future phases):** phase 0 site studies, phase 1 concepts, phase 2 construction documentation; editable CAD/BIM outputs require dedicated tools and professional validation.
-
-## Implementation stages
-
-1. Inventory repository assets and data models; document workflows, persistence and external dependencies.
-2. Add baseline regression tests and secure backup/export migration tests without changing existing user data.
-3. Define versioned API contracts and RBAC/audit/approval schemas.
-4. Implement a minimal self-hostable service skeleton with health checks, configuration and tests.
-5. Connect a read-only AI assistant to approved project data; verify provenance and data isolation.
-6. Add controlled write workflows with explicit approvals, idempotency, rollback and audit logs.
-7. Implement Strategy Architect and construction-specific adapters incrementally.
-8. Add desktop/web integration, operational observability and deployment hardening.
-
-## Acceptance gates
-
-- No changes to `main` until the owner reviews and merges a PR.
-- No autonomous consequential write without required authorization and approval.
-- Existing project data remains readable; migrations are reversible and tested.
-- No claims of working CAD/BIM generation without integration tests and editable artifact verification.
-- Security, regression and domain tests pass before production rollout.
-
-## Current change scope
-
-This foundation commit adds documentation only. It does not modify `index.html`, install dependencies, alter user data, or enable any AI execution. Further implementation requires staged code review and tests.
+## Delivery rules
+Follow G0–G6 in the delivery contract. Authorization, isolation, minimum audit and secrets management precede real data access. Durable approval, idempotency and tested recovery precede consequential writes. Observability and security grow from the first service phase.
+No production data, deployments, irreversible actions or merges are authorized by the existence of this document.
