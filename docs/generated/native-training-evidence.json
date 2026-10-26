@@ -1,0 +1,40 @@
+{
+  "kind": "MANA_RANDOM_INITIALIZED_RESEARCH_TRAINING",
+  "architecture": "byte-RNN, NumPy explicit BPTT/AdaGrad",
+  "pretrained_weights": false,
+  "records": 36,
+  "task_groups": 12,
+  "hidden": 64,
+  "parameters": 37313,
+  "steps": 1000,
+  "initial_validation_loss": 5.560237005983189,
+  "measurements": [
+    {
+      "step": 250,
+      "validation_loss": 2.144763563623064,
+      "weights_sha256": "67bb7abe1e606600af1b0d776c3cd8514a0ebbec5a81a0dcf20b8e44bfc452db"
+    },
+    {
+      "step": 500,
+      "validation_loss": 1.8423181638189086,
+      "weights_sha256": "c729712ba2b6fbd91cbff7d28c5122979893d8262154dc4925f551d169b22e0c"
+    },
+    {
+      "step": 750,
+      "validation_loss": 1.8666659570425237,
+      "weights_sha256": "30832abee56cee846a1a12b8e6fe21490c5afd7a029f15ab05b81d1a57356a64"
+    },
+    {
+      "step": 1000,
+      "validation_loss": 1.8742362098486043,
+      "weights_sha256": "80987b005f5d3d73ac5c0b8932252d9c3d8da90734b0ab3b2e55a51885ff738b"
+    }
+  ],
+  "best_measured_step": 500,
+  "final_step": 1000,
+  "general_coding_acceptance": false,
+  "functional_benchmark_passed": false,
+  "rights_independently_verified": false,
+  "production_ready": false,
+  "gradient_and_recovery_tests_passed": 5
+}

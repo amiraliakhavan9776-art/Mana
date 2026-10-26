@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "668b09bc43095675d93d55767b299a7a2dc7209a7cc460ccc3ef34865cab7011",
-  "fileCount": 218,
+  "sourceSetDigest": "ed1e0461f9182d3d1be56f3898e89d6504c89e7558db9b89ff7ea866df89fd63",
+  "fileCount": 226,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -35,6 +35,15 @@
       "bytes": 712,
       "sha256": "e096e93adfe7262abb1bf6e641386908ec919158239ed3d4fdb7278deae3e39c",
       "gitBlob": "8601070550c3bedd04b6c89b9f89bab7adc10d46",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": ".github/workflows/native-training.yml",
+      "bytes": 694,
+      "sha256": "c82734488c24fe43f72e2ecc7978a64e6f176055a526e7dc2960cd3b6a84dd1c",
+      "gitBlob": "e71eff58d2247c5050f0683e63cb2af688bc70cb",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -131,9 +140,9 @@
     },
     {
       "path": "docs/mana-capability-status-v1.1.md",
-      "bytes": 16374,
-      "sha256": "aa6b3834c31bccd77055d6c56dbaec10c5854ae7796c0eb7a2607ce3d9c10913",
-      "gitBlob": "8680c8995d62e924cff0f8fdcf95095880c5c4b2",
+      "bytes": 16741,
+      "sha256": "8fb822105a0bcd259fe26ff983ad6e1c37e551f45ad7fc553fec6a4a1d3ef154",
+      "gitBlob": "daa842b65ae5adb80311d5ceb02b418b84f0bf3c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -224,6 +233,15 @@
       "bytes": 7433,
       "sha256": "e16e573186a8a06096b28b2e7937b4fb5cb4b68839ea0dc3ef8db800e8df3a27",
       "gitBlob": "dfd36e898dc58d28d11acb756fabcd53d61a5bdd",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-native-model-training.md",
+      "bytes": 5338,
+      "sha256": "5786e4345d5f69255893f959a7166c5af52f5a6c5732be874948d895f50e609a",
+      "gitBlob": "50859ea3a507f418f45ab2d6d15427f66a013f63",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -3920,6 +3938,60 @@
       "bytes": 4851,
       "sha256": "eb8c0c5b3cc72f082c4a699588d4e74ceaf48564a1772f5bb4c6d9b8eb599437",
       "gitBlob": "8e3428bb6913258297e21822e1b92b66a486d774",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/.gitignore",
+      "bytes": 19,
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793",
+      "gitBlob": "7a60b85e148f80966a550e5ab6a762a907c69ca6",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/hardware-report.py",
+      "bytes": 930,
+      "sha256": "e7826e015f589f508d3073caf9ba42236da6ec060339bf57c9000c0f0fd62cd3",
+      "gitBlob": "1c23352043c0b6d30f7945951fcd203e6571e87e",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/mana_byte_rnn.py",
+      "bytes": 13357,
+      "sha256": "14174e3e0735abe96e09920176f2d1e8c88b444ef47caec90b41c8d6e1657991",
+      "gitBlob": "491b7b737398bb47eef5304f73227edb77dbc13c",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/requirements.txt",
+      "bytes": 13,
+      "sha256": "7bd6b8946940b79948c548c8048e545684b91c8edc9444d8dfc0c8f76a97c0a7",
+      "gitBlob": "d59d856f1cc6c05962ca6bd4f14dd3315acd207c",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/research-corpus.jsonl",
+      "bytes": 10842,
+      "sha256": "f7c98571e0c173b25859ab756482491546d2951c9f3859309e88fa576705389c",
+      "gitBlob": "51a8222cca7fe3086c18d1dabffed9d9f83895a3",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/test_training.py",
+      "bytes": 4432,
+      "sha256": "b2b838a5440ddafe249fb45569178c565a957b45024b9f384c477ecbeae0aa16",
+      "gitBlob": "e43e42db371c2f216c73073a698cd45b9603fa1f",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
