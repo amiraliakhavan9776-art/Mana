@@ -16,5 +16,9 @@ jobs:
           node-version: '22'
       - name: Run non-mutating source baseline checks
         run: node --test tests/*.test.cjs
+      - name: Verify tracked source evidence matches this revision
+        run: |
+          node tools/inventory-source.cjs > /tmp/mana-source-evidence.json
+          cmp docs/generated/source-evidence.json /tmp/mana-source-evidence.json
       - name: Run Mana AI foundation tests
         run: node --test mana-ai/tests/*.test.cjs
