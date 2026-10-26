@@ -22,6 +22,10 @@ See `mana-scenario-budget.md` for exact arithmetic, cost basis and explicit unit
 An optional `budgetRanges` service exposes audited read-only `budgetRanges.analyze`.
 See `mana-budget-range.md` for conditional rate-bound affordability and exclusions.
 
+An optional `costReview` service exposes audited `request`, `decide`, and `current`
+for independent review of costed recovery scenarios. Request/decision are state
+mutations; current receipts are read-only. See `mana-cost-review.md`.
+
 Methods are asynchronous. The caller must await the result. The boundary captures
 a private JSON snapshot before waiting for the audit sink, then records an intent
 with an operation identifier and exact input digest. It invokes the service only

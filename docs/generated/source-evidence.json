@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "b8dd4b3ce8ea3b1726159957730a97ac7e933f532f063b358d79fd18e7423dec",
-  "fileCount": 288,
+  "sourceSetDigest": "3a2032f9d4fb111f5cba999ee5d4d85dd5061e42cea375bcd70e25d018e822f2",
+  "fileCount": 292,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -166,6 +166,15 @@
       "testFile": false
     },
     {
+      "path": "docs/mana-cost-review.md",
+      "bytes": 3122,
+      "sha256": "d9e90ecbfaadbeeed0fbd80459fc13bc08f238abc7154ab9f1e80c0f648292ce",
+      "gitBlob": "6e04f54df8a0395f1396791dbce82db8a048ffb1",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "docs/mana-development-acceptance.md",
       "bytes": 4961,
       "sha256": "44b2c5cabd0f324f42dfe10d64c936b29dbdcca7c12d6e7c5799ab655b01085f",
@@ -275,9 +284,9 @@
     },
     {
       "path": "docs/mana-native-audit-facade.md",
-      "bytes": 3509,
-      "sha256": "11129953ba252cae6cd2c9c3f8b1b65f036c813d2cb7fdd9ede581d651d22c30",
-      "gitBlob": "a596f8f974652849986da2af1b5f3f5481368c73",
+      "bytes": 3744,
+      "sha256": "a824ff135c741c77416af8e8e44622b3de92fdd8521440d87e30b4af839960fd",
+      "gitBlob": "bb6d604886f9bda702e7a70b617ebc5c5b463e51",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2051,9 +2060,9 @@
     },
     {
       "path": "mana-ai/src/native/audited-services.cjs",
-      "bytes": 3475,
-      "sha256": "a4ffb57bd9aafb836dc9a70e4e14d5c9ca8f18567cdc58a707f5af06ec205ca4",
-      "gitBlob": "129615bf7cf401b8dc9541b6b172096da0541984",
+      "bytes": 3731,
+      "sha256": "e67ad7adb37af56846436a878f81f9d312d3b7fade4531cca8f56145d2f4c03c",
+      "gitBlob": "126888bb93b76b463402cd6c0a82bc5457a65776",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2161,6 +2170,24 @@
       "dependencyCandidates": [
         {
           "value": "../security.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/cost-review.cjs",
+      "bytes": 1972,
+      "sha256": "a53f20eb84ac4a2a9e57df08775cb5cdf7bccec6bd84e669ea3e9d7cdafba5e6",
+      "gitBlob": "a3b64fa38305f7c11dc800379f73562850be0161",
+      "dependencyCandidates": [
+        {
+          "value": "./proposal-review.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
           "line": 3
         }
       ],
@@ -2338,6 +2365,24 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/native/proposal-review.cjs",
+      "bytes": 4047,
+      "sha256": "36035df2bfe82449fba7afbfd3aebc44a2dfbfd727d8d3995d06ca32a3f6da32",
+      "gitBlob": "0ba9cae73fcf79156575e182df01b37805857453",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/native/python-code-sandbox.cjs",
       "bytes": 7278,
       "sha256": "2c7fefb6ba370eda6fb0a462203d22b4ea96f8b81f4d2387d8d597836830262b",
@@ -2381,17 +2426,13 @@
     },
     {
       "path": "mana-ai/src/native/recovery-review.cjs",
-      "bytes": 3640,
-      "sha256": "7c2a19105db38de4795407f0aa06ea2448c8ba939143684c9a9cc1922a39f8ca",
-      "gitBlob": "e659be5868bbd6ea05c6466b46b6368b302c83bf",
+      "bytes": 762,
+      "sha256": "c58867249e21fad04ff36f617a91fa26478266f268fee3ee2a76b6fb6210b0bd",
+      "gitBlob": "e939af9e2c7459b41ab807d6675356a8120f1592",
       "dependencyCandidates": [
         {
-          "value": "../security.cjs",
+          "value": "./proposal-review.cjs",
           "line": 2
-        },
-        {
-          "value": "../approval-store.cjs",
-          "line": 3
         }
       ],
       "environmentCandidates": [],
@@ -3622,6 +3663,76 @@
         {
           "value": "../local-chat-ui.cjs",
           "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/cost-review.test.cjs",
+      "bytes": 8208,
+      "sha256": "66f9590645d01698d40d87e5393897f8f789e3925879f482dc5ed87c805fb950",
+      "gitBlob": "5d0d7bd8c44c2af99a4baae80aea4218269e2a8f",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "../src/approval-store.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/cost-review.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/native/recovery-review.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/budget-range.cjs",
+          "line": 6
+        },
+        {
+          "value": "../src/native/scenario-budget.cjs",
+          "line": 7
+        },
+        {
+          "value": "../src/native/recovery-scenarios.cjs",
+          "line": 8
+        },
+        {
+          "value": "../src/native/project-recovery.cjs",
+          "line": 9
+        },
+        {
+          "value": "../src/native/project-monitor.cjs",
+          "line": 10
+        },
+        {
+          "value": "../src/native/resource-scheduler.cjs",
+          "line": 11
+        },
+        {
+          "value": "../src/native/audited-services.cjs",
+          "line": 12
         }
       ],
       "environmentCandidates": [],
