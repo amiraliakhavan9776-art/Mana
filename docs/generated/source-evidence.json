@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "3a2032f9d4fb111f5cba999ee5d4d85dd5061e42cea375bcd70e25d018e822f2",
-  "fileCount": 292,
+  "sourceSetDigest": "cbae57b603f11c625a1e9c94d8614c88973574bb6f4125d9dac0a6f3a0dca776",
+  "fileCount": 296,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -248,9 +248,9 @@
     },
     {
       "path": "docs/mana-master-implementation-map.md",
-      "bytes": 7899,
-      "sha256": "8913943b564f7416775f16e1967fd57ac4eb702af69f253aa4bd4cb7923bac4b",
-      "gitBlob": "9cb8cc2555af2c2bf59c87631ee374a54c75a2c5",
+      "bytes": 7912,
+      "sha256": "6e48e03481083852936a55da2221db4008195a39acae5c5d84f8f9223bc55d3a",
+      "gitBlob": "691497955d01d4dd3887695705ebd78f79b6b432",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -284,9 +284,9 @@
     },
     {
       "path": "docs/mana-native-audit-facade.md",
-      "bytes": 3744,
-      "sha256": "a824ff135c741c77416af8e8e44622b3de92fdd8521440d87e30b4af839960fd",
-      "gitBlob": "bb6d604886f9bda702e7a70b617ebc5c5b463e51",
+      "bytes": 3903,
+      "sha256": "47b361a7d6e5399b3c12deb730308a5e027823521fc7e1340cc02ffd08abd917",
+      "gitBlob": "fb75f26c05059d5332bfc232ed64ce754ec44044",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -368,6 +368,15 @@
       "bytes": 3853,
       "sha256": "2962ee24db754ec0da310938833a8cc3ad30e09e2e287e8edc9fb9e8604461c3",
       "gitBlob": "d9f022b5df7d21da6a42d590d2595a1730d25682",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-recovery-cashflow.md",
+      "bytes": 4227,
+      "sha256": "5362a2f1dd8711b559ec29ab15fc0583d984787001e77e9cfdbb94699f659550",
+      "gitBlob": "bb041f16fdcbeb18f6e436fc6b9dafc815c4f01a",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -754,9 +763,9 @@
     },
     {
       "path": "mana-ai/budget-project.cjs",
-      "bytes": 2978,
-      "sha256": "cafdfda52034ce68ce97db38863e8032263027eea0e546ad51d9ae8808876492",
-      "gitBlob": "9e0632a158929b24f00f7efe02697753ab1b320b",
+      "bytes": 3989,
+      "sha256": "85e5875975e976f178123625cc5e2ee17eada89c62a2872f3ca929c3051d1797",
+      "gitBlob": "00dfdba89f2b2258c7d94e1f820c2bf3ac4f5f74",
       "dependencyCandidates": [
         {
           "value": "node:path",
@@ -793,6 +802,10 @@
         {
           "value": "./src/native/budget-range.cjs",
           "line": 11
+        },
+        {
+          "value": "./src/native/recovery-cashflow.cjs",
+          "line": 12
         }
       ],
       "environmentCandidates": [],
@@ -1094,6 +1107,15 @@
       "bytes": 1511,
       "sha256": "de124fa86fdc6b53655622accd3f7eec1965fd7c339ab86aa3c26fa0e3caff7f",
       "gitBlob": "ee5c8c73b5c64c8c1bf63cf4620a02d482a95e4a",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/project-cashflow.json",
+      "bytes": 2899,
+      "sha256": "e495a850470c7d2cb235f9b15829e18ef3f8ce59511160f2613210ec2a2982e7",
+      "gitBlob": "da820dd2dbb9022640ef5a7668e60832d4e972c9",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2060,9 +2082,9 @@
     },
     {
       "path": "mana-ai/src/native/audited-services.cjs",
-      "bytes": 3731,
-      "sha256": "e67ad7adb37af56846436a878f81f9d312d3b7fade4531cca8f56145d2f4c03c",
-      "gitBlob": "126888bb93b76b463402cd6c0a82bc5457a65776",
+      "bytes": 3919,
+      "sha256": "dcb525b338b697ccbb3991268d98483cbe5a526f98442ae0db58fd8ddd6ba01c",
+      "gitBlob": "bd1cfe392ba2c14b22e4229b02a27c96ff8ca278",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2419,6 +2441,28 @@
         {
           "value": "node:util",
           "line": 55
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/recovery-cashflow.cjs",
+      "bytes": 6475,
+      "sha256": "8e1ffefbee7a22a40e99db43f014618a1401abb30536732a181b9ae4009263c7",
+      "gitBlob": "8f7995de76ddbc46659db28cb82892f64262b3bc",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        },
+        {
+          "value": "../financial/exact-decimal.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
@@ -4793,6 +4837,64 @@
         {
           "value": "../src/approval-store.cjs",
           "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/recovery-cashflow.test.cjs",
+      "bytes": 7148,
+      "sha256": "3684cd4490e3bef29cf4079558fd9620ecfb83de6dd55f59846335ca76cac868",
+      "gitBlob": "a5164377939001ca0a0f4bb1d0655d4a3fb9bfa4",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 2
+        },
+        {
+          "value": "../src/native/recovery-cashflow.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/scenario-budget.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/native/recovery-scenarios.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/project-recovery.cjs",
+          "line": 6
+        },
+        {
+          "value": "../src/native/project-monitor.cjs",
+          "line": 7
+        },
+        {
+          "value": "../src/native/resource-scheduler.cjs",
+          "line": 8
+        },
+        {
+          "value": "../src/native/audited-services.cjs",
+          "line": 9
         }
       ],
       "environmentCandidates": [],

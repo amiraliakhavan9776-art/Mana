@@ -26,6 +26,9 @@ An optional `costReview` service exposes audited `request`, `decide`, and `curre
 for independent review of costed recovery scenarios. Request/decision are state
 mutations; current receipts are read-only. See `mana-cost-review.md`.
 
+An optional `cashflow` service exposes audited read-only `cashflow.analyze`.
+See `mana-recovery-cashflow.md` for explicit allocation and funding assumptions.
+
 Methods are asynchronous. The caller must await the result. The boundary captures
 a private JSON snapshot before waiting for the audit sink, then records an intent
 with an operation identifier and exact input digest. It invokes the service only
