@@ -1,0 +1,11 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict');
+const {compile,validate}=require('../src/native/native-skill-compiler.cjs');
+const spec=()=>({schema:'MANA_NATIVE_SKILL_V1',name:'contract_retention',fields:['gross','percent'],expression:{op:'multiply',args:[{field:'gross'},{op:'divide',args:[{field:'percent'},{const:'100'}]}]},tests:[{input:{gross:'1000',percent:'12'},expected:'120'},{input:{gross:'350',percent:'5'},expected:'17.5'},{input:{gross:'0',percent:'12'},expected:'0'}]});
+test('compiles deterministic reviewed python draft without executing it',()=>{const a=compile(spec()),b=compile(spec());assert.equal(a.source,b.source);assert.equal(a.sourceSha256,b.sourceSha256);assert.match(a.source,/Decimal/);assert.match(a.vectorSource,/MANA_NATIVE_VECTORS_PASSED/);assert.equal(a.testsExecuted,false);assert.equal(a.productionDeploymentAllowed,false);});
+test('rejects injection as names, fields, literals',()=>{for(const value of ['__import__("os")','../x','evil-name']){const s=spec();s.name=value;assert.throws(()=>compile(s));}const s=spec();s.expression.args[1].args[1].const='0); import os';assert.throws(()=>compile(s));});
+test('rejects unsupported arbitrary code nodes',()=>{const s=spec();s.expression={python:'exec("evil")'};assert.throws(()=>validate(s));});
+test('rejects invalid and insufficient acceptance cases',()=>{const s=spec();s.tests.pop();assert.throws(()=>compile(s));});
+test('rejects boolean result and improperly typed branches',()=>{const s=spec();s.expression={op:'gt',args:[{field:'gross'},{const:'0'}]};assert.throws(()=>compile(s));});
+test('accepts conditional numeric and forbids unknown fields',()=>{const s=spec();s.expression={if:{op:'gt',args:[{field:'gross'},{const:'0'}]},then:{field:'gross'},else:{const:'0'}};assert.match(compile(s).source,/if/);s.expression.then={field:'secret'};assert.throws(()=>compile(s));});
+test('rejects ambiguity in numeric vector units',()=>{const s=spec();s.tests[0].input.gross=1000;assert.throws(()=>compile(s));});

@@ -1,0 +1,13 @@
+{
+  "actor": "chief_architect",
+  "reason": "Client requested a larger kitchen",
+  "expectedVersion": 1,
+  "expectedSha256": "9305bb81898051d3bff2685cb96846c076e2f636bd72e91a72d49101edbacf34",
+  "changes": [
+    {
+      "elementId": "kitchen",
+      "field": "areaM2",
+      "value": 22.5
+    }
+  ]
+}
