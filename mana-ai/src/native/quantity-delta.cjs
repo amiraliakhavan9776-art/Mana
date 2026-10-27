@@ -1,0 +1,22 @@
+'use strict';
+const {canAccessProject}=require('../security.cjs');
+const {payloadDigest}=require('../approval-store.cjs');
+const {decimal,zero,add,sub,cmp,format}=require('../financial/exact-decimal.cjs');
+const ID=/^[A-Za-z][A-Za-z0-9_.:-]{0,99}$/,UNITS=new Set(['m','m2','m3','count','hour','kg']);
+function createQuantityDelta({authorize,verifySnapshot}={}){
+ if(typeof authorize!=='function'||typeof verifySnapshot!=='function')throw Error('Trusted quantity snapshot authorities required');
+ function parse(value,project){payloadDigest(value);const data=JSON.parse(JSON.stringify(value));if(!data||Object.keys(data).sort().join(',')!=='organizationId,projectId,revision,rows,scopeRef'||data.organizationId!==project.orgId||data.projectId!==project.id||typeof data.revision!=='string'||!ID.test(data.revision)||typeof data.scopeRef!=='string'||!ID.test(data.scopeRef)||!Array.isArray(data.rows)||data.rows.length>64)throw Error('Scoped bounded quantity snapshot required');const rows=new Map();for(const row of data.rows){if(!row||Object.keys(row).sort().join(',')!=='id,quantity,sourceRef,sourceSha256,unit'||typeof row.id!=='string'||!ID.test(row.id)||rows.has(row.id)||!UNITS.has(row.unit)||typeof row.sourceRef!=='string'||!row.sourceRef.trim()||row.sourceRef.length>250||!/^[a-f0-9]{64}$/.test(row.sourceSha256))throw Error('Invalid quantity item or provenance');decimal(row.quantity);rows.set(row.id,row);}data.rows.sort((a,b)=>a.id<b.id?-1:a.id>b.id?1:0);return {data,rows,digest:payloadDigest(data)};}
+ return Object.freeze({compare({principal,project,before,after}){
+  if(!canAccessProject(principal,project)||!principal.capabilityIds?.includes('native.quantities.compare')||authorize(principal,'quantities.compare',project)!==true)throw Error('Quantity comparison denied');
+  const a=parse(before,project),b=parse(after,project);if(a.data.scopeRef!==b.data.scopeRef)throw Error('Quantity scope changed; select comparable sets');for(const [role,s] of [['before',a],['after',b]])if(verifySnapshot({role,snapshot:JSON.parse(JSON.stringify(s.data)),digest:s.digest,principal,project})!==true)throw Error('Current quantity authority not verified');
+  const rows=[];for(const id of [...new Set([...a.rows.keys(),...b.rows.keys()])].sort()){
+   const old=a.rows.get(id),next=b.rows.get(id),sourceChanged=!old||!next||old.sourceRef!==next.sourceRef||old.sourceSha256!==next.sourceSha256,unitChanged=old&&next&&old.unit!==next.unit;
+   const delta=unitChanged?null:sub(next?decimal(next.quantity):zero(),old?decimal(old.quantity):zero()),direction=delta===null?null:cmp(delta,zero());
+   if(old&&next&&!unitChanged&&direction===0&&!sourceChanged)continue;
+   rows.push({id,status:!old?'ADDED':!next?'REMOVED':unitChanged?'UNIT_CHANGED_REVIEW_REQUIRED':direction>0?'QUANTITY_INCREASED':direction<0?'QUANTITY_DECREASED':'SOURCE_CHANGED_ONLY',beforeQuantity:old?.quantity??null,afterQuantity:next?.quantity??null,beforeUnit:old?.unit??null,afterUnit:next?.unit??null,quantityDelta:delta===null?null:format(delta),sourceChanged,sourceUnchangedButQuantityChanged:!!(old&&next&&!sourceChanged&&(unitChanged||direction!==0)),reviewRequired:true,costReviewRequired:!old||!next||unitChanged||direction!==0});
+  }
+  const units=[...new Set([...a.rows.values(),...b.rows.values()].map(r=>r.unit))].sort(),totals=units.map(unit=>{const sum=map=>[...map.values()].filter(r=>r.unit===unit).reduce((n,r)=>add(n,decimal(r.quantity)),zero()),previous=sum(a.rows),current=sum(b.rows);return {unit,beforeQuantity:format(previous),afterQuantity:format(current),quantityDelta:format(sub(current,previous))};});
+  return {schema:'MANA_QUANTITY_DELTA_V1',status:rows.some(r=>r.costReviewRequired)?'QUANTITY_DELTA_REVIEW_REQUIRED':rows.length?'SOURCE_REVIEW_REQUIRED':'NO_QUANTITY_CHANGE',organizationId:project.orgId,projectId:project.id,beforeDigest:a.digest,afterDigest:b.digest,beforeRevision:a.data.revision,afterRevision:b.data.revision,scopeRef:a.data.scopeRef,sourceRevisionChanged:a.data.revision!==b.data.revision,changes:rows,totalsByUnit:totals,costReviewRequiredItemIds:rows.filter(r=>r.costReviewRequired).map(r=>r.id),actionsExecuted:0,approved:false,quantitiesChanged:false,productionDeploymentAllowed:false,limitation:'Exact declared quantity differences, separate by unit; unit changes are not converted. Source hashes require independent host verification. No geometry extraction, rate pricing, contract variation approval or accounting posting.'};
+ }});
+}
+module.exports={createQuantityDelta};

@@ -32,6 +32,9 @@ See `mana-recovery-cashflow.md` for explicit allocation and funding assumptions.
 An optional `artifactImpact` service exposes audited read-only `artifactImpact.analyze`.
 See `mana-artifact-impact.md` for trusted registry pins and refresh/review limits.
 
+An optional `quantityDelta` service exposes audited read-only `quantityDelta.compare`.
+See `mana-quantity-delta.md` for exact item differences and comparable scope.
+
 Methods are asynchronous. The caller must await the result. The boundary captures
 a private JSON snapshot before waiting for the audit sink, then records an intent
 with an operation identifier and exact input digest. It invokes the service only

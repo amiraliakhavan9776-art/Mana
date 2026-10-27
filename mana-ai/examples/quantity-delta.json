@@ -1,0 +1,60 @@
+{
+  "before": {
+    "organizationId": "local",
+    "projectId": "local",
+    "revision": "r1",
+    "rows": [
+      {
+        "id": "floor",
+        "unit": "m2",
+        "quantity": "100.00",
+        "sourceRef": "synthetic-drawing-v1#floor",
+        "sourceSha256": "ba17d9c329cb0b4bda0b7bfc22701f08d94cc13fa57a735149e5ba25764506cf"
+      },
+      {
+        "id": "wall",
+        "unit": "m2",
+        "quantity": "80.00",
+        "sourceRef": "synthetic-drawing-v1#wall",
+        "sourceSha256": "ba17d9c329cb0b4bda0b7bfc22701f08d94cc13fa57a735149e5ba25764506cf"
+      },
+      {
+        "id": "door",
+        "unit": "count",
+        "quantity": "1",
+        "sourceRef": "synthetic-drawing-v1#door",
+        "sourceSha256": "ba17d9c329cb0b4bda0b7bfc22701f08d94cc13fa57a735149e5ba25764506cf"
+      }
+    ],
+    "scopeRef": "declared-work-package"
+  },
+  "after": {
+    "organizationId": "local",
+    "projectId": "local",
+    "revision": "r2",
+    "rows": [
+      {
+        "id": "floor",
+        "unit": "m2",
+        "quantity": "110.00",
+        "sourceRef": "synthetic-drawing-v2#floor",
+        "sourceSha256": "a6993a6d3d26798676241c7bb777f6a297479f1c706d6f741168983e59012c1d"
+      },
+      {
+        "id": "wall",
+        "unit": "m2",
+        "quantity": "75.00",
+        "sourceRef": "synthetic-drawing-v2#wall",
+        "sourceSha256": "a6993a6d3d26798676241c7bb777f6a297479f1c706d6f741168983e59012c1d"
+      },
+      {
+        "id": "skirting",
+        "unit": "m",
+        "quantity": "20",
+        "sourceRef": "synthetic-drawing-v2#skirting",
+        "sourceSha256": "a6993a6d3d26798676241c7bb777f6a297479f1c706d6f741168983e59012c1d"
+      }
+    ],
+    "scopeRef": "declared-work-package"
+  }
+}

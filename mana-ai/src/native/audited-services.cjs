@@ -2,7 +2,7 @@
 const {randomUUID}=require('node:crypto');
 const {payloadDigest}=require('../approval-store.cjs');
 // Trusted host facade. State services keep their own authorization and consent checks.
-function createAuditedNativeServices({experience,recovery,review=null,costReview=null,scenarios=null,sensitivity=null,budgeting=null,budgetRanges=null,cashflow=null,artifactImpact=null,audit}={}){
+function createAuditedNativeServices({experience,recovery,review=null,costReview=null,scenarios=null,sensitivity=null,budgeting=null,budgetRanges=null,cashflow=null,artifactImpact=null,quantityDelta=null,audit}={}){
  if(!experience||!['remember','recall','forget'].every(k=>typeof experience[k]==='function')||!recovery||typeof recovery.propose!=='function'||!audit||typeof audit.record!=='function')throw Error('Native services and audit sink required');
  if(review!==null&&!['request','decide','current'].every(k=>typeof review[k]==='function'))throw Error('Invalid recovery review service');
  if(costReview!==null&&!['request','decide','current'].every(k=>typeof costReview[k]==='function'))throw Error('Invalid cost review service');
@@ -12,7 +12,8 @@ function createAuditedNativeServices({experience,recovery,review=null,costReview
  if(budgetRanges!==null&&typeof budgetRanges.analyze!=='function')throw Error('Invalid budget range service');
  if(cashflow!==null&&typeof cashflow.analyze!=='function')throw Error('Invalid recovery cashflow service');
  if(artifactImpact!==null&&typeof artifactImpact.analyze!=='function')throw Error('Invalid artifact impact service');
- const services={experience,recovery,review,costReview,scenarios,sensitivity,budgeting,budgetRanges,cashflow,artifactImpact};
+ if(quantityDelta!==null&&typeof quantityDelta.compare!=='function')throw Error('Invalid quantity delta service');
+ const services={experience,recovery,review,costReview,scenarios,sensitivity,budgeting,budgetRanges,cashflow,artifactImpact,quantityDelta};
  function wrap(service,method,mutates){return async input=>{
   // Bind a private snapshot before awaiting an asynchronous audit sink.
   payloadDigest(input);const snapshot=JSON.parse(JSON.stringify(input)),inputDigest=payloadDigest(snapshot),operationId=randomUUID();
@@ -38,6 +39,7 @@ function createAuditedNativeServices({experience,recovery,review=null,costReview
  if(budgetRanges!==null)operations.budgetRanges={analyze:false};
  if(cashflow!==null)operations.cashflow={analyze:false};
  if(artifactImpact!==null)operations.artifactImpact={analyze:false};
+ if(quantityDelta!==null)operations.quantityDelta={compare:false};
  return Object.freeze(Object.fromEntries(Object.entries(operations).map(([service,methods])=>[service,Object.freeze(Object.fromEntries(Object.entries(methods).map(([method,mutates])=>[method,wrap(service,method,mutates)])))])));
 }
 module.exports={createAuditedNativeServices};

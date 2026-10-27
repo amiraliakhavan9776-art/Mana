@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "daa1555ede0534500b0b2e1ce59b2068cf18338354a7abbcb54a2be2b5878f71",
-  "fileCount": 301,
+  "sourceSetDigest": "77f2004f23a7ceee23630fca731ccd60efa0c1c546e625c1eda3ece39849cc37",
+  "fileCount": 306,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -293,9 +293,9 @@
     },
     {
       "path": "docs/mana-native-audit-facade.md",
-      "bytes": 4076,
-      "sha256": "9369ca5b032924b9dc230723e7a100eed63f2aafa781aa01b6bed687a35bdbe8",
-      "gitBlob": "57d6b06b2d30227bfbedfdf8bc80e784c53adeec",
+      "bytes": 4242,
+      "sha256": "0133ff6cfb450e684062924e038148c3c9ef42c15e321fae8b23108babc44171",
+      "gitBlob": "099b342e76c8fcad9bb140ea254538fdaa97e3f4",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -368,6 +368,15 @@
       "bytes": 5552,
       "sha256": "55b4ec4612fa24353717967c957491a612de67b0d4eea0d2b9c4a1102f2574dc",
       "gitBlob": "22ee6c2f1354686be55ad5103099bd4da35ea007",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-quantity-delta.md",
+      "bytes": 3028,
+      "sha256": "09010ea5622805fc68fd5ebd6d68f4af2d2ce25235f0b7a9063dafae2c65ba8d",
+      "gitBlob": "dc142dc7d9dbac1a8ecb1368a21353a47bf4a17e",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -890,6 +899,32 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/compare-quantities.cjs",
+      "bytes": 1073,
+      "sha256": "96b2ce37d1e0d52be68f5579f70233e041a3190a075e543e7ebc15f905e1c248",
+      "gitBlob": "0bb012405af196a63cc84a380a6d86870b38f291",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 2
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 2
+        },
+        {
+          "value": "./src/native/quantity-delta.cjs",
+          "line": 2
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/dev-chat.cjs",
       "bytes": 1821,
       "sha256": "6a81187ebbb5b8782c6c4fb8d208c3604cb0f887e2d20d9362aed30d672019f1",
@@ -1178,6 +1213,15 @@
       "bytes": 144,
       "sha256": "6a3d2591837b3142a29c27282ee885e0aeb1c24a8f4c4dfa2c1ace7961809fa1",
       "gitBlob": "eab203d75288e8ad652682d589ecc1203ad65516",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/quantity-delta.json",
+      "bytes": 1713,
+      "sha256": "ecbb0589975016bda42a95081f5095e89961e2b322d4268da0f11312ccb2f8b8",
+      "gitBlob": "d46ef83da31361343f535ec6912038912bfd7ad3",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2144,9 +2188,9 @@
     },
     {
       "path": "mana-ai/src/native/audited-services.cjs",
-      "bytes": 4141,
-      "sha256": "c9ec3d0b9a8114e721c9438a63256ab0f22be0faad6f9923c195c2032c28ee18",
-      "gitBlob": "d43c23bb6e6ecc89b0769896e8db22be341f2951",
+      "bytes": 4356,
+      "sha256": "11146631a00a1f043b73364e0739c3aff88821cd0e6ff98507d06524957a3bbc",
+      "gitBlob": "5fbeccfe27127589342f4dffcbf402037bde1f04",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2503,6 +2547,28 @@
         {
           "value": "node:util",
           "line": 55
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/quantity-delta.cjs",
+      "bytes": 4494,
+      "sha256": "557f71bde5b302603c7d95aa9444aaf8b98f2c64cfa0d78313846d2cce1560f8",
+      "gitBlob": "1c0f84087a53ab226e4e30257fff4f07c304cc0a",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        },
+        {
+          "value": "../financial/exact-decimal.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
@@ -3220,9 +3286,9 @@
     },
     {
       "path": "mana-ai/tests/artifact-workflows.test.cjs",
-      "bytes": 10234,
-      "sha256": "13461342a6e03fde2c3e1cd21853a45bd0386ea732fd06b1e6177594ed5e58aa",
-      "gitBlob": "ba7cba949b565c8d7877a30122fc583dbeb960ae",
+      "bytes": 11200,
+      "sha256": "62e2659ce1ef2f5297be15b7442a738a195e894e579dddd9139d02778398c537",
+      "gitBlob": "6e302b29d41d47a8c4aa77bca7da036cd80e62ba",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -3265,20 +3331,24 @@
           "line": 5
         },
         {
-          "value": "../src/jarvis/service.cjs",
+          "value": "../src/native/quantity-delta.cjs",
           "line": 6
+        },
+        {
+          "value": "../src/jarvis/service.cjs",
+          "line": 7
         },
         {
           "value": "../src/workflows/execution-cycle.cjs",
-          "line": 6
+          "line": 7
         },
         {
           "value": "node:crypto",
-          "line": 13
+          "line": 14
         },
         {
           "value": "node:crypto",
-          "line": 20
+          "line": 23
         }
       ],
       "environmentCandidates": [],
@@ -4949,6 +5019,44 @@
         {
           "value": "../src/approval-store.cjs",
           "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/quantity-delta.test.cjs",
+      "bytes": 4209,
+      "sha256": "489e31c43bc89189b135d54eea8e898923a7ebfc25b549420d55cb7a2994d7ac",
+      "gitBlob": "a1636a3dc718e36e624c11d27cf37637199fc15c",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 2
+        },
+        {
+          "value": "../src/native/quantity-delta.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/audited-services.cjs",
+          "line": 3
         }
       ],
       "environmentCandidates": [],
