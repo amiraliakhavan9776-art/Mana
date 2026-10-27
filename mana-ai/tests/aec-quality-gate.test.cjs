@@ -1,0 +1,13 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict');
+const {solve}=require('../src/native/aec-layout-solver.cjs');
+const {review,proposeRepair}=require('../src/native/aec-quality-gate.cjs');
+const b={projectId:'quality',widthM:12,depthM:10,rooms:[{id:'living',widthM:4,depthM:4},{id:'kitchen',widthM:3,depthM:4},{id:'bed',widthM:3,depthM:4}],adjacencies:[['living','kitchen'],['kitchen','bed']]};
+const ideal={schema:'MANA_AEC_LAYOUT_V1',projectId:'quality',status:'FEASIBLE_SCHEMATIC_LAYOUT',rooms:[{id:'living',xM:0,yM:0,widthM:4,depthM:4},{id:'kitchen',xM:4,yM:0,widthM:3,depthM:4},{id:'bed',xM:7,yM:0,widthM:3,depthM:4}],requiredAdjacencies:b.adjacencies};
+test('genuine schematic accepted but never marked engineering approved',()=>{const r=review({brief:b,layout:ideal,accessOptions:{entryRoomId:'living',requireWindowRooms:['living','kitchen','bed']}});assert.equal(r.status,'SCHEMATIC_CHECKS_PASSED');assert.equal(r.constructionReady,false);assert.equal(r.engineeringApproved,false)});
+test('forged feasible status cannot conceal overlap',()=>{const x=structuredClone(ideal);x.rooms[1].xM=3;const r=review({brief:b,layout:x});assert.equal(r.status,'REVIEW_REQUIRED');assert.ok(r.violations.some(e=>e.code==='ROOMS_OVERLAP'))});
+test('forged missing room cannot pass',()=>{const x=structuredClone(ideal);x.rooms.pop();const r=review({brief:b,layout:x});assert.equal(r.status,'REVIEW_REQUIRED');assert.ok(r.violations.some(e=>e.code==='MISSING_ROOM'))});
+test('cannot silently accept inaccessible room',()=>{const x=structuredClone(ideal);x.rooms[2].yM=6;const r=review({brief:b,layout:x});assert.equal(r.status,'REVIEW_REQUIRED');assert.ok(r.violations.some(e=>e.code==='INACCESSIBLE_ROOMS'))});
+test('repair is only proposal and does not mutate input',()=>{const x=structuredClone(ideal);x.rooms[1].xM=3;const before=JSON.stringify(x);const result=proposeRepair({brief:b,layout:x,accessOptions:{entryRoomId:'living'}});assert.equal(result.approved,false);assert.equal(result.before.status,'REVIEW_REQUIRED');assert.equal(JSON.stringify(x),before);assert.ok(['REPAIR_PROPOSED_AWAITING_REVIEW','REPAIR_UNRESOLVED','CANNOT_REPAIR'].includes(result.status))});
+test('budget exhaustion cannot be reported as repaired',()=>{const x=structuredClone(ideal);x.rooms[1].xM=3;const result=proposeRepair({brief:b,layout:x,attempt:3,maxAttempts:2});assert.equal(result.status,'REPAIR_BUDGET_EXHAUSTED')});
+test('fail closed if structural source invalid',()=>{assert.throws(()=>review({brief:{...b,rooms:[]},layout:ideal}),/rooms/i)});

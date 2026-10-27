@@ -1,0 +1,13 @@
+{
+  "schema": "MANA_SKILL_TASK_V1",
+  "id": "clamp-percent",
+  "instruction": "Clamp the numeric percentage field to the inclusive interval from zero to one hundred. This is a nonfinancial display helper, never a payment or engineering approval.",
+  "fields": ["percent"],
+  "tests": [
+    {"input":{"percent":-25},"expected":0},
+    {"input":{"percent":0},"expected":0},
+    {"input":{"percent":42},"expected":42},
+    {"input":{"percent":100},"expected":100},
+    {"input":{"percent":120},"expected":100}
+  ]
+}

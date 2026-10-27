@@ -1,0 +1,1 @@
+{"items":[{"id":"pump","label":"Site pump","onHand":2,"minimum":5},{"id":"tile","label":"Tile stock","onHand":20,"minimum":12},{"id":"helmet","label":"Safety helmet","onHand":8,"minimum":12}]}

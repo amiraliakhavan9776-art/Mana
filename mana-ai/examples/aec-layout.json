@@ -1,0 +1,11 @@
+{
+  "projectId": "residence_layout",
+  "widthM": 15, "depthM": 12,
+  "rooms": [
+    {"id":"living", "widthM": 6, "depthM": 5},
+    {"id":"kitchen", "widthM": 4, "depthM": 4},
+    {"id":"bedroom", "widthM": 5, "depthM": 4},
+    {"id":"bathroom", "widthM": 3, "depthM": 3}
+  ],
+  "adjacencies": [["living","kitchen"],["bedroom","bathroom"]]
+}

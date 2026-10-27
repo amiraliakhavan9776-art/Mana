@@ -1,0 +1,9 @@
+{
+  "schema": "MANA_NATIVE_CODE_BENCHMARK_V1",
+  "scope": "three research-corpus held-out task families; not general coding acceptance",
+  "tasks": [
+    {"id":"unique-basic","group":"unique","request":"یک تابع پایتون به نام unique(items) بنویس که تکرار اعضای فهرست را با حفظ ترتیب حذف کند. فقط کد تابع را بنویس.","functionName":"unique","tests":[{"input":[1,2,1,3,2],"expected":[1,2,3]},{"input":[],"expected":[]},{"input":["الف","الف","ب"],"expected":["الف","ب"]},{"input":[0,0,0],"expected":[0]}]},
+    {"id":"clamp-basic","group":"clamp","request":"یک تابع پایتون به نام clamp(value) بنویس که عدد صحیح ورودی را بین صفر و صد محدود کند. فقط کد تابع را بنویس.","functionName":"clamp","tests":[{"input":-12,"expected":0},{"input":0,"expected":0},{"input":42,"expected":42},{"input":100,"expected":100},{"input":140,"expected":100}]},
+    {"id":"even-basic","group":"even","request":"یک تابع پایتون به نام is_even(value) بنویس که برای عدد صحیح زوج True و برای فرد False برگرداند. فقط کد تابع را بنویس.","functionName":"is_even","tests":[{"input":0,"expected":true},{"input":2,"expected":true},{"input":7,"expected":false},{"input":-4,"expected":true},{"input":-3,"expected":false}]}
+  ]
+}

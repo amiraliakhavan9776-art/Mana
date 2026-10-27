@@ -1,0 +1,2613 @@
+{
+  "contract": "MANA_LEXICAL_SUMMARY_V1",
+  "parser": {
+    "name": "acorn",
+    "version": "8.15.0"
+  },
+  "sourceSha256": "21b48a30f132e5a8ded84debe51c25367edebdbe2e6dca28a642c7c200ad52e4",
+  "scripts": [
+    {
+      "ordinal": 1,
+      "line": 945,
+      "parsed": true
+    },
+    {
+      "ordinal": 2,
+      "line": 1008,
+      "parsed": true
+    },
+    {
+      "ordinal": 3,
+      "line": 1298,
+      "parsed": true
+    },
+    {
+      "ordinal": 4,
+      "line": 2068,
+      "parsed": true
+    },
+    {
+      "ordinal": 5,
+      "line": 2897,
+      "parsed": true
+    },
+    {
+      "ordinal": 6,
+      "line": 3577,
+      "parsed": true
+    },
+    {
+      "ordinal": 7,
+      "line": 3902,
+      "parsed": true
+    },
+    {
+      "ordinal": 8,
+      "line": 4232,
+      "parsed": true
+    },
+    {
+      "ordinal": 9,
+      "line": 4816,
+      "parsed": true
+    },
+    {
+      "ordinal": 10,
+      "line": 5358,
+      "parsed": true
+    },
+    {
+      "ordinal": 11,
+      "line": 5870,
+      "parsed": true
+    },
+    {
+      "ordinal": 12,
+      "line": 5972,
+      "parsed": true
+    },
+    {
+      "ordinal": 13,
+      "line": 6221,
+      "parsed": true
+    },
+    {
+      "ordinal": 14,
+      "line": 6423,
+      "parsed": true
+    },
+    {
+      "ordinal": 15,
+      "line": 6724,
+      "parsed": true
+    },
+    {
+      "ordinal": 16,
+      "line": 7297,
+      "parsed": true
+    },
+    {
+      "ordinal": 17,
+      "line": 7432,
+      "parsed": true
+    },
+    {
+      "ordinal": 18,
+      "line": 7556,
+      "parsed": true
+    },
+    {
+      "ordinal": 19,
+      "line": 7815,
+      "parsed": true
+    },
+    {
+      "ordinal": 20,
+      "line": 7841,
+      "parsed": true
+    },
+    {
+      "ordinal": 21,
+      "line": 7893,
+      "parsed": true
+    },
+    {
+      "ordinal": 22,
+      "line": 8137,
+      "parsed": true
+    },
+    {
+      "ordinal": 23,
+      "line": 8149,
+      "parsed": true
+    },
+    {
+      "ordinal": 24,
+      "line": 8538,
+      "parsed": true
+    },
+    {
+      "ordinal": 25,
+      "line": 8913,
+      "parsed": true
+    },
+    {
+      "ordinal": 26,
+      "line": 9162,
+      "parsed": true
+    },
+    {
+      "ordinal": 27,
+      "line": 9455,
+      "parsed": true
+    },
+    {
+      "ordinal": 28,
+      "line": 9847,
+      "parsed": true
+    },
+    {
+      "ordinal": 29,
+      "line": 10310,
+      "parsed": true
+    },
+    {
+      "ordinal": 30,
+      "line": 10921,
+      "parsed": true
+    },
+    {
+      "ordinal": 31,
+      "line": 11932,
+      "parsed": true
+    },
+    {
+      "ordinal": 32,
+      "line": 12624,
+      "parsed": true
+    }
+  ],
+  "scopeCount": 4037,
+  "eventCount": 4597,
+  "handlerChains": [
+    {
+      "identity": "global:ACT:ACT.export-json",
+      "sites": [
+        {
+          "line": 1123,
+          "script": 2,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 7307,
+          "script": 16,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2475"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.import-json",
+      "sites": [
+        {
+          "line": 1124,
+          "script": 2,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 7374,
+          "script": 16,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2475"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.prj-act",
+      "sites": [
+        {
+          "line": 1229,
+          "script": 2,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 5881,
+          "script": 11,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2255"
+        },
+        {
+          "line": 6088,
+          "script": 12,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2280"
+        },
+        {
+          "line": 6438,
+          "script": 14,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2371"
+        },
+        {
+          "line": 12593,
+          "script": 31,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-3691"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.inv-addrow",
+      "sites": [
+        {
+          "line": 1515,
+          "script": 3,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 6358,
+          "script": 13,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2335"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.inv-delrow",
+      "sites": [
+        {
+          "line": 1523,
+          "script": 3,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 6369,
+          "script": 13,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2335"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.inv-save",
+      "sites": [
+        {
+          "line": 1532,
+          "script": 3,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 6377,
+          "script": 13,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2335"
+        },
+        {
+          "line": 8189,
+          "script": 23,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2668"
+        },
+        {
+          "line": 12347,
+          "script": 31,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-3691"
+        },
+        {
+          "line": 12946,
+          "script": 32,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-3864"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.inv-view",
+      "sites": [
+        {
+          "line": 1546,
+          "script": 3,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 6929,
+          "script": 15,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2469"
+        },
+        {
+          "line": 13130,
+          "script": 32,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-3864"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.inv-print",
+      "sites": [
+        {
+          "line": 1598,
+          "script": 3,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 5127,
+          "script": 9,
+          "activation": "conditional",
+          "kind": "assignment",
+          "scope": "scope-2040"
+        },
+        {
+          "line": 6743,
+          "script": 15,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2429"
+        },
+        {
+          "line": 7795,
+          "script": 18,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2575"
+        },
+        {
+          "line": 7817,
+          "script": 19,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2611"
+        },
+        {
+          "line": 7842,
+          "script": 20,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "global"
+        },
+        {
+          "line": 8245,
+          "script": 23,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-2668"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.att-del",
+      "sites": [
+        {
+          "line": 2220,
+          "script": 4,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 3194,
+          "script": 5,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-1154"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.daily-view",
+      "sites": [
+        {
+          "line": 2256,
+          "script": 4,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "global"
+        },
+        {
+          "line": 3156,
+          "script": 5,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-1154"
+        },
+        {
+          "line": 3263,
+          "script": 5,
+          "activation": "immediate",
+          "kind": "assignment",
+          "scope": "scope-1273"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.act-edit-one",
+      "sites": [
+        {
+          "line": 5906,
+          "script": 11,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2255"
+        },
+        {
+          "line": 6108,
+          "script": 12,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2280"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.act-edit-save",
+      "sites": [
+        {
+          "line": 5942,
+          "script": 11,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2255"
+        },
+        {
+          "line": 6143,
+          "script": 12,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2280"
+        }
+      ]
+    },
+    {
+      "identity": "global:ACT:ACT.exp-copy",
+      "sites": [
+        {
+          "line": 7320,
+          "script": 16,
+          "activation": "immediate",
+          "kind": "registration",
+          "scope": "scope-2475"
+        },
+        {
+          "line": 8889,
+          "script": 24,
+          "activation": "conditional",
+          "kind": "assignment",
+          "scope": "scope-2822"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "script": 2,
+      "line": 1144,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "dashboard",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 2,
+      "line": 1188,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "projects",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 2,
+      "line": 1237,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "cpm",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 2,
+      "line": 1261,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "evm",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1307,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "contracts",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1398,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "invoices",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1642,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "checks",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1726,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "pettycash",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1828,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "cashflow",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1883,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "aging",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1913,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "adjust",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 3,
+      "line": 1984,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "inventory",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2081,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "equipment",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2223,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "daily",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2271,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "kanban",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2327,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "letters",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2378,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "risks",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2439,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "inspections",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2526,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "ncrs",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2581,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "minutes",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2650,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "changes",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2709,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "reports",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2762,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "settings",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2817,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "custom-fields",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 4,
+      "line": 2867,
+      "scope": "global",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "debug",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 5,
+      "line": 3291,
+      "scope": "scope-1317",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "members",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 6,
+      "line": 3589,
+      "scope": "scope-1466",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "suppliers",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 6,
+      "line": 3666,
+      "scope": "scope-1504",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "purchases",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 6,
+      "line": 3771,
+      "scope": "scope-1545",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "punchlist",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 7,
+      "line": 3920,
+      "scope": "scope-1589",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "equipment-machine",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 7,
+      "line": 4041,
+      "scope": "scope-1652",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "leaves",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 8,
+      "line": 4481,
+      "scope": "scope-1788",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "moadian",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 8,
+      "line": 4581,
+      "scope": "scope-1827",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "insurance",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 8,
+      "line": 4658,
+      "scope": "scope-1858",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "subcontractors",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 9,
+      "line": 4944,
+      "scope": "scope-1954",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "gantt",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 10,
+      "line": 5428,
+      "scope": "scope-2106",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "templates",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 10,
+      "line": 5490,
+      "scope": "scope-2123",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "delay-damage",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 10,
+      "line": 5622,
+      "scope": "scope-2143",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "settlement",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 10,
+      "line": 5802,
+      "scope": "scope-2206",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "certificates",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 12,
+      "line": 5983,
+      "scope": "scope-2280",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "gantt",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 24,
+      "line": 8546,
+      "scope": "scope-2733",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "calculator",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 24,
+      "line": 8721,
+      "scope": "scope-2733",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "calendar",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 26,
+      "line": 9258,
+      "scope": "scope-2936",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "gallery",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 27,
+      "line": 9463,
+      "scope": "scope-3035",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "security",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 27,
+      "line": 9603,
+      "scope": "scope-3035",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "themes",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 28,
+      "line": 9869,
+      "scope": "scope-3151",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "permits",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 28,
+      "line": 9994,
+      "scope": "scope-3151",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "guarantees",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 28,
+      "line": 10081,
+      "scope": "scope-3151",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "budget-actual",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 28,
+      "line": 10140,
+      "scope": "scope-3151",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "cash-forecast",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 29,
+      "line": 10320,
+      "scope": "scope-3314",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "calculator",
+      "binding": "global:defRoute",
+      "dynamic": false
+    },
+    {
+      "script": 32,
+      "line": 12742,
+      "scope": "scope-3864",
+      "activation": "immediate",
+      "kind": "registration",
+      "target": "defRoute",
+      "argument": "approvals",
+      "binding": "global:defRoute",
+      "dynamic": false
+    }
+  ],
+  "storage": [
+    {
+      "script": 2,
+      "line": 1046,
+      "scope": "scope-82",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.getItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 2,
+      "line": 1049,
+      "scope": "scope-91",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.setItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 5,
+      "line": 2964,
+      "scope": "scope-1138",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.getItem",
+      "argument": "mana.theme",
+      "binding": "unbound:localStorage",
+      "dynamic": false
+    },
+    {
+      "script": 5,
+      "line": 2972,
+      "scope": "scope-1146",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.setItem",
+      "argument": "mana.theme",
+      "binding": "unbound:localStorage",
+      "dynamic": false
+    },
+    {
+      "script": 5,
+      "line": 3013,
+      "scope": "scope-1159",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "indexedDB.open",
+      "argument": null,
+      "binding": "unbound:indexedDB",
+      "dynamic": true
+    },
+    {
+      "script": 5,
+      "line": 3378,
+      "scope": "scope-1355",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.getItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 5,
+      "line": 3384,
+      "scope": "scope-1360",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.setItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 5,
+      "line": 3436,
+      "scope": "scope-1383",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.removeItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 21,
+      "line": 7994,
+      "scope": "scope-2647",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.getItem",
+      "argument": "mana.install.hidden",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 21,
+      "line": 8020,
+      "scope": "scope-2655",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.setItem",
+      "argument": "mana.install.hidden",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 21,
+      "line": 8026,
+      "scope": "scope-2633",
+      "activation": "conditional",
+      "kind": "storage",
+      "target": "sessionStorage.getItem",
+      "argument": "mana.ios.hint",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 21,
+      "line": 8035,
+      "scope": "scope-2660",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.setItem",
+      "argument": "mana.ios.hint",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 24,
+      "line": 8857,
+      "scope": "scope-2806",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.getItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 24,
+      "line": 8866,
+      "scope": "scope-2811",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.getItem",
+      "argument": "mana.backup.hide",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 24,
+      "line": 8879,
+      "scope": "scope-2817",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.setItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 24,
+      "line": 8883,
+      "scope": "scope-2821",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.setItem",
+      "argument": "mana.backup.hide",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 24,
+      "line": 8891,
+      "scope": "scope-2825",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.setItem",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 27,
+      "line": 9547,
+      "scope": "scope-3051",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.clear",
+      "argument": null,
+      "binding": "unbound:localStorage",
+      "dynamic": true
+    },
+    {
+      "script": 27,
+      "line": 9555,
+      "scope": "scope-3055",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.getItem",
+      "argument": "mana.unlocked",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 27,
+      "line": 9573,
+      "scope": "scope-3059",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.setItem",
+      "argument": "mana.unlocked",
+      "binding": "unbound:sessionStorage",
+      "dynamic": false
+    },
+    {
+      "script": 27,
+      "line": 9646,
+      "scope": "scope-3073",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "localStorage.setItem",
+      "argument": "mana.theme.palette",
+      "binding": "unbound:localStorage",
+      "dynamic": false
+    },
+    {
+      "script": 27,
+      "line": 9662,
+      "scope": "scope-3078",
+      "activation": "conditional",
+      "kind": "storage",
+      "target": "localStorage.getItem",
+      "argument": "mana.theme.palette",
+      "binding": "unbound:localStorage",
+      "dynamic": false
+    },
+    {
+      "script": 28,
+      "line": 10256,
+      "scope": "scope-3284",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.getItem",
+      "argument": null,
+      "binding": "unbound:sessionStorage",
+      "dynamic": true
+    },
+    {
+      "script": 28,
+      "line": 10258,
+      "scope": "scope-3285",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.setItem",
+      "argument": null,
+      "binding": "unbound:sessionStorage",
+      "dynamic": true
+    },
+    {
+      "script": 28,
+      "line": 10268,
+      "scope": "scope-3289",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.getItem",
+      "argument": null,
+      "binding": "unbound:sessionStorage",
+      "dynamic": true
+    },
+    {
+      "script": 28,
+      "line": 10270,
+      "scope": "scope-3290",
+      "activation": "deferred",
+      "kind": "storage",
+      "target": "sessionStorage.setItem",
+      "argument": null,
+      "binding": "unbound:sessionStorage",
+      "dynamic": true
+    }
+  ],
+  "databaseCollections": [
+    {
+      "identity": "global:DB:settings",
+      "lines": [
+        1070,
+        1146,
+        1447,
+        1448,
+        1449,
+        1450,
+        1607,
+        1892,
+        2368,
+        2766,
+        2795,
+        2796,
+        2797,
+        2798,
+        2799,
+        2800,
+        2801,
+        2802,
+        3849,
+        5197,
+        5419,
+        5420,
+        5694,
+        5701,
+        5712,
+        5757,
+        5771,
+        6258,
+        6259,
+        6260,
+        6261,
+        6759,
+        6849,
+        6871,
+        7571,
+        8250,
+        8745,
+        9465,
+        9471,
+        9491,
+        9513,
+        9521,
+        9522,
+        9530,
+        9533,
+        9539,
+        9554,
+        9572,
+        9607,
+        9632,
+        10179,
+        10230,
+        10248,
+        10888,
+        10899,
+        11910,
+        12784,
+        12848,
+        12867,
+        13009
+      ]
+    },
+    {
+      "identity": "global:DB:meta",
+      "lines": [
+        1113,
+        1125,
+        2783,
+        2879,
+        2893,
+        7392,
+        7393,
+        7502,
+        7503
+      ]
+    },
+    {
+      "identity": "global:DB:invoices",
+      "lines": [
+        1142,
+        1169,
+        1227,
+        1400,
+        1407,
+        1408,
+        1537,
+        1547,
+        1568,
+        1582,
+        1594,
+        1599,
+        1888,
+        4411,
+        4441,
+        4468,
+        4501,
+        4502,
+        4920,
+        5130,
+        5192,
+        5578,
+        6382,
+        6744,
+        7796,
+        7818,
+        7843,
+        8195,
+        8232,
+        8246,
+        8743,
+        9732,
+        10104,
+        10106,
+        10175,
+        11973,
+        12000,
+        12348,
+        12351,
+        12648,
+        12674,
+        12690,
+        12711,
+        12745,
+        12749,
+        12750,
+        12751,
+        12752,
+        12844,
+        12873,
+        12893,
+        12907,
+        12949,
+        12991,
+        13040,
+        13064,
+        13098,
+        13133
+      ]
+    },
+    {
+      "identity": "global:DB:projects",
+      "lines": [
+        1148,
+        1160,
+        1194,
+        1195,
+        1225,
+        1226,
+        1227,
+        1229,
+        1231,
+        1233,
+        1235,
+        1241,
+        1242,
+        1245,
+        1265,
+        1266,
+        1269,
+        1289,
+        1290,
+        1319,
+        1345,
+        1357,
+        1412,
+        1435,
+        1526,
+        1602,
+        1677,
+        1861,
+        1900,
+        1917,
+        1919,
+        1923,
+        2168,
+        2232,
+        2243,
+        2247,
+        2259,
+        2282,
+        2302,
+        2886,
+        3991,
+        4005,
+        4417,
+        4446,
+        4504,
+        4700,
+        4918,
+        4948,
+        4949,
+        4955,
+        5252,
+        5515,
+        5569,
+        5626,
+        5627,
+        5630,
+        5689,
+        5746,
+        5767,
+        5807,
+        5809,
+        5909,
+        5945,
+        5987,
+        5988,
+        5994,
+        6111,
+        6146,
+        6239,
+        6439,
+        6527,
+        6587,
+        6630,
+        6661,
+        6748,
+        7570,
+        8193,
+        8249,
+        8751,
+        9262,
+        9268,
+        9387,
+        9403,
+        9431,
+        9833,
+        9908,
+        9937,
+        10050,
+        10085,
+        10089,
+        10098,
+        12019,
+        12171,
+        12236,
+        12365,
+        12366,
+        12372,
+        12547,
+        12559,
+        12775,
+        12805,
+        12827,
+        12921,
+        13062,
+        13163
+      ]
+    },
+    {
+      "identity": "global:DB:cash",
+      "lines": [
+        1151,
+        1152,
+        1227,
+        1587,
+        1709,
+        1711,
+        1832,
+        1872,
+        1878,
+        3728,
+        4785,
+        5591,
+        5592,
+        10102
+      ]
+    },
+    {
+      "identity": "global:DB:items",
+      "lines": [
+        1156,
+        1227,
+        1986,
+        1988,
+        1989,
+        1992,
+        1996,
+        1997,
+        2029,
+        2036,
+        2041,
+        2054,
+        2890,
+        3730,
+        5100,
+        5212
+      ]
+    },
+    {
+      "identity": "global:DB:tasks",
+      "lines": [
+        1157,
+        1227,
+        2273,
+        2278,
+        2315,
+        2320,
+        2321,
+        2324,
+        2639,
+        2887,
+        2888,
+        4919,
+        5236,
+        8737
+      ]
+    },
+    {
+      "identity": "global:DB:risks",
+      "lines": [
+        1158,
+        2380,
+        2384,
+        2385,
+        2416,
+        2417,
+        2889,
+        5224
+      ]
+    },
+    {
+      "identity": "global:DB:contracts",
+      "lines": [
+        1227,
+        1309,
+        1316,
+        1317,
+        1332,
+        1363,
+        1375,
+        1380,
+        1393,
+        5572,
+        5573
+      ]
+    },
+    {
+      "identity": "global:DB:dailies",
+      "lines": [
+        1227,
+        2225,
+        2227,
+        2255,
+        2257,
+        2267,
+        5251
+      ]
+    },
+    {
+      "identity": "global:DB:checks",
+      "lines": [
+        1644,
+        1651,
+        1652,
+        1687,
+        1692,
+        1702,
+        1721,
+        4921,
+        5160,
+        5177,
+        8740,
+        10159,
+        10167,
+        10252
+      ]
+    },
+    {
+      "identity": "global:DB:pettyFunds",
+      "lines": [
+        1728,
+        1732,
+        1738,
+        1742,
+        1743,
+        1770,
+        1775
+      ]
+    },
+    {
+      "identity": "global:DB:pettyTx",
+      "lines": [
+        1733,
+        1734,
+        1739,
+        1744,
+        1745,
+        1777,
+        1815,
+        1823
+      ]
+    },
+    {
+      "identity": "global:DB:adjustments",
+      "lines": [
+        1920,
+        1947,
+        1952,
+        1969
+      ]
+    },
+    {
+      "identity": "global:DB:personnel",
+      "lines": [
+        2083,
+        2087,
+        2089,
+        2109,
+        2111,
+        2129,
+        2149,
+        2194,
+        2200,
+        2201,
+        2204,
+        2214,
+        4050,
+        4071,
+        4085,
+        4088,
+        4110,
+        4113,
+        4557
+      ]
+    },
+    {
+      "identity": "global:DB:attendance",
+      "lines": [
+        2086,
+        2092,
+        2128,
+        2148,
+        2207,
+        2209,
+        2214,
+        2217,
+        2220,
+        4563
+      ]
+    },
+    {
+      "identity": "global:DB:letters",
+      "lines": [
+        2329,
+        2331,
+        2359,
+        2360,
+        2364,
+        2375,
+        5412
+      ]
+    },
+    {
+      "identity": "global:DB:hse",
+      "lines": [
+        2395,
+        2396,
+        2426,
+        2427,
+        8754
+      ]
+    },
+    {
+      "identity": "global:DB:inspections",
+      "lines": [
+        2441,
+        2445,
+        2446,
+        2505,
+        2509,
+        2520
+      ]
+    },
+    {
+      "identity": "global:DB:ncrs",
+      "lines": [
+        2528,
+        2532,
+        2533,
+        2547,
+        2564,
+        2568,
+        2578
+      ]
+    },
+    {
+      "identity": "global:DB:minutes",
+      "lines": [
+        2583,
+        2587,
+        2588,
+        2600,
+        2614,
+        2618,
+        2634,
+        2646
+      ]
+    },
+    {
+      "identity": "global:DB:changes",
+      "lines": [
+        2652,
+        2656,
+        2657,
+        2676,
+        2689,
+        2693,
+        2700,
+        2706
+      ]
+    },
+    {
+      "identity": "global:DB:customFields",
+      "lines": [
+        2819,
+        2824,
+        2861,
+        2864
+      ]
+    },
+    {
+      "identity": "global:DB:members",
+      "lines": [
+        3293,
+        3297,
+        3298,
+        3322,
+        3339,
+        3343,
+        3351,
+        3893
+      ]
+    },
+    {
+      "identity": "global:DB:suppliers",
+      "lines": [
+        3591,
+        3598,
+        3599,
+        3634,
+        3639,
+        3640,
+        3646,
+        3677,
+        3693,
+        3698,
+        3737,
+        3890,
+        4806,
+        5343
+      ]
+    },
+    {
+      "identity": "global:DB:purchaseOrders",
+      "lines": [
+        3600,
+        3668,
+        3675,
+        3676,
+        3695,
+        3715,
+        3716,
+        3721,
+        3735,
+        3751,
+        3891,
+        4807,
+        5344
+      ]
+    },
+    {
+      "identity": "global:DB:punchLists",
+      "lines": [
+        3773,
+        3776,
+        3777,
+        3778,
+        3779,
+        3787,
+        3792,
+        3793,
+        3826,
+        3831,
+        3842,
+        3860,
+        3892,
+        4808,
+        5345
+      ]
+    },
+    {
+      "identity": "global:DB:equipment",
+      "lines": [
+        3914,
+        3922,
+        3924,
+        3925,
+        3926,
+        3930,
+        3938,
+        3939,
+        3972,
+        3977,
+        3978,
+        3981,
+        3984,
+        4801,
+        5346
+      ]
+    },
+    {
+      "identity": "global:DB:equipmentLog",
+      "lines": [
+        3915,
+        3940,
+        3986,
+        4013,
+        4018,
+        4802,
+        5347
+      ]
+    },
+    {
+      "identity": "global:DB:leaves",
+      "lines": [
+        4035,
+        4043,
+        4048,
+        4049,
+        4102,
+        4105,
+        4106,
+        4107,
+        4803,
+        5348
+      ]
+    },
+    {
+      "identity": "global:DB:overtimes",
+      "lines": [
+        4036,
+        4043,
+        4069,
+        4070,
+        4125,
+        4128,
+        4804,
+        5349
+      ]
+    },
+    {
+      "identity": "global:DB:notes",
+      "lines": [
+        4143,
+        4149,
+        4162,
+        4167,
+        4214,
+        4805,
+        5350
+      ]
+    },
+    {
+      "identity": "global:DB:signatures",
+      "lines": [
+        4244,
+        4328,
+        4341,
+        4389,
+        4799,
+        5341
+      ]
+    },
+    {
+      "identity": "global:DB:subcontractors",
+      "lines": [
+        4653,
+        4660,
+        4662,
+        4664,
+        4666,
+        4673,
+        4674,
+        4721,
+        4726,
+        4734,
+        4739,
+        4764,
+        4778,
+        4800,
+        5342
+      ]
+    },
+    {
+      "identity": "global:DB:certificates",
+      "lines": [
+        5735,
+        5760,
+        5765,
+        5804,
+        5818,
+        5819,
+        5847
+      ]
+    },
+    {
+      "identity": "global:DB:timers",
+      "lines": [
+        8921,
+        8925,
+        8927,
+        8933,
+        8942,
+        8946,
+        8974
+      ]
+    },
+    {
+      "identity": "global:DB:ratings",
+      "lines": [
+        8988,
+        8993,
+        9005,
+        9011
+      ]
+    },
+    {
+      "identity": "global:DB:timeLog",
+      "lines": [
+        9083,
+        9087,
+        9093,
+        9108,
+        9117
+      ]
+    },
+    {
+      "identity": "global:DB:gallery",
+      "lines": [
+        9256,
+        9260,
+        9284,
+        9304,
+        9315,
+        9360
+      ]
+    },
+    {
+      "identity": "global:DB:comments",
+      "lines": [
+        9739,
+        9745,
+        9756,
+        9761,
+        9788
+      ]
+    },
+    {
+      "identity": "global:DB:permits",
+      "lines": [
+        9855,
+        9871,
+        9877,
+        9882,
+        9900,
+        9901,
+        9956,
+        9967,
+        9971,
+        9980,
+        10262
+      ]
+    },
+    {
+      "identity": "global:DB:guarantees",
+      "lines": [
+        9985,
+        9996,
+        9998,
+        10000,
+        10002,
+        10014,
+        10015,
+        10068,
+        10076
+      ]
+    },
+    {
+      "identity": "global:DB:activityMaterials",
+      "lines": [
+        11944,
+        11950,
+        11967,
+        12134,
+        12141,
+        12156,
+        12313,
+        12398,
+        12708
+      ]
+    },
+    {
+      "identity": "global:DB:materialCalcs",
+      "lines": [
+        12187,
+        12206,
+        12496,
+        12501
+      ]
+    }
+  ],
+  "unresolved": [
+    {
+      "script": 2,
+      "line": 1046,
+      "scope": "scope-82",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.getItem"
+    },
+    {
+      "script": 2,
+      "line": 1046,
+      "scope": "scope-84",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "d"
+    },
+    {
+      "script": 2,
+      "line": 1049,
+      "scope": "scope-91",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.setItem"
+    },
+    {
+      "script": 2,
+      "line": 1056,
+      "scope": "scope-121",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "out"
+    },
+    {
+      "script": 2,
+      "line": 1056,
+      "scope": "scope-121",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "out"
+    },
+    {
+      "script": 2,
+      "line": 1056,
+      "scope": "scope-121",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "out"
+    },
+    {
+      "script": 2,
+      "line": 1056,
+      "scope": "scope-121",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "out"
+    },
+    {
+      "script": 2,
+      "line": 1068,
+      "scope": "scope-185",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "byId"
+    },
+    {
+      "script": 2,
+      "line": 1068,
+      "scope": "scope-187",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "indeg"
+    },
+    {
+      "script": 2,
+      "line": 1068,
+      "scope": "scope-187",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "adj"
+    },
+    {
+      "script": 2,
+      "line": 1074,
+      "scope": "scope-230",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "ROUTES"
+    },
+    {
+      "script": 2,
+      "line": 1117,
+      "scope": "scope-252",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "ACT"
+    },
+    {
+      "script": 4,
+      "line": 2152,
+      "scope": "scope-785",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "byPrj"
+    },
+    {
+      "script": 4,
+      "line": 2154,
+      "scope": "scope-785",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "byPrj"
+    },
+    {
+      "script": 4,
+      "line": 2155,
+      "scope": "scope-785",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "byPrj"
+    },
+    {
+      "script": 4,
+      "line": 2156,
+      "scope": "scope-785",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "byPrj"
+    },
+    {
+      "script": 4,
+      "line": 2872,
+      "scope": "scope-1123",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "counts"
+    },
+    {
+      "script": 5,
+      "line": 3013,
+      "scope": "scope-1159",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "indexedDB.open"
+    },
+    {
+      "script": 5,
+      "line": 3069,
+      "scope": "scope-1201",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "rec"
+    },
+    {
+      "script": 5,
+      "line": 3378,
+      "scope": "scope-1355",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.getItem"
+    },
+    {
+      "script": 5,
+      "line": 3384,
+      "scope": "scope-1360",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.setItem"
+    },
+    {
+      "script": 5,
+      "line": 3398,
+      "scope": "scope-1366",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "grids"
+    },
+    {
+      "script": 5,
+      "line": 3399,
+      "scope": "scope-1366",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "grids"
+    },
+    {
+      "script": 5,
+      "line": 3405,
+      "scope": "scope-1368",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "cards"
+    },
+    {
+      "script": 5,
+      "line": 3430,
+      "scope": "scope-1380",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "c"
+    },
+    {
+      "script": 5,
+      "line": 3436,
+      "scope": "scope-1383",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.removeItem"
+    },
+    {
+      "script": 10,
+      "line": 5862,
+      "scope": "scope-2250",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "DB"
+    },
+    {
+      "script": 14,
+      "line": 6673,
+      "scope": "scope-2421",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "ids"
+    },
+    {
+      "script": 16,
+      "line": 7396,
+      "scope": "scope-2510",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "DB"
+    },
+    {
+      "script": 17,
+      "line": 7506,
+      "scope": "scope-2561",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "DB"
+    },
+    {
+      "script": 24,
+      "line": 8733,
+      "scope": "scope-2757",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "events"
+    },
+    {
+      "script": 24,
+      "line": 8857,
+      "scope": "scope-2806",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.getItem"
+    },
+    {
+      "script": 24,
+      "line": 8879,
+      "scope": "scope-2817",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.setItem"
+    },
+    {
+      "script": 24,
+      "line": 8891,
+      "scope": "scope-2825",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.setItem"
+    },
+    {
+      "script": 27,
+      "line": 9547,
+      "scope": "scope-3051",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "localStorage.clear"
+    },
+    {
+      "script": 28,
+      "line": 10256,
+      "scope": "scope-3284",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "sessionStorage.getItem"
+    },
+    {
+      "script": 28,
+      "line": 10258,
+      "scope": "scope-3285",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "sessionStorage.setItem"
+    },
+    {
+      "script": 28,
+      "line": 10268,
+      "scope": "scope-3289",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "sessionStorage.getItem"
+    },
+    {
+      "script": 28,
+      "line": 10270,
+      "scope": "scope-3290",
+      "activation": "deferred",
+      "reason": "dynamic-call-argument",
+      "target": "sessionStorage.setItem"
+    },
+    {
+      "script": 29,
+      "line": 10810,
+      "scope": "scope-3428",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 29,
+      "line": 10874,
+      "scope": "scope-3447",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11486,
+      "scope": "scope-3578",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11487,
+      "scope": "scope-3578",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11499,
+      "scope": "scope-3584",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "byMat"
+    },
+    {
+      "script": 30,
+      "line": 11591,
+      "scope": "scope-3604",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11592,
+      "scope": "scope-3604",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11618,
+      "scope": "scope-3610",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "byType"
+    },
+    {
+      "script": 30,
+      "line": 11619,
+      "scope": "scope-3610",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "glassThickness"
+    },
+    {
+      "script": 30,
+      "line": 11719,
+      "scope": "scope-3628",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11720,
+      "scope": "scope-3628",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11825,
+      "scope": "scope-3648",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11826,
+      "scope": "scope-3648",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    },
+    {
+      "script": 30,
+      "line": 11904,
+      "scope": "scope-3669",
+      "activation": "deferred",
+      "reason": "computed-assignment",
+      "root": "items"
+    }
+  ],
+  "limitations": [
+    "Lexical bindings and source sites only; no runtime last-writer claim.",
+    "IIFEs retain caller activation; callbacks and named function bodies are deferred; branches are conservative candidates.",
+    "Loops/closures, function invocation, reflective access, aliases and dynamic keys require manual/browser analysis.",
+    "HTML script extraction assumes normal inline script markup; unsupported script syntax fails instead of emitting partial success.",
+    "Property paths do not establish object identity; object reassignment and aliases require review.",
+    "No claim of G1/G2 closure or financial workflow acceptance."
+  ]
+}

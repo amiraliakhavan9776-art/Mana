@@ -1,0 +1,9 @@
+{
+  "projectId":"project_alpha",
+  "contract":{"basis":"costs","feeNumerator":12,"feePercentDenominator":100},
+  "costs":[
+    {"id":"c1","sourceRef":"invoice-001","amountIRR":"100000000000000000","status":"verified"},
+    {"id":"c2","sourceRef":"invoice-002","amountIRR":"10000000000000000","status":"verified"}
+  ],
+  "payments":[{"id":"p1","sourceRef":"receipt-001","amountIRR":"30000000000000000","status":"verified"}]
+}

@@ -1,0 +1,23 @@
+name: Real local artifact workflows
+on:
+  pull_request:
+  push:
+    branches: [feature/mana-ai-foundation]
+permissions:
+  contents: read
+jobs:
+  artifacts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r mana-ai/tools/requirements-artifacts.txt
+      - run: node --test mana-ai/tests/artifact-workflows.test.cjs
+      # Workbook renderer/exporter is host-installed and unavailable in GitHub's
+      # standard runner; Excel evidence is independently checked in local acceptance.

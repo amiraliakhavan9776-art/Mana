@@ -1,0 +1,103 @@
+{
+  "schema": "MANA_CLAIM_DRAFT_REPORT_V1",
+  "sourceSha256": "dfa636503bf5eb7d6afcef731cb6c922f5a87c6a49334ef4719f19072c062159",
+  "calculation": {
+    "schema": "MANA_CLAIM_CALCULATION_V1",
+    "claimId": "synthetic-claim",
+    "organizationId": "local",
+    "projectId": "sample",
+    "inputDigest": "30bc4117f6d0bfbdae0f5ebb3465ea45c72f466965fa2cc435c7f93d48725866",
+    "policyRef": "synthetic-policy-for-testing-only",
+    "currency": "IRR",
+    "mode": "mixed",
+    "rounding": {
+      "scale": 2,
+      "mode": "half_even",
+      "lineRounding": "per_line"
+    },
+    "lines": [
+      {
+        "id": "priced",
+        "mode": "unit_price",
+        "sourceRef": "synthetic:contract:1",
+        "description": "Synthetic measured items",
+        "exactAmount": "200",
+        "displayAmount": "200.00"
+      },
+      {
+        "id": "area",
+        "mode": "area",
+        "sourceRef": "synthetic:measurement:2",
+        "description": "Synthetic measured area",
+        "exactAmount": "2500.0",
+        "displayAmount": "2500.00"
+      },
+      {
+        "id": "labor",
+        "mode": "labor",
+        "sourceRef": "synthetic:timesheet:3",
+        "description": "Synthetic labor",
+        "exactAmount": "800",
+        "displayAmount": "800.00"
+      },
+      {
+        "id": "tranche",
+        "mode": "lump_sum",
+        "sourceRef": "synthetic:contract:4",
+        "description": "Synthetic period tranche",
+        "exactAmount": "3500",
+        "displayAmount": "3500.00"
+      },
+      {
+        "id": "progress",
+        "mode": "progress",
+        "sourceRef": "synthetic:measurement:5",
+        "description": "Synthetic period progress",
+        "exactAmount": "2500.00",
+        "displayAmount": "2500.00"
+      }
+    ],
+    "deductions": [
+      {
+        "id": "retention",
+        "kind": "percent",
+        "sourceRef": "synthetic:policy:retention",
+        "amount": "475.00"
+      },
+      {
+        "id": "fixed",
+        "kind": "fixed",
+        "sourceRef": "synthetic:policy:fixed",
+        "amount": "2.00"
+      }
+    ],
+    "tax": {
+      "rate": "10",
+      "base": "after_deductions",
+      "sourceRef": "synthetic:policy:tax",
+      "taxableAmount": "9023.00",
+      "amount": "902.30"
+    },
+    "totals": {
+      "gross": "9500.00",
+      "deductions": "477.00",
+      "tax": "902.30",
+      "net": "9925.30",
+      "paidToDate": "500.00",
+      "balance": "9425.30"
+    },
+    "normalizedIRR": {
+      "gross": "9500.00",
+      "net": "9925.30",
+      "balance": "9425.30"
+    },
+    "status": "draft_calculation",
+    "overpaid": false,
+    "limitations": [
+      "Period quantities/percentages only; no cumulative prior-certificate reconciliation.",
+      "Rates, quantities, sources and rounding are supplied policy, not independently certified legal or engineering facts.",
+      "No approval, payment, accounting posting or live migration."
+    ]
+  },
+  "notice": "Draft calculation for review; no approval, payment or accounting entry."
+}

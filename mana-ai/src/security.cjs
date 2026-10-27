@@ -1,0 +1,51 @@
+'use strict';
+const { createHash, timingSafeEqual } = require('node:crypto');
+
+const ROLES = Object.freeze({
+  viewer: ['capabilities:read', 'projects:read'],
+  analyst: ['capabilities:read', 'projects:read', 'strategy:read'],
+  admin: ['capabilities:read', 'projects:read', 'strategy:read', 'audit:read']
+});
+function safeEqual(a, b) {
+  if (typeof a !== 'string' || typeof b !== 'string') return false;
+  const left = Buffer.from(a), right = Buffer.from(b);
+  return left.length === right.length && left.length > 0 && timingSafeEqual(left, right);
+}
+function tokenFingerprint(token) {
+  return createHash('sha256').update(token).digest('hex');
+}
+function normalizePrincipals(principals) {
+  if (!Array.isArray(principals)) throw new Error('Principals must be an array');
+  const seen = new Set(), hashes = new Set();
+  return principals.map(p => {
+    if (!p || typeof p.id !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(p.id) ||
+        typeof p.orgId !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(p.orgId) ||
+        !Object.hasOwn(ROLES, p.role) || typeof p.token !== 'string' || p.token.length < 32) {
+      throw new Error('Invalid principal configuration');
+    }
+    const hash = tokenFingerprint(p.token);
+    if (seen.has(p.id) || hashes.has(hash)) throw new Error('Duplicate principal');
+    seen.add(p.id); hashes.add(hash);
+    if (p.projectIds !== undefined && (!Array.isArray(p.projectIds) || p.projectIds.length > 10000 || p.projectIds.some(id => typeof id !== 'string' || !/^[a-zA-Z0-9_-]{1,64}$/.test(id)) || new Set(p.projectIds).size !== p.projectIds.length)) throw new Error('Invalid project grants');
+    if (p.capabilityIds !== undefined && (!Array.isArray(p.capabilityIds) || p.capabilityIds.length > 128 || p.capabilityIds.some(id => typeof id !== 'string' || !/^[A-Za-z][A-Za-z0-9_.-]{0,79}$/.test(id)) || new Set(p.capabilityIds).size !== p.capabilityIds.length)) throw new Error('Invalid capability grants');
+    return Object.freeze({ id: p.id, orgId: p.orgId, role: p.role, token: p.token, projectIds: Object.freeze([...(p.projectIds || [])]), capabilityIds: Object.freeze([...(p.capabilityIds || [])]) });
+  });
+}
+function authenticate(header, principals) {
+  if (typeof header !== 'string' || !header.startsWith('Bearer ')) return null;
+  const supplied = header.slice(7);
+  // Compare against every configured token; do not expose token material in responses or audit logs.
+  let matched = null;
+  for (const p of principals) if (safeEqual(supplied, p.token)) matched = p;
+  return matched;
+}
+function can(principal, permission) {
+  return !!principal && (ROLES[principal.role] || []).includes(permission);
+}
+function hasProjectGrant(principal, projectId) {
+  return can(principal, 'projects:read') && Array.isArray(principal.projectIds) && principal.projectIds.includes(projectId);
+}
+function canAccessProject(principal, project) {
+  return !!project && project.orgId === principal?.orgId && hasProjectGrant(principal, project.id);
+}
+module.exports = { hasProjectGrant, canAccessProject, ROLES, safeEqual, normalizePrincipals, authenticate, can };

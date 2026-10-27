@@ -1,0 +1,7 @@
+{
+  "name": "mana-inventory-parser",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Development-only parser for source inventory; not a production dependency",
+  "dependencies": { "acorn": "8.15.0" }
+}

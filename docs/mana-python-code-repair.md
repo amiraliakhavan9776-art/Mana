@@ -1,0 +1,27 @@
+# Python code proposal, independent sandbox benchmark, bounded repair
+
+This increment builds the code/test/repair infrastructure while MANA model training continues. It does not establish that the small MANA-trained RNN can write correct programs, promote a generated skill, modify the engine, or close production gates. Arbitrary repository editing/builds and whole-engine autonomous development remain open.
+
+## Executable loop
+
+`repair-local.cjs` accepts a trusted task JSON, a project directory and a separate private review root. The task pins exactly one allowed Python file, a natural-language request, a pure `solve(JSON_input)`-style function name and 3–32 independent input/expected-output tests. An explicit host-configured coding provider proposes the file. The source project is never changed. The controller checks the source snapshot, submits the immutable candidate bytes to the sandbox and compares the candidate digest with the host verifier receipt. On failure it permits at most three drafts, sending only generic failure counts and a bounded excerpt of the prior draft as feedback; expected outputs and benchmark inputs are not given to the model.
+
+Passing output stops at `CODE_CANDIDATE_AWAITING_REVIEW`, with exact candidate/benchmark binding, retained draft files, per-attempt evidence and `approved:false`. There is no apply/deploy command. Missing sandbox or provider, mismatched receipts, changed source, invalid paths and exhausted attempts stop. Candidate directories survive interruption; this first code-repair version creates a new bounded run when invoked again, and does not claim automatic checkpoint continuation of arbitrary code repair. Existing restricted skill and model-training resume behavior remain separate.
+
+No native coding entry point silently selects Gemma or port 8794 anymore. `MANA_CODER_PORT` and `MANA_CODER_MODEL` must explicitly select an available coding provider. These variables do not install or train a capable model. The RNN research checkpoint has no accepted coding-provider capability and is not substituted with an external model automatically.
+
+## OS boundary and verifier
+
+`python-code-sandbox.cjs` targets Linux x86_64 and a Python interpreter, Bubblewrap and prlimit at explicit host-installed paths. It first runs trusted isolation probes; only after those succeed may candidate code execute. Namespace failure is `SANDBOX_UNAVAILABLE` with `candidateExecuted:false`, never execution on the host. The development container cannot create the required namespace, so local unit-test success is not reported as actual OS acceptance. `node mana-ai/sandbox-acceptance.cjs` is a separate required command and exits nonzero if unavailable.
+
+Each test gets a new process and namespace. Only Python/runtime library trees and one copied read-only candidate file are mounted; host project trees, /opt, home directories and /etc are absent. The process environment is replaced, capabilities dropped, root and proc mounted read-only, network namespace unshared and a native x86_64 seccomp filter installed. The filter rejects foreign/x32 ABIs, process/thread creation, sockets, namespace/mount, ptrace, BPF and selected kernel administration paths. There is a 256 MiB address-space limit, 3 CPU-second limit, 5-second wall timeout, bounded output and 16 MiB ephemeral tmp filesystem. Parent death and namespace process handling terminate the sandbox; no host retry occurs after an unknown setup/exit.
+
+This is a narrow application policy, not a claim that Bubblewrap alone is a complete sandbox or that every Linux kernel is secure. Runtime library mounts still expose installed library files; use a dedicated host/image with no secrets in library trees. Host kernel/tool provenance and deployment review remain required. Arbitrary native extensions, threads, subprocesses, network, package installation, large models and numerical ML inside candidate tests are unsupported. Input/output use bounded strict JSON with integer numeric source literals. Exceptions and malformed/oversized output fail the test. No generated test file, child-reported pass count or stdout claim is accepted as an independent benchmark result: the parent compares each returned JSON value with its own expected result.
+
+## Verification
+
+Unit tests exercise BPF decisions for process/network/namespace/foreign-ABI denial, unavailable-sandbox refusal, the repair controller with an explicitly labelled host-verifier fixture, separate candidate retention, source mutation, invalid/mismatched receipts, missing provider and removal of implicit model selection. A separate disposable CI job installs Bubblewrap and requires actual OS acceptance: correct code passes, wrong code fails, a host marker remains hidden, network/fork and candidate writes are denied, and CPU loops fail. Privilege is used only to initialize the ephemeral runner's namespaces; generated code starts after the policy applies. This CI result does not attest the user's server; its preflight must be run independently before code evaluation there.
+
+Run first: `node mana-ai/sandbox-preflight.cjs`. If that passes, run `node mana-ai/sandbox-acceptance.cjs`. Only then configure a deliberately chosen coding provider and use `repair-local.cjs`. The example task's four simple count cases demonstrate the contract, not broad coding competence or complete input-validation acceptance.
+
+Reference for namespace construction and the need to define a policy rather than trust tool presence: https://github.com/containers/bubblewrap/blob/main/README.md .

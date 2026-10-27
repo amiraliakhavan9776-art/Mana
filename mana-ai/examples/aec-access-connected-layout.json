@@ -1,0 +1,9 @@
+{
+ "schema":"MANA_AEC_LAYOUT_V1","projectId":"townhouse_demo","status":"FEASIBLE_SCHEMATIC_LAYOUT","units":"m",
+ "rooms":[
+  {"id":"living","xM":0,"yM":0,"widthM":4,"depthM":4},
+  {"id":"kitchen","xM":4,"yM":0,"widthM":3,"depthM":4},
+  {"id":"bedroom","xM":7,"yM":0,"widthM":3,"depthM":4}
+ ],
+ "requiredAdjacencies":[["living","kitchen"],["kitchen","bedroom"]]
+}

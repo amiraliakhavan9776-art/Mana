@@ -1,0 +1,230 @@
+{
+  "before": {
+    "organizationId": "local",
+    "projectId": "local",
+    "artifacts": [
+      {
+        "id": "booklet",
+        "kind": "pdf",
+        "version": "v1",
+        "sha256": "341011715e8b4c571dcdff9a9cba7f062ecdf03e97de7d5bc6e12417b3daccf6",
+        "dependsOn": [
+          {
+            "id": "drawings",
+            "version": "v1",
+            "sha256": "93251245e402cd7d7db45260681543b1deabcbf3970b40251fd7f1bf0dd1f8ee"
+          },
+          {
+            "id": "estimate",
+            "version": "v1",
+            "sha256": "ffb23a8ad46384028615ebf4372101379388c905287ed615c238ca24e4791e70"
+          },
+          {
+            "id": "quantities",
+            "version": "v1",
+            "sha256": "3ef114f1b086138f8971ba22f9f4568ca0860e8c5d3a20bc4108a42e1ef2c1f7"
+          },
+          {
+            "id": "schedule",
+            "version": "v1",
+            "sha256": "512c0f09c78372b75c5d4c15e33fe634b16799dd3b94ef15bccb0d47f587e91a"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "drawings",
+        "kind": "cad",
+        "version": "v1",
+        "sha256": "93251245e402cd7d7db45260681543b1deabcbf3970b40251fd7f1bf0dd1f8ee",
+        "dependsOn": [
+          {
+            "id": "facade",
+            "version": "v1",
+            "sha256": "7392812b7959707b8bdf32adae71e7ada0c0b52d8b9e072de94fb3dd50557e18"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": true
+      },
+      {
+        "id": "estimate",
+        "kind": "budget",
+        "version": "v1",
+        "sha256": "ffb23a8ad46384028615ebf4372101379388c905287ed615c238ca24e4791e70",
+        "dependsOn": [
+          {
+            "id": "quantities",
+            "version": "v1",
+            "sha256": "3ef114f1b086138f8971ba22f9f4568ca0860e8c5d3a20bc4108a42e1ef2c1f7"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "facade",
+        "kind": "design",
+        "version": "v1",
+        "sha256": "7392812b7959707b8bdf32adae71e7ada0c0b52d8b9e072de94fb3dd50557e18",
+        "dependsOn": [],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": true
+      },
+      {
+        "id": "quantities",
+        "kind": "takeoff",
+        "version": "v1",
+        "sha256": "3ef114f1b086138f8971ba22f9f4568ca0860e8c5d3a20bc4108a42e1ef2c1f7",
+        "dependsOn": [
+          {
+            "id": "drawings",
+            "version": "v1",
+            "sha256": "93251245e402cd7d7db45260681543b1deabcbf3970b40251fd7f1bf0dd1f8ee"
+          }
+        ],
+        "requiresApproval": false,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "schedule",
+        "kind": "planning",
+        "version": "v1",
+        "sha256": "512c0f09c78372b75c5d4c15e33fe634b16799dd3b94ef15bccb0d47f587e91a",
+        "dependsOn": [
+          {
+            "id": "estimate",
+            "version": "v1",
+            "sha256": "ffb23a8ad46384028615ebf4372101379388c905287ed615c238ca24e4791e70"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "unrelated",
+        "kind": "reference",
+        "version": "v1",
+        "sha256": "14e7f351467b51d85015804d0d4f221c11491e1aba6f00fb3c6c0f822a819dc7",
+        "dependsOn": [],
+        "requiresApproval": false,
+        "requiresProfessionalSignoff": false
+      }
+    ]
+  },
+  "after": {
+    "organizationId": "local",
+    "projectId": "local",
+    "artifacts": [
+      {
+        "id": "booklet",
+        "kind": "pdf",
+        "version": "v1",
+        "sha256": "341011715e8b4c571dcdff9a9cba7f062ecdf03e97de7d5bc6e12417b3daccf6",
+        "dependsOn": [
+          {
+            "id": "drawings",
+            "version": "v1",
+            "sha256": "93251245e402cd7d7db45260681543b1deabcbf3970b40251fd7f1bf0dd1f8ee"
+          },
+          {
+            "id": "estimate",
+            "version": "v1",
+            "sha256": "ffb23a8ad46384028615ebf4372101379388c905287ed615c238ca24e4791e70"
+          },
+          {
+            "id": "quantities",
+            "version": "v1",
+            "sha256": "3ef114f1b086138f8971ba22f9f4568ca0860e8c5d3a20bc4108a42e1ef2c1f7"
+          },
+          {
+            "id": "schedule",
+            "version": "v1",
+            "sha256": "512c0f09c78372b75c5d4c15e33fe634b16799dd3b94ef15bccb0d47f587e91a"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "drawings",
+        "kind": "cad",
+        "version": "v1",
+        "sha256": "93251245e402cd7d7db45260681543b1deabcbf3970b40251fd7f1bf0dd1f8ee",
+        "dependsOn": [
+          {
+            "id": "facade",
+            "version": "v1",
+            "sha256": "7392812b7959707b8bdf32adae71e7ada0c0b52d8b9e072de94fb3dd50557e18"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": true
+      },
+      {
+        "id": "estimate",
+        "kind": "budget",
+        "version": "v1",
+        "sha256": "ffb23a8ad46384028615ebf4372101379388c905287ed615c238ca24e4791e70",
+        "dependsOn": [
+          {
+            "id": "quantities",
+            "version": "v1",
+            "sha256": "3ef114f1b086138f8971ba22f9f4568ca0860e8c5d3a20bc4108a42e1ef2c1f7"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "facade",
+        "kind": "design",
+        "version": "v2",
+        "sha256": "d49da09f4c31f95bfcf0a0daa68c34aa523c914eed9add3525d3317ef161ffc0",
+        "dependsOn": [],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": true
+      },
+      {
+        "id": "quantities",
+        "kind": "takeoff",
+        "version": "v1",
+        "sha256": "3ef114f1b086138f8971ba22f9f4568ca0860e8c5d3a20bc4108a42e1ef2c1f7",
+        "dependsOn": [
+          {
+            "id": "drawings",
+            "version": "v1",
+            "sha256": "93251245e402cd7d7db45260681543b1deabcbf3970b40251fd7f1bf0dd1f8ee"
+          }
+        ],
+        "requiresApproval": false,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "schedule",
+        "kind": "planning",
+        "version": "v1",
+        "sha256": "512c0f09c78372b75c5d4c15e33fe634b16799dd3b94ef15bccb0d47f587e91a",
+        "dependsOn": [
+          {
+            "id": "estimate",
+            "version": "v1",
+            "sha256": "ffb23a8ad46384028615ebf4372101379388c905287ed615c238ca24e4791e70"
+          }
+        ],
+        "requiresApproval": true,
+        "requiresProfessionalSignoff": false
+      },
+      {
+        "id": "unrelated",
+        "kind": "reference",
+        "version": "v1",
+        "sha256": "14e7f351467b51d85015804d0d4f221c11491e1aba6f00fb3c6c0f822a819dc7",
+        "dependsOn": [],
+        "requiresApproval": false,
+        "requiresProfessionalSignoff": false
+      }
+    ]
+  }
+}

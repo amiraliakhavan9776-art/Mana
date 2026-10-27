@@ -1,0 +1,16 @@
+{
+  "contract": "MANA_CLAIM_EXECUTION_EVIDENCE_V1",
+  "input": "mana-ai/examples/claim.mixed.example.json",
+  "sourceSha256": "dfa636503bf5eb7d6afcef731cb6c922f5a87c6a49334ef4719f19072c062159",
+  "status": "completed",
+  "toolSteps": [
+    "claims.inspect",
+    "claims.calculate",
+    "claims.report"
+  ],
+  "report": "docs/generated/claim-example-report.json",
+  "reportSha256": "029f7e15117351c63c9232a881b19d1cf65636cd81dd88d48878a9fe550e91f0",
+  "separateProcessReusedMission": true,
+  "financialEffects": 0,
+  "syntheticInput": true
+}

@@ -1,0 +1,8 @@
+{
+  "projectId":"residence_pilot", "widthM":20, "depthM":12, "currency":"IRR", "unitCost":12000000,
+  "rooms":[
+    {"id":"living","label":"Living room","areaM2":60},
+    {"id":"bedroom","label":"Bedroom","areaM2":24},
+    {"id":"kitchen","label":"Kitchen","areaM2":18}
+  ]
+}

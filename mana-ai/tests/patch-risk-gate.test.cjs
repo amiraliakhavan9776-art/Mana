@@ -1,0 +1,16 @@
+'use strict';
+const test=require('node:test'), assert=require('node:assert/strict');
+const {inspectPatch}=require('../src/native/patch-risk-gate.cjs');
+const crypto=require('node:crypto');const h=s=>crypto.createHash('sha256').update(s).digest('hex');
+const common={allowedFiles:['src/a.py'],baseHashes:{'src/a.py':h('original')},requestSha256:h('request')};
+const check=content=>inspectPatch({...common,files:[{path:'src/a.py',content}]});
+test('ordinary arithmetic screens without sandbox claim',()=>{const r=check('def add(a,b): return a+b');assert.equal(r.status,'STATIC_SCREEN_PASSED');assert.equal(r.sandboxVerified,false);assert.equal(r.approved,false)});
+test('rejects out of scope path',()=>assert.throws(()=>inspectPatch({...common,files:[{path:'../x',content:'ok'}]})));
+test('rejects duplicate paths',()=>assert.throws(()=>inspectPatch({...common,files:[{path:'src/a.py',content:'a'},{path:'src/a.py',content:'b'}]})));
+test('flags dynamic execution',()=>assert.equal(check('eval("2+2")').findings[0].rule,'DYNAMIC_EXEC'));
+test('flags network',()=>assert.equal(check('requests.get("http://x")').findings[0].rule,'NETWORK'));
+test('flags credentials',()=>assert.equal(check('process.env.SECRET').findings[0].rule,'CREDENTIAL_ACCESS'));
+test('flags deletion',()=>assert.equal(check('shutil.rmtree("/tmp")').findings[0].rule,'FILESYSTEM_DESTRUCTION'));
+test('rejects binary candidate',()=>assert.throws(()=>check('a\0b')));
+test('requires baseline hash',()=>assert.throws(()=>inspectPatch({...common,baseHashes:{},files:[{path:'src/a.py',content:'ok'}]})));
+test('hashes are deterministic',()=>assert.equal(check('a').hashes[0].sha256,h('a')));

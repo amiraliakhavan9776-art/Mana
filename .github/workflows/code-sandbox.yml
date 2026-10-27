@@ -1,0 +1,36 @@
+name: Real Python code sandbox acceptance
+on:
+  pull_request:
+    paths: ['mana-ai/src/native/python-code-sandbox.cjs', 'mana-ai/sandbox-acceptance.cjs', 'mana-ai/evaluate-code-file.cjs', 'mana-ai/training/**', '.github/workflows/code-sandbox.yml']
+  push:
+    branches: [feature/mana-ai-foundation]
+    paths: ['mana-ai/src/native/python-code-sandbox.cjs', 'mana-ai/sandbox-acceptance.cjs', 'mana-ai/evaluate-code-file.cjs', 'mana-ai/training/**', '.github/workflows/code-sandbox.yml']
+permissions:
+  contents: read
+jobs:
+  sandbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r mana-ai/training/requirements.txt
+      - name: Install isolation tools in ephemeral CI runner
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y bubblewrap util-linux
+      - name: Require actual namespace/seccomp acceptance
+        # Privilege only initializes namespaces in this disposable runner. The
+        # candidate runs after caps are dropped and seccomp/mount policy applies.
+        run: sudo "$(command -v node)" mana-ai/sandbox-acceptance.cjs
+      - name: Train random-weight model and measure its actual held-out coding output
+        env:
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          python mana-ai/training/mana_byte_rnn.py train --corpus mana-ai/training/research-corpus.jsonl --output "$RUNNER_TEMP/mana-model" --steps 1000 --hidden 64 --sequence 64
+          sudo env PATH="$PATH" OPENBLAS_NUM_THREADS=1 "$(command -v python)" mana-ai/training/evaluate_native_code.py --checkpoint "$RUNNER_TEMP/mana-model/step-00001000" --corpus mana-ai/training/research-corpus.jsonl --benchmark mana-ai/training/native-code-benchmark.json --output "$RUNNER_TEMP/mana-coding-evaluation"

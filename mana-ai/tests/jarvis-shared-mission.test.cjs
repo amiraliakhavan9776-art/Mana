@@ -1,0 +1,10 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict');
+const {compilePersonalMission,validateResultClaim}=require('../src/native/jarvis-shared-mission.cjs');
+const input={missionId:'plan1',ownerId:'user1',approvedScope:'personal1',objective:'Produce an architecture review with tested output',tools:['aec.dxf','aec.takeoff']};
+test('Jarvis derives prerequisite tasks without duplicate engines',()=>{const plan=compilePersonalMission(input);assert.deepEqual(plan.steps.map(s=>s.capabilityId),['aec.layout','aec.quality','aec.dxf','aec.takeoff']);assert.equal(plan.steps[2].dependsOn[0],plan.steps[1].taskId);assert.equal(plan.proposalOnly,true);assert.equal(plan.executedTools,0);assert.equal(plan.requiresHumanApproval,true)});
+test('unknown capability rejected',()=>assert.throws(()=>compilePersonalMission({...input,tools:['shell.root']}),/Unknown/));
+test('duplicate capability rejected',()=>assert.throws(()=>compilePersonalMission({...input,tools:['aec.dxf','aec.dxf']}),/duplicate/i));
+test('missing evidence cannot count as completed',()=>{const p=compilePersonalMission(input);const r=validateResultClaim(p,[]);assert.equal(r.status,'REVIEW_REQUIRED');assert.equal(r.violations.length,4)});
+test('unverified success explicitly rejected',()=>{const p=compilePersonalMission(input);const r=validateResultClaim(p,[{taskId:'step_1',status:'succeeded',verified:false}]);assert.equal(r.status,'REVIEW_REQUIRED')});
+test('even verified evidence needs audit',()=>{const p=compilePersonalMission(input);const r=validateResultClaim(p,p.steps.map(s=>({taskId:s.taskId,status:'succeeded',verified:true})));assert.equal(r.status,'EVIDENCE_SUPPLIED_PENDING_AUDIT');assert.equal(r.autonomouslyApproved,false)});

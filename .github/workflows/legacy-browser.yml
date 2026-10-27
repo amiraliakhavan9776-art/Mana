@@ -1,0 +1,23 @@
+name: Mana legacy browser regression
+on:
+  pull_request:
+  push:
+    branches: [feature/mana-ai-foundation]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned browser test dependency
+        run: npm install --prefix tests/browser --ignore-scripts --no-package-lock
+      - name: Install Chromium
+        run: node tests/browser/node_modules/playwright/cli.js install --with-deps chromium
+      - name: Run isolated legacy browser regressions
+        run: node --test tests/browser/*.test.cjs

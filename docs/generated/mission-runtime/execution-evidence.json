@@ -1,0 +1,14 @@
+{
+  "contract": "MANA_MISSION_RUNTIME_V1",
+  "status": "completed",
+  "missionId": "e671fb99-7547-42c1-84d4-523df078f0b0",
+  "restartReusedSameMission": true,
+  "steps": [
+    "documents.inspect",
+    "documents.analyze",
+    "documents.report"
+  ],
+  "fixture": "mana-ai/examples/inventory.json",
+  "artifact": "docs/generated/mission-runtime/inventory-shortage-report.md",
+  "externalActions": 0
+}
