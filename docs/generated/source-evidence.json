@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "cbae57b603f11c625a1e9c94d8614c88973574bb6f4125d9dac0a6f3a0dca776",
-  "fileCount": 296,
+  "sourceSetDigest": "daa1555ede0534500b0b2e1ce59b2068cf18338354a7abbcb54a2be2b5878f71",
+  "fileCount": 301,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -148,6 +148,15 @@
       "testFile": false
     },
     {
+      "path": "docs/mana-artifact-impact.md",
+      "bytes": 3645,
+      "sha256": "971c7e426ff1e900c4d0ff44ed572880294e3c19ca969889ebd9f875f090ceab",
+      "gitBlob": "2a74dfc72db704e9469980e8bad0d523e5273db9",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "docs/mana-budget-range.md",
       "bytes": 3700,
       "sha256": "128289eb19720969c80d8b0a58d559ec9b09b17ef08c734b37c64f31e766922f",
@@ -248,9 +257,9 @@
     },
     {
       "path": "docs/mana-master-implementation-map.md",
-      "bytes": 7912,
-      "sha256": "6e48e03481083852936a55da2221db4008195a39acae5c5d84f8f9223bc55d3a",
-      "gitBlob": "691497955d01d4dd3887695705ebd78f79b6b432",
+      "bytes": 7995,
+      "sha256": "27d692bfdcb9316c5ff391d9dabd568e653f20fff9deaf9ed6143432e28b985e",
+      "gitBlob": "7853ae5ab8de30e9ed0a14dfdeb4fa57fd196c3e",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -284,9 +293,9 @@
     },
     {
       "path": "docs/mana-native-audit-facade.md",
-      "bytes": 3903,
-      "sha256": "47b361a7d6e5399b3c12deb730308a5e027823521fc7e1340cc02ffd08abd917",
-      "gitBlob": "fb75f26c05059d5332bfc232ed64ce754ec44044",
+      "bytes": 4076,
+      "sha256": "9369ca5b032924b9dc230723e7a100eed63f2aafa781aa01b6bed687a35bdbe8",
+      "gitBlob": "57d6b06b2d30227bfbedfdf8bc80e784c53adeec",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -683,6 +692,32 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/analyze-impact.cjs",
+      "bytes": 1145,
+      "sha256": "5c1963671f59306d7b96478212f1d882be2f850e843eda774f9943660d080dc5",
+      "gitBlob": "777795cb9e709c189450b3575cb3195af3f6a34f",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 3
+        },
+        {
+          "value": "./src/native/skill-evolution.cjs",
+          "line": 4
+        },
+        {
+          "value": "./src/native/artifact-impact.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/analyze-schedule.cjs",
       "bytes": 1291,
       "sha256": "158dcf5c9a3e232864b5424ec08bacc79cfb0df8cff3c2941b9b61f96b0d6c77",
@@ -1001,6 +1036,15 @@
           "line": 5
         }
       ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/artifact-impact.json",
+      "bytes": 7030,
+      "sha256": "08fed08514003fa028070ee093536575f80e28ccc5bc35eade2010bfbd22f9fc",
+      "gitBlob": "d32140eaddb55a89abcb706c0d82c81acf465d6a",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
       "testFile": false
     },
     {
@@ -2081,10 +2125,28 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/native/artifact-impact.cjs",
+      "bytes": 6407,
+      "sha256": "963859e5c8c28378bcde68a1a25e5d404478f04245a8592250efe2c0a3addb50",
+      "gitBlob": "dc43330d49bc9ad00ef732169d5310de22439949",
+      "dependencyCandidates": [
+        {
+          "value": "../security.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/native/audited-services.cjs",
-      "bytes": 3919,
-      "sha256": "dcb525b338b697ccbb3991268d98483cbe5a526f98442ae0db58fd8ddd6ba01c",
-      "gitBlob": "bd1cfe392ba2c14b22e4229b02a27c96ff8ca278",
+      "bytes": 4141,
+      "sha256": "c9ec3d0b9a8114e721c9438a63256ab0f22be0faad6f9923c195c2032c28ee18",
+      "gitBlob": "d43c23bb6e6ecc89b0769896e8db22be341f2951",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -3115,10 +3177,52 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/artifact-impact.test.cjs",
+      "bytes": 5276,
+      "sha256": "46079a413d7e40bfbe582f3743e08f704237aab68523beb5d899a75804d64107",
+      "gitBlob": "a79606d2262e47b4ad33ba346a3a587eb0a5e076",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 2
+        },
+        {
+          "value": "../src/native/artifact-impact.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/audited-services.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/approval-store.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/artifact-workflows.test.cjs",
-      "bytes": 8123,
-      "sha256": "0b0fd0313dbaeda7d32f202d8e3e4260c6e1086b99cf264fed5fca079569dcc0",
-      "gitBlob": "db4f5bf4ccad0bb1bee7c698d44a935dcd217f64",
+      "bytes": 10234,
+      "sha256": "13461342a6e03fde2c3e1cd21853a45bd0386ea732fd06b1e6177594ed5e58aa",
+      "gitBlob": "ba7cba949b565c8d7877a30122fc583dbeb960ae",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -3157,16 +3261,24 @@
           "line": 4
         },
         {
-          "value": "../src/jarvis/service.cjs",
+          "value": "../src/native/artifact-impact.cjs",
           "line": 5
+        },
+        {
+          "value": "../src/jarvis/service.cjs",
+          "line": 6
         },
         {
           "value": "../src/workflows/execution-cycle.cjs",
-          "line": 5
+          "line": 6
         },
         {
           "value": "node:crypto",
-          "line": 11
+          "line": 13
+        },
+        {
+          "value": "node:crypto",
+          "line": 20
         }
       ],
       "environmentCandidates": [],

@@ -2,7 +2,7 @@
 const {randomUUID}=require('node:crypto');
 const {payloadDigest}=require('../approval-store.cjs');
 // Trusted host facade. State services keep their own authorization and consent checks.
-function createAuditedNativeServices({experience,recovery,review=null,costReview=null,scenarios=null,sensitivity=null,budgeting=null,budgetRanges=null,cashflow=null,audit}={}){
+function createAuditedNativeServices({experience,recovery,review=null,costReview=null,scenarios=null,sensitivity=null,budgeting=null,budgetRanges=null,cashflow=null,artifactImpact=null,audit}={}){
  if(!experience||!['remember','recall','forget'].every(k=>typeof experience[k]==='function')||!recovery||typeof recovery.propose!=='function'||!audit||typeof audit.record!=='function')throw Error('Native services and audit sink required');
  if(review!==null&&!['request','decide','current'].every(k=>typeof review[k]==='function'))throw Error('Invalid recovery review service');
  if(costReview!==null&&!['request','decide','current'].every(k=>typeof costReview[k]==='function'))throw Error('Invalid cost review service');
@@ -11,7 +11,8 @@ function createAuditedNativeServices({experience,recovery,review=null,costReview
  if(budgeting!==null&&typeof budgeting.compare!=='function')throw Error('Invalid scenario budget service');
  if(budgetRanges!==null&&typeof budgetRanges.analyze!=='function')throw Error('Invalid budget range service');
  if(cashflow!==null&&typeof cashflow.analyze!=='function')throw Error('Invalid recovery cashflow service');
- const services={experience,recovery,review,costReview,scenarios,sensitivity,budgeting,budgetRanges,cashflow};
+ if(artifactImpact!==null&&typeof artifactImpact.analyze!=='function')throw Error('Invalid artifact impact service');
+ const services={experience,recovery,review,costReview,scenarios,sensitivity,budgeting,budgetRanges,cashflow,artifactImpact};
  function wrap(service,method,mutates){return async input=>{
   // Bind a private snapshot before awaiting an asynchronous audit sink.
   payloadDigest(input);const snapshot=JSON.parse(JSON.stringify(input)),inputDigest=payloadDigest(snapshot),operationId=randomUUID();
@@ -36,6 +37,7 @@ function createAuditedNativeServices({experience,recovery,review=null,costReview
  if(budgeting!==null)operations.budgeting={compare:false};
  if(budgetRanges!==null)operations.budgetRanges={analyze:false};
  if(cashflow!==null)operations.cashflow={analyze:false};
+ if(artifactImpact!==null)operations.artifactImpact={analyze:false};
  return Object.freeze(Object.fromEntries(Object.entries(operations).map(([service,methods])=>[service,Object.freeze(Object.fromEntries(Object.entries(methods).map(([method,mutates])=>[method,wrap(service,method,mutates)])))])));
 }
 module.exports={createAuditedNativeServices};

@@ -1,0 +1,26 @@
+'use strict';
+const test=require('node:test'),assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),{spawnSync}=require('node:child_process');
+const {createArtifactImpact}=require('../src/native/artifact-impact.cjs');
+const {createAuditedNativeServices}=require('../src/native/audited-services.cjs');
+const {payloadDigest}=require('../src/approval-store.cjs');
+function setup(){const data=JSON.parse(fs.readFileSync(path.join(__dirname,'../examples/artifact-impact.json'),'utf8')),project={id:'local',orgId:'local'},principal={id:'u',orgId:'local',role:'analyst',projectIds:['local'],capabilityIds:['native.artifacts.impact']};return {analyzer:createArtifactImpact({authorize:()=>true,verifySnapshot:()=>true}),input:{...data,principal,project}};}
+test('facade changes propagate through drawings, takeoff, estimates, schedule and booklet without touching unrelated records',()=>{
+ const {input,analyzer}=setup(),bytes=JSON.stringify(input),report=analyzer.analyze(input);assert.equal(report.status,'CHANGE_IMPACT_PROPOSED');assert.deepEqual(report.changedArtifactIds,['facade']);assert.deepEqual(report.refreshOrder,['drawings','quantities','estimate','schedule','booklet']);assert.equal(report.impacts.find(r=>r.artifactId==='drawings').status,'STALE_DEPENDENCY_BINDING');assert.ok(report.impacts.find(r=>r.artifactId==='booklet').causeArtifactIds.includes('facade'));assert.ok(!report.impacts.some(r=>r.artifactId==='unrelated'));assert.ok(report.professionalSignoffRecheckRequiredArtifactIds.includes('drawings'));assert.equal(report.artifactsChanged,false);assert.equal(JSON.stringify(input),bytes);
+});
+test('removed dependency edges and weakened flags cannot conceal historical impact or required review',()=>{
+ const {input,analyzer}=setup(),drawing=input.after.artifacts.find(a=>a.id==='drawings');drawing.dependsOn=[];drawing.requiresApproval=false;drawing.requiresProfessionalSignoff=false;
+ const report=analyzer.analyze(input);assert.ok(report.impacts.find(r=>r.artifactId==='drawings').causeArtifactIds.includes('facade'));assert.ok(report.approvalRecheckRequiredArtifactIds.includes('drawings'));assert.ok(report.professionalSignoffRecheckRequiredArtifactIds.includes('drawings'));assert.ok(report.impacts.some(r=>r.artifactId==='booklet'));
+});
+test('removed sources block downstream refresh and unversioned content changes remain explicit review issues',()=>{
+ const {input,analyzer}=setup();input.after.artifacts=input.after.artifacts.filter(a=>a.id!=='facade');const report=analyzer.analyze(input);assert.equal(report.status,'DEPENDENCIES_UNRESOLVED');assert.deepEqual(report.missingDependencyIds,['facade']);assert.deepEqual(report.refreshOrder,[]);assert.ok(report.blockedArtifactIds.includes('booklet'));
+ const other=setup();other.input.after.artifacts.find(a=>a.id==='facade').version='v1';const unversioned=other.analyzer.analyze(other.input);assert.equal(unversioned.status,'SOURCE_VERSION_REVIEW_REQUIRED');assert.deepEqual(unversioned.unversionedChangeArtifactIds,['facade']);
+});
+test('canonical registry ordering is stable, while stale authority, denied scope and dependency cycles refuse analysis',()=>{
+ const {input,analyzer}=setup(),same={...input,after:JSON.parse(JSON.stringify(input.before))};same.after.artifacts.reverse();for(const a of same.after.artifacts)a.dependsOn.reverse();assert.equal(analyzer.analyze(same).status,'NO_DETECTED_CHANGE');assert.equal(analyzer.analyze(same).beforeDigest,analyzer.analyze(same).afterDigest);
+ const accepted=new Set([payloadDigest(input.before),payloadDigest(input.after)]),trusted=createArtifactImpact({authorize:()=>true,verifySnapshot:({digest})=>accepted.has(digest)});assert.equal(trusted.analyze(input).status,'CHANGE_IMPACT_PROPOSED');assert.throws(()=>createArtifactImpact({authorize:()=>true,verifySnapshot:()=>false}).analyze(input),/authority/);assert.throws(()=>analyzer.analyze({...input,principal:{...input.principal,capabilityIds:[]}}),/denied/);assert.throws(()=>analyzer.analyze({...input,after:{...input.after,projectId:'foreign'}}),/scoped/);
+ const booklet=input.after.artifacts.find(a=>a.id==='booklet');input.after.artifacts.find(a=>a.id==='facade').dependsOn=[{id:booklet.id,version:booklet.version,sha256:booklet.sha256}];assert.throws(()=>analyzer.analyze(input),/Cyclic/);
+});
+test('actual local impact CLI and audited delivery preserve the analysis without exposing registry bodies in audit events',async()=>{
+ const {input,analyzer}=setup(),noop=()=>({unused:true}),events=[],api=createAuditedNativeServices({experience:{remember:noop,recall:noop,forget:noop},recovery:{propose:noop},artifactImpact:analyzer,audit:{record:e=>events.push(e)}});assert.deepEqual(await api.artifactImpact.analyze(input),analyzer.analyze(input));assert.deepEqual(events.map(e=>e.outcome),['intent','completed']);assert.doesNotMatch(JSON.stringify(events),/dependsOn|requiresProfessionalSignoff/);
+ const run=spawnSync(process.execPath,[path.join(__dirname,'../analyze-impact.cjs'),path.join(__dirname,'../examples/artifact-impact.json')],{encoding:'utf8',timeout:10000});assert.equal(run.status,0,run.stderr);const report=JSON.parse(run.stdout);assert.deepEqual(report.changedArtifactIds,['facade']);assert.match(report.evidenceAuthority,/local metadata/);
+});
