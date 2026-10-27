@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "3ef3308703eaf94d3bfa6298dca523255c6a985ab8d9201ffbae48c5d9dd5d00",
-  "fileCount": 362,
+  "sourceSetDigest": "35e43983322d6957b96bfd51677a253ced4d4d17cc5434d49df15280358eb1de",
+  "fileCount": 365,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -449,6 +449,15 @@
       "bytes": 3175,
       "sha256": "20dac1dcf8047f7cb9ac812ac1517dcad234e4767e215bcee97414fa742672e8",
       "gitBlob": "246c8011cab7a50d5b805fb733d3c76af2ee0e79",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/mana-voice-and-controlled-language.md",
+      "bytes": 3600,
+      "sha256": "a1ee8d3dd6182bfb310c60e404784b5e25eb03761cfc852c16e3ab6ca437d242",
+      "gitBlob": "35ac60588fba6a7a79702ac5df86c99660a9ab18",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1474,10 +1483,15 @@
     },
     {
       "path": "mana-ai/mobile-ui.cjs",
-      "bytes": 10512,
-      "sha256": "5f2de7f96cd49b2be724ee42c79d1d0da68033528fabb870f83a066923710e86",
-      "gitBlob": "8907cc91fce42d001e31d4531a558c119c1d27b0",
-      "dependencyCandidates": [],
+      "bytes": 11987,
+      "sha256": "22af7b8f435de002ae00d806d3f06bd0137e1dc3fd8e00b983a6bbb2cc23bbd6",
+      "gitBlob": "b7370e2a365c7b0b69e08bb651992ce71af78d7f",
+      "dependencyCandidates": [
+        {
+          "value": "./src/voice-turn.cjs",
+          "line": 2
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -3706,6 +3720,15 @@
           "line": 3
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/voice-turn.cjs",
+      "bytes": 655,
+      "sha256": "642bb3dcdacaa8fa332f0b14515c9fad2143b306e2418f69dd8c83a10338d1b5",
+      "gitBlob": "bae047f3bb2087db9899cff8d272c1c46f9bc25f",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -6805,6 +6828,36 @@
         {
           "value": "../src/native/jarvis-runtime-bridge.cjs",
           "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/voice-turn.test.cjs",
+      "bytes": 5699,
+      "sha256": "8daa274e7cb5e96c678bf0ce4fef068a79047b486bdd7b61e161111e510ed59e",
+      "gitBlob": "ce6321f4387c6c4302cd068114c0c5042a0194bd",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:vm",
+          "line": 2
+        },
+        {
+          "value": "../src/voice-turn.cjs",
+          "line": 3
+        },
+        {
+          "value": "../mobile-ui.cjs",
+          "line": 3
         }
       ],
       "environmentCandidates": [],
