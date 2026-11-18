@@ -1,4 +1,16 @@
 'use strict';
+
+const {validateContract}=require('./typed-contracts.cjs');
+
+function typedOutputValid(adapter, value) {
+  if (adapter.outputContract === undefined) return true;
+  try {
+    return validateContract(value, adapter.outputContract).ok === true;
+  } catch {
+    return false;
+  }
+}
+
 // Durable single-host mission execution. Only read/draft adapters may run here.
 const {randomUUID,createHash}=require('node:crypto');
 const {createNativeCore}=require('./core.cjs');
@@ -13,10 +25,54 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
  const registry=new Map(),capabilities=[];
  for(const t of tools){
   if(!t||typeof t.version!=='string'||!ID.test(t.version)||!['validate','validateDependencies','run','verify'].every(k=>typeof t[k]==='function')||registry.has(t.id))throw Error('Invalid tool adapter');
+  if(t.timeoutMs!==undefined&&(!Number.isInteger(t.timeoutMs)||t.timeoutMs<10||t.timeoutMs>30000))throw Error('Invalid tool deadline');
+  const outputContract=t.outputContract===undefined?undefined:clone(t.outputContract);
+  if(outputContract!==undefined){
+   const checkSchema=(schema,depth=0)=>{
+    if(depth>32||!schema||typeof schema!=='object'||Array.isArray(schema))
+     throw Error('Invalid output contract');
+
+    const allowed=new Set(['type','required','properties','items']);
+    if(Object.keys(schema).some(k=>!allowed.has(k)))
+     throw Error('Unknown output contract keyword');
+
+    if(!['string','number','integer','boolean','object','array','null'].includes(schema.type))
+     throw Error('Invalid output contract type');
+
+    if(schema.required!==undefined){
+     if(schema.type!=='object'||!Array.isArray(schema.required)||
+        schema.required.some(k=>typeof k!=='string'||!k||
+        ['__proto__','constructor','prototype'].includes(k))||
+        new Set(schema.required).size!==schema.required.length)
+      throw Error('Invalid required fields');
+    }
+
+    if(schema.properties!==undefined){
+     if(schema.type!=='object'||!schema.properties||
+        typeof schema.properties!=='object'||Array.isArray(schema.properties))
+      throw Error('Invalid properties');
+
+     for(const [key,child] of Object.entries(schema.properties)){
+      if(['__proto__','constructor','prototype'].includes(key))
+       throw Error('Unsafe property name');
+      checkSchema(child,depth+1);
+     }
+    }
+
+    if(schema.items!==undefined){
+     if(schema.type!=='array')throw Error('Invalid array items');
+     checkSchema(schema.items,depth+1);
+    }
+
+    if(schema.required?.some(k=>!Object.hasOwn(schema.properties??{},k)))
+     throw Error('Required property schema missing');
+   };
+   checkSchema(outputContract);
+  }
   const descriptor=clone({id:t.id,title:t.title,requires:t.requires,produces:t.produces,workUnits:t.workUnits,risk:t.risk});
   if(t.configurationDigest!==undefined&&!/^[a-f0-9]{64}$/.test(t.configurationDigest))throw Error('Invalid configuration digest');
-  const fingerprint=payloadDigest({configurationDigest:t.configurationDigest??null,descriptor,version:t.version,retrySafe:t.retrySafe===true,code:createHash('sha256').update(t.validateDependencies.toString()+t.validate.toString()+t.run.toString()+t.verify.toString()).digest('hex')});
-  registry.set(t.id,Object.freeze({...descriptor,version:t.version,retrySafe:t.retrySafe===true,fingerprint,validate:t.validate,validateDependencies:t.validateDependencies,run:t.run,verify:t.verify}));capabilities.push(descriptor);
+  const fingerprint=payloadDigest({configurationDigest:t.configurationDigest??null,descriptor,version:t.version,retrySafe:t.retrySafe===true,...(outputContract===undefined?{}:{outputContract}),...(t.timeoutMs===undefined?{}:{timeoutMs:t.timeoutMs}),code:createHash('sha256').update(t.validateDependencies.toString()+t.validate.toString()+t.run.toString()+t.verify.toString()).digest('hex')});
+  registry.set(t.id,Object.freeze({...descriptor,outputContract,version:t.version,retrySafe:t.retrySafe===true,timeoutMs:t.timeoutMs??timeoutMs,fingerprint,validate:t.validate,validateDependencies:t.validateDependencies,run:t.run,verify:t.verify}));capabilities.push(descriptor);
  }
  const core=createNativeCore({capabilities}),hierarchy=hierarchicalMethods===null?null:createHierarchicalPlanner({capabilities,methods:hierarchicalMethods}),store=createEncryptedState({file,key,kind:'MANA_MISSION_RUNTIME_V1'}),active=new Map();
  function time(){const value=now();if(!Number.isSafeInteger(value)||value<0||value>Number.MAX_SAFE_INTEGER-86400000)throw Error('Invalid mission clock');return value}
@@ -51,16 +107,21 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    return {result:{items,nextCursor:start+limit<rows.length?page.at(-1).id:null}};
   });
  }
- function create({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits,tasks}){
+ function prepare({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits,tasks}){
   check(principal,project,'create');if(typeof requestKey!=='string'||!ID.test(requestKey))throw Error('Mission request key required');
   const supplied=clone(inputs);
   if(!supplied||typeof supplied!=='object'||Array.isArray(supplied))throw Error('Mission inputs required');
   if(tasks!==undefined&&!hierarchy)throw Error('Host hierarchy configuration required');
   const plan=(tasks===undefined?core:hierarchy).plan({principal,project,objective,goals,evidence,...(tasks===undefined?{}:{tasks}),...(maxWorkUnits===undefined?{}:{maxWorkUnits})});
-  if(plan.status!=='PLAN_PROPOSED')return {created:false,analysis:plan};
+  if(plan.status!=='PLAN_PROPOSED')return {plan,supplied};
   const used=new Set(plan.steps.map(s=>s.capabilityId));if(Object.keys(supplied).some(k=>!used.has(k)))throw Error('Unused tool input');
   for(const step of plan.steps){const adapter=registry.get(step.capabilityId);if(!Object.hasOwn(supplied,step.capabilityId)||adapter.validate(clone(supplied[step.capabilityId]),{scope:toolScope(principal,project)})!==true)throw Error('Invalid tool input')}
   const digest=payloadDigest({objective,goals,evidence,inputs:supplied,maxWorkUnits:maxWorkUnits??null,...(tasks===undefined?{}:{tasks,hierarchyDigest:hierarchy.configurationDigest})});
+  return {plan,supplied,digest};
+ }
+ function preview(input){const {plan}=prepare(input);return {schema:'MANA_MISSION_PREVIEW_V1',plan:snapshot(plan),toolFingerprints:plan.status==='PLAN_PROPOSED'?plan.steps.map(s=>({capabilityId:s.capabilityId,fingerprint:registry.get(s.capabilityId).fingerprint,timeoutMs:registry.get(s.capabilityId).timeoutMs})):[],actionsExecuted:0,storageMutated:false};}
+ function create({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits,tasks}){
+  const {plan,supplied,digest}=prepare({principal,project,objective,goals,evidence,inputs,requestKey,maxWorkUnits,tasks});if(plan.status!=='PLAN_PROPOSED')return {created:false,analysis:plan};
   return transact(state=>{
    const existing=state.missions.find(m=>m.orgId===project.orgId&&m.projectId===project.id&&m.requesterId===principal.id&&m.requestKey===requestKey);
    if(existing){if(existing.requestDigest!==digest)throw Error('Request key reused with different content');return {result:{created:false,mission:snapshot(existing)}}}
@@ -99,7 +160,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    if(!principal.capabilityIds.includes(task.capabilityId))throw Error('Tool capability revoked');
    const spent=m.tasks.reduce((n,t)=>n+t.workUnits*t.attempts.length,0);
    if(spent+task.workUnits>(m.workBudget??1000000)){m.status='budget_exhausted';event(m,principal,'budget_exhausted',task.taskId);return write(state,m,{invoke:false,mission:snapshot(m)})}
-   const attemptId=randomUUID();Object.assign(task,{status:'running',attemptId,leaseUntil:Math.min(time()+timeoutMs,m.deadlineAt)});task.attempts.push({attemptId,startedAt:time(),status:'running'});m.status='running';event(m,principal,'claimed',task.taskId);
+   const attemptId=randomUUID();Object.assign(task,{status:'running',attemptId,leaseUntil:Math.min(time()+adapter.timeoutMs,m.deadlineAt)});task.attempts.push({attemptId,startedAt:time(),status:'running'});m.status='running';event(m,principal,'claimed',task.taskId);
    return write(state,m,{invoke:true,task:JSON.parse(JSON.stringify(task)),input:clone(m.inputs[task.capabilityId]),dependencies:m.tasks.filter(t=>task.dependsOn.includes(t.taskId)).map(t=>({taskId:t.taskId,capabilityId:t.capabilityId,result:clone(t.result)})),leaseUntil:task.leaseUntil});
   });
   if(!claim.invoke)return claim.mission;
@@ -122,7 +183,7 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
     });
     result=clone(await Promise.race([operation,interrupted]));
     if(controller.signal.aborted)throw Error('Aborted');
-    verified=(await Promise.race([Promise.resolve().then(()=>adapter.verify({scope:toolScope(principal,project,missionId),input:clone(claim.input),result:clone(result),dependencies:JSON.parse(JSON.stringify(claim.dependencies))})),interrupted]))===true;
+    verified=typedOutputValid(adapter,result) && (await Promise.race([Promise.resolve().then(()=>adapter.verify({scope:toolScope(principal,project,missionId),input:clone(claim.input),result:clone(result),dependencies:JSON.parse(JSON.stringify(claim.dependencies))})),interrupted]))===true;
     kind=verified?'succeeded':'failed';
    }finally{if(signal)signal.removeEventListener('abort',onExternalAbort)}
   }catch{kind='unknown'}finally{clearTimeout(timer);if(abortHandler)controller.signal.removeEventListener('abort',abortHandler);active.delete(claim.task.attemptId)}
@@ -193,10 +254,10 @@ function createMissionRuntime({file,key,tools,authorize,now=Date.now,timeoutMs=2
    const task=m.tasks.find(t=>t.taskId===taskId),adapter=task&&registry.get(task.capabilityId);
    if(m.status!=='unknown'||!task||task.status!=='unknown'||task.attemptId!==attemptId||!adapter||adapter.fingerprint!==task.toolFingerprint)throw Error('Invalid recovery target');
    const dependencies=m.tasks.filter(t=>task.dependsOn.includes(t.taskId)).map(t=>({taskId:t.taskId,capabilityId:t.capabilityId,result:clone(t.result)}));
-   if(adapter.verify({scope:toolScope(principal,project,missionId),input:clone(m.inputs[task.capabilityId]),result:clone(recovered),dependencies})!==true)throw Error('Recovery verification failed');
+   if(!typedOutputValid(adapter,recovered) || adapter.verify({scope:toolScope(principal,project,missionId),input:clone(m.inputs[task.capabilityId]),result:clone(recovered),dependencies})!==true)throw Error('Recovery verification failed');
    Object.assign(task.attempts.at(-1),{status:'reconciled',finishedAt:time(),evidenceReference});Object.assign(task,{status:'succeeded',result:recovered,resultDigest:payloadDigest(recovered),recoveryEvidence:evidenceReference});m.status=outcome(m);event(m,principal,'reconciled',taskId);return write(state,m);
   });
  }
- return Object.freeze({create,get,list,recoveryPlan,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry,replan});
+ return Object.freeze({create,preview,get,list,recoveryPlan,runNext,pause:x=>control(x,'pause'),resume:x=>control(x,'resume'),cancel,reconcile,retry,replan});
 }
 module.exports={createMissionRuntime};

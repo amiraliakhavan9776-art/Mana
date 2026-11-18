@@ -1,0 +1,1605 @@
+{
+  "schemaVersion": "0.1",
+  "createdAt": "2026-10-30T14:42:08.449403+00:00",
+  "sourceRegistry": "/opt/mana-dev/capability-registry/capabilities-v01.json",
+  "missions": [
+    {
+      "id": "b2a25ed5f5cdb0ae",
+      "domain": "Mission Runtime",
+      "capability": "Dependency graph execution / typed dependency validation",
+      "sourceStatus": "ساخته‌شده و تست‌شده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "1cbe338190bce8d1",
+      "domain": "Mission Runtime",
+      "capability": "Durable mission/task state / pause / resume / cancel",
+      "sourceStatus": "ساخته‌شده و تست‌شده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "6e26d114df945159",
+      "domain": "Mission Runtime",
+      "capability": "Timeout / bounded retry / idempotency / unknown reconciliation",
+      "sourceStatus": "ساخته‌شده و تست‌شده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "aff9a51f0f13edd8",
+      "domain": "Mission Runtime",
+      "capability": "Crash/restart / attempt evidence",
+      "sourceStatus": "ساخته‌شده و تست‌شده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "120d09228e497b7f",
+      "domain": "Mission Runtime",
+      "capability": "Automatic repair / outcome-based replanning",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "d72ca49b01576836",
+      "domain": "Mission Runtime",
+      "capability": "Untrusted code sandbox / public progress UI",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "a6965da7e8fb53f4",
+      "domain": "Intelligence",
+      "capability": "Multi-step planning / goal decomposition / WBS",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "ed2024a7e4fd43da",
+      "domain": "Intelligence",
+      "capability": "Evidence reasoning / uncertainty / Reality Check",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "786a9ec552198cf0",
+      "domain": "Intelligence",
+      "capability": "Council / scenario ranking",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "ab1f8f084e1915f2",
+      "domain": "Intelligence",
+      "capability": "Constraints: cost / resources / time / priorities",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "8f627a5492f8302a",
+      "domain": "Intelligence",
+      "capability": "Independent evaluator",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "f19791cf81267982",
+      "domain": "Intelligence",
+      "capability": "Decision / mission / organizational memory",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "88ab05d456850cd0",
+      "domain": "Intelligence",
+      "capability": "Research Engine",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "a2cfa83d272ff27b",
+      "domain": "Intelligence",
+      "capability": "Model Router",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "708bbc00b9b3509f",
+      "domain": "Intelligence",
+      "capability": "Hierarchical task network planning",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "f59f8568f345e629",
+      "domain": "Intelligence",
+      "capability": "Causal consequence simulation / resource scheduling",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "dc65044c0e80919f",
+      "domain": "Intelligence",
+      "capability": "Knowledge graph with provenance",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "df1cc2ef4772f360",
+      "domain": "Intelligence",
+      "capability": "Controlled self-improvement pipeline",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "dc4bab6859460578",
+      "domain": "Server integration",
+      "capability": "Core v5 adapter",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "0d80072bed0a31a9",
+      "domain": "Server integration",
+      "capability": "Memory v5.1 adapter",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "b782e6e335a7cd37",
+      "domain": "Server integration",
+      "capability": "General runner / gateway / mission-engine adapter",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "8f600acd62803ba4",
+      "domain": "Server integration",
+      "capability": "Council / financial-council adapter",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "4dad2f808a32ae13",
+      "domain": "Server integration",
+      "capability": "Protected / scoped-memory adapter",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "8e3598058ed837d6",
+      "domain": "Server integration",
+      "capability": "Dashboard v5.2 read-only projection",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "d00245387b7edec4",
+      "domain": "Tools",
+      "capability": "Registry / scoped authorization / output contracts",
+      "sourceStatus": "ساخته‌شده و تست‌شده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "0087dde4eb7f623a",
+      "domain": "Tools",
+      "capability": "Real file read / analysis / report artifact",
+      "sourceStatus": "ساخته‌شده و تست‌شده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "82d0d373db815d9f",
+      "domain": "Tools",
+      "capability": "Database / external API / software adapters",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "81ba44674162f884",
+      "domain": "Tools",
+      "capability": "Word / PDF / Excel / presentation generation",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "aecc6bad44bcf985",
+      "domain": "Tools",
+      "capability": "Document and image understanding",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "3f463f1741dfb54a",
+      "domain": "Tools",
+      "capability": "Isolated browser / software control",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "69f0d5bd5b8b29fc",
+      "domain": "AEC",
+      "capability": "Phase 0: land / climate / sun / wind / regulation / feasibility",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "b2bb6a04dc5d16ff",
+      "domain": "AEC",
+      "capability": "Phase 1: concepts / plan / mass / facade / interior",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "716664544532ed2e",
+      "domain": "AEC",
+      "capability": "Phase 2: execution drawings / sections / details",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "786514c61f60530a",
+      "domain": "AEC",
+      "capability": "AutoCAD / Revit / BIM / 3D software integration",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "7d73c3d57d885456",
+      "domain": "AEC",
+      "capability": "Editable DWG / IFC / native 3D with conversion QA",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "480bcda516caae26",
+      "domain": "AEC",
+      "capability": "Renders / animation / architecture booklet",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "095ea2fb89c3ded8",
+      "domain": "AEC",
+      "capability": "Drawing / specification / quantity consistency",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "ae3fa40b1ed68e54",
+      "domain": "Technical office",
+      "capability": "WBS / schedule / CPM / progress",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "6d213a1b0d0b2a93",
+      "domain": "Technical office",
+      "capability": "Full takeoff / labor / equipment / MEP / finishes / facade",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "87a4a4be95fe4871",
+      "domain": "Technical office",
+      "capability": "Quantity and cost optimization",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "0f2c9cfec3d5216c",
+      "domain": "Technical office",
+      "capability": "Six payment-claim modes / mixed contracts",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "3704afa300a4be2d",
+      "domain": "Technical office",
+      "capability": "Site evidence / approvals / deductions / guarantees / penalties / adjustment",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "b6cfbff8c37ce447",
+      "domain": "Technical office",
+      "capability": "Orders / claims / contracts / addenda",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "81a30c51a68ad83f",
+      "domain": "Technical office",
+      "capability": "Costs / receipts / payments / management contracting",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "a32c070aa5e791ad",
+      "domain": "Technical office",
+      "capability": "Profit / cashflow / deviation prediction",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "c34474bcb3a0b6b3",
+      "domain": "Technical office",
+      "capability": "Letters / minutes / RFI / technical reports",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "04c48802e71a0f04",
+      "domain": "Universal industries",
+      "capability": "Profession interview / Company OS",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "6a0c8f96f22215df",
+      "domain": "Universal industries",
+      "capability": "Strategy Architect",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "0f69a678ca9a9086",
+      "domain": "Universal industries",
+      "capability": "Market / competitor / opportunity intelligence",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "d931633bd138c294",
+      "domain": "Universal industries",
+      "capability": "Contract and obligation management",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "10bf4eca20cf6d52",
+      "domain": "Universal industries",
+      "capability": "Risk Sentinel",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "b4710f0c5234b4a3",
+      "domain": "Universal industries",
+      "capability": "Partner Intelligence",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "434d92d5e184f6e0",
+      "domain": "Universal industries",
+      "capability": "Meeting Intelligence with consent",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "54d84f2988acbab4",
+      "domain": "Universal industries",
+      "capability": "Executive Audit",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "533b3e4d74b60076",
+      "domain": "Universal industries",
+      "capability": "Regulatory Intelligence",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "e846a222282314c3",
+      "domain": "Universal industries",
+      "capability": "Mana Academy",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "58a2f605dd49f090",
+      "domain": "Universal industries",
+      "capability": "Integration Studio",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "ee34ad5d8398ac98",
+      "domain": "Universal industries",
+      "capability": "Permissioned profession workflows",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "0cc1052f8f921238",
+      "domain": "Jarvis",
+      "capability": "Persian / multilingual voice",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "71d4d37553e9b68c",
+      "domain": "Jarvis",
+      "capability": "Tasks / meetings / documents / follow-up",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "c3aaf3d5c668d097",
+      "domain": "Jarvis",
+      "capability": "Personal and business decision support",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "6460c3e4e59d7b14",
+      "domain": "Jarvis",
+      "capability": "Income / investment scenarios and risk",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "e2c9c3ea1d105ce9",
+      "domain": "Jarvis",
+      "capability": "Branding / marketing / business advisory",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "f1b0377a8807b588",
+      "domain": "Jarvis",
+      "capability": "Conversational multi-step missions",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "cfb9412e1f3c9d4f",
+      "domain": "Jarvis",
+      "capability": "Separate encrypted personal memory / organization bridge",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "28010e590e6cac0e",
+      "domain": "Jarvis",
+      "capability": "Sensitive and external action approval",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "5d49df8d7592bb3e",
+      "domain": "Creative",
+      "capability": "Image generation / editing",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "7c1db0c9dd0426bb",
+      "domain": "Creative",
+      "capability": "Video generation / editing",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "74cabde5ecc810e3",
+      "domain": "Creative",
+      "capability": "Music generation / arrangement",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "c06bea219eb6920b",
+      "domain": "Creative",
+      "capability": "Audio / speech production",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "85e06c9e6a868d70",
+      "domain": "Creative",
+      "capability": "Brand identity / campaigns / social content",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "8c39bf96b8d3bd41",
+      "domain": "Creative",
+      "capability": "Website / rebranding",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "6d30b01fb83b657c",
+      "domain": "Creative",
+      "capability": "Company / project / product booklet factory",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "c131feac02df6b0b",
+      "domain": "Creative",
+      "capability": "Mission-linked multimedia content",
+      "sourceStatus": "ساخته‌نشده",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "e3c63005e3275b3c",
+      "domain": "Security / production",
+      "capability": "Identity / roles / org / projects",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "49357e56ddd7c706",
+      "domain": "Security / production",
+      "capability": "Tenant / user memory isolation",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "d7b26ceb4d8138ed",
+      "domain": "Security / production",
+      "capability": "Encryption / keys",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "b9739eb0148f35cb",
+      "domain": "Security / production",
+      "capability": "Durable payload-bound approval",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "ece7f141a607ecd0",
+      "domain": "Security / production",
+      "capability": "Audit with independent evidence",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "b232198682045c4c",
+      "domain": "Security / production",
+      "capability": "Backup / restore",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "239a50fe3d2cb084",
+      "domain": "Security / production",
+      "capability": "Cost / quotas / resource use",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "e97ed565549ef5f8",
+      "domain": "Security / production",
+      "capability": "Prompt injection / untrusted data / secret redaction",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "1d1fa834d2147f63",
+      "domain": "Security / production",
+      "capability": "Legacy regressions / migration",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    },
+    {
+      "id": "99492c5661931033",
+      "domain": "Security / production",
+      "capability": "Staging / rollback / production readiness",
+      "sourceStatus": "نمونه اولیه",
+      "state": "PENDING_REVIEW",
+      "tasks": [
+        "Inspect existing implementation and tests",
+        "Identify missing requirements and dependencies",
+        "Define measurable acceptance criteria",
+        "Prepare CPU-compatible implementation and tests",
+        "Identify GPU-only validation requirements",
+        "Run isolated security and regression tests",
+        "Record evidence and request human approval"
+      ],
+      "gpuRequirement": "not_assessed",
+      "acceptanceEvidence": [],
+      "productionDeploymentAllowed": false
+    }
+  ],
+  "automaticExecutionEnabled": false,
+  "automaticProductionDeployment": false
+}
