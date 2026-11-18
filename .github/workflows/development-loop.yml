@@ -21,7 +21,12 @@ jobs:
         # Privilege creates namespaces only in this disposable runner. bwrap
         # drops all capabilities, clears env, makes sources read-only, isolates network.
         # Never use this sudo command on the user's production server.
-        run: sudo "$(command -v node)" mana-ai/development-acceptance.cjs
+        run: |
+          # After dropping capabilities, root cannot traverse runner-owned 0700
+          # parent directories. Copy only source to a fresh root-owned CI tree.
+          stage="$(sudo mktemp -d /tmp/mana-ci-source.XXXXXXXX)"
+          sudo cp -R mana-ai "$stage/mana-ai"
+          sudo "$(command -v node)" "$stage/mana-ai/development-acceptance.cjs"
   browser-ui:
     runs-on: ubuntu-latest
     timeout-minutes: 10
