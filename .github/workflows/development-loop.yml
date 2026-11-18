@@ -1,0 +1,40 @@
+name: MANA Persian mission staging acceptance
+on:
+  pull_request:
+    paths: ['mana-ai/**', '.github/workflows/development-loop.yml']
+permissions:
+  contents: read
+jobs:
+  real-sandbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Run CPU regressions
+        run: node --test mana-ai/tests/development-loop.test.cjs mana-ai/tests/typed-contracts.test.cjs mana-ai/tests/typed-dependency-contract-v03.test.cjs mana-ai/tests/typed-dependency-acceptance-v01.test.cjs mana-ai/tests/mission-runtime.test.cjs
+      - name: Install namespace tool in disposable CI only
+        run: sudo apt-get update -qq && sudo apt-get install -y bubblewrap
+      - name: Require real HTTP to native tests in isolated namespaces
+        # Privilege creates namespaces only in this disposable runner. bwrap
+        # drops all capabilities, clears env, makes sources read-only, isolates network.
+        # Never use this sudo command on the user's production server.
+        run: |
+          # After dropping capabilities, root cannot traverse runner-owned 0700
+          # parent directories. Copy only source to a fresh root-owned CI tree.
+          stage="$(sudo mktemp -d /tmp/mana-ci-source.XXXXXXXX)"
+          sudo cp -R mana-ai "$stage/mana-ai"
+          sudo "$(command -v node)" "$stage/mana-ai/development-acceptance.cjs"
+  browser-ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: npm install --prefix tests/browser --ignore-scripts --no-package-lock
+      - run: node tests/browser/node_modules/playwright/cli.js install --with-deps chromium
+      - run: node mana-ai/tools/development-browser-check.cjs
