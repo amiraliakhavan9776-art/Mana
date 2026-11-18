@@ -1,6 +1,6 @@
 # Local verification, 2026-11-18
 
-Environment: Linux x64, Node v24.22.3. No GPU or model calls. Historical server snapshot tests are distinguished from live server acceptance.
+Environment: Linux x64, Node v24.22.3. No GPU or model calls. Source comparison is distinguished from live server acceptance. The complete 472-test aggregate was rerun successfully after replacing the reconstructed validator with the owner-exported source plus the documented recursion guard.
 
 - `node --test tests/*.test.cjs mana-ai/tests/*.test.cjs`: **472 passed, 0 failed, 0 skipped** after installing the repository's pinned Acorn parser dependency. Includes original typed dependency and recovery/control cases, existing runtime regressions, 9 integration/HTTP tests and 9 validator tests.
 - `git diff --check`: passed.
@@ -10,7 +10,7 @@ Environment: Linux x64, Node v24.22.3. No GPU or model calls. Historical server 
 - New CI jobs separately require actual sandbox acceptance and desktop/mobile UI clicks. The browser-only job uses an explicitly injected test runner; it is not real sandbox evidence. CI for the final commit must be checked independently.
 - Independent review found missing durable unknown-result marker; corrected with a fsynced pending file and directory before invoking the process, plus restart/no-replay regression. Source-change and lost-result paths now block subsequent execution until manual reconciliation.
 
-No current-server diff, server install, deployment, merge, public authentication/TLS acceptance, full-product completion or autonomous code-generation quality is asserted.
+A subsequent owner-exported current-server source comparison is recorded in README.md and server-source-manifest-2026-11-18.json. This is not direct access to the running server. No server install, deployment, merge, public authentication/TLS acceptance, full-product completion or autonomous code-generation quality is asserted.
 
 ## Subsequent CI evidence
 
