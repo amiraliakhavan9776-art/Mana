@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "744b2b0a2e7f96ccb7d2cda8372632a3136e540b8b7ff718a9af956512504b0e",
+  "sourceSetDigest": "afd955fbe91c5fcfdd518e48fa9e6af73821da0c7b0229a1b5fbff3fc358e3c3",
   "fileCount": 380,
   "files": [
     {
@@ -32,9 +32,9 @@
     },
     {
       "path": ".github/workflows/development-loop.yml",
-      "bytes": 1588,
-      "sha256": "08b2bcea0e9ee495c9c1a028a9887d34580d041a2a232f3c55f20526d2fa7763",
-      "gitBlob": "3eea5a0cc5947c6d845817fb7d2dc1fbbcb789e1",
+      "bytes": 1880,
+      "sha256": "0c25a57cfa2f1fb143b176980e760472e7ec3e5777c0ab651d4b29eaf31eaf46",
+      "gitBlob": "6bb939d3214b18c614146833777cf48a959171a6",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -77,9 +77,9 @@
     },
     {
       "path": "docs/development-provenance/TEST-REPORT.md",
-      "bytes": 1761,
-      "sha256": "597b3e9ad6236b94df846ceeea6c9d37c3368f6202f80e57855df27f06601646",
-      "gitBlob": "09f08fb3315c7cda3a4e9b105ffe0dec14e5932f",
+      "bytes": 2623,
+      "sha256": "2b55ddba9e1545f39900ce0981e5bd44e7e7c386203d566416f266a74b469869",
+      "gitBlob": "306db0b6653a9e96669c1dce7060fd16541d7cf2",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -594,9 +594,9 @@
     },
     {
       "path": "mana-ai/DEVELOPMENT-STAGING.md",
-      "bytes": 6084,
-      "sha256": "e3d642d0172adc89e4bac77e1f34a40a1a175fb0b7c58cbde85308db506bc61a",
-      "gitBlob": "1a736734c21a4bbed3781e62138e852ec370e540",
+      "bytes": 6509,
+      "sha256": "d4602bb5f19c3cc6e602df4a2e5d8d61503bcc6e96f0e0efa43a8ffd1bad9c43",
+      "gitBlob": "31eb21a4de47d5b36e50cc653f2a2c0f4301537c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
