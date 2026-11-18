@@ -29,3 +29,15 @@ The recovered 84-mission development queue is preserved as source metadata. Its 
 Before any server cutover: obtain a fresh source-only snapshot, compare hashes/diffs of every shared path, retain the server's approved changes, rerun the four original cases plus regressions in separate staging, and review rollback. Do not copy this checkout over the active server tree.
 
 The missing typed-contracts dependency was reconstructed from the recorded validator algorithm, not imported as a byte-identical server file. Added recursion bound and dedicated regression tests are explicit changes. A fresh server comparison remains mandatory.
+
+## Owner's fresh source export received 2026-11-18
+
+Archive SHA-256 `e9223c007df59e2ce63aabb50733cc6109c631ab15307ac6330b5c4bec796d67`; all regular entries safely inspected and manifest hashes checked. This is the owner's exported source, not direct access to running services or a deployment attestation.
+
+- Exported `mission-runtime.cjs` is byte-identical to the integrated snapshot: `6044b511669dba2ea3d3c94fc42c85e863e0e0679c1c3652612765c469bff216`.
+- Both original typed dependency/acceptance test files are byte-identical to this PR. The four verified test identities have not been replaced.
+- Actual `typed-contracts.cjs` source is now available. The initially reconstructed file has been replaced with that exact source plus the intentional bounded-recursion addition in `typed-contracts-server-delta.patch`. Original source SHA-256: `088122fa73da48e9aeb80b49c30b9541f706c8551d9dbef324284057319cb4f6`.
+- `mission-coordinator.cjs`, `execution-plan.cjs` and current `verified.cjs` are preserved in the source comparison, not overwritten/imported into an unrelated production path.
+- Export excludes live runtime state, credentials and business data. Existing server history remains untouched. Any later source change still requires a new comparison before cutover.
+
+The earlier 'reconstructed validator' limitation is resolved by this export. Other deployment, identity, restore, server runtime and full browser-to-real-sandbox gates remain separate.

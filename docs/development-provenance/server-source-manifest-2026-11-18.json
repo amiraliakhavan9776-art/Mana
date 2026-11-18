@@ -1,0 +1,44 @@
+[
+  {
+    "path": "/root/mana-native-self-development-v01/integration-test-v02/src/native/mission-runtime.cjs",
+    "archive": "engine/src/native/mission-runtime.cjs",
+    "bytes": 24968,
+    "sha256": "6044b511669dba2ea3d3c94fc42c85e863e0e0679c1c3652612765c469bff216"
+  },
+  {
+    "path": "/root/mana-native-self-development-v01/integration-test-v02/src/native/typed-contracts.cjs",
+    "archive": "engine/src/native/typed-contracts.cjs",
+    "bytes": 1817,
+    "sha256": "088122fa73da48e9aeb80b49c30b9541f706c8551d9dbef324284057319cb4f6"
+  },
+  {
+    "path": "/root/mana-native-self-development-v01/integration-test-v02/src/native/mission-coordinator.cjs",
+    "archive": "engine/src/native/mission-coordinator.cjs",
+    "bytes": 2641,
+    "sha256": "887154dc8dd83eb501427f094bdeb9510a144ed875c1c5910188cb52287a7a0b"
+  },
+  {
+    "path": "/root/mana-native-self-development-v01/integration-test-v02/src/native/execution-plan.cjs",
+    "archive": "engine/src/native/execution-plan.cjs",
+    "bytes": 17349,
+    "sha256": "82abf4fb575feabc14b7d93e3ed4f863bd557fa7c5a56de28f828fab6978998e"
+  },
+  {
+    "path": "/root/mana-native-self-development-v01/integration-test-v02/tests/typed-dependency-contract-v03.test.cjs",
+    "archive": "engine/tests/typed-dependency-contract-v03.test.cjs",
+    "bytes": 3499,
+    "sha256": "30a3b9d101a7b2ce03f4105cdb360b584589c97cccd5af8b0bcc0f9c7f1cf82e"
+  },
+  {
+    "path": "/root/mana-native-self-development-v01/integration-test-v02/tests/typed-dependency-acceptance-v01.test.cjs",
+    "archive": "engine/tests/typed-dependency-acceptance-v01.test.cjs",
+    "bytes": 13023,
+    "sha256": "0ebe4efa22932a97d98c6f34c82a144865d92d44c46f3ab0913b6cac95312ee4"
+  },
+  {
+    "path": "/root/mana-master-cli/verified.cjs",
+    "archive": "cli/verified.cjs",
+    "bytes": 5116,
+    "sha256": "06a22d2217941478bc93d75877af67da26fa20b3344fdeca6241f2847df33e6f"
+  }
+]

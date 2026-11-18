@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "afd955fbe91c5fcfdd518e48fa9e6af73821da0c7b0229a1b5fbff3fc358e3c3",
-  "fileCount": 380,
+  "sourceSetDigest": "021168588d733bb6a7f90e30c206f69ab96523bea4b3e0fe2a9652bea007deb0",
+  "fileCount": 382,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -68,9 +68,9 @@
     },
     {
       "path": "docs/development-provenance/README.md",
-      "bytes": 2794,
-      "sha256": "5d75ec1c64e8abe21f6c12e7d4791b9b0e9c3f6fa9cb2b6d5eef66334204dc3d",
-      "gitBlob": "73fa2127d992baf862b36d80f8373b67009b81b9",
+      "bytes": 4252,
+      "sha256": "36b00559d60a28ee666d0a2babf89fc6d6adc4758ca47bbf5887fa3ad10eaaba",
+      "gitBlob": "08ee89ea25081d06db33c8700c72ee8c62c81067",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -103,6 +103,24 @@
           "line": 19
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/development-provenance/server-source-manifest-2026-11-18.json",
+      "bytes": 1891,
+      "sha256": "8533349948893698665dfa316d37fd443b956e7702a0acc48357a12ba346c116",
+      "gitBlob": "4547e8b2220096a7f67c82b62a800a9ac90b47ca",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "docs/development-provenance/typed-contracts-server-delta.patch",
+      "bytes": 1361,
+      "sha256": "ec3c8daf865ef6fe448c4bee8e66c237bd949002201443a5b6dd92b50c6ef3fe",
+      "gitBlob": "d32b61badb0c2722438beeaf2dd0098e80a5eae1",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -594,9 +612,9 @@
     },
     {
       "path": "mana-ai/DEVELOPMENT-STAGING.md",
-      "bytes": 6509,
-      "sha256": "d4602bb5f19c3cc6e602df4a2e5d8d61503bcc6e96f0e0efa43a8ffd1bad9c43",
-      "gitBlob": "31eb21a4de47d5b36e50cc653f2a2c0f4301537c",
+      "bytes": 6890,
+      "sha256": "df7af3eb686e3ca6db099080480a562c88bbd1810b201cc15f7a2c2441a9772d",
+      "gitBlob": "e83b5f77bacfd42480ec334dfddc3f6de03590f7",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -3592,9 +3610,9 @@
     },
     {
       "path": "mana-ai/src/native/typed-contracts.cjs",
-      "bytes": 2158,
-      "sha256": "c1822a05f2068b12ab15e2dd05e08512ae7c43716caafca8e5f2dcb09c741d07",
-      "gitBlob": "7c5d8b324240faef5d86c9447d905d99a3bf4815",
+      "bytes": 2024,
+      "sha256": "e4da3fddfb33e6669f5f8f283c12546257f61de20c95b6794994b52a86c469f0",
+      "gitBlob": "bab6e793710e03616bf5b850a987f2da32dc504c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false

@@ -1,0 +1,31 @@
+--- ../inspect-server-live/engine/src/native/typed-contracts.cjs	2026-11-18 21:27:25.258827141 +0400
++++ mana-ai/src/native/typed-contracts.cjs	2026-11-18 21:28:11.617545936 +0400
+@@ -15,7 +15,9 @@
+   return typeof value === type;
+ }
+ 
+-function validateContract(value, schema, path = '$') {
++// Intentional bounded-recursion addition to the owner-exported server source.
++function validateContract(value, schema, path = '$', depth = 0) {
++  if (!Number.isInteger(depth) || depth < 0 || depth > 32) throw Error('Contract depth exceeded');
+   if (!schema || typeof schema !== 'object' || Array.isArray(schema))
+     throw Error('Invalid contract schema');
+ 
+@@ -38,7 +40,7 @@
+ 
+     for (const [key, child] of Object.entries(schema.properties || {})) {
+       if (Object.prototype.hasOwnProperty.call(value, key)) {
+-        const result = validateContract(value[key], child, path+'.'+key);
++        const result = validateContract(value[key], child, path+'.'+key, depth+1);
+         if (!result.ok) return result;
+       }
+     }
+@@ -46,7 +48,7 @@
+ 
+   if (schema.type === 'array' && schema.items) {
+     for (let i=0; i<value.length; i++) {
+-      const result = validateContract(value[i], schema.items, path+'['+i+']');
++      const result = validateContract(value[i], schema.items, path+'['+i+']', depth+1);
+       if (!result.ok) return result;
+     }
+   }
