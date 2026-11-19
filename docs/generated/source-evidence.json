@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "f725515965807e54517e48cac3269b0aade10ea67bb5abfca89a229fa94aab16",
+  "sourceSetDigest": "3a365c13017f8ce6077d8df8221d5e3494db7df340210fe428522635c28fa61d",
   "fileCount": 401,
   "files": [
     {
@@ -14,9 +14,9 @@
     },
     {
       "path": ".github/workflows/baseline.yml",
-      "bytes": 1196,
-      "sha256": "e060e489cf401c3b288da12abea76e16cc963e52c8c83cfd7ffd7181a9dd281f",
-      "gitBlob": "3b86cacd8f16fbc91eedccf22c9c19cd570ea5c0",
+      "bytes": 1435,
+      "sha256": "ce49aa118f8c79f8e878b0e8027946d7c6b9a191724b282f1acf47ff234a0156",
+      "gitBlob": "234cb9e9212738bec5a0fa3709389e5b421fdb3c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -50,9 +50,9 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 712,
-      "sha256": "e096e93adfe7262abb1bf6e641386908ec919158239ed3d4fdb7278deae3e39c",
-      "gitBlob": "8601070550c3bedd04b6c89b9f89bab7adc10d46",
+      "bytes": 951,
+      "sha256": "9c9f89bd258c11e4ff3857eec433b2211d5778308fe9b623af13d01fc7acbd6b",
+      "gitBlob": "9e8b832879ce428df3db4b4902d555c3271932fb",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
