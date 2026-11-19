@@ -49,20 +49,30 @@ function proposeLocal({instruction,fields,feedback,port,timeoutMs=120000,systemP
  });
 }
 function readRegular(file,max){const fd=fs.openSync(file,fs.constants.O_RDONLY|fs.constants.O_NOFOLLOW);try{const st=fs.fstatSync(fd);if(!st.isFile()||st.size>max)throw Error('Bounded regular file required');return fs.readFileSync(fd,'utf8');}finally{fs.closeSync(fd);}}
-async function evolveSkill({task,workspace,propose=proposeLocal,maxAttempts=3}){
+function screenCandidate(check,expression,fields){
+ if(check===undefined)return null;
+ const out=check(structuredClone(expression));
+ if(!out||typeof out.ok!=='boolean'||typeof out.code!=='string'||!/^[A-Z][A-Z0-9_]{1,63}$/.test(out.code))throw Error('Invalid candidate screen receipt');
+ const result={ok:out.ok,code:out.code};
+ for(const name of ['actualPower','expectedPower'])if(Number.isInteger(out[name])&&Math.abs(out[name])<=128)result[name]=out[name];
+ if(Array.isArray(out.missingFields)&&out.missingFields.length<=fields.length&&out.missingFields.every(x=>fields.includes(x)))result.missingFields=[...out.missingFields];
+ return result;
+}
+async function evolveSkill({task,workspace,propose=proposeLocal,maxAttempts=3,candidateCheck,candidatePolicyId,initialFeedback='No candidate evaluated'}){
  validateTask(task);if(!Number.isInteger(maxAttempts)||maxAttempts<1||maxAttempts>5||!path.isAbsolute(workspace))throw Error('Invalid evolution budget/workspace');
  fs.mkdirSync(workspace,{recursive:true,mode:0o700});const st=fs.lstatSync(workspace);if(!st.isDirectory()||st.isSymbolicLink()||(st.mode&0o077))throw Error('Private workspace required');
- const engineHash=hash(fs.readFileSync(__filename)+fs.readFileSync(require.resolve('./skill-expression.cjs'))+fs.readFileSync(require.resolve('../exact-json.cjs'))),taskHash=hash(JSON.stringify({task,engineHash})),dir=path.join(workspace,task.id+'-'+taskHash.slice(0,16));fs.mkdirSync(dir,{recursive:true,mode:0o700});if(fs.lstatSync(dir).isSymbolicLink())throw Error('Symlink denied');
+ if((candidateCheck===undefined)!==(candidatePolicyId===undefined)||candidateCheck!==undefined&&(typeof candidateCheck!=='function'||typeof candidatePolicyId!=='string'||!/^[a-z0-9][a-z0-9_-]{0,95}$/.test(candidatePolicyId))||typeof initialFeedback!=='string'||Buffer.byteLength(initialFeedback)>1024)throw Error('Invalid candidate screen policy or feedback');
+ const engineHash=hash(fs.readFileSync(__filename)+fs.readFileSync(require.resolve('./skill-expression.cjs'))+fs.readFileSync(require.resolve('../exact-json.cjs'))),taskHash=hash(JSON.stringify({task,engineHash,...(candidateCheck===undefined?{}:{candidatePolicyId})})),dir=path.join(workspace,task.id+'-'+taskHash.slice(0,16));fs.mkdirSync(dir,{recursive:true,mode:0o700});if(fs.lstatSync(dir).isSymbolicLink())throw Error('Symlink denied');
  const lock=path.join(dir,'lock');fs.mkdirSync(lock,{mode:0o700});
  const save=(name,value)=>{const bytes=JSON.stringify(value,null,2)+'\n',tmp=path.join(dir,'.'+crypto.randomUUID());const fd=fs.openSync(tmp,'wx',0o600);try{fs.writeFileSync(fd,bytes);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}fs.linkSync(tmp,path.join(dir,name));fs.unlinkSync(tmp);const d=fs.openSync(dir,'r');try{fs.fsyncSync(d);}finally{fs.closeSync(d);}};
  try{
-  const reports=[];let feedback='No candidate evaluated';
+  const reports=[];let feedback=initialFeedback;
   for(let attempt=1;attempt<=maxAttempts;attempt++){
    const name='attempt-'+attempt+'.json',file=path.join(dir,name);
    if(fs.existsSync(file)){
     const old=parseExactJSON(readRegular(file,64000));if(old.taskHash!==taskHash||old.attempt!==attempt)throw Error('Checkpoint mismatch');
     if(old.status==='BENCHMARK_PASSED_AWAITING_REVIEW'){
-     if(hash(JSON.stringify(old.expression))!==old.candidateHash||!benchmark(old.expression,task).every(x=>x.pass))throw Error('Checkpoint evidence invalid');
+     if(hash(JSON.stringify(old.expression))!==old.candidateHash||screenCandidate(candidateCheck,old.expression,task.fields)?.ok===false||!benchmark(old.expression,task).every(x=>x.pass))throw Error('Checkpoint evidence invalid');
      return {...old,approved:false,productionDeploymentAllowed:false,resumed:true,directory:dir};
     }reports.push(old);feedback='Previous candidate did not pass all independent tests.';continue;
    }
@@ -71,18 +81,22 @@ async function evolveSkill({task,workspace,propose=proposeLocal,maxAttempts=3}){
     // Provider absence never consumes an attempt or substitutes generated success.
     return {status:'DEPENDENCY_UNAVAILABLE',outcome:{stage:'transport',code:error?.stage==='transport'&&/^TRANSPORT_[A-Z_]+$/.test(error.code)?error.code:'TRANSPORT_UNAVAILABLE',...(Number.isInteger(error?.httpStatus)&&error.httpStatus>=100&&error.httpStatus<=599?{httpStatus:error.httpStatus}:{})},taskHash,attempt,directory:dir,approved:false,productionDeploymentAllowed:false};
    }
-   let expression=null,results=[],candidateHash=null,status='CANDIDATE_REJECTED',parsed=false,outcome={stage:'proposal',code:'PROPOSAL_JSON_INVALID'};
+   let expression=null,results=[],candidateHash=null,screen=null,status='CANDIDATE_REJECTED',parsed=false,outcome={stage:'proposal',code:'PROPOSAL_JSON_INVALID'};
    try{if(typeof source!=='string'||Buffer.byteLength(source)>16000)throw Error('Candidate bound');expression=parseExactJSON(source);parsed=true;}catch{expression=null;}
    if(parsed){
     try{validateExpression(expression,task.fields);}catch{expression=null;outcome={stage:'proposal',code:'PROPOSAL_GRAMMAR_INVALID'};}
-    if(expression!==null){candidateHash=hash(JSON.stringify(expression));results=benchmark(expression,task);const passed=results.every(x=>x.pass);outcome={stage:'benchmark',code:passed?'BENCHMARK_PASSED':'BENCHMARK_FAILED'};if(passed)status='BENCHMARK_PASSED_AWAITING_REVIEW';}
+    if(expression!==null){
+     candidateHash=hash(JSON.stringify(expression));screen=screenCandidate(candidateCheck,expression,task.fields);
+     if(screen?.ok===false){outcome={stage:'dimension',code:screen.code};}
+     else{results=benchmark(expression,task);const passed=results.every(x=>x.pass);outcome={stage:'benchmark',code:passed?'BENCHMARK_PASSED':'BENCHMARK_FAILED'};if(passed)status='BENCHMARK_PASSED_AWAITING_REVIEW';}
+    }
    }
-   const report={schema:'MANA_SKILL_CANDIDATE_V1',taskId:task.id,taskHash,engineHash,attempt,status,outcome,expression,candidateHash,results,total:task.tests.length,passed:results.filter(x=>x.pass).length,approved:false,productionDeploymentAllowed:false};
+   const report={schema:'MANA_SKILL_CANDIDATE_V1',taskId:task.id,taskHash,engineHash,attempt,status,outcome,...(screen?{screen}:{}),expression,candidateHash,results,total:task.tests.length,passed:results.filter(x=>x.pass).length,approved:false,productionDeploymentAllowed:false};
    save(name,report);reports.push(report);
    if(status==='BENCHMARK_PASSED_AWAITING_REVIEW')return {...report,directory:dir,resumed:false};
    feedback='Previous candidate failed validation or independent tests. Reconsider the instruction. Tests and expected answers are not disclosed.';
   }
-  return {status:'BUDGET_EXHAUSTED',lastOutcome:reports.at(-1)?.outcome??null,taskHash,attempts:reports.length,directory:dir,approved:false,productionDeploymentAllowed:false};
+  return {status:'BUDGET_EXHAUSTED',lastOutcome:reports.at(-1)?.outcome??null,...(candidateCheck===undefined?{}:{lastScreen:reports.at(-1)?.screen??null,testsRun:reports.at(-1)?.results.length??0,passed:reports.at(-1)?.passed??0,total:task.tests.length}),taskHash,attempts:reports.length,directory:dir,approved:false,productionDeploymentAllowed:false};
  }finally{fs.rmdirSync(lock);}
 }
 function benchmark(expression,task){return task.tests.map((test,index)=>{try{return {index,pass:evaluateExpression(expression,test.input,task.fields)===test.expected};}catch{return {index,pass:false};}});}

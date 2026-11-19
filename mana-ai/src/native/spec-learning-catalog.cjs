@@ -37,6 +37,13 @@ const volume={schema:'MANA_SKILL_TASK_V1',id:'spec-v11-layer-volume-m3',instruct
  {input:{length_m:100,width_m:100,thickness_mm:500},expected:5000},
  {input:{length_m:2.5,width_m:4,thickness_mm:250},expected:2.5}
 ]};
+// Paired probes are not model inputs and are distinct from graded benchmark cases.
+function dimensionContract(expectedPower,before,replacements){
+ const requiredFields=Object.keys(replacements);
+ return {schema:'MANA_SKILL_DIMENSION_CONTRACT_V1',expectedPower,requiredFields,counterfactualPairs:requiredFields.map(field=>({field,before:{...before},after:{...before,[field]:replacements[field]}}))};
+}
+const volumeDimensions=dimensionContract(3,{length_m:3,width_m:5,thickness_mm:200},{length_m:7,width_m:11,thickness_mm:600});
+const floorDimensions=dimensionContract(2,{length_m:3,width_m:6,excluded_area_m2:4},{length_m:5,width_m:9,excluded_area_m2:7});
 function readSpec(specPath){
  if(typeof specPath!=='string'||!path.isAbsolute(specPath)||path.extname(specPath)!=='.txt')throw Error('Explicit absolute plain .txt specification path required');
  const fd=fs.openSync(specPath,fs.constants.O_RDONLY|fs.constants.O_NOFOLLOW|fs.constants.O_NONBLOCK);
@@ -44,6 +51,6 @@ function readSpec(specPath){
  try{const stat=fs.fstatSync(fd);if(!stat.isFile()||stat.size<1||stat.size>MAX_BYTES)throw Error('Bounded regular specification file required');const buf=Buffer.alloc(MAX_BYTES+1);let size=0,n;while(size<buf.length&&(n=fs.readSync(fd,buf,size,buf.length-size,null))>0)size+=n;if(size>MAX_BYTES)throw Error('Specification exceeds bound');bytes=buf.subarray(0,size);}finally{fs.closeSync(fd);}
  const sha256=hash(bytes);if(sha256!==SPEC_SHA256)throw Error('Unreviewed specification bytes: expected pinned v1.1 pdftotext -layout extraction');
  for(const [id,s] of Object.entries(sections))if(hash(bytes.subarray(s.start,s.end))!==s.sha256)throw Error('Pinned section mismatch: '+id);
- return {sha256,missions:[{id:volume.id,section:'6.6',sectionSha256:sections['6.6'].sha256,task:structuredClone(volume),dependsOn:[]},{id:floorArea.id,section:'6.4',sectionSha256:sections['6.4'].sha256,task:structuredClone(floorArea),dependsOn:[volume.id]}]};
+ return {sha256,missions:[{id:volume.id,section:'6.6',sectionSha256:sections['6.6'].sha256,task:structuredClone(volume),dependsOn:[],dimensionContract:structuredClone(volumeDimensions)},{id:floorArea.id,section:'6.4',sectionSha256:sections['6.4'].sha256,task:structuredClone(floorArea),dependsOn:[volume.id],dimensionContract:structuredClone(floorDimensions)}]};
 }
 module.exports={readSpec};

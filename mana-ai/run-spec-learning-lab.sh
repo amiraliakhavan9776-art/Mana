@@ -2,10 +2,16 @@
 # Manual experiment only. No timer, installation or production changes.
 set -euo pipefail
 here="$(cd -- "$(dirname -- "$0")" && pwd -P)"
-if [ "$#" -lt 2 ] || [ "$#" -gt 3 ] || { [ "$#" -eq 3 ] && [ "$3" != --llama-grammar ]; }; then
-  echo 'Usage: bash run-spec-learning-lab.sh /absolute/master.txt /absolute/private/state [--llama-grammar]' >&2
+usage() {
+  echo 'Usage: bash run-spec-learning-lab.sh /absolute/master.txt /absolute/private/state [--llama-grammar [--review-feedback --feedback-from /absolute/old-state]]' >&2
   exit 1
-fi
+}
+case "$#" in
+  2) ;;
+  3) [ "$3" = --llama-grammar ] || usage ;;
+  6) [ "$3" = --llama-grammar ] && [ "$4" = --review-feedback ] && [ "$5" = --feedback-from ] && [[ "$6" == /* ]] || usage ;;
+  *) usage ;;
+esac
 node_bin="${MANA_NODE_BIN:-node}"
 "$node_bin" -e 'if (+process.versions.node.split(".")[0]<24) {console.error("NODE_24_REQUIRED");process.exit(1)}'
 port="${MANA_CODER_PORT:-8794}"

@@ -77,3 +77,9 @@ test('constrained trial is explicit and cannot reuse or rewrite a prior workspac
  assert.equal((await grammar.run({constraint:'llama-gbnf-v1',propose:()=>assert.fail('fallback or retry')})).status,'NO_READY_MISSION');
  assert.equal(calls,1);
 });
+test('workspace path with a symlink ancestor fails before creating directories or dispatching',async t=>{
+ const s=scenario(t);const actual=path.join(s.workspace,'target'),alias=path.join(s.workspace,'alias');
+ fs.mkdirSync(actual,{mode:0o700});fs.symlinkSync(actual,alias,'dir');
+ await assert.rejects(s.run({workspace:path.join(alias,'should-not-be-created'),propose:()=>assert.fail('unexpected proposal')}),/symlink/);
+ assert.deepEqual(fs.readdirSync(actual),[]);
+});
