@@ -34,13 +34,20 @@ function parseModelEnvelope(text,{responseLimit=32768,contentLimit=16000}={}){
  if(typeof message.content!=='string'||Buffer.byteLength(message.content)>contentLimit)throw providerError('TRANSPORT_CONTENT_INVALID');
  return message.content;
 }
-function proposeLocal({instruction,fields,feedback,port,timeoutMs=120000,systemPrompt=null,model=null,maxTokens=1800,responseLimit=32768,contentLimit=16000,constraint}){
+function proposeLocal({instruction,fields,feedback,port,timeoutMs=120000,systemPrompt=null,model=null,maxTokens=1800,responseLimit=32768,contentLimit=16000,constraint,dimensionGrammarOptions}){
  if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>120000||!Number.isInteger(port)||port<1||port>65535)throw Error('Invalid port');
  if(model!==null&&(typeof model!=='string'||!model.trim()||model.length>300))throw Error('Explicit model identifier required');
  if(!Number.isInteger(responseLimit)||responseLimit<1||responseLimit>1048576||!Number.isInteger(contentLimit)||contentLimit<1||contentLimit>1048576)throw providerError('TRANSPORT_CONFIGURATION_INVALID');
  let grammar;
- if(constraint!==undefined){if(constraint!=='llama-gbnf-v1')throw providerError('TRANSPORT_CONFIGURATION_INVALID');grammar=require('./skill-grammar.cjs').buildSkillGrammar(fields);}
- const payload=JSON.stringify({...(grammar===undefined?{}:{grammar}),...(model===null?{}:{model}),messages:[{role:'system',content:systemPrompt??'Return ONLY a JSON expression, no markdown or JavaScript. Nodes: {"field":"name"}, {"value":number_or_boolean}, {"op":"add|subtract|multiply|divide|min|max|less|equal","args":[node,node]}, {"op":"if","args":[boolean_node,node,node]}. Maximum depth 12, 128 nodes. No other operations. This is approximate nonfinancial numeric arithmetic.'},{role:'user',content:JSON.stringify({instruction,fields,feedback})}],temperature:0.1,max_tokens:maxTokens});
+ if(constraint==='llama-dimension-gbnf-v1'){
+  if(!dimensionGrammarOptions||!exact(dimensionGrammarOptions,['expectedPower']))throw providerError('TRANSPORT_CONFIGURATION_INVALID');
+  try{grammar=require('./skill-grammar.cjs').buildDimensionSkillGrammar(fields,dimensionGrammarOptions);}catch{throw providerError('TRANSPORT_CONFIGURATION_INVALID');}
+ }else{
+  if(dimensionGrammarOptions!==undefined||constraint!==undefined&&constraint!=='llama-gbnf-v1')throw providerError('TRANSPORT_CONFIGURATION_INVALID');
+  if(constraint==='llama-gbnf-v1')grammar=require('./skill-grammar.cjs').buildSkillGrammar(fields);
+ }
+ const typedSystem=constraint==='llama-dimension-gbnf-v1'?'Return exactly one numeric DSL expression meeting the stated units. A leaf is {"field":"allowed_name"} or {"value":integer}. A binary node is {"op":"allowed_operator","args":[node,node]}. Use the required inputs meaningfully. Do not output prose, code fences, or a bare value that cannot meet the required units.':null;
+ const payload=JSON.stringify({...(grammar===undefined?{}:{grammar}),...(model===null?{}:{model}),messages:[{role:'system',content:systemPrompt??typedSystem??'Return ONLY a JSON expression, no markdown or JavaScript. Nodes: {"field":"name"}, {"value":number_or_boolean}, {"op":"add|subtract|multiply|divide|min|max|less|equal","args":[node,node]}, {"op":"if","args":[boolean_node,node,node]}. Maximum depth 12, 128 nodes. No other operations. This is approximate nonfinancial numeric arithmetic.'},{role:'user',content:JSON.stringify({instruction,fields,feedback})}],temperature:0.1,max_tokens:maxTokens});
  return new Promise((resolve,reject)=>{let size=0,chunks=[];const timer=setTimeout(()=>{reject(providerError('TRANSPORT_TIMEOUT'));req.destroy();},timeoutMs);
   const req=http.request({host:'127.0.0.1',port,path:'/v1/chat/completions',method:'POST',headers:{'Content-Type':'application/json','Content-Length':Buffer.byteLength(payload)}},res=>{
    res.on('error',()=>reject(providerError('TRANSPORT_NETWORK_ERROR')));res.on('data',chunk=>{size+=chunk.length;if(size>responseLimit){reject(providerError('TRANSPORT_RESPONSE_TOO_LARGE'));req.destroy();}else chunks.push(chunk);});

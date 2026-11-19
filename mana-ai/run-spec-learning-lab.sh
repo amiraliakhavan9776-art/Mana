@@ -3,13 +3,14 @@
 set -euo pipefail
 here="$(cd -- "$(dirname -- "$0")" && pwd -P)"
 usage() {
-  echo 'Usage: bash run-spec-learning-lab.sh /absolute/master.txt /absolute/private/state [--llama-grammar [--review-feedback --feedback-from /absolute/old-state]]' >&2
+  echo 'Usage: bash run-spec-learning-lab.sh /absolute/master.txt /absolute/private/state [--llama-grammar|--llama-dimension-grammar] [--review-feedback --feedback-from /absolute/old-state [--dimension-feedback-from /absolute/previous-feedback]]' >&2
   exit 1
 }
 case "$#" in
   2) ;;
   3) [ "$3" = --llama-grammar ] || usage ;;
-  6) [ "$3" = --llama-grammar ] && [ "$4" = --review-feedback ] && [ "$5" = --feedback-from ] && [[ "$6" == /* ]] || usage ;;
+  6) { [ "$3" = --llama-grammar ] || [ "$3" = --llama-dimension-grammar ]; } && [ "$4" = --review-feedback ] && [ "$5" = --feedback-from ] && [[ "$6" == /* ]] || usage ;;
+  8) [ "$3" = --llama-dimension-grammar ] && [ "$4" = --review-feedback ] && [ "$5" = --feedback-from ] && [[ "$6" == /* ]] && [ "$7" = --dimension-feedback-from ] && [[ "$8" == /* ]] || usage ;;
   *) usage ;;
 esac
 node_bin="${MANA_NODE_BIN:-node}"

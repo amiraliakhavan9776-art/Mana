@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "1496ee21bb72704562b777195eb6932326d0b6985bc4e078ab2d5fcb36fe5904",
-  "fileCount": 377,
+  "sourceSetDigest": "95b50dec1ece68272a985495ed565855f43cc976cf2c53ce5052e81abb236e02",
+  "fileCount": 379,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -720,9 +720,9 @@
     },
     {
       "path": "mana-ai/SPEC-LEARNING-LAB.md",
-      "bytes": 8843,
-      "sha256": "a002b58ea7211af87399e45847a7443e5319dd58726c84a2ffa5f04a7d852375",
-      "gitBlob": "4ad598debf7c15a2c2c4a0e64313f1fc9c73bf5c",
+      "bytes": 10884,
+      "sha256": "854a97ff45bf7960e1bb5e12a535541d5478457a740221c25e91ef64ca865566",
+      "gitBlob": "6448c24caaa6f68a3e2872cb25d446128033db72",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1840,9 +1840,9 @@
     },
     {
       "path": "mana-ai/run-spec-learning-lab.sh",
-      "bytes": 1775,
-      "sha256": "373d9f71ff766f3309237674061c341fdb0d06c392656d093aff295ff5cdc3f3",
-      "gitBlob": "7d22bebddb32e4530f62c018823038802845ddf8",
+      "bytes": 2098,
+      "sha256": "5b003267776b61bb27c44d14dcc6b14cf483cdc0605fac6ad7e3592873211a78",
+      "gitBlob": "d29095ec51101e98c2819a9f86b2f52bdb3dcb2a",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1931,9 +1931,9 @@
     },
     {
       "path": "mana-ai/spec-learning.cjs",
-      "bytes": 1823,
-      "sha256": "73c3ea673a71fb0acb048c5075907438a1702945f69e555fc5ef9963f8df7c4b",
-      "gitBlob": "2a5257f7f2871c17d5e91596bded3bbd60002289",
+      "bytes": 2576,
+      "sha256": "77c8884a9bf6cc8f724d8a9d1c5e87cc7195dfabd18c9a40b663def8cd836cf5",
+      "gitBlob": "3f44b16736dc416e818bda7ea1ad7672cb6bc21c",
       "dependencyCandidates": [
         {
           "value": "./src/native/spec-learning-loop.cjs",
@@ -1943,11 +1943,11 @@
       "environmentCandidates": [
         {
           "value": "MANA_CODER_PORT",
-          "line": 14
+          "line": 16
         },
         {
           "value": "MANA_CODER_MODEL",
-          "line": 15
+          "line": 17
         }
       ],
       "testFile": false
@@ -3420,9 +3420,9 @@
     },
     {
       "path": "mana-ai/src/native/skill-evolution.cjs",
-      "bytes": 12177,
-      "sha256": "ca64c91acef8204f9af144a5c1376ceebeba61a82eb655ed644bee24ec1cee66",
-      "gitBlob": "8bf38c630694de6ee3f63b8603a4e0b41a05169b",
+      "bytes": 13023,
+      "sha256": "a4c77e89c5a2cf3039b17ec19eb3e3d6b431cb1e6d35244150fe370b6c21356e",
+      "gitBlob": "dcf21a57cfdb8dacf002ab4151648112f47fe1ce",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -3450,7 +3450,11 @@
         },
         {
           "value": "./skill-grammar.cjs",
-          "line": 42
+          "line": 44
+        },
+        {
+          "value": "./skill-grammar.cjs",
+          "line": 47
         }
       ],
       "environmentCandidates": [],
@@ -3467,9 +3471,9 @@
     },
     {
       "path": "mana-ai/src/native/skill-grammar.cjs",
-      "bytes": 1871,
-      "sha256": "714f36476bdefb30b7e55ebc06f9e8220fe5de6c4969ba9a253dadc92181336a",
-      "gitBlob": "2b7c517990f4cd424e9fd09e636b97d40578da19",
+      "bytes": 5467,
+      "sha256": "4e59c0ba1b9e6e111f0d7558f8c52bfa68be0b66adbf97dc645eda9d3d138207",
+      "gitBlob": "909b45fbd7916b09c0a7ff896d4418de510b49cd",
       "dependencyCandidates": [
         {
           "value": "./skill-expression.cjs",
@@ -3503,9 +3507,9 @@
     },
     {
       "path": "mana-ai/src/native/spec-learning-loop.cjs",
-      "bytes": 18028,
-      "sha256": "b6f31f88a202bacb63a28d8d7987d163d90514fbe1bdba2f3337534b2c8e4895",
-      "gitBlob": "c7a9eb4a3fabf9ba8339415e937c15c0d90620fc",
+      "bytes": 23795,
+      "sha256": "5ede395ef94ede35fb9390420d56ececf6846b304a4f74adb15fdfdc9bc933fc",
+      "gitBlob": "1d80f39eb34eaacaa70cec6ec3482ed4b5ec1632",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -3541,11 +3545,15 @@
         },
         {
           "value": "./skill-dimension-check.cjs",
-          "line": 110
+          "line": 83
         },
         {
           "value": "./skill-dimension-check.cjs",
-          "line": 119
+          "line": 130
+        },
+        {
+          "value": "./skill-dimension-check.cjs",
+          "line": 139
         }
       ],
       "environmentCandidates": [],
@@ -6881,6 +6889,66 @@
         {
           "value": "../src/native/skill-dimension-check.cjs",
           "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/skill-dimension-grammar.test.cjs",
+      "bytes": 6005,
+      "sha256": "630949bf91bd290e3bfba32690faab4fca614a3a6d55d8690460bbd5eaaaa1f0",
+      "gitBlob": "e68a3590051a99ef7f5c832713d65452fa0959ed",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/native/skill-grammar.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/skill-dimension-check.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/skill-dimension-transport.test.cjs",
+      "bytes": 1923,
+      "sha256": "c9523709d6d844979cead6066d301af37c440131082ad246646c2e32f7f9fc42",
+      "gitBlob": "b1d78130fa15c1d9534381ab559079d196a6b7f5",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "node:events",
+          "line": 2
+        },
+        {
+          "value": "../src/native/skill-evolution.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/skill-grammar.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
