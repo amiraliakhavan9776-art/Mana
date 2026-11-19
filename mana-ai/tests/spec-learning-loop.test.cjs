@@ -60,3 +60,20 @@ test('default catalog refuses an unrecognized source before any model request',a
  await assert.rejects(runSpecLearning({specPath,workspace,port:4444,model:'test-fixture-model',propose:()=>assert.fail('unreviewed dispatch')}));
  assert.equal(fs.existsSync(workspace),false);
 });
+test('constrained trial is explicit and cannot reuse or rewrite a prior workspace',async t=>{
+ const legacy=scenario(t), grammar=scenario(t);
+ const passed=await legacy.run({propose:()=>valid});
+ assert.equal(passed.providerConstraint,'none');
+ const manifestPath=path.join(legacy.workspace,'manifest.json');
+ const before=fs.readFileSync(manifestPath);
+ await assert.rejects(legacy.run({constraint:'llama-gbnf-v1',propose:()=>assert.fail('called with previous state')}),/manifest/i);
+ assert.deepEqual(fs.readFileSync(manifestPath),before);
+ let calls=0;
+ const failure=await grammar.run({constraint:'llama-gbnf-v1',propose:args=>{
+  assert.equal(args.constraint,'llama-gbnf-v1');calls++;throw Object.assign(Error('unsupported'),{stage:'transport',code:'TRANSPORT_HTTP_STATUS'});
+ }});
+ assert.equal(failure.providerConstraint,'llama-gbnf-v1');
+ assert.equal(failure.result.status,'DEPENDENCY_UNAVAILABLE');
+ assert.equal((await grammar.run({constraint:'llama-gbnf-v1',propose:()=>assert.fail('fallback or retry')})).status,'NO_READY_MISSION');
+ assert.equal(calls,1);
+});

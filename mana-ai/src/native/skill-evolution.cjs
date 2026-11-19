@@ -34,11 +34,13 @@ function parseModelEnvelope(text,{responseLimit=32768,contentLimit=16000}={}){
  if(typeof message.content!=='string'||Buffer.byteLength(message.content)>contentLimit)throw providerError('TRANSPORT_CONTENT_INVALID');
  return message.content;
 }
-function proposeLocal({instruction,fields,feedback,port,timeoutMs=120000,systemPrompt=null,model=null,maxTokens=1800,responseLimit=32768,contentLimit=16000}){
+function proposeLocal({instruction,fields,feedback,port,timeoutMs=120000,systemPrompt=null,model=null,maxTokens=1800,responseLimit=32768,contentLimit=16000,constraint}){
  if(!Number.isInteger(timeoutMs)||timeoutMs<1||timeoutMs>120000||!Number.isInteger(port)||port<1||port>65535)throw Error('Invalid port');
  if(model!==null&&(typeof model!=='string'||!model.trim()||model.length>300))throw Error('Explicit model identifier required');
  if(!Number.isInteger(responseLimit)||responseLimit<1||responseLimit>1048576||!Number.isInteger(contentLimit)||contentLimit<1||contentLimit>1048576)throw providerError('TRANSPORT_CONFIGURATION_INVALID');
- const payload=JSON.stringify({...(model===null?{}:{model}),messages:[{role:'system',content:systemPrompt??'Return ONLY a JSON expression, no markdown or JavaScript. Nodes: {"field":"name"}, {"value":number_or_boolean}, {"op":"add|subtract|multiply|divide|min|max|less|equal","args":[node,node]}, {"op":"if","args":[boolean_node,node,node]}. Maximum depth 12, 128 nodes. No other operations. This is approximate nonfinancial numeric arithmetic.'},{role:'user',content:JSON.stringify({instruction,fields,feedback})}],temperature:0.1,max_tokens:maxTokens});
+ let grammar;
+ if(constraint!==undefined){if(constraint!=='llama-gbnf-v1')throw providerError('TRANSPORT_CONFIGURATION_INVALID');grammar=require('./skill-grammar.cjs').buildSkillGrammar(fields);}
+ const payload=JSON.stringify({...(grammar===undefined?{}:{grammar}),...(model===null?{}:{model}),messages:[{role:'system',content:systemPrompt??'Return ONLY a JSON expression, no markdown or JavaScript. Nodes: {"field":"name"}, {"value":number_or_boolean}, {"op":"add|subtract|multiply|divide|min|max|less|equal","args":[node,node]}, {"op":"if","args":[boolean_node,node,node]}. Maximum depth 12, 128 nodes. No other operations. This is approximate nonfinancial numeric arithmetic.'},{role:'user',content:JSON.stringify({instruction,fields,feedback})}],temperature:0.1,max_tokens:maxTokens});
  return new Promise((resolve,reject)=>{let size=0,chunks=[];const timer=setTimeout(()=>{reject(providerError('TRANSPORT_TIMEOUT'));req.destroy();},timeoutMs);
   const req=http.request({host:'127.0.0.1',port,path:'/v1/chat/completions',method:'POST',headers:{'Content-Type':'application/json','Content-Length':Buffer.byteLength(payload)}},res=>{
    res.on('error',()=>reject(providerError('TRANSPORT_NETWORK_ERROR')));res.on('data',chunk=>{size+=chunk.length;if(size>responseLimit){reject(providerError('TRANSPORT_RESPONSE_TOO_LARGE'));req.destroy();}else chunks.push(chunk);});

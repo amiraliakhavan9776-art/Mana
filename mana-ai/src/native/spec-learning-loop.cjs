@@ -37,9 +37,11 @@ function catalog(specPath,readSpec){
  const visiting=new Set(),done=new Set();function visit(id){if(visiting.has(id))throw Error('Cyclic reviewed dependencies');if(done.has(id))return;visiting.add(id);for(const dep of c.missions.find(m=>m.id===id).dependsOn||[])visit(dep);visiting.delete(id);done.add(id);}for(const id of ids)visit(id);
  return c;
 }
-function identity(c,port,model){
- const sources={};for(const file of [__filename,require.resolve('./spec-learning-catalog.cjs'),require.resolve('./skill-evolution.cjs'),require.resolve('./skill-expression.cjs'),require.resolve('../exact-json.cjs')])sources[path.basename(file)]=hash(fs.readFileSync(file));
- return {schema:'MANA_SPEC_LEARNING_BINDING_V1',specSha256:c.sha256,missionsSha256:hash(JSON.stringify(c.missions)),sources,modelIdentifier:model,loopbackPort:port,nodeVersion:process.version};
+function identity(c,port,model,constraint){
+ const files=[__filename,require.resolve('./spec-learning-catalog.cjs'),require.resolve('./skill-evolution.cjs'),require.resolve('./skill-expression.cjs'),require.resolve('../exact-json.cjs')];
+ if(constraint==='llama-gbnf-v1')files.push(require.resolve('./skill-grammar.cjs'));
+ const sources={};for(const file of files)sources[path.basename(file)]=hash(fs.readFileSync(file));
+ return {schema:'MANA_SPEC_LEARNING_BINDING_V1',specSha256:c.sha256,missionsSha256:hash(JSON.stringify(c.missions)),sources,modelIdentifier:model,providerConstraint:constraint||'none',loopbackPort:port,nodeVersion:process.version};
 }
 function independentlyPassed(result,task){
  if(!result||result.status!=='BENCHMARK_PASSED_AWAITING_REVIEW')return false;
@@ -48,9 +50,11 @@ function independentlyPassed(result,task){
  if(!task.tests.every(t=>evaluateExpression(result.expression,t.input,task.fields)===t.expected))throw Error('Independent benchmark failed on resume');
  return true;
 }
-async function runWithCatalog(readSpec,{specPath,workspace,port,model,propose}={}){
+async function runWithCatalog(readSpec,{specPath,workspace,port,model,propose,constraint}={}){
+ if(constraint!==undefined&&constraint!=='llama-gbnf-v1')throw Error('Unsupported provider constraint policy');
+ const providerConstraint=constraint||'none';
  if(typeof specPath!=='string'||!path.isAbsolute(specPath)||!Number.isInteger(port)||port<1||port>65535||typeof model!=='string'||!model.trim()||model.length>300||propose!==undefined&&typeof propose!=='function')throw Error('Explicit absolute spec path and local model settings required');
- const c=catalog(specPath,readSpec),binding=identity(c,port,model),bindingHash=hash(JSON.stringify(binding));
+ const c=catalog(specPath,readSpec),binding=identity(c,port,model,constraint),bindingHash=hash(JSON.stringify(binding));
  privateDir(workspace);const lock=path.join(workspace,'run.lock');
  // A stale lock means an interrupted operation and requires manual investigation.
  const lockFd=fs.openSync(lock,'wx',0o600);try{fs.writeFileSync(lockFd,JSON.stringify({pid:process.pid,bindingHash}));fs.fsyncSync(lockFd);}finally{fs.closeSync(lockFd);}syncDir(workspace);
@@ -68,28 +72,28 @@ async function runWithCatalog(readSpec,{specPath,workspace,port,model,propose}={
    if(claim.schema!=='MANA_SPEC_LEARNING_CLAIM_V1'||claim.bindingHash!==bindingHash||claim.missionId!==m.id||claim.sectionSha256!==m.sectionSha256||typeof claim.startedAt!=='string'||!Number.isFinite(Date.parse(claim.startedAt))||claim.proposalBudget!==1)throw Error('Claim mismatch');
    if(!hasReceipt){unknown.push(m.id);continue;}
    const receipt=read(workspace,rn);
-   if(receipt.schema!=='MANA_SPEC_LEARNING_RECEIPT_V1'||receipt.bindingHash!==bindingHash||receipt.missionId!==m.id||receipt.claimHash!==hash(JSON.stringify(claim))||receipt.resultHash!==hash(JSON.stringify(receipt.result)))throw Error('Receipt mismatch');
+   if(receipt.providerConstraint!==providerConstraint||receipt.schema!=='MANA_SPEC_LEARNING_RECEIPT_V1'||receipt.bindingHash!==bindingHash||receipt.missionId!==m.id||receipt.claimHash!==hash(JSON.stringify(claim))||receipt.resultHash!==hash(JSON.stringify(receipt.result)))throw Error('Receipt mismatch');
    const passed=independentlyPassed(receipt.result,m.task);
    if(receipt.independentPass!==passed)throw Error('Receipt status mismatch');states.set(m.id,{passed,result:receipt.result});
   }
-  if(unknown.length)return {status:'INTERRUPTED_UNKNOWN',missionIds:unknown,reason:'Durable claim has no final receipt; no automatic repeat.',...safe};
+  if(unknown.length)return {status:'INTERRUPTED_UNKNOWN',providerConstraint,missionIds:unknown,reason:'Durable claim has no final receipt; no automatic repeat.',...safe};
   for(const m of c.missions)if(states.has(m.id)&&(m.dependsOn||[]).some(id=>!states.get(id)?.passed))throw Error('Recorded mission prerequisite not independently passed');
   const mission=c.missions.find(m=>!states.has(m.id)&&(m.dependsOn||[]).every(id=>states.get(id)?.passed));
-  if(!mission)return {status:c.missions.every(m=>states.get(m.id)?.passed)?'REVIEWED_COURSE_PASSED':'NO_READY_MISSION',completed:[...states].filter(([,v])=>v.passed).map(([id])=>id),reason:'No unclaimed mission with independently passing prerequisites; no model call.',...safe};
+  if(!mission)return {providerConstraint,status:c.missions.every(m=>states.get(m.id)?.passed)?'REVIEWED_COURSE_PASSED':'NO_READY_MISSION',completed:[...states].filter(([,v])=>v.passed).map(([id])=>id),reason:'No unclaimed mission with independently passing prerequisites; no model call.',...safe};
   const selectedBecause='First unclaimed reviewed mapping in pinned catalog order; all prerequisites independently revalidated.';
   const claim={schema:'MANA_SPEC_LEARNING_CLAIM_V1',bindingHash,missionId:mission.id,sectionSha256:mission.sectionSha256,startedAt:new Date().toISOString(),proposalBudget:1};
   writeOnce(workspace,mission.id+'.claim.json',claim); // fsync file AND directory before any model dispatch
   const engine=path.join(workspace,'engine');privateDir(engine);
   let called=false;
-  const proposal=async args=>{if(called)throw Error('One proposal budget exceeded');called=true;return (propose||proposeLocal)({...args,port,model});};
+  const proposal=async args=>{if(called)throw Error('One proposal budget exceeded');called=true;return (propose||proposeLocal)({...args,port,model,...(constraint?{constraint}:{})});};
   // Any thrown execution leaves the durable claim without receipt: unknown, never blindly retried.
   const result=await evolveSkill({task:mission.task,workspace:engine,propose:proposal,maxAttempts:1});
   if(!called)throw Error('Unexpected preexisting engine checkpoint; no new proposal dispatched');
-  if(hash(JSON.stringify(identity(catalog(specPath,readSpec),port,model)))!==bindingHash)throw Error('Source changed during execution; result requires reconciliation');
+  if(hash(JSON.stringify(identity(catalog(specPath,readSpec),port,model,constraint)))!==bindingHash)throw Error('Source changed during execution; result requires reconciliation');
   const independentPass=independentlyPassed(result,mission.task);
-  const receipt={schema:'MANA_SPEC_LEARNING_RECEIPT_V1',bindingHash,missionId:mission.id,claimHash:hash(JSON.stringify(claim)),result,resultHash:hash(JSON.stringify(result)),independentPass};
+  const receipt={schema:'MANA_SPEC_LEARNING_RECEIPT_V1',providerConstraint,bindingHash,missionId:mission.id,claimHash:hash(JSON.stringify(claim)),result,resultHash:hash(JSON.stringify(result)),independentPass};
   writeOnce(workspace,mission.id+'.receipt.json',receipt);
-  return {status:independentPass?'SPEC_LEARNING_PASSED':'SPEC_LEARNING_REVIEW_REQUIRED',missionId:mission.id,section:mission.section,sectionSha256:mission.sectionSha256,specSha256:c.sha256,selectedBecause,result,proposalDispatched:called,...safe};
+  return {providerConstraint,status:independentPass?'SPEC_LEARNING_PASSED':'SPEC_LEARNING_REVIEW_REQUIRED',missionId:mission.id,section:mission.section,sectionSha256:mission.sectionSha256,specSha256:c.sha256,selectedBecause,result,proposalDispatched:called,...safe};
  }finally{fs.unlinkSync(lock);syncDir(workspace);}
 }
 function createSpecLearning({readSpec=approvedReadSpec}={}){if(typeof readSpec!=='function')throw Error('Trusted catalog reader required');return options=>runWithCatalog(readSpec,options);}

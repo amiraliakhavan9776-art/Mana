@@ -2,8 +2,8 @@
 # Manual experiment only. No timer, installation or production changes.
 set -euo pipefail
 here="$(cd -- "$(dirname -- "$0")" && pwd -P)"
-if [ "$#" -ne 2 ]; then
-  echo 'Usage: bash run-spec-learning-lab.sh /absolute/master.txt /absolute/private/state' >&2
+if [ "$#" -lt 2 ] || [ "$#" -gt 3 ] || { [ "$#" -eq 3 ] && [ "$3" != --llama-grammar ]; }; then
+  echo 'Usage: bash run-spec-learning-lab.sh /absolute/master.txt /absolute/private/state [--llama-grammar]' >&2
   exit 1
 fi
 node_bin="${MANA_NODE_BIN:-node}"
@@ -19,4 +19,4 @@ if [ -z "${MANA_CODER_MODEL:-}" ]; then
   [ -n "$MANA_CODER_MODEL" ] || exit 1
 fi
 export MANA_CODER_PORT="$port"
-exec "$node_bin" "$here/spec-learning.cjs" "$1" "$2"
+exec "$node_bin" "$here/spec-learning.cjs" "$@"
