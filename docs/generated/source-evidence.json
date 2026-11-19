@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "2fdc1d53c7221dbdfefd84f084df5f58c4a241b671012928d360fd60b70ed230",
-  "fileCount": 382,
+  "sourceSetDigest": "3a365c13017f8ce6077d8df8221d5e3494db7df340210fe428522635c28fa61d",
+  "fileCount": 401,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -14,9 +14,9 @@
     },
     {
       "path": ".github/workflows/baseline.yml",
-      "bytes": 1196,
-      "sha256": "e060e489cf401c3b288da12abea76e16cc963e52c8c83cfd7ffd7181a9dd281f",
-      "gitBlob": "3b86cacd8f16fbc91eedccf22c9c19cd570ea5c0",
+      "bytes": 1435,
+      "sha256": "ce49aa118f8c79f8e878b0e8027946d7c6b9a191724b282f1acf47ff234a0156",
+      "gitBlob": "234cb9e9212738bec5a0fa3709389e5b421fdb3c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -32,9 +32,9 @@
     },
     {
       "path": ".github/workflows/development-loop.yml",
-      "bytes": 1880,
-      "sha256": "0c25a57cfa2f1fb143b176980e760472e7ec3e5777c0ab651d4b29eaf31eaf46",
-      "gitBlob": "6bb939d3214b18c614146833777cf48a959171a6",
+      "bytes": 2386,
+      "sha256": "bd45ded97b47a27a9002c4ffd6636aae3becd83e56f49d13cea2c8f8110adf1d",
+      "gitBlob": "a243669193d9762d84ad44ca20c3a97861afd664",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -50,9 +50,9 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 712,
-      "sha256": "e096e93adfe7262abb1bf6e641386908ec919158239ed3d4fdb7278deae3e39c",
-      "gitBlob": "8601070550c3bedd04b6c89b9f89bab7adc10d46",
+      "bytes": 951,
+      "sha256": "9c9f89bd258c11e4ff3857eec433b2211d5778308fe9b623af13d01fc7acbd6b",
+      "gitBlob": "9e8b832879ce428df3db4b4902d555c3271932fb",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -638,6 +638,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/EXPENSE-PILOT.md",
+      "bytes": 5685,
+      "sha256": "2e0fe614ed3bf1b930c4b69fab74af0ff82ca30a14d72a5ee0bdf62602caa21f",
+      "gitBlob": "a936833436da50bf78fdc209dbf3f0572d18e5dd",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/FACADE-PILOT.md",
       "bytes": 1110,
       "sha256": "95f939bf867d0083c102fd54cca110f465a3704720fd62b27c3eef7ea918ffcc",
@@ -653,6 +662,29 @@
       "gitBlob": "8aed40b5e987e0c520d0955bcf36e1fb47dbfc18",
       "dependencyCandidates": [],
       "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/JARVIS-TEXT-PREVIEW.md",
+      "bytes": 6423,
+      "sha256": "55f9f5506bd522b88ff24ce0693e38120fa0c00913224377d52a54f608fefc0d",
+      "gitBlob": "17a45e28277781f0c2c6f00e5512068191e8d728",
+      "dependencyCandidates": [
+        {
+          "value": "./src/jarvis-preview/session.cjs",
+          "line": 50
+        },
+        {
+          "value": "./jarvis-preview.cjs",
+          "line": 51
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_JARVIS_PREVIEW_WORKSPACE",
+          "line": 52
+        }
+      ],
       "testFile": false
     },
     {
@@ -678,6 +710,15 @@
       "bytes": 1123,
       "sha256": "3a4b787121743188c18163ea6be3afe1bb44a1d6b2f34f8144f24b1d5c3dd103",
       "gitBlob": "a6d2006422525518a72f074d65fc7d587446b231",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-JARVIS-PILOT.md",
+      "bytes": 5401,
+      "sha256": "e2f9ebde25c962d3ed1090fbc527abe6940fcc3878f604c31db7766370809463",
+      "gitBlob": "e70031e0334ac8102240a3db403987f3e57ab719",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -909,6 +950,84 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/benchmarks/README.md",
+      "bytes": 5191,
+      "sha256": "690a570e3ecca3cef215472418eed75e10f47e28050b3773ecc855801224a6be",
+      "gitBlob": "15dd26faa644d0d2e42fa3e120fbcb7720826406",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/benchmarks/config.example.json",
+      "bytes": 572,
+      "sha256": "0952eb209fcc01721993be4620114332dd142df0782d7dea28588e8eeef9f8cc",
+      "gitBlob": "977976690ffcb08586e89c611c55305bcfca80ab",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/benchmarks/persian-intent.cjs",
+      "bytes": 7871,
+      "sha256": "cf99e07c0bdbabd015cf3f8f5cdb0c8ba91654f5bb9958d469b23b032855397c",
+      "gitBlob": "a4fa4f3df4d7a5c06c7e3c30b8888bfc7467cca3",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "node:perf_hooks",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/benchmarks/persian-intent.test.cjs",
+      "bytes": 2713,
+      "sha256": "282439a7a256767c95041a147f5fd76dbeddebb92f7b117767addb826fb4d4b5",
+      "gitBlob": "c8183361bbe947418bdcbbf71398210af1b22751",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./persian-intent.cjs",
+          "line": 2
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/budget-project.cjs",
       "bytes": 3989,
       "sha256": "85e5875975e976f178123625cc5e2ee17eada89c62a2872f3ca929c3051d1797",
@@ -1095,31 +1214,59 @@
     },
     {
       "path": "mana-ai/development-ui.cjs",
-      "bytes": 5894,
-      "sha256": "2dd4ac5421fc6c6948933cae917ee465a08749d5f6cbcf34903ce8979ab9dc8d",
-      "gitBlob": "ad1c9387d930282ae13139639eabbb2a6f058c49",
+      "bytes": 8051,
+      "sha256": "8a4631455fcbed26ef81de1293dc7dc4851836097bd98b7713306d8c812cb930",
+      "gitBlob": "d594570b338717bae0bbca5eb1162a0ab8615bf5",
       "dependencyCandidates": [
         {
           "value": "node:http",
           "line": 3
         },
         {
-          "value": "node:crypto",
+          "value": "./src/pilot/expense-page.cjs",
           "line": 4
         },
         {
+          "value": "./src/pilot/expense-review.cjs",
+          "line": 5
+        },
+        {
+          "value": "node:crypto",
+          "line": 6
+        },
+        {
+          "value": "./jarvis-preview.cjs",
+          "line": 25
+        },
+        {
           "value": "./src/development/runner.cjs",
-          "line": 39
+          "line": 54
+        },
+        {
+          "value": "node:path",
+          "line": 57
+        },
+        {
+          "value": "./src/jarvis-preview/session.cjs",
+          "line": 58
         }
       ],
       "environmentCandidates": [
         {
           "value": "MANA_DEVELOPMENT_WORKSPACE",
-          "line": 40
+          "line": 55
+        },
+        {
+          "value": "MANA_JARVIS_PREVIEW_WORKSPACE",
+          "line": 56
+        },
+        {
+          "value": "MANA_DEVELOPMENT_WORKSPACE",
+          "line": 57
         },
         {
           "value": "MANA_DEVELOPMENT_PORT",
-          "line": 41
+          "line": 60
         }
       ],
       "testFile": false
@@ -1476,6 +1623,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/examples/schematic-brief.json",
+      "bytes": 57,
+      "sha256": "6a595524e6acba2f9442f5d1b1ac0ed2747c974e377f0ea3934aab031da7e870",
+      "gitBlob": "d9cc11e566080572ce5e360e0b8052a7327ab642",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/examples/skill.clamp-percent.json",
       "bytes": 513,
       "sha256": "0916ccdaa75cfdb5f65afcdb9c784afee64d81948210900ce7b197a9e4cbc840",
@@ -1514,6 +1670,41 @@
         }
       ],
       "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/jarvis-preview.cjs",
+      "bytes": 9386,
+      "sha256": "11182e2885eb15ecd5d08e7e18f9eac6983d114938f482bc5d70dd6f0967d2b6",
+      "gitBlob": "6e8cfa2f767a82a4d352f40ab49e4c73e1af6bdc",
+      "dependencyCandidates": [
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./src/jarvis-preview/session.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_JARVIS_PREVIEW_WORKSPACE",
+          "line": 31
+        },
+        {
+          "value": "PORT",
+          "line": 31
+        },
+        {
+          "value": "PORT",
+          "line": 31
+        }
+      ],
       "testFile": false
     },
     {
@@ -2543,6 +2734,48 @@
       "sha256": "524673a932b0de6f1c97beaa64892736caf79611fae0fe812b3b02b6296e9e94",
       "gitBlob": "265b2cf269a5d4821715b04090857a41053fec12",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/jarvis-preview/session.cjs",
+      "bytes": 7893,
+      "sha256": "e64cd3ad7abfeb060fba68d66df92bc2dff58fe1ebf972594ad4013b9bd783ed",
+      "gitBlob": "6abf6e309ad803d456c5efd960f0de160aace021",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "../jarvis/service.cjs",
+          "line": 4
+        },
+        {
+          "value": "../workflows/artifact-tools.cjs",
+          "line": 5
+        },
+        {
+          "value": "../workflows/persian-request.cjs",
+          "line": 6
+        },
+        {
+          "value": "../workflows/execution-cycle.cjs",
+          "line": 7
+        },
+        {
+          "value": "node:child_process",
+          "line": 8
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -3623,6 +3856,33 @@
       "sha256": "1676e78d412f4afc69743fc5402f61941d72b7e5eeb494e50c08b5186565bbd5",
       "gitBlob": "e66374b8f850805114855d45539553a72e5ae70d",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/pilot/expense-page.cjs",
+      "bytes": 8103,
+      "sha256": "c163308b76fee1051d6c474f1ec9e90520fac4e917b6da712be17d6ecf8e47b6",
+      "gitBlob": "0ce8bb016facd5004d1d75a87e23fba12d209871",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/pilot/expense-review.cjs",
+      "bytes": 5147,
+      "sha256": "4860311af2842262d10d05f72a15205f1b329b52d0c9cc355675cd26a1a4f8a3",
+      "gitBlob": "446343d347d9e1c9956178f99f81e8a5c37f5079",
+      "dependencyCandidates": [
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "../financial/exact-decimal.cjs",
+          "line": 4
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -5182,6 +5442,40 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/expense-pilot.test.cjs",
+      "bytes": 8287,
+      "sha256": "7f556d3d039aa8ac6c88bfb909e95f14294ff96ecdfe86c1d4da0c4b75dfadef",
+      "gitBlob": "a10130aca63de4358a517db021a8060d59cad637",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/pilot/expense-review.cjs",
+          "line": 3
+        },
+        {
+          "value": "../development-ui.cjs",
+          "line": 4
+        },
+        {
+          "value": "node:vm",
+          "line": 45
+        },
+        {
+          "value": "../src/pilot/expense-page.cjs",
+          "line": 45
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/export-loader.test.cjs",
       "bytes": 1479,
       "sha256": "7cf7ee02b1097ddcae427ef01af97ff6f32024c74b2638ab31677585694ff047",
@@ -5404,6 +5698,48 @@
         {
           "value": "../src/audit.cjs",
           "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/jarvis-preview.test.cjs",
+      "bytes": 6212,
+      "sha256": "2bee0797d07ded358547d58b7ea8702b384308b2f75929e81546518201dcf730",
+      "gitBlob": "9f8df153043b5c7b4183bc03b4a5d6a74061ab92",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "../src/jarvis-preview/session.cjs",
+          "line": 3
+        },
+        {
+          "value": "../jarvis-preview.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
@@ -7197,6 +7533,15 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tools/SCHEMATIC_PROOF.md",
+      "bytes": 3002,
+      "sha256": "2c82fefdc611ef588eb3a4f3f08e4a4c8ae3370c8d24b11914af7e1d2695136d",
+      "gitBlob": "39047100288f482c2445312c889933550d63e3c0",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/tools/architecture_geometry.py",
       "bytes": 4613,
       "sha256": "7c854292dcc618ac741cfa8a41458846b001a93c827ece97c1b8068327a9fdb4",
@@ -7272,6 +7617,88 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/tools/expense-browser-check.cjs",
+      "bytes": 3380,
+      "sha256": "74a77ebd4e505b2ed37948f94fb9956091b259e4af5aca2d8b73a03e67c1cf81",
+      "gitBlob": "81f8a13166cb300660a687d5f897e7b5c32e38c2",
+      "dependencyCandidates": [
+        {
+          "value": "../../tests/browser/node_modules/playwright",
+          "line": 3
+        },
+        {
+          "value": "../development-ui.cjs",
+          "line": 4
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_CHROMIUM_PATH",
+          "line": 10
+        },
+        {
+          "value": "MANA_CHROMIUM_PATH",
+          "line": 10
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/tools/jarvis-browser-check.cjs",
+      "bytes": 4061,
+      "sha256": "0af04bde96348a1c08cf2cc81c4209122387b5aaa6cfdcd4ad9562842c35515b",
+      "gitBlob": "2a2a1cffa9548ce4321e77944c8f1993dbfe7b76",
+      "dependencyCandidates": [
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:fs",
+          "line": 4
+        },
+        {
+          "value": "node:os",
+          "line": 5
+        },
+        {
+          "value": "node:path",
+          "line": 6
+        },
+        {
+          "value": "node:events",
+          "line": 7
+        },
+        {
+          "value": "../../tests/browser/node_modules/playwright",
+          "line": 8
+        },
+        {
+          "value": "../development-ui.cjs",
+          "line": 9
+        },
+        {
+          "value": "../src/jarvis-preview/session.cjs",
+          "line": 10
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_CHROMIUM_PATH",
+          "line": 30
+        },
+        {
+          "value": "MANA_CHROMIUM_PATH",
+          "line": 30
+        }
+      ],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/tools/requirements-artifacts.txt",
       "bytes": 135,
       "sha256": "9493e10e89a9b7f1fb80a330589650c36111599d3fdeac433a3d3bf5f97ef74a",
@@ -7336,6 +7763,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/tools/schematic_plan.py",
+      "bytes": 5056,
+      "sha256": "effa2427436f880b9959c99192994e76cc7fdd6764855ee893cec6a1b6a316a7",
+      "gitBlob": "ddb1c4e15cfa5cba9899be25692c5b67f5c92184",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/tools/test_architecture_provider.py",
       "bytes": 1581,
       "sha256": "3a7a2561c2e2cf664a3b61092e5191420a17bdf07ff64feba3e267265346bb4e",
@@ -7349,6 +7785,15 @@
       "bytes": 1547,
       "sha256": "cbdf8910095d72d7fa076534e7faf41bbf6bfe4e663dbd84f0d22f969fe68655",
       "gitBlob": "7f580129f1fdc852cf06c7f644c382d4f4fc049b",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/tools/test_schematic_plan.py",
+      "bytes": 3994,
+      "sha256": "af461c6c3efa5d23f2e480420db43dc96d591fa12cd92b1aa5d0ed69bd63ff0d",
+      "gitBlob": "e80d047cac748f6f540c03a02e8b77308c5b4b32",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false

@@ -1,0 +1,18 @@
+{
+  "endpoint": "http://127.0.0.1:8794/v1/chat/completions",
+  "device": "cpu",
+  "model": "REPLACE_WITH_SERVED_MODEL_ID",
+  "weights": "/absolute/path/to/the-same-model.gguf",
+  "runtime": "/absolute/path/to/the-same-llama-server",
+  "runtimeConfig": {
+    "context_size": 4096,
+    "threads": 12,
+    "parallel": 1,
+    "batch_size": 512,
+    "chat_template": "RECORD_EXACT_TEMPLATE_OR_MODEL_DEFAULT",
+    "cache_policy": "RECORD_EXACT_POLICY",
+    "other_flags": "RECORD_ALL_OTHER_FLAGS_EXCEPT_GPU_OFFLOAD"
+  },
+  "serverRestartAttested": false,
+  "timeoutMs": 60000
+}

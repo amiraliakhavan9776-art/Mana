@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '24'
       - name: Run CPU regressions
-        run: node --test mana-ai/tests/development-loop.test.cjs mana-ai/tests/typed-contracts.test.cjs mana-ai/tests/typed-dependency-contract-v03.test.cjs mana-ai/tests/typed-dependency-acceptance-v01.test.cjs mana-ai/tests/mission-runtime.test.cjs
+        run: node --test mana-ai/tests/expense-pilot.test.cjs mana-ai/tests/development-loop.test.cjs mana-ai/tests/typed-contracts.test.cjs mana-ai/tests/typed-dependency-contract-v03.test.cjs mana-ai/tests/typed-dependency-acceptance-v01.test.cjs mana-ai/tests/mission-runtime.test.cjs
       - name: Install namespace tool in disposable CI only
         run: sudo apt-get update -qq && sudo apt-get install -y bubblewrap
       - name: Require real HTTP to native tests in isolated namespaces
@@ -35,6 +35,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install -r mana-ai/tools/requirements-artifacts.txt
       - run: npm install --prefix tests/browser --ignore-scripts --no-package-lock
       - run: node tests/browser/node_modules/playwright/cli.js install --with-deps chromium
       - run: node mana-ai/tools/development-browser-check.cjs
+      - run: node --test mana-ai/tests/jarvis-preview.test.cjs mana-ai/benchmarks/persian-intent.test.cjs
+      - run: python -m unittest discover -s mana-ai/tools -p test_schematic_plan.py
+      - run: node mana-ai/tools/jarvis-browser-check.cjs
+      - run: node mana-ai/tools/expense-browser-check.cjs
