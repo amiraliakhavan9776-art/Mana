@@ -15,9 +15,20 @@ class ExportTests(unittest.TestCase):
   import hashlib
   for name,meta in receipt['files'].items():self.assertEqual(hashlib.sha256((self.out/name).read_bytes()).hexdigest(),meta['sha256'])
   pdf=fitz.open(self.out/'furnished-booklet.pdf');summary=pdf[0].get_text();pdf.close()
-  for text in ('phase 2','Concept area comparison','47.70','240.00','Not net usable or billable floor area'):
+  for text in ('phase 2','TEST SAMPLE','AREA COMPARISON','47.70','240.00','not net usable or billable area'):
    self.assertIn(text,summary)
   self.assertNotEqual(plans[0]['rooms'],plans[1]['rooms'])
+ def test_graphical_sample_has_embedded_fonts_labels_and_page_safe_text(self):
+  self.make();pdf=fitz.open(self.out/'furnished-booklet.pdf')
+  for page in pdf:
+   self.assertIn('TEST SAMPLE',page.get_text())
+   self.assertGreaterEqual(sum(f[2]=='TrueType' for f in page.get_fonts()),2)
+   for block in page.get_text('dict')['blocks']:
+    for line in block.get('lines',[]):
+     for span in line['spans']:
+      x0,y0,x1,y1=span['bbox'];self.assertGreaterEqual(x0,0);self.assertGreaterEqual(y0,0);self.assertLessEqual(x1,page.rect.width);self.assertLessEqual(y1,page.rect.height)
+  for page in list(pdf)[1:]:self.assertIn('FURNITURE INDEX',page.get_text())
+  pdf.close()
  def test_no_overwrite_or_symlink_output(self):
   self.make();before=(self.out/'furnished-spine.dxf').read_bytes()
   with self.assertRaises(ValueError):self.make()

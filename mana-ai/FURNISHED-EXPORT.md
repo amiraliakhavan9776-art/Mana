@@ -13,7 +13,7 @@ JSON دقیق: `{"width":12,"length":20,"wallHeight":2.8,"preference":"social"}`
 خروجی ثابت:
 - `furnished-spine.dxf` و `furnished-gallery.dxf`: مختصات متری؛ اتاق، دیوار، بازشو، ابعاد و لایهٔ FURNITURE قابل ویرایش.
 - `furnished-plans.json`: schema `MANA_FURNISHED_CONCEPT_V1`، brief و مدل هر دو گزینه با هشدارهای هندسی.
-- `furnished-booklet.pdf`: جلد و دو صفحهٔ واقعی برداری مبلمان. برچسب فایل انگلیسی است؛ رابط می‌تواند فارسی باشد.
+- `furnished-booklet.pdf`: جلد با نشان TEST SAMPLE، جدول مقایسه و دو صفحهٔ واقعی برداری مبلمان رنگی با راهنمای شماره‌دار. برای ارائه یا اجرا نیست. برچسب فایل انگلیسی است؛ رابط می‌تواند فارسی باشد.
 - `furnished-receipt.json`: هش brief، هش/اندازهٔ چهار فایل، هش تولیدکننده/هندسه/صادرکننده/راستی‌آزما و نتیجهٔ بررسی مستقل.
 
 stdout فقط نتیجهٔ خلاصهٔ JSON شامل status `FURNISHED_CONCEPT_FILES_VERIFIED` و plans=2 است. فایل receipt خودش در جدول هش فایل‌های خودش نیست. دادهٔ تولیدشده synthetic/اعلامی است، نه برداشت سایت یا مدرک تأیید حرفه‌ای.

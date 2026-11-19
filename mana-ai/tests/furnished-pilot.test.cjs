@@ -37,7 +37,30 @@ test('local mounted furnished preview produces verified real DXFs/booklet and de
     const pdf = await fetch(origin + booklet.url);
     assert.equal(pdf.status, 200);
     assert.ok(Buffer.from(await pdf.arrayBuffer()).subarray(0, 4).equals(Buffer.from('%PDF')));
-    const output = path.join(workspace, fs.readdirSync(workspace)[0], 'artifacts');
+    // Hold all inputs fixed except the brief preference; both receipts must
+    // still attest to actual plan pages and the comparison must be geometric.
+    const revised = await send({ ...input, preference: 'social' });
+    assert.equal(revised.status, 200);
+    const social = await revised.json();
+    const area = plan => {
+      const room = plan.rooms.find(room => room.id === 'living');
+      return room.w * room.h;
+    };
+    assert.equal(social.verification.pdfPlanPages, 2);
+    for (const [i, plan] of social.plans.entries()) {
+      assert.equal(plan.id, out.plans[i].id);
+      assert.equal(plan.entrySide, out.plans[i].entrySide);
+      assert.ok(area(plan) > area(out.plans[i]));
+      assert.notDeepEqual(plan.walls, out.plans[i].walls);
+    }
+    const revisedBooklet = social.downloads.find(d => d.name === booklet.name);
+    assert.notEqual(revisedBooklet.url, booklet.url);
+    assert.equal((await fetch(origin + revisedBooklet.url)).status, 200);
+    assert.equal((await fetch(origin + booklet.url)).status, 200);
+    const privateRun = fs.readdirSync(workspace).find(entry =>
+      JSON.parse(fs.readFileSync(path.join(workspace, entry, 'brief.json'), 'utf8')).preference === 'private');
+    assert.ok(privateRun);
+    const output = path.join(workspace, privateRun, 'artifacts');
     fs.appendFileSync(path.join(output, booklet.name), 'changed');
     assert.equal((await fetch(origin + booklet.url)).status, 409);
     assert.equal((await fetch(origin + booklet.url.replace(booklet.name, 'brief.json'))).status, 404);

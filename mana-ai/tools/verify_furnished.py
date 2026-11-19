@@ -24,7 +24,7 @@ def verify_export(directory):
  signature=lambda p:sorted((r['id'],r['x'],r['y'],r['w'],r['h']) for r in p['rooms'])
  require(signature(plans[0])!=signature(plans[1]),'duplicate_variants')
  pdf=fitz.open(file('furnished-booklet.pdf'));require(len(pdf)==3,'three_pdf_pages_required')
- require('MANA furnished concepts' in pdf[0].get_text(),'missing_cover')
+ require('Furnished concepts' in pdf[0].get_text() and 'TEST SAMPLE' in pdf[0].get_text(),'missing_cover_or_test_scope')
  total=0
  for index,p in enumerate(plans):
   rooms=p['rooms'];furniture=p['furniture'];site=(0,0,p['width'],p['length'])

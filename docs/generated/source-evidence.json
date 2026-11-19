@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "3e4dbc1885dbcf0999972b71e762233d0f7eb025c40e6868ef73913c37e35b3d",
+  "sourceSetDigest": "d2a5d9ebbfa035cb17d7d5dbc6c185f0f8c8d13a1464e81bc34617238d6f80e9",
   "fileCount": 418,
   "files": [
     {
@@ -671,18 +671,18 @@
     },
     {
       "path": "mana-ai/FURNISHED-ARCHITECTURE-PILOT.md",
-      "bytes": 4783,
-      "sha256": "b6d4611a9a71c4441ef90988f1284310e035a34b864634431c072567cb0b89c2",
-      "gitBlob": "6956ca92c1964e7286c5c3de5f33cf0ab845a4eb",
+      "bytes": 5822,
+      "sha256": "a1765a2dc7fbd0bcccff3dbb20c30d47aff816f74cd12997e0e57a8dff7edd1d",
+      "gitBlob": "c7c54fbc14eeb387a4ff1ab7d05ee5bda14b0b33",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
     {
       "path": "mana-ai/FURNISHED-EXPORT.md",
-      "bytes": 5181,
-      "sha256": "12096df63871f5283998d43f089ee2132c3faea10cd5450f2dc775f0c51a28ec",
-      "gitBlob": "088ecc9b2f8db1d1a2ba6e8a591f02e425d75953",
+      "bytes": 5324,
+      "sha256": "b9e459b04d3176828429e22627b3b6cf3e01cd5fcba69d13db3aef3fa8391834",
+      "gitBlob": "8b15d4608f9e118bc37bb0be7f97d99906223a14",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2765,9 +2765,9 @@
     },
     {
       "path": "mana-ai/src/furnished/page.cjs",
-      "bytes": 16879,
-      "sha256": "27bf6092cdd4d9f66c7e4f03e27b1df0c385f06499d895d98341922dcac3e63f",
-      "gitBlob": "d45648f72a8fb455eea1eda468d104735e7cfc82",
+      "bytes": 16958,
+      "sha256": "2065a793c3e6333601c4999bbbc92d21e51579d513ea24b9a6c347ab6b186c4e",
+      "gitBlob": "d1a2422e19781689d9a412b98afcbf5799869820",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -5754,9 +5754,9 @@
     },
     {
       "path": "mana-ai/tests/furnished-pilot.test.cjs",
-      "bytes": 4812,
-      "sha256": "e71dcdec842d70a49dd2a93dc5f23c68418ff380f9e87e2c5341334b25e7924b",
-      "gitBlob": "674c0ce8f39a2450ca7d817eb38650a3a7ecaa96",
+      "bytes": 6035,
+      "sha256": "0c0ec97f1cd6a252185a86dd2097ebea02cdd59f9bf5f9bd0f5381ac3927ded7",
+      "gitBlob": "174cf031fb4ae912aab13f950c695359881e875f",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -7921,9 +7921,9 @@
     },
     {
       "path": "mana-ai/tools/furnished_export.py",
-      "bytes": 6946,
-      "sha256": "e664586c9f04c86b13f2b2adaf9df922a5967c243b847b54fffd9b37c27131d2",
-      "gitBlob": "ccf078f1a821785c547532e9583e39b4b908c1eb",
+      "bytes": 10001,
+      "sha256": "90ca0d96d687329df321e023007b8a91331b7c3a53d5a3c36c29f0e809ed0b2b",
+      "gitBlob": "0b0412a140c1d0fd6e53ee90e651b06630d7afed",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -8081,9 +8081,9 @@
     },
     {
       "path": "mana-ai/tools/test_furnished_export.py",
-      "bytes": 3202,
-      "sha256": "17192ae6fe4a8c4d15cb95e672484f42f3ac742e0aeb51a41675618bbe9e006c",
-      "gitBlob": "9fdbd9153762f91f65f163399e8719b2cd02adf0",
+      "bytes": 3873,
+      "sha256": "8b26f5932afd2d525479acfc70d534ce4b8ffb830f440e3147ae32ab313d90f5",
+      "gitBlob": "130826c117adf711ff726ad99f3524b846509572",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -8108,9 +8108,9 @@
     },
     {
       "path": "mana-ai/tools/verify_furnished.py",
-      "bytes": 7273,
-      "sha256": "269015a038d1dc985ec8c3d318bb9d9bbe56b7df1c6ec0037d326fd72cfcfbed",
-      "gitBlob": "61db5fd28a5630db441c627d73306c09ed5420e5",
+      "bytes": 7321,
+      "sha256": "94e4bbd704b4a34909ba6828320faed43d9b6f51a9a701ebb7370dd1e814967d",
+      "gitBlob": "e992fac41c537106ac4a125ded348f219d13b6f2",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
