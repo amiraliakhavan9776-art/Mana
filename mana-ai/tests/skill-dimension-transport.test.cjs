@@ -1,0 +1,21 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict'),http=require('node:http'),{once}=require('node:events');
+const {proposeLocal}=require('../src/native/skill-evolution.cjs');
+const {buildDimensionSkillGrammar}=require('../src/native/skill-grammar.cjs');
+test('passes only the managed dimension constraint and omits all private options from the user message',async t=>{
+ let calls=0,body;
+ const server=http.createServer((req,res)=>{assert.equal(req.url,'/v1/chat/completions');let raw='';req.on('data',x=>raw+=x);req.on('end',()=>{calls++;body=JSON.parse(raw);res.end(JSON.stringify({choices:[{message:{content:'{"field":"length_m"}'}}]}));});});
+ t.after(()=>new Promise(resolve=>server.close(resolve)));
+ server.listen(0,'127.0.0.1');await once(server,'listening');
+ const fields=['length_m','width_m','thickness_mm'];
+ const opts={instruction:'Reviewed dimension exercise',fields,feedback:'Bounded diagnostic',port:server.address().port,timeoutMs:3000,model:'fixture'};
+ await assert.rejects(async()=>proposeLocal({...opts,constraint:'llama-dimension-gbnf-v1'}),{code:'TRANSPORT_CONFIGURATION_INVALID'});
+ await assert.rejects(async()=>proposeLocal({...opts,constraint:'llama-dimension-gbnf-v1',dimensionGrammarOptions:{expectedPower:3,tests:[]}}),{code:'TRANSPORT_CONFIGURATION_INVALID'});
+ await assert.rejects(async()=>proposeLocal({...opts,dimensionGrammarOptions:{expectedPower:3}}),{code:'TRANSPORT_CONFIGURATION_INVALID'});
+ assert.equal(calls,0);
+ assert.equal(await proposeLocal({...opts,constraint:'llama-dimension-gbnf-v1',dimensionGrammarOptions:{expectedPower:3}}),'{"field":"length_m"}');
+ assert.equal(calls,1);
+ assert.equal(body.grammar,buildDimensionSkillGrammar(fields,{expectedPower:3}));
+ assert.deepEqual(JSON.parse(body.messages[1].content),{instruction:opts.instruction,fields,feedback:opts.feedback});
+ assert.equal(body.dimensionGrammarOptions,undefined);
+});

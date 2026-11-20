@@ -1,0 +1,41 @@
+'use strict';
+const assert=require('node:assert/strict'),{test}=require('node:test');
+const {toMetreInputs,normalizeVolumeCatalog}=require('../src/native/spec-unit-normalization.cjs');
+const {checkSkillDimensions}=require('../src/native/skill-dimension-check.cjs');
+const {buildDimensionSkillGrammar}=require('../src/native/skill-grammar.cjs');
+const {evaluateExpression}=require('../src/native/skill-expression.cjs');
+const {runSpecLearning}=require('../src/native/spec-learning-loop.cjs');
+const raw=(length_m,width_m,thickness_mm)=>({length_m,width_m,thickness_mm});
+const field=field=>({field}),mul=(x,y)=>({op:'multiply',args:[x,y]});
+test('host converts just thickness to metres, without mutating the source or accepting ambiguous units',()=>{
+ const record=Object.freeze(raw(4,5,250));
+ assert.deepEqual(toMetreInputs(record),{length_m:4,width_m:5,thickness_m:0.25});
+ assert.equal(toMetreInputs(raw(0,5,0)).thickness_m,0);
+ assert.equal(toMetreInputs(raw(100,100,1000)).thickness_m,1);
+ for(const bad of [raw(4,5,-1),raw(4,5,1001),raw(4,5,NaN),raw(4,5,Infinity),raw(4,5,'250'),raw(101,0,0),raw(3,4,Number.MIN_VALUE),{length_m:4,width_m:5,thickness_m:0.25},{...record,thickness_m:0.25}])assert.throws(()=>toMetreInputs(bad));
+ assert.equal(record.thickness_mm,250);
+});
+test('normalized private grading retains expected results and still rejects an incorrect scale',()=>{
+ const tests=[[4,5,250,5],[4,5,0,0],[0,5,500,0],[7,0,125,0],[2,3,1000,6],[1.5,2,125,0.375],[100,100,500,5000],[2.5,4,250,2.5]];
+ const fields=['length_m','width_m','thickness_mm'],before=raw(3,5,200);
+ const mission={id:'spec-v11-layer-volume-m3',section:'6.6',task:{id:'spec-v11-layer-volume-m3',fields:[...fields].sort(),tests:tests.map(([l,w,t,expected])=>({input:raw(l,w,t),expected}))},dimensionContract:{schema:'MANA_SKILL_DIMENSION_CONTRACT_V1',expectedPower:3,requiredFields:fields,counterfactualPairs:fields.map(field=>({field,before,after:{...before,[field]:before[field]*2}}))}};
+ const c={missions:[mission]},snapshot=JSON.stringify(c);
+ const {task,dimensionContract}=normalizeVolumeCatalog(c).missions[0];
+ assert.equal(JSON.stringify(c),snapshot);
+ assert.deepEqual(task.fields,['length_m','width_m','thickness_m']);
+ assert.doesNotMatch(task.instruction,/millimet|1000|multiply/);
+ assert.equal(buildDimensionSkillGrammar(task.fields,{expectedPower:3}).includes('thickness_m'),true);
+ assert.equal(task.tests.length,8);
+ const valid=mul(field('length_m'),mul(field('width_m'),field('thickness_m')));
+ const wrong=mul({value:10000000},valid);
+ assert.equal(checkSkillDimensions(valid,task.fields,dimensionContract).ok,true);
+ assert.equal(checkSkillDimensions(wrong,task.fields,dimensionContract).ok,true);
+ assert.equal(checkSkillDimensions(field('length_m'),task.fields,dimensionContract).ok,false);
+ const misses=x=>task.tests.flatMap((t,i)=>evaluateExpression(x,t.input,task.fields)===t.expected?[]:[i+1]);
+ assert.deepEqual(misses(valid),[]);
+ assert.deepEqual(misses(wrong),[1,5,6,7,8]);
+});
+test('normalized mode cannot start without explicit grammar and all historical inputs',async()=>{
+ await assert.rejects(runSpecLearning({normalizeUnits:true}),/all three historical/);
+ await assert.rejects(runSpecLearning({typedFeedbackFrom:'/tmp/prior'}),/all three historical/);
+});
