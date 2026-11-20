@@ -2,6 +2,7 @@
 const {randomBytes}=require('node:crypto');
 const {takeoffFromPersian}=require('../../floor-takeoff-fa.cjs');
 const {COMMAND:skillCommand}=require('./mana-skill-pilot.cjs');
+const {COMMAND:dependenceCommand,RECEIPT_COMMAND:dependenceReceipt}=require('./mana-skill-dependence.cjs');
 const labels={BENCHMARK_PASSED:'آزمون قبول شد',REVIEW_REQUIRED:'نیازمند بازبینی',EXECUTION_BLOCKED:'اجرای آزمون متوقف شد',SUPPORTED_BENCHMARKS_COMPLETE:'آزمون‌های متصل به این نسخه کامل شده‌اند؛ نه همهٔ قابلیت‌های سند.'};
 const status=(name,message,extra={})=>({status:name,message,...extra});
 const token=()=>randomBytes(16).toString('hex');
@@ -11,9 +12,9 @@ const invalid=()=>status('BLOCKED','ساختار درخواست معتبر نی�
 const slots={length_m:'طول',width_m:'عرض',excluded_area_m2:'(?:مساحت|سطح) کسر[‌ ]*شده'};
 const marker=(s,k)=>new RegExp('(?:^|[ ،,؛;])'+slots[k]+'(?=$|[ :=۰-۹٠-٩0-9])','u').test(s);
 
-function createManaConversation({runner,withRunLock,answerText,skillPilot,now=Date.now}={}){
+function createManaConversation({runner,withRunLock,answerText,skillPilot,skillDependencePilot,now=Date.now}={}){
  if(!runner||typeof runner.history!=='function'||typeof withRunLock!=='function'||typeof now!=='function'||answerText!==undefined&&typeof answerText!=='function')throw Error('Invalid conversation configuration');
- if(skillPilot!==undefined&&(!skillPilot||typeof skillPilot.inspect!=='function'||typeof skillPilot.run!=='function'))throw Error('Invalid skill pilot configuration');
+ if([skillPilot,skillDependencePilot].some(p=>p!==undefined&&(!p||typeof p.inspect!=='function'||typeof p.run!=='function')))throw Error('Invalid skill pilot configuration');
  const sessions=new Map(),ttl=20*60*1000,confirmTtl=90*1000;
  let modelBusy=false;
  const fresh=()=>({expires:now()+ttl,pending:null,floor:null,textHistory:[],working:false});
@@ -22,11 +23,11 @@ function createManaConversation({runner,withRunLock,answerText,skillPilot,now=Da
   if(sessions.size>=32){const oldest=[...sessions].find(([,s])=>!s.working);if(!oldest)return null;sessions.delete(oldest[0]);}
   const id=token();sessions.set(id,fresh());return id;
  }
- function skillResult(r){
-  const messages={READY:'هنوز پیش‌نویسی درخواست نشده است.',INVALID_PROPOSAL:'پیشنهاد مدل شکل معتبر نداشت؛ آزمون عددی اجرا نشد.',BENCHMARK_FAILED:'پیشنهاد همهٔ آزمون‌ها را قبول نشد.',PROVIDER_UNAVAILABLE:'پاسخ قابل‌اعتبار مدل دریافت نشد؛ درخواست ممکن است رسیده باشد و تکرار نمی‌شود.',UNKNOWN_OUTCOME:'رسید کامل و قابل‌اعتبار نیست؛ اجرای مجدد مسدود است.',PASSED_AWAITING_REVIEW:'پیشنهاد در این نمونه آزمون‌ها را گذراند؛ در انتظار بازبینی انسانی است.'};
+ function skillResult(r,dependence=false){
+  const messages={PRIOR_EVIDENCE_BLOCKED:'رسید شکست مرحلهٔ قبلی با شواهد مورد انتظار تطبیق ندارد؛ مدل فراخوانی نشد.',DEPENDENCE_REJECTED:'پیشنهاد در بررسی اثر مستقل هر ورودی رد شد؛ آزمون عددی اصلی اجرا نشد.',READY:'هنوز پیش‌نویسی درخواست نشده است.',INVALID_PROPOSAL:'پیشنهاد مدل شکل معتبر نداشت؛ آزمون عددی اجرا نشد.',BENCHMARK_FAILED:'پیشنهاد همهٔ آزمون‌ها را قبول نشد.',PROVIDER_UNAVAILABLE:'پاسخ قابل‌اعتبار مدل دریافت نشد؛ درخواست ممکن است رسیده باشد و تکرار نمی‌شود.',UNKNOWN_OUTCOME:'رسید کامل و قابل‌اعتبار نیست؛ اجرای مجدد مسدود است.',PASSED_AWAITING_REVIEW:'پیشنهاد در این نمونه آزمون‌ها را گذراند؛ در انتظار بازبینی انسانی است.'};
   const counts=Number.isInteger(r.total)&&Number.isInteger(r.passed)&&Number.isInteger(r.testsRun)?'قبول‌شده: '+r.passed+' از '+r.total+'؛ اجراشده: '+r.testsRun+'. ':'';
   const candidate=r.expression&&typeof r.candidateSha256==='string'?'\nپیشنهادِ بررسی‌شده: '+JSON.stringify(r.expression)+'\nشناسهٔ پیشنهاد: '+r.candidateSha256:'';
-  const details=counts+(r.reused?'این رسید قبلاً ثبت شده؛ مدل دوباره صدا زده نشد. ':'')+'فقط جمع دو طول نمونه، با دقت یک میلی‌متر. هیچ مهارتی فعال نشد و مدل آموزش ندید.'+candidate;
+  const details=counts+(r.reused?'این رسید قبلاً ثبت شده؛ مدل دوباره صدا زده نشد. ':'')+'فقط جمع دو طول نمونه، با دقت یک میلی‌متر. هیچ مهارتی فعال نشد و مدل آموزش ندید.'+(dependence?' مقایسهٔ محدودِ اثر تغییر جداگانهٔ هر ورودی، اثبات کلی نیست.':'')+candidate;
   return status(r.status==='PASSED_AWAITING_REVIEW'?'COMPLETED':r.status==='READY'?'READY':'BLOCKED',messages[r.status]||messages.UNKNOWN_OUTCOME,{details,kind:'skill'});
  }
  function history(){
@@ -44,11 +45,12 @@ function createManaConversation({runner,withRunLock,answerText,skillPilot,now=Da
   if(action==='confirm'){
    if(!s.pending||s.pending.expires<=now()||s.pending.token!==body.confirmation)return status('BLOCKED','این تأیید معتبر نیست یا منقضی شده. درخواست اصلی را دوباره بفرست.');
    const pending=s.pending;s.pending=null;s.floor=null;s.working=true;
-   if(pending.kind==='skill'){
+   if(pending.kind==='skill'||pending.kind==='dependence'){
+    const dependence=pending.kind==='dependence',pilot=dependence?skillDependencePilot:skillPilot;
     if(modelBusy){s.working=false;return status('BUSY','مدل مشغول است؛ این تأیید مصرف شد و درخواست خودکار تکرار نمی‌شود.');}
     modelBusy=true;
-    try{return skillResult(await skillPilot.run());}
-    catch{return skillResult({status:'UNKNOWN_OUTCOME'});}
+    try{return skillResult(await pilot.run(),dependence);}
+    catch{return skillResult({status:'UNKNOWN_OUTCOME'},dependence);}
     finally{modelBusy=false;s.working=false;}
    }
    try{
@@ -61,6 +63,14 @@ function createManaConversation({runner,withRunLock,answerText,skillPilot,now=Da
    }finally{s.working=false;}
   }
   const text=clean(body.text);s.pending=null;
+  if(text===dependenceCommand||text===dependenceReceipt){
+   s.floor=null;
+   if(!skillDependencePilot)return status('BLOCKED','آزمایش وابستگی مهارت در این محیط فعال نیست.');
+   const r=skillDependencePilot.inspect();
+   if(text!==dependenceCommand||r.status!=='READY')return skillResult(r,true);
+   s.pending={kind:'dependence',token:token(),expires:now()+confirmTtl};
+   return status('CONFIRM_REQUIRED','شکست قبلی ۱ از ۱۰ را از رسید بازبینی کردم. با تأیید تو، یک پیشنهاد تازه از مدل محلی می‌گیرم؛ فقط توضیح اینکه هر دو ورودی باید بر نتیجه اثر داشته باشند ارسال می‌شود، نه پاسخ، عبارت قبلی یا دادهٔ آزمون. اول اثر مستقل هر ورودی و بعد، در صورت قبولی، ۱۰ آزمون عددی بررسی می‌شود. مسیر قبلی و مهارت فعال دست‌نخورده می‌مانند.',{confirmation:s.pending.token,kind:'skill'});
+  }
   if(text===skillCommand||text==='رسید مهارت متره'){
    s.floor=null;
    if(!skillPilot)return status('BLOCKED','آزمایش مهارت متره در این محیط فعال نیست.');
