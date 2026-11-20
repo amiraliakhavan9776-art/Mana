@@ -12,7 +12,8 @@ function textOk(text,limit){
  return typeof text==='string'&&text.trim().length>0&&Buffer.byteLength(text)<=limit
    &&!/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f\u202a-\u202e\u2066-\u2069]/u.test(text);
 }
-function createManaTextModel(options={}){
+function createManaTextModel(options={}){return createBoundedLocalCompletion(options,SYSTEM);}
+function createBoundedLocalCompletion(options,system,grammar){
  if(!plain(options)||Object.keys(options).some(k=>!['port','model','timeoutMs'].includes(k)))throw Error('Explicit bounded local text model configuration required');
  const {port,model,timeoutMs=30000}=options;
  if(!Number.isInteger(port)||port<1||port>65535||
@@ -22,7 +23,7 @@ function createManaTextModel(options={}){
   if(!plain(input)||Object.keys(input).some(k=>k!=='text'&&k!=='history')||!textOk(input.text,MAX_TEXT_BYTES))return unavailable('INVALID_INPUT');
   const history=input.history===undefined?[]:input.history;
   if(!Array.isArray(history)||history.length>MAX_HISTORY_ITEMS)return unavailable('INVALID_INPUT');
-  const messages=[{role:'system',content:SYSTEM}];let historyBytes=0;
+  const messages=[{role:'system',content:system}];let historyBytes=0;
   for(const item of history){
    if(!plain(item)||Object.keys(item).length!==2||!Object.hasOwn(item,'role')||!Object.hasOwn(item,'text')||
     !['user','assistant'].includes(item.role)||!textOk(item.text,item.role==='user'?MAX_TEXT_BYTES:MAX_ANSWER_BYTES))return unavailable('INVALID_INPUT');
@@ -31,7 +32,7 @@ function createManaTextModel(options={}){
    messages.push({role:item.role,content:item.text});
   }
   messages.push({role:'user',content:input.text});
-  const payload=Buffer.from(JSON.stringify({model,messages,stream:false,temperature:.2,max_tokens:128}));
+  const payload=Buffer.from(JSON.stringify({model,messages,stream:false,temperature:.2,max_tokens:128,...(grammar?{grammar}:{})}));
   return new Promise(resolve=>{
    let req,timer,done=false;
    function finish(result){
@@ -79,4 +80,4 @@ function createManaTextModel(options={}){
   });
  };
 }
-module.exports={createManaTextModel};
+module.exports={createManaTextModel,createBoundedLocalCompletion};
