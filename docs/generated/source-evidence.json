@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "23dd773ebcf29dc8bd8d0661de930904176c6c2e9e3e172ec8da3dfeb4f9b834",
-  "fileCount": 381,
+  "sourceSetDigest": "d10ac10383b25113ff5be7afe72ea3e75700c1114b58d5829aa237c8a10e88a4",
+  "fileCount": 386,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -665,6 +665,15 @@
       "bytes": 1023,
       "sha256": "d1c23c43e0aa082a9ed4a86fbef0b79920fc6d77764ea46acd5910fae42f896a",
       "gitBlob": "d0bc4c011c29b033c09205153066287581b610a5",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/README-floor-takeoff.fa.md",
+      "bytes": 2418,
+      "sha256": "065432ece6601457dcb8def49242374230f72b4550397e2659053eb26ef441de",
+      "gitBlob": "1252ab787b0688c955b6813cc95c7b332e3ac78d",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1356,6 +1365,20 @@
         {
           "value": "node:path",
           "line": 7
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/floor-takeoff-fa.cjs",
+      "bytes": 4759,
+      "sha256": "f75e825a2fffc6f5a0ff6db7d948462ed6d0c9836c1e2525fd48dd91811ae7b0",
+      "gitBlob": "fcfa40713a3299ce3738cd5cbaa2782a416851c0",
+      "dependencyCandidates": [
+        {
+          "value": "./src/native/floor-takeoff.cjs",
+          "line": 2
         }
       ],
       "environmentCandidates": [],
@@ -2867,6 +2890,15 @@
           "line": 3
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/floor-takeoff.cjs",
+      "bytes": 2413,
+      "sha256": "bf624e573fc9492b442b962d49030d979e21d528af2a2b6522085b9871287894",
+      "gitBlob": "581d4d8ceb9d85a490be8d5b144b9a2f07caaf31",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -5233,6 +5265,50 @@
       "sha256": "5c8c5788eee9f51300c3308d3bae67647e649a6ede07d5383a6f5cd187053109",
       "gitBlob": "425d45da52751c874ba9cfeada7af8ca93c2f541",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/floor-takeoff-fa.test.cjs",
+      "bytes": 2274,
+      "sha256": "08fc04c799f4acfea8efba8010249b327005969daecf2cc3581b8876ea71380a",
+      "gitBlob": "3dfaff212afac604693a4c913765b869f9a3c779",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../floor-takeoff-fa.cjs",
+          "line": 2
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/floor-takeoff.test.cjs",
+      "bytes": 3137,
+      "sha256": "b343eff8dc57a9ed1db84482c281e58931858f15fc8480d1a28127a1c4dc11ae",
+      "gitBlob": "de8169c7c5d2f68a2ec2c17543f3e637070a4438",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/native/floor-takeoff.cjs",
+          "line": 3
+        }
+      ],
       "environmentCandidates": [],
       "testFile": true
     },
