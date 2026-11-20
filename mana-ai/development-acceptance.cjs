@@ -10,11 +10,27 @@ async function main(){
  const url='http://127.0.0.1:'+server.address().port;
  try{
   const html=await (await fetch(url)).text(),token=html.match(/'X-Mana-Token':'([a-f0-9]+)'/)[1];
-  for(const id of ['b2a25ed5f5cdb0ae','1cbe338190bce8d1']){
-   const response=await fetch(url+'/run',{method:'POST',headers:{Origin:url,'X-Mana-Token':token}}),r=await response.json();
-   assert.equal(r.mission?.id,id);if(r.status!=='BENCHMARK_PASSED')throw Error(r.reason+' '+(r.error||''));
-   assert.ok(r.selectedBecause&&r.output);assert.equal(r.productionDeploymentAllowed,false);
-  }
+  const conversation=await (await fetch(url+'/mana')).text();
+  const config=JSON.parse(conversation.match(/const CONFIG=(\{[^;]+\});/)[1]);
+  const turn=async body=>(await fetch(url+'/mana/turn',{method:'POST',headers:{Origin:url,'Content-Type':'application/json','X-Mana-Token':config.token},body:JSON.stringify({session:config.session,...body})})).json();
+  const proposed=await turn({action:'message',text:'برو جلو'});
+  assert.equal(proposed.status,'CONFIRM_REQUIRED');
+  assert.equal((await (await fetch(url+'/history')).json()).length,0);
+  const result=await turn({action:'confirm',confirmation:proposed.confirmation});
+  if(result.status!=='COMPLETED')throw Error('Conversation benchmark: '+result.message+' '+(result.details||''));
+  assert.ok(result.details);
+  const first=(await (await fetch(url+'/history')).json());
+  assert.equal(first.length,1);assert.equal(first[0].status,'BENCHMARK_PASSED');
+  const receipt=JSON.parse(fs.readFileSync(path.join(workspace,first[0].key+'.json'),'utf8'));
+  assert.equal(receipt.mission.id,'b2a25ed5f5cdb0ae');
+  assert.equal(receipt.productionDeploymentAllowed,false);
+  assert.ok(receipt.selectedBecause&&receipt.output);
+  const replay=await turn({action:'confirm',confirmation:proposed.confirmation});
+  assert.equal(replay.status,'BLOCKED');
+  assert.equal((await (await fetch(url+'/history')).json()).length,1);
+  const response=await fetch(url+'/run',{method:'POST',headers:{Origin:url,'X-Mana-Token':token}}),r=await response.json();
+  assert.equal(r.mission?.id,'1cbe338190bce8d1');if(r.status!=='BENCHMARK_PASSED')throw Error(r.reason+' '+(r.error||''));
+  assert.ok(r.selectedBecause&&r.output);assert.equal(r.productionDeploymentAllowed,false);
   assert.equal((await (await fetch(url+'/history')).json()).length,2);
   assert.equal((await createDevelopmentRunner({workspace}).run()).status,'SUPPORTED_BENCHMARKS_COMPLETE');
   console.log(JSON.stringify({status:'LOCAL_HTTP_SANDBOX_ACCEPTANCE_PASSED',tests:4,missions:2,workspace,productionDeploymentAllowed:false}));
