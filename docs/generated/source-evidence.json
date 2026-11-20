@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "06e32a8d09386be3cf3b6cf798c8d1136ef2917da2fb7a8c9567eab550cc0854",
-  "fileCount": 455,
+  "sourceSetDigest": "eacaf2321e679a9d127346e217814d4fdf73935b10ac5b9692984b9583448796",
+  "fileCount": 459,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -796,6 +796,15 @@
       "bytes": 2486,
       "sha256": "57eba9bf51785438383fca06cea1d9fd6fce4dab99d8ba1a767c741d955b780d",
       "gitBlob": "b7e77e12fe07776d617a1220f5a76a8ecc4808fe",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-SKIRTING-PREVIEW.fa.md",
+      "bytes": 2747,
+      "sha256": "f2ab1456a6c7c1f1a0b28d56c84c31716951ad1ec617b769e5a9ab800fb461a2",
+      "gitBlob": "614112b1d6ce07e109f5d1b40a2ac1e28c524d9c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -4149,6 +4158,20 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/native/skirting-takeoff.cjs",
+      "bytes": 1871,
+      "sha256": "2b4415d9ada8fc1300bdc48ad2e63a4f1ce39175389a12a83ec994d03285c894",
+      "gitBlob": "3bc83ebba6900941b6e13aa7e372d01ca1b949ce",
+      "dependencyCandidates": [
+        {
+          "value": "../financial/exact-decimal.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/native/training-feedback.cjs",
       "bytes": 3015,
       "sha256": "dcc062bd8a8d7491b39286802574c1adde9b9b9ae2b2354dd877c4476599f9ef",
@@ -4244,9 +4267,9 @@
     },
     {
       "path": "mana-ai/src/pilot/mana-conversation.cjs",
-      "bytes": 13610,
-      "sha256": "2169dcd4b6790d02e304a780f24c9121f4d336530e32ed246e9138ed9354303e",
-      "gitBlob": "a72cef05910d78e5bb37384ea96e35db12ff4992",
+      "bytes": 13780,
+      "sha256": "10f9918704a59acf6ed875ca77b29eabec0def713e89346219ba7584ccbdc7ba",
+      "gitBlob": "7af87052fcdb375aefef74d5d4a7b797b3f5df48",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -4263,6 +4286,10 @@
         {
           "value": "./mana-skill-dependence.cjs",
           "line": 5
+        },
+        {
+          "value": "./mana-skirting-preview.cjs",
+          "line": 6
         }
       ],
       "environmentCandidates": [],
@@ -4270,9 +4297,9 @@
     },
     {
       "path": "mana-ai/src/pilot/mana-page.cjs",
-      "bytes": 9113,
-      "sha256": "e5ccb8b355e803c23ddcfa828e9e015d567e498254b691870e2ddc7cd0ba8bd4",
-      "gitBlob": "451fd79eb94586c8839cfbea6e0afc52ea20b70b",
+      "bytes": 9280,
+      "sha256": "03868152557df89da913aa7df7bf5a186b189279e7dc88f85e34ce0841ddd28d",
+      "gitBlob": "e5027d4681ac2379d10b706590f942dd3eb5fae1",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -4344,6 +4371,20 @@
         {
           "value": "./mana-text-model.cjs",
           "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/pilot/mana-skirting-preview.cjs",
+      "bytes": 2998,
+      "sha256": "68e28c56da69c168b4ea09061605badff251dc20bccb30152ca1b274c68ee216",
+      "gitBlob": "066d570338d426488e167fde262c3696c518f83b",
+      "dependencyCandidates": [
+        {
+          "value": "../native/skirting-takeoff.cjs",
+          "line": 2
         }
       ],
       "environmentCandidates": [],
@@ -6905,6 +6946,40 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/mana-skirting-preview.test.cjs",
+      "bytes": 5341,
+      "sha256": "43a92bcae033762e6442b542c23bc85123cd5a1da5e1697ddd99b18d00b1e753",
+      "gitBlob": "d6c11d8e3a536ae21d0db375b60c87d197774c90",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:events",
+          "line": 2
+        },
+        {
+          "value": "../src/native/skirting-takeoff.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/pilot/mana-skirting-preview.cjs",
+          "line": 4
+        },
+        {
+          "value": "../development-ui.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/mana-text-model.test.cjs",
       "bytes": 4900,
       "sha256": "e8ef89bcd09591d8b752b4d9c4504284ba6d35d9949b0a1dd6f14839b8953f6b",
@@ -8781,9 +8856,9 @@
     },
     {
       "path": "mana-ai/tools/mana-conversation-browser-check.cjs",
-      "bytes": 3472,
-      "sha256": "c95545598925a3f2c2f03f603137671285845f12b1698e0d595e15ada5aca52e",
-      "gitBlob": "cced1d524d9689433cc7205ea4067dd6301fd994",
+      "bytes": 4465,
+      "sha256": "181375b1325148c7a8c32449104c513c433f7eef095dc9d2d8c8e857b19bee48",
+      "gitBlob": "b61ab8ce9faaf8ed494a7cf2200f1a0b3d6b5667",
       "dependencyCandidates": [
         {
           "value": "node:assert/strict",
