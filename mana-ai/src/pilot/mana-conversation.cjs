@@ -12,9 +12,10 @@ const invalid=()=>status('BLOCKED','ساختار درخواست معتبر نی�
 const slots={length_m:'طول',width_m:'عرض',excluded_area_m2:'(?:مساحت|سطح) کسر[‌ ]*شده'};
 const marker=(s,k)=>new RegExp('(?:^|[ ،,؛;])'+slots[k]+'(?=$|[ :=۰-۹٠-٩0-9])','u').test(s);
 
-function createManaConversation({runner,withRunLock,answerText,skillPilot,skillDependencePilot,now=Date.now}={}){
+function createManaConversation({runner,withRunLock,answerText,skillPilot,skillDependencePilot,clearancePreview,now=Date.now}={}){
  if(!runner||typeof runner.history!=='function'||typeof withRunLock!=='function'||typeof now!=='function'||answerText!==undefined&&typeof answerText!=='function')throw Error('Invalid conversation configuration');
  if([skillPilot,skillDependencePilot].some(p=>p!==undefined&&(!p||typeof p.inspect!=='function'||typeof p.run!=='function')))throw Error('Invalid skill pilot configuration');
+ if(clearancePreview!==undefined&&(!clearancePreview||typeof clearancePreview.matches!=='function'||typeof clearancePreview.preview!=='function'))throw Error('Invalid clearance preview configuration');
  const sessions=new Map(),ttl=20*60*1000,confirmTtl=90*1000;
  let modelBusy=false;
  const fresh=()=>({expires:now()+ttl,pending:null,floor:null,textHistory:[],working:false});
@@ -63,6 +64,10 @@ function createManaConversation({runner,withRunLock,answerText,skillPilot,skillD
    }finally{s.working=false;}
   }
   const text=clean(body.text);s.pending=null;
+  if(clearancePreview?.matches(text)){
+   s.floor=null;s.working=true;
+   try{return await clearancePreview.preview(text);}finally{s.working=false;}
+  }
   if(text===dependenceCommand||text===dependenceReceipt){
    s.floor=null;
    if(!skillDependencePilot)return status('BLOCKED','آزمایش وابستگی مهارت در این محیط فعال نیست.');
