@@ -1,0 +1,1 @@
+Reviewed source note: keep dimensional units explicit throughout deterministic quantity calculations.

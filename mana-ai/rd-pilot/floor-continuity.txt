@@ -1,0 +1,1 @@
+Reviewed synthetic policy: only explicit floor-level exclusions are input deductions; raised openings may retain the finish below.

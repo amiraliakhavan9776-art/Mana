@@ -1,0 +1,248 @@
+{
+  "schema": "MANA_RD_PILOT_V1",
+  "masterSha256": "b9ce58b50834cbbeba50997998a937392bceba613905f611a99bf6df42277ce2",
+  "sources": [
+    {
+      "id": "takeoff-trace",
+      "section": "6.4",
+      "tags": [
+        "trim",
+        "linear",
+        "quantity"
+      ],
+      "file": "takeoff-trace.txt",
+      "sha256": "503bf0a3263de0fcb0028eb876c2b7920f120c5f1220b538ec6cd94e071d13fd"
+    },
+    {
+      "id": "floor-continuity",
+      "section": "6.4",
+      "tags": [
+        "trim",
+        "opening",
+        "linear"
+      ],
+      "file": "floor-continuity.txt",
+      "sha256": "dfa8ba728356e566e9c8d164832a006592c290f56a2afc51f0bdcb2d67a69972"
+    },
+    {
+      "id": "unit-integrity",
+      "section": "6.6",
+      "tags": [
+        "volume",
+        "unit",
+        "layer"
+      ],
+      "file": "unit-integrity.txt",
+      "sha256": "49b607335ad4f95c7c6d7c82ccaab94df12592580497fc1e7602001f1ec40b29"
+    },
+    {
+      "id": "revision-trace",
+      "section": "6.6",
+      "tags": [
+        "volume",
+        "unit",
+        "revision"
+      ],
+      "file": "revision-trace.txt",
+      "sha256": "4b3e83a139ba912760d608581444eb31e3064f14514c369b87e7fc34f9152e94"
+    },
+    {
+      "id": "other-topic",
+      "section": "6.6",
+      "tags": [
+        "audio",
+        "speech"
+      ],
+      "file": "other-topic.txt",
+      "sha256": "d813ffdc81da360c1183903bb26a206e1e2ceb652ba37a27d4024d5ac21d4da8"
+    }
+  ],
+  "missions": [
+    {
+      "id": "net-finish-length-mm",
+      "section": "6.4",
+      "range": [
+        31943,
+        34098
+      ],
+      "tags": [
+        "trim",
+        "linear",
+        "opening"
+      ],
+      "goal": "Return net floor-level finish length for the inside boundary of one rectangle. Two input lengths describe perpendicular internal sides. The excluded input is the already evidenced sum of all interruptions explicitly omitting floor-level finish; never infer interruptions from other openings. Return exact nonnegative millimetres.",
+      "fields": [
+        "length_mm",
+        "width_mm",
+        "excluded_mm"
+      ],
+      "unit": "mm",
+      "tests": [
+        [
+          [
+            8000,
+            7000,
+            2300
+          ],
+          27700
+        ],
+        [
+          [
+            5000,
+            4000,
+            900
+          ],
+          17100
+        ],
+        [
+          [
+            400,
+            550,
+            0
+          ],
+          1900
+        ],
+        [
+          [
+            100,
+            200,
+            600
+          ],
+          0
+        ],
+        [
+          [
+            1921,
+            4332,
+            1271
+          ],
+          11235
+        ],
+        [
+          [
+            4202,
+            4733,
+            1509
+          ],
+          16361
+        ],
+        [
+          [
+            995,
+            1062,
+            817
+          ],
+          3297
+        ],
+        [
+          [
+            999,
+            999,
+            900
+          ],
+          3096
+        ]
+      ],
+      "anchors": [
+        661,
+        1372,
+        211
+      ],
+      "sectionSha256": "e7454332dc9eeb3a1cd616da551b77e40814be82c4c39578e0010952fc3d7fbd",
+      "maxInput": 100000
+    },
+    {
+      "id": "uniform-layer-volume-mm3",
+      "section": "6.6",
+      "range": [
+        35817,
+        36836
+      ],
+      "tags": [
+        "volume",
+        "unit",
+        "layer"
+      ],
+      "goal": "Return exact cubic millimetres of a uniform rectangular layer. Its two planar side lengths and its constant thickness are each supplied in millimetres. Do not scale or round the result.",
+      "fields": [
+        "length_mm",
+        "width_mm",
+        "thickness_mm"
+      ],
+      "unit": "mm3",
+      "tests": [
+        [
+          [
+            2000,
+            4000,
+            15
+          ],
+          120000000
+        ],
+        [
+          [
+            0,
+            700,
+            20
+          ],
+          0
+        ],
+        [
+          [
+            1000,
+            0,
+            50
+          ],
+          0
+        ],
+        [
+          [
+            1000,
+            900,
+            0
+          ],
+          0
+        ],
+        [
+          [
+            1,
+            1,
+            1
+          ],
+          1
+        ],
+        [
+          [
+            17,
+            31,
+            11
+          ],
+          5797
+        ],
+        [
+          [
+            123,
+            456,
+            7
+          ],
+          392616
+        ],
+        [
+          [
+            999,
+            1000,
+            33
+          ],
+          32967000
+        ]
+      ],
+      "anchors": [
+        113,
+        307,
+        17
+      ],
+      "sectionSha256": "e0883f6e5df802da23eb454c40ce84796722406e2f4280f7b2f518b6f27c8e09",
+      "maxInput": 10000
+    }
+  ]
+}
