@@ -27,7 +27,7 @@ function buildSkillGrammar(fields){
 }
 // Dimension-aware opt-in subset. Units are length powers only, not scale factors.
 const DIMENSION_POLICY='llama-dimension-gbnf-v1';
-const DIMENSION_POWERS=Object.freeze({length_m:1,width_m:1,thickness_mm:1,excluded_area_m2:2});
+const DIMENSION_POWERS=Object.freeze({length_m:1,width_m:1,thickness_mm:1,thickness_m:1,excluded_area_m2:2});
 function buildDimensionSkillGrammar(fields,options){
  validateExpression({value:0},fields);
  if(!options||Array.isArray(options)||typeof options!=='object'||Object.getPrototypeOf(options)!==Object.prototype||Object.keys(options).join(',')!=='expectedPower'||!Number.isInteger(options.expectedPower)||Math.abs(options.expectedPower)>4||fields.some(f=>!Object.hasOwn(DIMENSION_POWERS,f)))throw Error('Invalid dimensional grammar contract');

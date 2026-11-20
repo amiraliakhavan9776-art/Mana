@@ -85,12 +85,38 @@ function dimensionEvidence(dir,c,workspace,port,model,original){
  return hash(JSON.stringify({manifest,claim,receipt,attempt}));
 }
 function reviewedFeedback(originalDir,dimensionDir,c,workspace,port,model){const original=feedbackEvidence(originalDir,c,workspace,port,model);return dimensionDir===undefined?original:{...original,dimensionEvidenceSha256:dimensionEvidence(dimensionDir,c,workspace,port,model,original)};}
-function identity(c,port,model,constraint,feedback){
+// Validate the preceding typed failure with its versioned, unchanged raw-unit contract.
+function typedEvidence(dir,c,workspace,port,model,prior){
+ existingPrivate(dir);
+ if(workspace===dir||workspace.startsWith(dir+path.sep)||dir.startsWith(workspace+path.sep)||exists(dir,'run.lock'))throw Error('Typed source must be separate and settled');
+ const sources={...DIMENSION_PRIOR_SOURCES,'spec-learning-loop.cjs':'5ede395ef94ede35fb9390420d56ececf6846b304a4f74adb15fdfdc9bc933fc','skill-evolution.cjs':'a4c77e89c5a2cf3039b17ec19eb3e3d6b431cb1e6d35244150fe370b6c21356e','skill-grammar.cjs':'4e59c0ba1b9e6e111f0d7558f8c52bfa68be0b66adbf97dc645eda9d3d138207'};
+ const provider='llama-dimension-gbnf-v1';
+ const manifest=read(dir,'manifest.json'),b=manifest.binding;
+ if(manifest.schema!=='MANA_SPEC_LEARNING_MANIFEST_V1'||b?.schema!=='MANA_SPEC_LEARNING_BINDING_V1'||manifest.bindingHash!==hash(JSON.stringify(b))||b.providerConstraint!==provider||b.specSha256!==c.sha256||b.missionsSha256!==hash(JSON.stringify(c.missions))||b.loopbackPort!==port||b.modelIdentifier!==model||JSON.stringify(b.feedback)!==JSON.stringify(prior)||!b.sources||Object.keys(b.sources).length!==Object.keys(sources).length||Object.entries(sources).some(([k,v])=>b.sources[k]!==v))throw Error('Unreviewed typed source manifest');
+ const m=c.missions.find(m=>m.id===prior.missionId);
+ if(!m||c.missions.some(other=>other!==m&&(exists(dir,other.id+'.claim.json')||exists(dir,other.id+'.receipt.json'))))throw Error('Unexpected typed mission state');
+ const claim=read(dir,m.id+'.claim.json'),receipt=read(dir,m.id+'.receipt.json');
+ if(claim.schema!=='MANA_SPEC_LEARNING_CLAIM_V1'||claim.bindingHash!==manifest.bindingHash||claim.missionId!==m.id||claim.sectionSha256!==m.sectionSha256||claim.proposalBudget!==1||!Number.isFinite(Date.parse(claim.startedAt))||receipt.schema!=='MANA_SPEC_LEARNING_RECEIPT_V1'||receipt.providerConstraint!==provider||receipt.bindingHash!==manifest.bindingHash||receipt.claimHash!==hash(JSON.stringify(claim))||receipt.missionId!==m.id||receipt.independentPass!==false||receipt.resultHash!==hash(JSON.stringify(receipt.result))||JSON.stringify(receipt.feedback)!==JSON.stringify(prior))throw Error('Typed source receipt mismatch');
+ const engineHash='4193454e76c85269e4dfb45dfe70d75ff0686f578732623668b3b894afc15bc9',taskHash=hash(JSON.stringify({task:m.task,engineHash,candidatePolicyId:FEEDBACK_POLICY})),result=receipt.result;
+ const engine=path.join(dir,'engine'),attemptDir=path.join(engine,m.id+'-'+taskHash.slice(0,16));existingPrivate(engine);existingPrivate(attemptDir);
+ if(exists(attemptDir,'lock'))throw Error('Typed source engine interrupted');
+ const a=read(attemptDir,'attempt-1.json'),count=m.task.tests.length,failed={stage:'benchmark',code:'BENCHMARK_FAILED'};
+ if(result.status!=='BUDGET_EXHAUSTED'||result.taskHash!==taskHash||result.attempts!==1||result.total!==count||result.testsRun!==count||JSON.stringify(result.lastOutcome)!==JSON.stringify(failed)||a.taskHash!==taskHash||a.engineHash!==engineHash||a.schema!=='MANA_SKILL_CANDIDATE_V1'||a.taskId!==m.id||a.attempt!==1||a.status!=='CANDIDATE_REJECTED'||JSON.stringify(a.outcome)!==JSON.stringify(failed)||a.candidateHash!==hash(JSON.stringify(a.expression)))throw Error('Typed source is not a settled failed benchmark');
+ const screen=require('./skill-dimension-check.cjs').checkSkillDimensions(a.expression,m.task.fields,m.dimensionContract);
+ const expectedScreen={ok:true,code:'DIMENSIONS_AND_DEPENDENCE_VERIFIED',actualPower:3,expectedPower:3,missingFields:[]};
+ if(!screen.ok||JSON.stringify(a.screen)!==JSON.stringify(expectedScreen)||JSON.stringify(a.screen)!==JSON.stringify(result.lastScreen))throw Error('Typed source dimensions not independently reproduced');
+ const results=m.task.tests.map((t,index)=>{let pass=false;try{pass=evaluateExpression(a.expression,t.input,m.task.fields)===t.expected;}catch{}return {index,pass};});
+ const passed=results.filter(x=>x.pass).length;
+ if(passed===count||result.passed!==passed||a.passed!==passed||a.total!==count||JSON.stringify(a.results)!==JSON.stringify(results))throw Error('Typed source benchmark not independently reproduced');
+ return hash(JSON.stringify({manifest,claim,receipt,attempt:a}));
+}
+function identity(c,port,model,constraint,feedback,normalizeUnits){
  const files=[__filename,require.resolve('./spec-learning-catalog.cjs'),require.resolve('./skill-evolution.cjs'),require.resolve('./skill-expression.cjs'),require.resolve('../exact-json.cjs')];
+ if(normalizeUnits)files.push(require.resolve('./spec-unit-normalization.cjs'));
  if(feedback)files.push(require.resolve('./skill-dimension-check.cjs'));
  if(['llama-gbnf-v1','llama-dimension-gbnf-v1'].includes(constraint))files.push(require.resolve('./skill-grammar.cjs'));
  const sources={};for(const file of files)sources[path.basename(file)]=hash(fs.readFileSync(file));
- return {schema:'MANA_SPEC_LEARNING_BINDING_V1',specSha256:c.sha256,missionsSha256:hash(JSON.stringify(c.missions)),sources,modelIdentifier:model,providerConstraint:constraint||'none',...(feedback?{feedback}:{}),loopbackPort:port,nodeVersion:process.version};
+ return {schema:'MANA_SPEC_LEARNING_BINDING_V1',specSha256:c.sha256,missionsSha256:hash(JSON.stringify(c.missions)),sources,modelIdentifier:model,providerConstraint:constraint||'none',...(feedback?{feedback}:{}),loopbackPort:port,nodeVersion:process.version,...(normalizeUnits?{unitPolicy:require('./spec-unit-normalization.cjs').UNIT_POLICY}:{})};
 }
 function independentlyPassed(result,task){
  if(!result||result.status!=='BENCHMARK_PASSED_AWAITING_REVIEW')return false;
@@ -99,14 +125,18 @@ function independentlyPassed(result,task){
  if(!task.tests.every(t=>evaluateExpression(result.expression,t.input,task.fields)===t.expected))throw Error('Independent benchmark failed on resume');
  return true;
 }
-async function runWithCatalog(readSpec,{specPath,workspace,port,model,propose,constraint,reviewFeedback=false,feedbackFrom,dimensionFeedbackFrom}={}){
+async function runWithCatalog(readSpec,{specPath,workspace,port,model,propose,constraint,reviewFeedback=false,feedbackFrom,dimensionFeedbackFrom,normalizeUnits=false,typedFeedbackFrom}={}){
  if(constraint!==undefined&&!['llama-gbnf-v1','llama-dimension-gbnf-v1'].includes(constraint))throw Error('Unsupported provider constraint policy');
  if(typeof reviewFeedback!=='boolean'||reviewFeedback&&(!['llama-gbnf-v1','llama-dimension-gbnf-v1'].includes(constraint)||typeof feedbackFrom!=='string')||!reviewFeedback&&feedbackFrom!==undefined)throw Error('Explicit review-feedback and source require GBNF mode');
  if(constraint==='llama-dimension-gbnf-v1'&&!reviewFeedback)throw Error('Dimension grammar requires explicit reviewed feedback');
  if(dimensionFeedbackFrom!==undefined&&(constraint!=='llama-dimension-gbnf-v1'||typeof dimensionFeedbackFrom!=='string'))throw Error('Dimension feedback source requires explicit dimension grammar mode');
+ if(typeof normalizeUnits!=='boolean'||normalizeUnits&&(!reviewFeedback||constraint!=='llama-dimension-gbnf-v1'||typeof dimensionFeedbackFrom!=='string'||typeof typedFeedbackFrom!=='string')||!normalizeUnits&&typedFeedbackFrom!==undefined)throw Error('Unit normalization requires dimension grammar and all three historical feedback sources');
  const providerConstraint=constraint||'none';
  if(typeof specPath!=='string'||!path.isAbsolute(specPath)||!Number.isInteger(port)||port<1||port>65535||typeof model!=='string'||!model.trim()||model.length>300||propose!==undefined&&typeof propose!=='function')throw Error('Explicit absolute spec path and local model settings required');
- const c=catalog(specPath,readSpec),feedback=reviewFeedback?reviewedFeedback(feedbackFrom,dimensionFeedbackFrom,c,workspace,port,model):null,binding=identity(c,port,model,constraint,feedback),bindingHash=hash(JSON.stringify(binding));
+ const rawCatalog=()=>catalog(specPath,readSpec);
+ const effectiveCatalog=raw=>normalizeUnits?require('./spec-unit-normalization.cjs').normalizeVolumeCatalog(raw):raw;
+ const readFeedback=raw=>{const prior=reviewFeedback?reviewedFeedback(feedbackFrom,dimensionFeedbackFrom,raw,workspace,port,model):null;return normalizeUnits?{...prior,typedEvidenceSha256:typedEvidence(typedFeedbackFrom,raw,path.resolve(workspace),port,model,prior)}:prior;};
+ const raw=rawCatalog(),c=effectiveCatalog(raw),feedback=readFeedback(raw),binding=identity(c,port,model,constraint,feedback,normalizeUnits),bindingHash=hash(JSON.stringify(binding));
  privateDir(workspace);const lock=path.join(workspace,'run.lock');
  // A stale lock means an interrupted operation and requires manual investigation.
  const lockFd=fs.openSync(lock,'wx',0o600);try{fs.writeFileSync(lockFd,JSON.stringify({pid:process.pid,bindingHash}));fs.fsyncSync(lockFd);}finally{fs.closeSync(lockFd);}syncDir(workspace);
@@ -144,15 +174,15 @@ async function runWithCatalog(readSpec,{specPath,workspace,port,model,propose,co
   let called=false;
   const proposal=async args=>{if(called)throw Error('One proposal budget exceeded');called=true;return (propose||proposeLocal)({...args,port,model,...(constraint?{constraint}:{}),...(constraint==='llama-dimension-gbnf-v1'?{dimensionGrammarOptions:{expectedPower:mission.dimensionContract.expectedPower}}:{})});};
   // Any thrown execution leaves the durable claim without receipt: unknown, never blindly retried.
-  const result=await evolveSkill({task:mission.task,workspace:engine,propose:proposal,maxAttempts:1,...(feedback?{candidateCheck,candidatePolicyId:FEEDBACK_POLICY,initialFeedback:feedback.diagnostic}:{})});
-  if(feedback&&JSON.stringify(reviewedFeedback(feedbackFrom,dimensionFeedbackFrom,catalog(specPath,readSpec),workspace,port,model))!==JSON.stringify(feedback))throw Error('Prior feedback evidence changed during execution');
+  const result=await evolveSkill({task:mission.task,workspace:engine,propose:proposal,maxAttempts:1,...(feedback?{candidateCheck,candidatePolicyId:FEEDBACK_POLICY,initialFeedback:normalizeUnits?'A prior proposal passed dimension checks but failed independent numeric verification. The host has already normalized the inputs to metres. Return only one bounded expression.':feedback.diagnostic}:{})});
+  if(feedback&&JSON.stringify(readFeedback(rawCatalog()))!==JSON.stringify(feedback))throw Error('Prior feedback evidence changed during execution');
   if(!called)throw Error('Unexpected preexisting engine checkpoint; no new proposal dispatched');
-  if(hash(JSON.stringify(identity(catalog(specPath,readSpec),port,model,constraint,feedback)))!==bindingHash)throw Error('Source changed during execution; result requires reconciliation');
+  if(hash(JSON.stringify(identity(effectiveCatalog(rawCatalog()),port,model,constraint,feedback,normalizeUnits)))!==bindingHash)throw Error('Source changed during execution; result requires reconciliation');
   const independentPass=independentlyPassed(result,mission.task);
   if(independentPass&&candidateCheck&&!candidateCheck(result.expression).ok)throw Error('Dimension or dependence check failed despite passing result');
   const receipt={schema:'MANA_SPEC_LEARNING_RECEIPT_V1',providerConstraint,...(feedback?{feedback}:{}),bindingHash,missionId:mission.id,claimHash:hash(JSON.stringify(claim)),result,resultHash:hash(JSON.stringify(result)),independentPass};
   writeOnce(workspace,mission.id+'.receipt.json',receipt);
-  return {providerConstraint,...(feedback?{feedback}:{}),status:independentPass?'SPEC_LEARNING_PASSED':'SPEC_LEARNING_REVIEW_REQUIRED',missionId:mission.id,section:mission.section,sectionSha256:mission.sectionSha256,specSha256:c.sha256,selectedBecause,result,proposalDispatched:called,...safe};
+  return {providerConstraint,...(normalizeUnits?{unitPolicy:binding.unitPolicy}:{}),...(feedback?{feedback}:{}),status:independentPass?'SPEC_LEARNING_PASSED':'SPEC_LEARNING_REVIEW_REQUIRED',missionId:mission.id,section:mission.section,sectionSha256:mission.sectionSha256,specSha256:c.sha256,selectedBecause,result,proposalDispatched:called,...safe};
  }finally{fs.unlinkSync(lock);syncDir(workspace);}
 }
 function createSpecLearning({readSpec=approvedReadSpec}={}){if(typeof readSpec!=='function')throw Error('Trusted catalog reader required');return options=>runWithCatalog(readSpec,options);}

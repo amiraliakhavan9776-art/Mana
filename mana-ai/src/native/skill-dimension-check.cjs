@@ -2,7 +2,7 @@
 // Trusted host contract only. Probes must never be included in a model request.
 const {validateExpression,evaluateExpression}=require('./skill-expression.cjs');
 const POLICY='MANA_SKILL_DIMENSION_CONTRACT_V1';
-const POWERS=Object.freeze({length_m:1,width_m:1,thickness_mm:1,excluded_area_m2:2});
+const POWERS=Object.freeze({length_m:1,width_m:1,thickness_mm:1,thickness_m:1,excluded_area_m2:2});
 const ABS_TOLERANCE=1e-9,REL_TOLERANCE=1e-9;
 const plain=x=>x!==null&&typeof x==='object'&&!Array.isArray(x)&&Object.getPrototypeOf(x)===Object.prototype;
 const keys=(x,names)=>plain(x)&&Object.keys(x).sort().join(',')===[...names].sort().join(',');

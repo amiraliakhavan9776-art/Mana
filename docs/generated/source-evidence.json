@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "95b50dec1ece68272a985495ed565855f43cc976cf2c53ce5052e81abb236e02",
-  "fileCount": 379,
+  "sourceSetDigest": "7d3c2da6949f00c8dc00bd2bdc528e9b10722f0c74d54540f22ff2fea4603a13",
+  "fileCount": 380,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -720,9 +720,9 @@
     },
     {
       "path": "mana-ai/SPEC-LEARNING-LAB.md",
-      "bytes": 10884,
-      "sha256": "854a97ff45bf7960e1bb5e12a535541d5478457a740221c25e91ef64ca865566",
-      "gitBlob": "6448c24caaa6f68a3e2872cb25d446128033db72",
+      "bytes": 12538,
+      "sha256": "dd93089e872c1851b7639a74bcea0b0bdfd3194e2bc79acf6ed4a5201cabeef2",
+      "gitBlob": "1adba73e6d44a366477f071a887d9fed8d0ebf8e",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1840,9 +1840,9 @@
     },
     {
       "path": "mana-ai/run-spec-learning-lab.sh",
-      "bytes": 2098,
-      "sha256": "5b003267776b61bb27c44d14dcc6b14cf483cdc0605fac6ad7e3592873211a78",
-      "gitBlob": "d29095ec51101e98c2819a9f86b2f52bdb3dcb2a",
+      "bytes": 2455,
+      "sha256": "bf5241106227ccfd724d17797273aac98e1a6cb061a93047bd72690db1af66ad",
+      "gitBlob": "703cde12ebd19b4f40c1e7b4ca4c8ae6c81c5960",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1931,9 +1931,9 @@
     },
     {
       "path": "mana-ai/spec-learning.cjs",
-      "bytes": 2576,
-      "sha256": "77c8884a9bf6cc8f724d8a9d1c5e87cc7195dfabd18c9a40b663def8cd836cf5",
-      "gitBlob": "3f44b16736dc416e818bda7ea1ad7672cb6bc21c",
+      "bytes": 3157,
+      "sha256": "a10c64aa7fbd3dfd54b7a222c53ac8be4c53f5c8f214211bb95fc374052b1223",
+      "gitBlob": "629d5185cd9c46c0000dc20c521e3c63b717393f",
       "dependencyCandidates": [
         {
           "value": "./src/native/spec-learning-loop.cjs",
@@ -1943,11 +1943,11 @@
       "environmentCandidates": [
         {
           "value": "MANA_CODER_PORT",
-          "line": 16
+          "line": 18
         },
         {
           "value": "MANA_CODER_MODEL",
-          "line": 17
+          "line": 19
         }
       ],
       "testFile": false
@@ -3406,9 +3406,9 @@
     },
     {
       "path": "mana-ai/src/native/skill-dimension-check.cjs",
-      "bytes": 4902,
-      "sha256": "0d8e245b840d4a46f15c9d6d439b860153441c6abe4b30ef6d616a9266ef8dcc",
-      "gitBlob": "80fe8fb9e699b651f6f3e37693b7103fcdf330f7",
+      "bytes": 4916,
+      "sha256": "d183e1c3538d9e149502cbe38dcb502e3ad13c05820a966d8126952f8dec9946",
+      "gitBlob": "d4f0e7d90904ea99ad5c872b5d33dacb1d49c2ad",
       "dependencyCandidates": [
         {
           "value": "./skill-expression.cjs",
@@ -3471,9 +3471,9 @@
     },
     {
       "path": "mana-ai/src/native/skill-grammar.cjs",
-      "bytes": 5467,
-      "sha256": "4e59c0ba1b9e6e111f0d7558f8c52bfa68be0b66adbf97dc645eda9d3d138207",
-      "gitBlob": "909b45fbd7916b09c0a7ff896d4418de510b49cd",
+      "bytes": 5481,
+      "sha256": "77ee6c200ad0fdfe706aa76fb831c5903ce1cf14cec56202e83cb96f0cc78dac",
+      "gitBlob": "16baea455b84b2e3dcc71489507dd148bf0fec9e",
       "dependencyCandidates": [
         {
           "value": "./skill-expression.cjs",
@@ -3507,9 +3507,9 @@
     },
     {
       "path": "mana-ai/src/native/spec-learning-loop.cjs",
-      "bytes": 23795,
-      "sha256": "5ede395ef94ede35fb9390420d56ececf6846b304a4f74adb15fdfdc9bc933fc",
-      "gitBlob": "1d80f39eb34eaacaa70cec6ec3482ed4b5ec1632",
+      "bytes": 29180,
+      "sha256": "9461502eadc8dc596a56b28ca8e4d13ae7bbdc052f56530082787c2e7008619d",
+      "gitBlob": "2eb31fab0a9c43a054ceb03116952f7c663944dc",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -3549,13 +3549,34 @@
         },
         {
           "value": "./skill-dimension-check.cjs",
-          "line": 130
+          "line": 105
+        },
+        {
+          "value": "./spec-unit-normalization.cjs",
+          "line": 119
+        },
+        {
+          "value": "./spec-unit-normalization.cjs",
+          "line": 137
         },
         {
           "value": "./skill-dimension-check.cjs",
-          "line": 139
+          "line": 160
+        },
+        {
+          "value": "./skill-dimension-check.cjs",
+          "line": 169
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/spec-unit-normalization.cjs",
+      "bytes": 2365,
+      "sha256": "7100dc4a097f809056390d383ad82ea99bcdf67ee163c94f3fa49f92e8b6a495",
+      "gitBlob": "4fe370a6a0d013a45a53d6a84f118ad2418445f4",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -7165,6 +7186,44 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/spec-unit-normalization.test.cjs",
+      "bytes": 3277,
+      "sha256": "37d3aaa88f75c304bc9e9739a4e271afaeca2b2b08d99370717e7d78b63d5861",
+      "gitBlob": "4d848584cd29442adaac197cb8c3acfd22f101d4",
+      "dependencyCandidates": [
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "../src/native/spec-unit-normalization.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/native/skill-dimension-check.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/native/skill-grammar.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/skill-expression.cjs",
+          "line": 6
+        },
+        {
+          "value": "../src/native/spec-learning-loop.cjs",
+          "line": 7
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/training-feedback.test.cjs",
       "bytes": 2246,
       "sha256": "15f7eee44b0c027c6c07350449753acb92a1c2ac819c2deee47588786f1dbad5",
@@ -7452,15 +7511,6 @@
       "bytes": 13,
       "sha256": "7bd6b8946940b79948c548c8048e545684b91c8edc9444d8dfc0c8f76a97c0a7",
       "gitBlob": "d59d856f1cc6c05962ca6bd4f14dd3315acd207c",
-      "dependencyCandidates": [],
-      "environmentCandidates": [],
-      "testFile": false
-    },
-    {
-      "path": "mana-ai/training/research-corpus.jsonl",
-      "bytes": 10842,
-      "sha256": "f7c98571e0c173b25859ab756482491546d2951c9f3859309e88fa576705389c",
-      "gitBlob": "51a8222cca7fe3086c18d1dabffed9d9f83895a3",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
