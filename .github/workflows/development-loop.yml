@@ -50,3 +50,5 @@ jobs:
       - run: node mana-ai/tools/furnished-browser-check.cjs
 
       - run: node mana-ai/tools/floor-browser-check.cjs
+
+      - run: node mana-ai/tools/plan-takeoff-browser-check.cjs

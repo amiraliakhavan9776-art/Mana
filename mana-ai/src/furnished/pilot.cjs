@@ -7,6 +7,7 @@ const { promisify } = require('node:util');
 const { createHash, randomBytes, timingSafeEqual } = require('node:crypto');
 const { lookupPrecedents } = require('../architecture/precedents.cjs');
 const runFile = promisify(execFile);
+const {takeoffPlans}=require('./furnished-takeoff.cjs');
 const paths = ['furnished-spine.dxf', 'furnished-gallery.dxf', 'furnished-plans.json', 'furnished-booklet.pdf'];
 const receiptName = 'furnished-receipt.json';
 const cap = 2_000_000;
@@ -109,7 +110,7 @@ function createFurnishedHandler({ workspace, getPort, discoveryEndpoint }) {
       const artifacts = path.join(run, 'artifacts'), briefPath = path.join(run, 'brief.json');
       fs.mkdirSync(artifacts, { mode: 0o700 });
       fs.writeFileSync(briefPath, JSON.stringify(input.brief), { flag: 'wx', mode: 0o600 });
-      const command = await runFile('python3', [exporter, '--brief', briefPath, '--output', artifacts], { timeout: 15000, maxBuffer: 64000, cwd: path.dirname(exporter), env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1' } });
+      const command = await runFile('python3', [exporter, '--brief', briefPath, '--output', artifacts], { timeout: 15000, maxBuffer: 64000, cwd: path.dirname(exporter), env: { ...process.env, PYTHONDONTWRITEBYTECODE: '1', MANA_FURNISHED_NODE_BIN:process.execPath } });
       const result = JSON.parse(command.stdout);
       if (result.status !== 'FURNISHED_CONCEPT_FILES_VERIFIED' || result.plans !== 2 || result.constructionApproved !== false) throw new Error('Exporter has no verification');
       const receiptBytes = readFile(artifacts, receiptName), receipt = JSON.parse(receiptBytes);
@@ -121,11 +122,12 @@ function createFurnishedHandler({ workspace, getPort, discoveryEndpoint }) {
         return [name, proof];
       }));
       hashes[receiptName] = { sha256: hash(receiptBytes), bytes: receiptBytes.length };
-      const plans = JSON.parse(readFile(artifacts, 'furnished-plans.json')).plans;
+      const model=JSON.parse(readFile(artifacts, 'furnished-plans.json')),plans=model.plans;
+      const takeoff=takeoffPlans(plans);if(JSON.stringify(takeoff)!==JSON.stringify(model.takeoff)||receipt.geometrySha256!==takeoff.geometrySha256||receipt.verification.geometrySha256!==takeoff.geometrySha256||receipt.verification.takeoffRows!==14)throw Error('Takeoff does not match verified model');
       if (!Array.isArray(plans) || plans.length !== 2) throw new Error('Two usable plans are required');
       const id = randomBytes(16).toString('hex');
       runs.set(id, { dir: artifacts, hashes });
-      return json(200, { brief: input.brief, plans, verification: receipt.verification, constructionApproved: false,
+      return json(200, { brief: input.brief, plans, takeoff, verification: receipt.verification, constructionApproved: false,
         precedents: input.precedents ? lookupPrecedents({ optIn: true, priorities: input.brief.preference === 'private' ? ['privacy', 'daylight'] : ['indoor_outdoor', 'daylight'], limit: 3 }) : null,
         downloads: [...paths, receiptName].map(name => ({ name, url: '/furnished/download/' + id + '/' + name })) });
     } catch { return json(503, { error: 'ساخت یا بررسی مستقل فایل‌ها کامل نشد؛ خروجی تأیید نشده است.' }); }

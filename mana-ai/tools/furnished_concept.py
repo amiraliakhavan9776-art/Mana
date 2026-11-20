@@ -1,5 +1,6 @@
 """Opt-in fixed two-bedroom concepts in metres. Not construction/code approval."""
 import math
+from decimal import Decimal
 from architecture_geometry import build_wall_segments, validate_access
 LIMITATIONS = ['Fixed two-bedroom rectangular residential templates only.', 'Wall centre-lines have no thickness; furniture is approximate footprint geometry.', 'Door clearance and straight-line routes are heuristic flags, not accessibility or egress approval.', 'No site survey, structure, MEP, regulations or construction approval.']
 
@@ -46,21 +47,22 @@ def generate_concepts(brief):
  if brief['preference'] not in ['social','private']:raise ValueError('unsupported_preference')
  w,l=brief['width'],brief['length'];ratios=[.45,.30,.25] if brief['preference']=='social' else [.32,.28,.40];plans=[]
  for transverse in [False,True]:
-  axis=w if transverse else l;side=((l if transverse else w)-1.4)/2
+  axis_exact=Decimal(str(w if transverse else l));side_exact=(Decimal(str(l if transverse else w))-Decimal('1.4'))/2
+  axis=float(axis_exact);side=float(side_exact)
   p={'id':'gallery' if transverse else 'spine','width':w,'length':l,'wallHeight_m':brief['wallHeight'],'revision':1,'unit':'m','preference':brief['preference'],'reason':'Transverse gallery separates front social rooms from rear private rooms.' if transverse else 'Longitudinal spine gives every room independent central access.','limitations':LIMITATIONS,'rooms':[],'openings':[],'furniture':[]}
   p['preferencesApplied']={'bandFractions':ratios,'effect':'larger living/front band' if brief['preference']=='social' else 'larger final band; not a privacy performance assessment'}
   p['entrySide']='west' if transverse else 'south'
   names=[['living','kitchen','study'],['bed-1','bath','bed-2']] if transverse else [['living','kitchen','bed-1'],['study','bath','bed-2']]
   for col in range(2):
-   cursor=0
+   cursor_exact=Decimal(0)
    for name,ratio in zip(names[col],ratios):
-    span=axis*ratio;off=0 if col==0 else side+1.4
+    span_exact=axis_exact*Decimal(str(ratio));span=float(span_exact);cursor=float(cursor_exact);off=0 if col==0 else float(side_exact+Decimal('1.4'))
     r={'id':name,'x':cursor if transverse else off,'y':off if transverse else cursor,'w':span if transverse else side,'h':side if transverse else span,'unit':'m','revision':1};p['rooms'].append(r)
     mid=cursor+span/2;wall=side if col==0 else side+1.4;outer=0 if col==0 else (l if transverse else w)
     for kind,at,width in [('door',wall,.9),('window',outer,.6 if name=='bath' else 1.2)]:
      points=[[mid-width/2,at],[mid+width/2,at]] if transverse else [[at,mid-width/2],[at,mid+width/2]]
      p['openings'].append({'id':kind+'-'+name,'kind':kind,'a':points[0],'b':points[1],'height_m':2.1 if kind=='door' else 1.2,'connects':['corridor',name] if kind=='door' else [name,'outside']})
-    cursor+=span
+    cursor_exact+=span_exact
   p['rooms'].append({'id':'corridor','x':0 if transverse else side,'y':side if transverse else 0,'w':w if transverse else 1.4,'h':1.4 if transverse else l,'unit':'m','revision':1})
   p['openings'].append({'id':'door-entry','kind':'door','a':[0,side+.2] if transverse else [side+.2,0],'b':[0,side+1.2] if transverse else [side+1.2,0],'height_m':2.1,'connects':['outside','corridor']})
   for r in p['rooms']:
