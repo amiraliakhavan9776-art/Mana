@@ -28,6 +28,18 @@ const {start}=require('../development-ui.cjs');
    const followup=await send('طول ۵ متر');
    assert.equal(followup.status,'COMPLETED');
    assert.match(await page.locator('#thread article').last().textContent(),/[۱1][۷7]/);
+   const nativeCalls=calls;
+   await page.getByRole('button',{name:'مترهٔ قرنیز',exact:true}).click();
+   const skirtingInput=await page.locator('#text').inputValue();
+   assert.equal(skirtingInput,'قرنیز: طول ۵ متر، عرض ۴ متر، کسر ۰٫۹ متر');
+   const skirting=await send(skirtingInput);
+   assert.equal(skirting.status,'COMPLETED');assert.equal(skirting.takeoff.net_skirting_m,'17.1');assert.equal(skirting.modelCalls,0);
+   assert.match(await page.locator('#thread article').last().textContent(),/۱۷٫۱.*۱۸.*۰٫۹/);
+   assert.equal(await page.locator('#confirm').isVisible(),false);
+   const invalidSkirting=await send('قرنیز: طول ۵ متر، عرض ۴ متر، کسر ۱۹ متر');
+   assert.equal(invalidSkirting.status,'CLARIFY');assert.equal(invalidSkirting.takeoff,undefined);
+   assert.match(await page.locator('#thread article').last().textContent(),/از محیط بیشتر/);
+   assert.equal(calls,nativeCalls);
    const prev=calls;
    const preview=await send('برو جلو');
    assert.equal(preview.status,'CONFIRM_REQUIRED');
@@ -43,7 +55,7 @@ const {start}=require('../development-ui.cjs');
    assert.equal(await page.locator('#thread article.human').count(),0);
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth),true);
    assert.deepEqual(errors,[]);await page.close();
-   console.log('MANA_CONVERSATION_CHROMIUM_'+(mobile?'MOBILE':'DESKTOP')+'_PASSED (native floor, injected mission runner)');
+   console.log('MANA_CONVERSATION_CHROMIUM_'+(mobile?'MOBILE':'DESKTOP')+'_PASSED (native floor and skirting, injected mission runner)');
   }
  }finally{if(browser)await browser.close();if(server.listening)await new Promise(r=>server.close(r));}
 })().catch(e=>{console.error(e);process.exitCode=1;});

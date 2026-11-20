@@ -3,6 +3,7 @@ const {randomBytes}=require('node:crypto');
 const {takeoffFromPersian}=require('../../floor-takeoff-fa.cjs');
 const {COMMAND:skillCommand}=require('./mana-skill-pilot.cjs');
 const {COMMAND:dependenceCommand,RECEIPT_COMMAND:dependenceReceipt}=require('./mana-skill-dependence.cjs');
+const {matchesSkirting,previewSkirting}=require('./mana-skirting-preview.cjs');
 const labels={BENCHMARK_PASSED:'آزمون قبول شد',REVIEW_REQUIRED:'نیازمند بازبینی',EXECUTION_BLOCKED:'اجرای آزمون متوقف شد',SUPPORTED_BENCHMARKS_COMPLETE:'آزمون‌های متصل به این نسخه کامل شده‌اند؛ نه همهٔ قابلیت‌های سند.'};
 const status=(name,message,extra={})=>({status:name,message,...extra});
 const token=()=>randomBytes(16).toString('hex');
@@ -64,6 +65,7 @@ function createManaConversation({runner,withRunLock,answerText,skillPilot,skillD
    }finally{s.working=false;}
   }
   const text=clean(body.text);s.pending=null;
+  if(matchesSkirting(text)){s.floor=null;return previewSkirting(body.text);}
   if(clearancePreview?.matches(text)){
    s.floor=null;s.working=true;
    try{return await clearancePreview.preview(text);}finally{s.working=false;}
@@ -101,7 +103,7 @@ function createManaConversation({runner,withRunLock,answerText,skillPilot,skillD
     return status('COMPLETED','پاسخ متنی مدل محلی؛ هیچ اقدامی انجام نشد.',{details:r.text});
    }catch{return status('BLOCKED','مدل محلی پاسخ نداد. هیچ اقدامی انجام نشد.');}finally{s.working=false;modelBusy=false;}
   }
-  if(['سلام','راهنما','کمک'].includes(text)){s.floor=null;return status('READY','«برو جلو» برای پیش‌نمایش اجرای آزمایشی، «سابقه» برای رسیدها، یا درخواست مترهٔ کف با طول، عرض و کسرِ دارای واحد بفرست.');}
+  if(['سلام','راهنما','کمک'].includes(text)){s.floor=null;return status('READY','«برو جلو» برای پیش‌نمایش اجرای آزمایشی، «سابقه» برای رسیدها، یا مترهٔ کف و قرنیز مستطیلی را با اندازه‌های دارای واحد بفرست.');}
   let source=text;
   if(s.floor&&text.length<90&&marker(text,s.floor.field)&&Object.keys(slots).filter(k=>marker(text,k)).length===1)source=s.floor.source+'، '+text;
   s.floor=null;
