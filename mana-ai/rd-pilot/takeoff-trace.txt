@@ -1,0 +1,1 @@
+Reviewed source note: retain declared geometry, unit, deduction and the distinction between gross and net.
