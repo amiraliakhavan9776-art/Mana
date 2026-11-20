@@ -23,11 +23,12 @@ async function history(){const res=await fetch('/history');if(!res.ok)throw Erro
 button.onclick=async()=>{button.disabled=true;statusLine.textContent='در حال انتخاب و اجرای آزمون…';details.textContent='';try{const res=await fetch('/run',{method:'POST',headers:{'X-Mana-Token':'${token}'}});const r=await res.json();if(!res.ok)throw Error(r.error||'اجرای درخواست ممکن نبود.');statusLine.textContent=labels[r.status]||'وضعیت نامشخص';details.textContent=[r.mission?.title,r.selectedBecause,r.reason,r.output,r.reused?'رسید قبلی استفاده شد؛ آزمون دوباره اجرا نشد.':''].filter(Boolean).join('\\n');await history();}catch(e){statusLine.textContent=e.message;}finally{button.disabled=false;}};
 history().catch(e=>{statusLine.textContent=e.message;});
 </script></html>`;}
-function start({port=8798,runner,jarvisSession,furnishedWorkspace,precedentSearchEndpoint,manaAnswerText,skillPilot}={}){
+function start({port=8798,runner,jarvisSession,furnishedWorkspace,precedentSearchEndpoint,manaAnswerText,skillPilot,skillDependencePilot}={}){
  if(!Number.isInteger(port)||port<0||port>65535||!runner||typeof runner.run!=='function'||typeof runner.history!=='function')throw Error('Invalid development UI configuration');
+ if(skillPilot&&skillDependencePilot)throw Error('Enable only one skill pilot lane');
  const token=randomBytes(32).toString('hex');let busy=false;
  async function withRunLock(){if(busy)return {kind:'busy'};busy=true;try{return {kind:'result',value:await runner.run()};}catch{return {kind:'error'};}finally{busy=false;}}
- const conversation=createManaConversation({runner,withRunLock,answerText:manaAnswerText,skillPilot});
+ const conversation=createManaConversation({runner,withRunLock,answerText:manaAnswerText,skillPilot,skillDependencePilot});
  const jarvis=jarvisSession?require('./jarvis-preview.cjs').createHandler(jarvisSession,{basePath:'/jarvis',getPort:()=>server.address().port}):null;
  const furnished=furnishedWorkspace?require('./src/furnished/pilot.cjs').createFurnishedHandler({workspace:furnishedWorkspace,getPort:()=>server.address().port,discoveryEndpoint:precedentSearchEndpoint}):null;
  const server=http.createServer(async(req,res)=>{
@@ -40,7 +41,7 @@ function start({port=8798,runner,jarvisSession,furnishedWorkspace,precedentSearc
   if(req.method==='GET'&&req.url==='/mana'){
    if(req.headers['sec-fetch-site']==='cross-site'||(req.headers.origin&&req.headers.origin!=='http://'+host))return json(403,{error:'نشانی رابط معتبر نیست.'});
    const session=conversation.createSession();if(!session)return json(503,{error:'گفت‌وگو در دسترس نیست.'});
-   return send(200,'text/html; charset=utf-8',require('./src/pilot/mana-page.cjs').manaPage(token,session,{textModelEnabled:Boolean(manaAnswerText),skillPilotEnabled:Boolean(skillPilot)}));
+   return send(200,'text/html; charset=utf-8',require('./src/pilot/mana-page.cjs').manaPage(token,session,{textModelEnabled:Boolean(manaAnswerText),skillPilotEnabled:Boolean(skillPilot),skillDependenceEnabled:Boolean(skillDependencePilot)}));
   }
   if(req.method==='GET'&&req.url==='/floor')return send(200,'text/html; charset=utf-8',floorPage(token));
   if(req.method==='GET'&&req.url==='/expenses')return send(200,'text/html; charset=utf-8',expensePage(token));
@@ -90,9 +91,18 @@ if(require.main===module){
  const modelId=process.env.MANA_CONVERSATION_MODEL_ID;
  const manaAnswerText=modelId?require('./src/pilot/mana-text-model.cjs').createManaTextModel({port:Number(process.env.MANA_CONVERSATION_MODEL_PORT||8794),model:modelId}):undefined;
  const skillWorkspace=process.env.MANA_SKILL_PILOT_WORKSPACE;
- const {resolve,sep}=require('node:path'),workspaces=[process.env.MANA_DEVELOPMENT_WORKSPACE,jarvisPath,furnishedWorkspace,skillWorkspace].filter(Boolean).map(p=>resolve(p));
+ const dependenceWorkspace=process.env.MANA_SKILL_DEPENDENCE_WORKSPACE;
+ const dependencePrior=process.env.MANA_SKILL_DEPENDENCE_PRIOR_WORKSPACE;
+ if(skillWorkspace&&(dependenceWorkspace||dependencePrior))throw Error('Enable only one skill pilot lane');
+ if(Boolean(dependenceWorkspace)!==Boolean(dependencePrior))throw Error('Both skill dependence workspaces are required');
+ const {resolve,sep}=require('node:path'),workspaces=[process.env.MANA_DEVELOPMENT_WORKSPACE,jarvisPath,furnishedWorkspace,skillWorkspace,dependenceWorkspace,dependencePrior].filter(Boolean).map(p=>resolve(p));
  if(workspaces.some((a,i)=>workspaces.some((b,j)=>i<j&&(a===b||a.startsWith(b+sep)||b.startsWith(a+sep)))))throw Error('Staging workspaces must be separate');
- let skillPilot;
+ let skillPilot,skillDependencePilot;
+ if(dependenceWorkspace){
+  if(!modelId)throw Error('Skill dependence pilot requires explicit MANA_CONVERSATION_MODEL_ID');
+  const {createManaSkillDependencePilot,createDependenceProposal}=require('./src/pilot/mana-skill-dependence.cjs'),port=Number(process.env.MANA_CONVERSATION_MODEL_PORT||8794);
+  skillDependencePilot=createManaSkillDependencePilot({workspace:dependenceWorkspace,priorWorkspace:dependencePrior,providerId:port+':'+modelId,propose:createDependenceProposal({port,model:modelId})});
+ }
  if(skillWorkspace){
   if(!modelId)throw Error('Skill pilot requires explicit MANA_CONVERSATION_MODEL_ID');
   const {createManaSkillPilot,createSkillProposal}=require('./src/pilot/mana-skill-pilot.cjs'),port=Number(process.env.MANA_CONVERSATION_MODEL_PORT||8794);
@@ -100,7 +110,7 @@ if(require.main===module){
  }
  const jarvisSession=jarvisPath?require('./src/jarvis-preview/session.cjs').createSession({workspace:jarvisPath}):undefined;
  try{
-  const server=start({port:Number(process.env.MANA_DEVELOPMENT_PORT||8798),runner,jarvisSession,furnishedWorkspace,precedentSearchEndpoint:process.env.MANA_PRECEDENT_SEARCH_URL,manaAnswerText,skillPilot});
+  const server=start({port:Number(process.env.MANA_DEVELOPMENT_PORT||8798),runner,jarvisSession,furnishedWorkspace,precedentSearchEndpoint:process.env.MANA_PRECEDENT_SEARCH_URL,manaAnswerText,skillPilot,skillDependencePilot});
   server.once('listening',()=>console.log('MANA staging: http://127.0.0.1:'+server.address().port));
   if(jarvisSession){server.once('close',()=>jarvisSession.close());server.once('error',error=>{jarvisSession.close();console.error(error.message);process.exitCode=1;});for(const signal of ['SIGINT','SIGTERM'])process.once(signal,()=>server.close());}
  }catch(error){jarvisSession?.close();throw error;}
