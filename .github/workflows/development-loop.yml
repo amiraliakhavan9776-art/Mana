@@ -48,3 +48,5 @@ jobs:
       - run: node mana-ai/tools/expense-browser-check.cjs
       - run: python -m unittest discover -s mana-ai/tools -p 'test_furnished*.py'
       - run: node mana-ai/tools/furnished-browser-check.cjs
+
+      - run: node mana-ai/tools/floor-browser-check.cjs

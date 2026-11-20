@@ -1,13 +1,15 @@
 'use strict';
 // Adapted from the owner's mana-preview.cjs (2026-11-18). Staging only.
 const http=require('node:http');
+const {floorPage}=require('./src/pilot/floor-page.cjs');
+const {takeoffFromPersian}=require('./floor-takeoff-fa.cjs');
 const {expensePage}=require('./src/pilot/expense-page.cjs');
 const {reviewExpense}=require('./src/pilot/expense-review.cjs');
 const {randomBytes,timingSafeEqual}=require('node:crypto');
 function page(token,{jarvis=false,furnished=false}={}){return `<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1"><title>مانا | اجرای مأموریت</title>
 <style>body{font:17px/1.8 system-ui,sans-serif;color:#1f302d;background:#f4f6f3;margin:0}main{max-width:720px;margin:5vh auto;padding:24px}section{background:white;border:1px solid #dce5df;border-radius:16px;padding:24px;margin:16px 0}h1,h2{margin:0 0 10px}button{font:inherit;color:white;background:#245d50;border:0;border-radius:10px;padding:9px 23px;cursor:pointer}button:disabled{opacity:.65}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin:0}ul{padding-inline-start:22px}.note{font-size:14px;color:#52635c}</style>
-<main><a href="/expenses">بررسی صورت هزینه با درخواست فارسی</a><h1>مانا</h1><p>اجرای آزمایشی مأموریت‌های هسته</p>
+<main><p><a href="/floor">مترهٔ دقیق کف با درخواست فارسی</a></p><a href="/expenses">بررسی صورت هزینه با درخواست فارسی</a><h1>مانا</h1><p>اجرای آزمایشی مأموریت‌های هسته</p>
 <p class="note">این محیط آزمایشی است. قبولی آزمون به معنی تکمیل مانا یا مجوز انتشار روی سرور نیست. مدل و GPU لازم نیست.</p>
 ${jarvis?'<p><a href="/jarvis">جارویس: نقشه، متره و دفترچه</a></p>':''}
 ${furnished?'<p><a href="/furnished">معماری: دو گزینهٔ مبلمان‌دار و دفترچه</a></p>':''}
@@ -32,12 +34,21 @@ function start({port=8798,runner,jarvisSession,furnishedWorkspace,precedentSearc
   if(req.headers.host!==host)return json(403,{error:'نشانی رابط معتبر نیست.'});
   if(jarvis&&(req.url==='/jarvis'||req.url.startsWith('/jarvis/'))){await jarvis(req,res);return;}
   if(furnished&&(req.url==='/furnished'||req.url.startsWith('/furnished/'))){await furnished(req,res);return;}
+  if(req.method==='GET'&&req.url==='/floor')return send(200,'text/html; charset=utf-8',floorPage(token));
   if(req.method==='GET'&&req.url==='/expenses')return send(200,'text/html; charset=utf-8',expensePage(token));
   if(req.method==='GET'&&req.url==='/')return send(200,'text/html; charset=utf-8',page(token,{jarvis:Boolean(jarvis),furnished:Boolean(furnished)}));
   if(req.method==='GET'&&req.url==='/history'){try{return json(200,runner.history());}catch{return json(503,{error:'خواندن سابقه ممکن نبود؛ وضعیت موجود حفظ شد.'});}}
-  if(req.method!=='POST'||!['/run','/expenses/review'].includes(req.url))return json(404,{error:'مسیر پیدا نشد.'});
+  if(req.method!=='POST'||!['/run','/expenses/review','/floor/calculate'].includes(req.url))return json(404,{error:'مسیر پیدا نشد.'});
   const supplied=Buffer.from(typeof req.headers['x-mana-token']==='string'?req.headers['x-mana-token']:'');
   if(req.headers.origin!=='http://'+host||supplied.length!==token.length||!timingSafeEqual(supplied,Buffer.from(token)))return json(403,{error:'درخواست اجرا معتبر نیست.'});
+  if(req.url==='/floor/calculate'){
+   if(req.headers['content-type']!=='application/json')return json(415,{error:'ورودی JSON لازم است.'});
+   try{const chunks=[];let size=0;for await(const chunk of req){size+=chunk.length;if(size>4096){json(413,{error:'درخواست بزرگ‌تر از حد مجاز است.'});req.destroy();return;}chunks.push(chunk);}
+    const body=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(Buffer.concat(chunks)));
+    if(!body||Array.isArray(body)||typeof body!=='object'||Object.keys(body).length!==1||typeof body.text!=='string')return json(400,{error:'فقط متن درخواست لازم است.'});
+    return json(200,takeoffFromPersian(body.text));
+   }catch{return json(400,{error:'متن درخواست معتبر نیست.'});}
+  }
   if(req.url==='/expenses/review'){
    if(req.headers['content-type']!=='application/json')return json(415,{error:'ورودی JSON لازم است.'});
    try{
