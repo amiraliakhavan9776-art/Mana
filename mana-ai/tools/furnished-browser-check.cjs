@@ -28,7 +28,7 @@ const { start } = require('../development-ui.cjs');
       await page.waitForFunction(() => document.querySelectorAll('#results svg').length === 2, undefined, { timeout: 25000 });
       assert.match(await page.locator('#sources').textContent(), /Sanctuary House/);
       assert.equal(await page.locator('#results svg rect').count(), 44);
-      const [file] = await Promise.all([page.waitForEvent('download'), page.locator('#files a').filter({ hasText: 'furnished-booklet.pdf' }).click()]);
+      const [file] = await Promise.all([page.waitForEvent('download'), page.locator('#files a[href$="/furnished-booklet.pdf"]').click()]);
       assert.equal(file.suggestedFilename(), 'furnished-booklet.pdf');
       const stream = await file.createReadStream(), chunks = [];
       for await (const b of stream) chunks.push(b);

@@ -1,11 +1,11 @@
 """Opt-in exact-model export. Fixed local providers; no network or supplied code."""
-import hashlib, json, os, shutil, tempfile
+import hashlib, json, os, shutil, subprocess, tempfile
 from pathlib import Path
 from furnished_concept import generate_concepts
 from architecture_geometry import add_dxf_details
 
 
-def render_booklet(target, brief, plans):
+def render_booklet(target, brief, plans, takeoff):
  """Styled vector report of MANA's exact model, not an illustrative replacement."""
  from reportlab.pdfgen import canvas
  from reportlab.lib.pagesizes import A4
@@ -24,6 +24,7 @@ def render_booklet(target, brief, plans):
  def right(x,y,value,size=10,font='MANA-Regular',color=ink):c.setFillColorRGB(*color);c.setFont(font,size);c.drawRightString(x,y,str(value))
  def background(number,section):
   box(0,0,pw,ph,paper);text(36,ph-35,'M A N A',12,'MANA-Bold');right(pw-36,ph-35,section,8,color=muted)
+  text(36,38,'GEOMETRY SHA256: '+takeoff['geometrySha256'],7,color=muted)
   box(36,ph-47,pw-72,.6,(.76,.78,.72));text(36,24,'TEST SAMPLE  /  CONCEPT ONLY  /  NOT FOR CONSTRUCTION',7,color=muted);right(pw-36,24,f'{number:02d} / 03',8,color=muted)
  def miniature(p,x,y,w,h):
   s=min(w/p['width'],h/p['length'])
@@ -36,7 +37,7 @@ def render_booklet(target, brief, plans):
  text(54,ph-91,'TEST SAMPLE',10,'MANA-Bold',gold)
  text(54,ph-132,'Furnished concepts',30,'MANA-Regular',paper)
  text(54,ph-157,'Two geometries. One explicit brief.',13,'MANA-Regular',paper)
- text(54,ph-186,f"{brief['width']} x {brief['length']} m  |  {brief['width']*brief['length']:.0f} m2 footprint  |  {brief['wallHeight']} m wall height",10,'MANA-Regular',paper)
+ text(54,ph-186,f"{brief['width']} x {brief['length']} m  |  {takeoff['options'][0]['total_area_m2']} m2 footprint  |  {brief['wallHeight']} m wall height",10,'MANA-Regular',paper)
  text(54,ph-212,'PREFERENCE INPUT: '+brief['preference'].upper(),9,'MANA-Bold',gold)
  # These miniatures use the exact plan coordinates, not generated imagery.
  text(36,ph-273,'01  LONGITUDINAL SPINE',10,'MANA-Bold');text(310,ph-273,'02  TRANSVERSE GALLERY',10,'MANA-Bold')
@@ -46,12 +47,12 @@ def render_booklet(target, brief, plans):
  text(36,ph-460,'AREA COMPARISON',9,'MANA-Bold');right(pw-36,ph-460,'Geometric bands, not net usable or billable area',8,color=muted)
  y=ph-484;box(36,y-7,pw-72,22,forest)
  text(47,y,'SPACE',8,'MANA-Bold',paper);right(378,y,'SPINE / m2',8,'MANA-Bold',paper);right(pw-47,y,'GALLERY / m2',8,'MANA-Bold',paper)
- areas=[{r['id']:r['w']*r['h'] for r in p['rooms']} for p in plans]
+ areas=[{r['roomId']:r['area_m2'] for r in o['rows']} for o in takeoff['options']]
  for i,room in enumerate(('living','kitchen','study','bed-1','bed-2','bath','corridor')):
   y-=20
   if i%2==0:box(36,y-6,pw-72,20,(.92,.92,.87))
-  text(47,y,room.replace('-',' ').title(),9);right(378,y,f'{areas[0][room]:.2f}',9);right(pw-47,y,f'{areas[1][room]:.2f}',9)
- y-=22;text(47,y,'TOTAL FOOTPRINT',9,'MANA-Bold');right(378,y,f'{sum(areas[0].values()):.2f}',10,'MANA-Bold');right(pw-47,y,f'{sum(areas[1].values()):.2f}',10,'MANA-Bold')
+  text(47,y,room.replace('-',' ').title(),9);right(378,y,areas[0][room],9);right(pw-47,y,areas[1][room],9)
+ y-=22;text(47,y,'TOTAL FOOTPRINT',9,'MANA-Bold');right(378,y,takeoff['options'][0]['total_area_m2'],10,'MANA-Bold');right(pw-47,y,takeoff['options'][1]['total_area_m2'],10,'MANA-Bold')
  text(36,142,'TEST BOUNDARY',9,'MANA-Bold')
  for i,line in enumerate(['Partial phase 0 / phase 1 concept exercise only; not phase completion.',
   'Out of scope: phase 2 execution drawings, structure, MEP, code approval,',
@@ -88,20 +89,33 @@ def render_booklet(target, brief, plans):
  c.save()
 
 
+def _native_takeoff(plans):
+ """Invoke only the repository-owned calculator; no shell or user program."""
+ script=Path(__file__).with_name('furnished_takeoff.cjs').resolve()
+ executable=os.environ.get('MANA_FURNISHED_NODE_BIN','node')
+ if executable!='node' and not Path(executable).is_absolute():raise ValueError('absolute_native_node_path_required')
+ payload=json.dumps(plans,separators=(',',':'),allow_nan=False).encode()
+ if len(payload)>128000:raise ValueError('oversized_takeoff_input')
+ result=subprocess.run([executable,str(script)],input=payload,capture_output=True,timeout=10,check=False,cwd=script.parent)
+ if result.returncode!=0 or not 0<len(result.stdout)<=16000:raise ValueError('native_exact_takeoff_rejected')
+ return json.loads(result.stdout)
+
+
 def export_concepts(brief, output):
  import ezdxf
- from reportlab.pdfgen import canvas
- from reportlab.lib.pagesizes import A4
  from verify_furnished import verify_export
  out=Path(output)
  if not out.is_dir() or out.is_symlink() or out.resolve()!=out.absolute():raise ValueError('real_existing_output_directory_required')
  plans=generate_concepts(brief)
  names=['furnished-'+p['id']+'.dxf' for p in plans]+['furnished-plans.json','furnished-booklet.pdf','furnished-receipt.json']
  if any((out/n).exists() or (out/n).is_symlink() for n in names):raise ValueError('output_exists')
+ takeoff=_native_takeoff(plans)
  stage=Path(tempfile.mkdtemp(prefix='.furnished-',dir=out))
  try:
   for p in plans:
    doc=ezdxf.new('R2010');doc.units=6;ms=doc.modelspace()
+   doc.header.custom_vars.append('MANA_GEOMETRY_SHA256',takeoff['geometrySha256'])
+   doc.header.custom_vars.append('MANA_TAKEOFF_PLAN_ID',p['id'])
    for r in p['rooms']:
     doc.layers.new(r['id']);x,y,w,h=[r[k] for k in ['x','y','w','h']]
     ms.add_lwpolyline([(x,y),(x+w,y),(x+w,y+h),(x,y+h)],close=True,dxfattribs={'layer':r['id']})
@@ -112,12 +126,15 @@ def export_concepts(brief, output):
     e.set_xdata('MANA_FURNITURE',[(1000,f['id']),(1000,f['roomId']),(1000,f['kind'])])
     ms.add_text(f['kind'],dxfattribs={'height':.12,'insert':(x+.03,y+.03),'layer':'FURNITURE'})
    doc.saveas(stage/('furnished-'+p['id']+'.dxf'))
-  model={'schema':'MANA_FURNISHED_CONCEPT_V1','brief':brief,'plans':plans,'constructionApproved':False,'inputClass':'user-declared-concept-not-survey'}
+  model={'schema':'MANA_FURNISHED_CONCEPT_V1','brief':brief,'plans':plans,'takeoff':takeoff,'constructionApproved':False,'inputClass':'user-declared-concept-not-survey'}
   (stage/'furnished-plans.json').write_text(json.dumps(model,ensure_ascii=False,indent=2),encoding='utf8')
-  render_booklet(stage/'furnished-booklet.pdf',brief,plans)
+  render_booklet(stage/'furnished-booklet.pdf',brief,plans,takeoff)
   verification=verify_export(stage)
   dig=lambda b:hashlib.sha256(b).hexdigest()
-  receipt={'schema':'MANA_FURNISHED_EXPORT_RECEIPT_V1','briefSha256':dig(json.dumps(brief,sort_keys=True,separators=(',',':')).encode()),'verification':verification,'constructionApproved':False,'productionDeploymentAllowed':False,'files':{n:{'sha256':dig((stage/n).read_bytes()),'bytes':(stage/n).stat().st_size} for n in names if n!='furnished-receipt.json'},'sourceHashes':{n:dig((Path(__file__).parent/n).read_bytes()) for n in ['furnished_concept.py','architecture_geometry.py','furnished_export.py','verify_furnished.py']}}
+  tools=Path(__file__).parent
+  sources=[tools/n for n in ['furnished_concept.py','architecture_geometry.py','furnished_export.py','verify_furnished.py','furnished_takeoff.cjs']]
+  sources.extend(tools.parent/n for n in ['src/furnished/furnished-takeoff.cjs','src/native/floor-takeoff.cjs'])
+  receipt={'geometrySha256':takeoff['geometrySha256'],'schema':'MANA_FURNISHED_EXPORT_RECEIPT_V1','briefSha256':dig(json.dumps(brief,sort_keys=True,separators=(',',':')).encode()),'verification':verification,'constructionApproved':False,'productionDeploymentAllowed':False,'files':{n:{'sha256':dig((stage/n).read_bytes()),'bytes':(stage/n).stat().st_size} for n in names if n!='furnished-receipt.json'},'sourceHashes':{p.name:dig(p.read_bytes()) for p in sources}}
   (stage/'furnished-receipt.json').write_text(json.dumps(receipt,indent=2),encoding='utf8')
   # No replacement. Partial publication on filesystem failure has no success return.
   for n in names:os.link(stage/n,out/n)
