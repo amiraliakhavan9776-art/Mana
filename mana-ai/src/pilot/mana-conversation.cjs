@@ -1,6 +1,7 @@
 'use strict';
 const {randomBytes}=require('node:crypto');
 const {takeoffFromPersian}=require('../../floor-takeoff-fa.cjs');
+const {COMMAND:skillCommand}=require('./mana-skill-pilot.cjs');
 const labels={BENCHMARK_PASSED:'آزمون قبول شد',REVIEW_REQUIRED:'نیازمند بازبینی',EXECUTION_BLOCKED:'اجرای آزمون متوقف شد',SUPPORTED_BENCHMARKS_COMPLETE:'آزمون‌های متصل به این نسخه کامل شده‌اند؛ نه همهٔ قابلیت‌های سند.'};
 const status=(name,message,extra={})=>({status:name,message,...extra});
 const token=()=>randomBytes(16).toString('hex');
@@ -10,8 +11,9 @@ const invalid=()=>status('BLOCKED','ساختار درخواست معتبر نی�
 const slots={length_m:'طول',width_m:'عرض',excluded_area_m2:'(?:مساحت|سطح) کسر[‌ ]*شده'};
 const marker=(s,k)=>new RegExp('(?:^|[ ،,؛;])'+slots[k]+'(?=$|[ :=۰-۹٠-٩0-9])','u').test(s);
 
-function createManaConversation({runner,withRunLock,answerText,now=Date.now}={}){
+function createManaConversation({runner,withRunLock,answerText,skillPilot,now=Date.now}={}){
  if(!runner||typeof runner.history!=='function'||typeof withRunLock!=='function'||typeof now!=='function'||answerText!==undefined&&typeof answerText!=='function')throw Error('Invalid conversation configuration');
+ if(skillPilot!==undefined&&(!skillPilot||typeof skillPilot.inspect!=='function'||typeof skillPilot.run!=='function'))throw Error('Invalid skill pilot configuration');
  const sessions=new Map(),ttl=20*60*1000,confirmTtl=90*1000;
  let modelBusy=false;
  const fresh=()=>({expires:now()+ttl,pending:null,floor:null,textHistory:[],working:false});
@@ -19,6 +21,13 @@ function createManaConversation({runner,withRunLock,answerText,now=Date.now}={})
   for(const [id,s] of sessions)if(s.expires<=now()&&!s.working)sessions.delete(id);
   if(sessions.size>=32){const oldest=[...sessions].find(([,s])=>!s.working);if(!oldest)return null;sessions.delete(oldest[0]);}
   const id=token();sessions.set(id,fresh());return id;
+ }
+ function skillResult(r){
+  const messages={READY:'هنوز پیش‌نویسی درخواست نشده است.',INVALID_PROPOSAL:'پیشنهاد مدل شکل معتبر نداشت؛ آزمون عددی اجرا نشد.',BENCHMARK_FAILED:'پیشنهاد همهٔ آزمون‌ها را قبول نشد.',PROVIDER_UNAVAILABLE:'پاسخ قابل‌اعتبار مدل دریافت نشد؛ درخواست ممکن است رسیده باشد و تکرار نمی‌شود.',UNKNOWN_OUTCOME:'رسید کامل و قابل‌اعتبار نیست؛ اجرای مجدد مسدود است.',PASSED_AWAITING_REVIEW:'پیشنهاد در این نمونه آزمون‌ها را گذراند؛ در انتظار بازبینی انسانی است.'};
+  const counts=Number.isInteger(r.total)&&Number.isInteger(r.passed)&&Number.isInteger(r.testsRun)?'قبول‌شده: '+r.passed+' از '+r.total+'؛ اجراشده: '+r.testsRun+'. ':'';
+  const candidate=r.expression&&typeof r.candidateSha256==='string'?'\nپیشنهادِ بررسی‌شده: '+JSON.stringify(r.expression)+'\nشناسهٔ پیشنهاد: '+r.candidateSha256:'';
+  const details=counts+(r.reused?'این رسید قبلاً ثبت شده؛ مدل دوباره صدا زده نشد. ':'')+'فقط جمع دو طول نمونه، با دقت یک میلی‌متر. هیچ مهارتی فعال نشد و مدل آموزش ندید.'+candidate;
+  return status(r.status==='PASSED_AWAITING_REVIEW'?'COMPLETED':r.status==='READY'?'READY':'BLOCKED',messages[r.status]||messages.UNKNOWN_OUTCOME,{details,kind:'skill'});
  }
  function history(){
   try{const rows=runner.history().slice(0,8).map(r=>({title:String(r.title).slice(0,200),status:labels[r.status]||'وضعیت نیازمند بررسی'}));return status('COMPLETED',rows.length?'آخرین رسیدهای ثبت‌شده:':'هنوز رسیدی ثبت نشده است.',{history:rows});}catch{return status('BLOCKED','خواندن سابقه ممکن نشد؛ وضعیت موجود تغییر نکرد.');}
@@ -33,8 +42,15 @@ function createManaConversation({runner,withRunLock,answerText,now=Date.now}={})
   s.expires=now()+ttl;
   if(action==='reset'){sessions.set(session,fresh());return status('RESET','گفت‌وگوی موقت پاک شد؛ رسیدهای آزمون دست‌نخورده‌اند.');}
   if(action==='confirm'){
-   if(!s.pending||s.pending.expires<=now()||s.pending.token!==body.confirmation)return status('BLOCKED','این تأیید معتبر نیست یا منقضی شده. دوباره «برو جلو» بفرست.');
-   s.pending=null;s.floor=null;s.working=true;
+   if(!s.pending||s.pending.expires<=now()||s.pending.token!==body.confirmation)return status('BLOCKED','این تأیید معتبر نیست یا منقضی شده. درخواست اصلی را دوباره بفرست.');
+   const pending=s.pending;s.pending=null;s.floor=null;s.working=true;
+   if(pending.kind==='skill'){
+    if(modelBusy){s.working=false;return status('BUSY','مدل مشغول است؛ این تأیید مصرف شد و درخواست خودکار تکرار نمی‌شود.');}
+    modelBusy=true;
+    try{return skillResult(await skillPilot.run());}
+    catch{return skillResult({status:'UNKNOWN_OUTCOME'});}
+    finally{modelBusy=false;s.working=false;}
+   }
    try{
     const r=await withRunLock();
     if(r.kind==='busy')return status('BUSY','یک مأموریت در حال اجراست. این تأیید مصرف شد؛ پس از پایان دوباره «برو جلو» بفرست.');
@@ -45,6 +61,14 @@ function createManaConversation({runner,withRunLock,answerText,now=Date.now}={})
    }finally{s.working=false;}
   }
   const text=clean(body.text);s.pending=null;
+  if(text===skillCommand||text==='رسید مهارت متره'){
+   s.floor=null;
+   if(!skillPilot)return status('BLOCKED','آزمایش مهارت متره در این محیط فعال نیست.');
+   const r=skillPilot.inspect();
+   if(text!==skillCommand||r.status!=='READY')return skillResult(r);
+   s.pending={kind:'skill',token:token(),expires:now()+confirmTtl};
+   return status('CONFIRM_REQUIRED','با تأیید تو فقط یک درخواست به مدل محلی فرستاده می‌شود: پیشنهاد عبارت محاسباتی برای جمع دو طول نمونه، به متر با دقت میلی‌متر. هستهٔ مانا آن را با ۱۰ آزمون مستقل بررسی می‌کند؛ نمونه‌ها به مدل فرستاده نمی‌شوند. بدون اجرای کد پیشنهادی، تغییر فایل‌های مانا، یا فعال‌سازی مهارت.',{confirmation:s.pending.token,kind:'skill'});
+  }
   if(text==='برو جلو'){
    s.floor=null;s.pending={token:token(),expires:now()+confirmTtl};
    return status('CONFIRM_REQUIRED','با تأیید تو، مانا حداکثر یک مأموریت آماده از صف متصل به سند را بررسی می‌کند. انتخاب دقیق هنگام اجرا و بر اساس رسیدهای همان نسخه انجام می‌شود. فقط آزمون‌های ازپیش‌تعریف‌شده در محیط ایزوله؛ بدون انتشار یا تغییر سرور.',{confirmation:s.pending.token});

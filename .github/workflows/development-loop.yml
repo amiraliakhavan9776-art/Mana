@@ -54,3 +54,5 @@ jobs:
       - run: node mana-ai/tools/plan-takeoff-browser-check.cjs
 
       - run: node mana-ai/tools/mana-conversation-browser-check.cjs
+
+      - run: node mana-ai/tools/mana-skill-pilot-browser-check.cjs
