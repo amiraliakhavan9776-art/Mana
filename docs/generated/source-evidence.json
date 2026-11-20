@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "7d3c2da6949f00c8dc00bd2bdc528e9b10722f0c74d54540f22ff2fea4603a13",
-  "fileCount": 380,
+  "sourceSetDigest": "23dd773ebcf29dc8bd8d0661de930904176c6c2e9e3e172ec8da3dfeb4f9b834",
+  "fileCount": 381,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -7511,6 +7511,15 @@
       "bytes": 13,
       "sha256": "7bd6b8946940b79948c548c8048e545684b91c8edc9444d8dfc0c8f76a97c0a7",
       "gitBlob": "d59d856f1cc6c05962ca6bd4f14dd3315acd207c",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/training/research-corpus.jsonl",
+      "bytes": 10842,
+      "sha256": "f7c98571e0c173b25859ab756482491546d2951c9f3859309e88fa576705389c",
+      "gitBlob": "51a8222cca7fe3086c18d1dabffed9d9f83895a3",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
