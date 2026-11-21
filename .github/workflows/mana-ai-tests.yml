@@ -45,3 +45,5 @@ jobs:
         run: node --test mana-ai/tests/research-preview.test.cjs
       - name: Verify bounded Persian AEC research intake and isolated learner
         run: node --test mana-ai/tests/aec-instruction.test.cjs
+      - name: Exercise Persian queue selection, safe stops and receipt validation
+        run: node --test mana-ai/tests/mission-selection*.test.cjs

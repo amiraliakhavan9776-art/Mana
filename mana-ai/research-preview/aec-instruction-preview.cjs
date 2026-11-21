@@ -2,21 +2,23 @@
 const http=require('node:http'),path=require('node:path'),{randomBytes,timingSafeEqual}=require('node:crypto');
 const {APPROVED_PERSIAN_COMMAND}=require('./persian-intake.cjs');
 const {createAecInstructionRunner,readBound}=require('./aec-instruction-runner.cjs');
-function page(token){return `<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+function page(token,selectionCommand){const selecting=!!selectionCommand;return `<!doctype html><html lang="fa" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>مانا | مأموریت پژوهشی</title><style>body{background:#f4f6f3;color:#1f302d;font:17px/1.8 system-ui;margin:0}main{max-width:720px;margin:4vh auto;padding:20px}section{background:white;border:1px solid #dce5df;border-radius:16px;padding:20px}textarea,button{font:inherit}textarea{box-sizing:border-box;width:100%;min-height:9rem;padding:9px;border:1px solid #697c73;border-radius:8px}button{color:white;background:#245d50;border:none;border-radius:10px;padding:8px 22px;cursor:pointer}button:disabled{opacity:.6}pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit}h1{line-height:1.4}</style>
-<main><h1>مانا | پژوهش از روی سند</h1><section><label for="instruction">دستور فارسی مأموریت</label><textarea id="instruction" maxlength="768">${APPROVED_PERSIAN_COMMAND}</textarea>
-<p>پیش‌نمایش روی CPU. فقط درخواست بازبینی‌شدهٔ متره را می‌پذیرد و هیچ مهارتی را فعال نمی‌کند.</p>
-<button id="run">برو جلو</button><p id="status" role="status">آمادهٔ اجرا</p><pre id="details"></pre></section></main>
+<main><h1>مانا | پژوهش از روی سند</h1><section><label for="instruction">دستور فارسی مأموریت</label><textarea id="instruction" maxlength="768">${selectionCommand??APPROVED_PERSIAN_COMMAND}</textarea>
+<p>${selecting?'پیش‌نمایش روی CPU. مانا از بین دو آزمون بازبینی‌شده در صف سند انتخاب می‌کند؛ هیچ مهارتی فعال نمی‌شود.':'پیش‌نمایش روی CPU. فقط درخواست بازبینی‌شدهٔ متره را می‌پذیرد و هیچ مهارتی را فعال نمی‌کند.'}</p>
+<button id="run">برو جلو</button><p id="status" role="status">آمادهٔ اجرا</p><pre id="details"></pre><div id="progress"></div></section></main>
 <script>
 const statusLine=document.querySelector('#status'),details=document.querySelector('#details'),button=document.querySelector('#run');
-const labels={AWAITING_HUMAN_REVIEW:'نیازمند بازبینی',TEST_NOT_PASSED:'پیشنهاد آزمون را نگذرانده',SOURCE_BLOCKED:'منبع رسمی قابل تأیید نبود؛ پیشنهادی ساخته نشد.',UNKNOWN_OUTCOME:'اجرای قبلی نتیجهٔ قطعی ندارد؛ تکرار نمی‌شود.',REJECTED:'دستور خارج از محدودهٔ بازبینی‌شده است.'};
+const labels={AWAITING_HUMAN_REVIEW:'نیازمند بازبینی',TEST_NOT_PASSED:'پیشنهاد آزمون را نگذرانده',SOURCE_BLOCKED:'منبع رسمی قابل تأیید نبود؛ پیشنهادی ساخته نشد.',UNKNOWN_OUTCOME:'اجرای قبلی نتیجهٔ قطعی ندارد؛ تکرار نمی‌شود.',REJECTED:'دستور خارج از محدودهٔ بازبینی‌شده است.',READY:'آمادهٔ اجرا',NO_READY_CASE:'مأموریت آمادهٔ دیگری در محدودهٔ این پیش‌نمایش نیست.'};
+let runStarted=false;
 const num=n=>new Intl.NumberFormat('fa-IR',{useGrouping:false}).format(n);
-function show(r){if(!r)return;statusLine.textContent=labels[r.status]||'وضعیت نامشخص';details.textContent=[r.title,r.selectedBecause,r.sourceUrl,r.sourceUrl&&(r.sourceMode==='host-mediated'?'دریافت زنده از ناشر با رابط میزبان':'بازپخش مدرک پین‌شده؛ بدون دریافت زنده'),r.total==null?'':'آزمون مستقل روی CPU: '+num(r.passed)+' از '+num(r.total),r.candidateSha256&&'شناسهٔ پیشنهاد: '+r.candidateSha256,r.status==='AWAITING_HUMAN_REVIEW'&&'پیشنهاد برای بازبینی ذخیره شد؛ چیزی فعال نشده است.',r.reused&&'رسید قبلی استفاده شد؛ مأموریت دوباره اجرا نشد.'].filter(Boolean).join('\\n');}
+function show(r){if(!r)return;const progress=document.querySelector('#progress');if(progress)progress.textContent=typeof r.validatedCount==='number'?'رسید معتبر: '+num(r.validatedCount)+' از '+num(r.reviewedCount)+(r.nextCaseId?'؛ یک آزمون دیگر آمادهٔ انتخاب است.':''):'';statusLine.textContent=labels[r.status]||'وضعیت نامشخص';details.textContent=[r.title,r.selectedBecause,r.missionId&&'شناسهٔ ردیف صف: '+r.missionId,...(Array.isArray(r.completed)?r.completed.map(x=>x.title+' · '+num(x.passed)+' از '+num(x.total)):[]),r.sourceUrl,r.sourceUrl&&(r.sourceMode==='host-mediated'?'دریافت زنده از ناشر با رابط میزبان':r.sourceMode==='official-https'?'دریافت محدود مستقیم از ناشر':'بازپخش مدرک پین‌شده؛ بدون دریافت زنده'),r.total==null?'':'آزمون مستقل روی CPU: '+num(r.passed)+' از '+num(r.total),r.candidateSha256&&'شناسهٔ پیشنهاد: '+r.candidateSha256,r.status==='AWAITING_HUMAN_REVIEW'&&'پیشنهاد برای بازبینی ذخیره شد؛ چیزی فعال نشده است.',r.reused&&r.status!=='NO_READY_CASE'&&'رسید قبلی استفاده شد؛ مأموریت دوباره اجرا نشد.'].filter(Boolean).join('\\n');}
 async function load(url,opts){const res=await fetch(url,opts);const r=await res.json();if(!res.ok)throw Error(r.error);return r;}
-button.onclick=async()=>{button.disabled=true;statusLine.textContent='در حال پژوهش و ارزیابی…';details.textContent='';try{show(await load('/run',{method:'POST',headers:{'Content-Type':'application/json','X-Mana-Token':'${token}'},body:JSON.stringify({instruction:document.querySelector('#instruction').value})}));}catch(e){statusLine.textContent=e.message;}finally{button.disabled=false;}};
-load('/history').then(show).catch(e=>{statusLine.textContent=e.message;});
+button.onclick=async()=>{if(button.disabled)return;runStarted=true;button.disabled=true;statusLine.textContent='در حال پژوهش و ارزیابی…';details.textContent='';try{show(await load('/run',{method:'POST',headers:{'Content-Type':'application/json','X-Mana-Token':'${token}'},body:JSON.stringify({instruction:document.querySelector('#instruction').value})}));}catch(e){statusLine.textContent=e.message;}finally{button.disabled=false;}};
+load('/history').then(r=>{if(!runStarted)show(r);}).catch(e=>{if(!runStarted)statusLine.textContent=e.message;});
 </script></html>`;}
-function start({port=0,runner}){
+function start({port=0,runner,missionSelection=false}){
+ const selectionCommand=missionSelection?require('./mission-selection-runner.cjs').APPROVED_MISSION_SELECTION_COMMAND:undefined;
  if(!Number.isInteger(port)||port<0||port>65535)throw Error('INVALID_PORT');
  const token=randomBytes(32).toString('hex');
  const server=http.createServer(async(req,res)=>{
@@ -24,7 +26,7 @@ function start({port=0,runner}){
   const json=(code,data)=>send(code,'application/json; charset=utf-8',JSON.stringify(data));
   const host='127.0.0.1:'+server.address().port;
   if(req.headers.host!==host||req.headers['sec-fetch-site']==='cross-site')return json(403,{error:'نشانی درخواست معتبر نیست.'});
-  if(req.method==='GET'&&req.url==='/')return send(200,'text/html; charset=utf-8',page(token));
+  if(req.method==='GET'&&req.url==='/')return send(200,'text/html; charset=utf-8',page(token,selectionCommand));
   if(req.method==='GET'&&req.url==='/history'){
    try{return json(200,runner.history());}catch{return json(503,{error:'رسید معتبر نیست؛ وضعیت موجود حفظ شد.'});}
   }
