@@ -4,6 +4,7 @@ const {QUEUE_SHA256,RESEARCH_MISSION_ID,RESEARCH_SUBCASE_ID,selectResearchMissio
 const {APPROVED_PERSIAN_COMMAND,parsePersianResearchInstruction}=require('./persian-intake.cjs');
 const {REPOSITORY,COMMIT}=require('./cpython-source.cjs');
 const {ID:AEC_ID,SOURCE_URL:AEC_SOURCE}=require('./aec-source.cjs');
+const {isDirectSourceFailure}=require('./aec-instruction-runner.cjs');
 
 const APPROVED_MISSION_SELECTION_COMMAND='طبق سند توسعه ۱٫۱ از صف پژوهش یک مأموریت آماده انتخاب کن، منبع رسمی پیدا کن و پیشنهاد را با آزمون مستقل در محیط ایزوله بسنج؛ چیزی را فعال نکن.';
 const POLICY='طبق سند توسعه 1.1 از صف پژوهش یک ماموریت آماده انتخاب کن منبع رسمی پیدا کن و پیشنهاد را با آزمون مستقل در محیط ایزوله بسنج چیزی را فعال نکن';
@@ -32,14 +33,21 @@ function verdict(row,spec,isPython){
  if(row===null)return null;
  need(row!==null&&typeof row==='object'&&!Array.isArray(row)&&row.missionId===spec.missionId,'CASE_RECEIPT_WRONG_MISSION');
  if(row.status===(isPython?'UNKNOWN':'UNKNOWN_OUTCOME'))return {status:'UNKNOWN_OUTCOME'};
- if(row.status===(isPython?'RESEARCH_BLOCKED':'SOURCE_BLOCKED'))return {status:'SOURCE_BLOCKED'};
+ if(row.status===(isPython?'RESEARCH_BLOCKED':'SOURCE_BLOCKED')){
+  if(!isPython&&row.sourceMode==='direct'){
+   need(isDirectSourceFailure(row.sourceFailureCode),'CASE_RECEIPT_INVALID_DIRECT_FAILURE');
+   return {status:'SOURCE_BLOCKED',sourceMode:'direct',sourceFailureCode:row.sourceFailureCode};
+  }
+  return {status:'SOURCE_BLOCKED'};
+ }
  if(isPython&&row.status==='SYNTHESIS_BLOCKED'){
   need(row.sourceUrl===spec.url&&['host-mediated','pinned-replay','official-https'].includes(row.sourceMode)&&hex(row.sourceProvenanceSha256),'CASE_RECEIPT_INVALID_SOURCE');
   return {status:'TEST_NOT_PASSED',sourceUrl:row.sourceUrl,sourceMode:row.sourceMode};
  }
  const accepted=row.status==='AWAITING_HUMAN_REVIEW';
  need(accepted||row.status===(isPython?'TEST_FAILED':'TEST_NOT_PASSED'),'CASE_RECEIPT_STATUS_INVALID');
- need(row.sourceUrl===spec.url&&['host-mediated','pinned-replay',...(isPython?['official-https']:[])].includes(row.sourceMode)&&hex(row.sourceSha256??row.sourceProvenanceSha256),'CASE_RECEIPT_INVALID_SOURCE');
+ need(row.sourceUrl===spec.url&&['host-mediated','pinned-replay',...(isPython?['official-https']:['direct'])].includes(row.sourceMode)&&hex(row.sourceSha256??row.sourceProvenanceSha256),'CASE_RECEIPT_INVALID_SOURCE');
+ if(row.sourceMode==='direct')need(!isPython&&row.transport==='DIRECT_OFFICIAL_HTTPS'&&row.directRuntimeNetwork===true,'CASE_RECEIPT_INVALID_DIRECT_SOURCE');
  const candidateSha256=isPython?row.candidate:row.candidateSha256;
  const terminalProof=isPython?row.bridgeReceiptSha256:row.gradeSha256;
  const {passed,total}=row;

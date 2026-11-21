@@ -97,3 +97,69 @@ test('concurrent calls cannot accidentally advance the second case within one cl
  assert.equal((await runner.run(command)).status,'UNKNOWN_OUTCOME');assert.deepEqual(dispatched,[py]);
  resolve();assert.equal((await one).nextCaseId,aecCase);assert.deepEqual(dispatched,[py]);
 });
+test('exact direct mode can advance only the AEC case; incomplete or wrong transport proof is blocked',{skip:!master},async()=>{
+ const direct={...aecPass(),sourceMode:'direct',transport:'DIRECT_OFFICIAL_HTTPS',directRuntimeNetwork:true};
+ const x=fixture({py:pyPass(),aec:direct});
+ assert.equal(x.runner.history().status,'NO_READY_CASE');
+ assert.deepEqual(x.dispatched,[]);
+ for(const broken of [
+  {...direct,transport:'HOST_MEDIATED_WITNESSED_LINK'},
+  {...direct,directRuntimeNetwork:false},
+  {...direct,sourceUrl:'https://example.invalid/other.pdf'},
+ ]){
+  const y=fixture({py:pyPass(),aec:broken});
+  await assert.rejects(y.runner.run(command),/CASE_RECEIPT_INVALID_(?:DIRECT_)?SOURCE/);
+  assert.deepEqual(y.dispatched,[]);
+ }
+ const cpy=fixture({py:{...pyPass(),sourceMode:'direct',transport:'DIRECT_OFFICIAL_HTTPS',directRuntimeNetwork:true}});
+ await assert.rejects(cpy.runner.run(command),/CASE_RECEIPT_INVALID_SOURCE/);
+ assert.deepEqual(cpy.dispatched,[]);
+});
+test('direct AEC rejects unbound raw evidence and persists only safe source diagnostics',{skip:!master||Number(process.versions.node.split('.')[0])<24},async t=>{
+ const os=require('node:os'),{createAecInstructionRunner}=require('./aec-instruction-runner.cjs');
+ const {INDEX_URL}=require('./aec-source.cjs'),{PDF_SHA256,PDF_BYTES}=require('./indot-direct.cjs');
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'mana-direct-receipt-test-'));
+ t.after(()=>fs.rmSync(root,{recursive:true,force:true}));
+ const host=new URL(SOURCE_URL);
+ const now='2026-11-21T14:00:00.000Z';
+ const proposed=()=>({
+  status:'OFFICIAL_SOURCE_VERIFIED',sourceUrl:SOURCE_URL,sourceSha256:PDF_SHA256,fit:{id:aecCase},
+  evidence:{
+   sourceMode:'direct',transport:'DIRECT_OFFICIAL_HTTPS',directRuntimeNetwork:true,
+   captureRepresentation:'AUTHENTICATED_RAW_HTML_AND_PDF',
+   index:{url:INDEX_URL,sha256:pin,retrievedAt:now,byteCount:1000},
+   source:{url:SOURCE_URL,sha256:PDF_SHA256,retrievedAt:now,byteCount:PDF_BYTES},
+   link:{href:host.pathname+host.search,url:SOURCE_URL,sha256:pin},
+   passage:{pageIndex:12,sha256:pin,structureSha256:pin,proseSha256:pin},
+  },
+ });
+ const cases=[
+  [e=>{e.evidence.transport='HOST_MEDIATED_WITNESSED_LINK';},'INDOT_SOURCE_UNVERIFIED'],
+  [e=>{e.evidence.directRuntimeNetwork=false;},'INDOT_SOURCE_UNVERIFIED'],
+  [e=>{e.evidence.captureRepresentation='PROVIDER_RENDERED_TEXT_NOT_PDF_BYTES';},'INDOT_SOURCE_UNVERIFIED'],
+  [e=>{e.evidence.source.sha256=e.sourceSha256=pin;},'INDOT_SOURCE_UNVERIFIED'],
+  [e=>{e.evidence.source.byteCount++;},'INDOT_SOURCE_UNVERIFIED'],
+  [e=>{e.evidence.link.href='https://example.invalid/';},'INDOT_SOURCE_UNVERIFIED'],
+  [e=>{delete e.evidence.passage.structureSha256;},'INDOT_SOURCE_UNVERIFIED'],
+  [()=>{throw Error('private /root/path must not appear');},'INDOT_SOURCE_UNVERIFIED'],
+  [()=>{throw Error('INDOT_HTTPS_TIMEOUT');},'INDOT_HTTPS_TIMEOUT'],
+  [()=>{throw Error('INDOT_PDF_REVISION_MISMATCH');},'INDOT_PDF_REVISION_MISMATCH'],
+  [()=>{throw Error('INDOT_PYMUPDF_REQUIRED');},'INDOT_PYMUPDF_REQUIRED'],
+ ];
+ for(const [i,[change,expected]] of cases.entries()){
+  const workspace=path.join(root,String(i));fs.mkdirSync(workspace,0o700);
+  let discovers=0;
+  const config={workspace,masterBytes:fs.readFileSync(master),queueBytes,sourceMode:'direct',
+   discover(){discovers++;const e=proposed();change(e);return e;},
+   learn(){assert.fail('invalid source cannot dispatch learner');},readLearning(){assert.fail('invalid source has no learner');}};
+  const first=await createAecInstructionRunner(config).run(aecCommand);
+  assert.equal(first.status,'SOURCE_BLOCKED');
+  assert.equal(first.sourceFailureCode,expected);
+  assert(!JSON.stringify(first).includes('/root/path'));
+  assert.deepEqual(fs.readdirSync(workspace).sort(),['claim.json','terminal.json']);
+  const reopened=createAecInstructionRunner(config);
+  assert.equal(reopened.history().sourceFailureCode,expected);
+  assert.equal((await reopened.run(aecCommand)).reused,true);
+  assert.equal(discovers,1);
+ }
+});

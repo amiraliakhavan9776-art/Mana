@@ -21,11 +21,14 @@ function privateDirectory(directory,create=false){
  if(!stat.isDirectory()||stat.uid!==process.getuid()||(stat.mode&0o077)!==0||fs.realpathSync(directory)!==directory)
   throw Error('PRIVATE_CANONICAL_WORKSPACE_REQUIRED');
 }
-function openMissionSelection({workspace,masterPath,cpythonSource,capturePath,captureSha256,cpythonReader,discover}){
- const abs=p=>typeof p==='string'&&path.isAbsolute(p)&&path.resolve(p)===p;
- if(![workspace,masterPath,capturePath].every(abs)||!(cpythonSource==='--official-https'||abs(cpythonSource))||
-    [masterPath,capturePath,cpythonSource].some(p=>p===workspace||p.startsWith(workspace+path.sep)))throw Error('INPUTS_MUST_BE_OUTSIDE_PRIVATE_STATE');
- if(!discover&&!INDOT_CAPTURE_PINS.has(captureSha256))throw Error('REVIEWED_INDOT_CAPTURE_PIN_REQUIRED');
+function openMissionSelection({workspace,masterPath,cpythonSource,capturePath,captureSha256,cpythonReader,discover,pythonPath}){
+ const abs=p=>typeof p==='string'&&p.length<4096&&!p.includes('\0')&&path.isAbsolute(p)&&path.resolve(p)===p;
+ const indotDirect=pythonPath!==undefined;
+ if(indotDirect&&(!abs(pythonPath)||capturePath!==undefined||captureSha256!==undefined||discover!==undefined))throw Error('INDOT_DIRECT_REQUIRES_EXPLICIT_ABSOLUTE_PYTHON_AND_NO_CAPTURE');
+ const indotInput=indotDirect?pythonPath:capturePath;
+ if(![workspace,masterPath,indotInput].every(abs)||!(cpythonSource==='--official-https'||abs(cpythonSource))||
+    [masterPath,indotInput,cpythonSource].some(p=>p===workspace||p.startsWith(workspace+path.sep)))throw Error('INPUTS_MUST_BE_OUTSIDE_PRIVATE_STATE');
+ if(!indotDirect&&!discover&&!INDOT_CAPTURE_PINS.has(captureSha256))throw Error('REVIEWED_INDOT_CAPTURE_PIN_REQUIRED');
  privateDirectory(workspace);
  const masterBytes=readBound(masterPath,128*1024),queueBytes=readBound(queuePath,128*1024);
  const cpy=path.join(workspace,'research'),aec=path.join(workspace,'quantity');
@@ -33,13 +36,14 @@ function openMissionSelection({workspace,masterPath,cpythonSource,capturePath,ca
  const live=cpythonSource==='--official-https';
  const cpythonRunner=createQueueResearchRunner({workspace:cpy,queueBytes,holdoutPath,holdoutSha256:HOLDOUT_SHA256,sourceMode:live?'official-https':'pinned-replay',readOfficial:cpythonReader??(live?readOfficial:readerFromDirectory(cpythonSource))});
  // The injected discovery hook is for in-process integration; an HTTP caller cannot select it.
- const aecRunner=createAecInstructionRunner({workspace:aec,masterBytes,queueBytes,sourceMode:discover?'host-mediated':'pinned-replay',discover:discover??(()=>readCapturedPanelEvidence(capturePath,captureSha256)),learn:learnAec,readLearning:readAecLearning});
+ const aecRunner=createAecInstructionRunner({workspace:aec,masterBytes,queueBytes,sourceMode:indotDirect?'direct':discover?'host-mediated':'pinned-replay',discover:indotDirect?(()=>require('./indot-direct.cjs').discoverDirectPanelEvidence({pythonPath})):discover??(()=>readCapturedPanelEvidence(capturePath,captureSha256)),learn:learnAec,readLearning:readAecLearning});
  return createMissionSelectionRunner({masterBytes,queueBytes,cpythonRunner,aecRunner});
 }
 if(require.main===module){
- const [workspace,masterPath,cpythonSource,capturePath,captureSha256,...extra]=process.argv.slice(2);
- if(extra.length||Number(process.versions.node.split('.')[0])<24)throw Error('Node 24+; usage: mission-selection-preview.cjs /private/state /private/master.txt --official-https|/private/cpython-captures /private/indot-capture.json capture-sha256');
- const runner=openMissionSelection({workspace,masterPath,cpythonSource,capturePath,captureSha256});
+ const [workspace,masterPath,cpythonSource,indotChoice,indotValue,...extra]=process.argv.slice(2);
+ if(extra.length||indotChoice===undefined||indotValue===undefined||Number(process.versions.node.split('.')[0])<24)throw Error('Node 24+; usage: mission-selection-preview.cjs /private/state /private/master.txt --official-https|/private/cpython-captures /private/indot-capture.json capture-sha256 OR --indot-https /absolute/python');
+ const indot=indotChoice==='--indot-https'?{pythonPath:indotValue}:{capturePath:indotChoice,captureSha256:indotValue};
+ const runner=openMissionSelection({workspace,masterPath,cpythonSource,...indot});
  const server=start({port:Number(process.env.MANA_MISSION_SELECTION_PORT??0),runner,missionSelection:true});
  server.once('listening',()=>console.log('MANA queue CPU staging: http://127.0.0.1:'+server.address().port));
  server.once('error',e=>{console.error('MANA_QUEUE_LISTEN_FAILED',e.code??'UNKNOWN');process.exitCode=1;});
