@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "19d76a70ae104ad302d731c60766fea0fb9ad24dba32edc2be900cf53143f5fc",
-  "fileCount": 516,
+  "sourceSetDigest": "2424254e6ae6ffdee17a45b58aa575c5a8b8bc7bd0c643ef96157a3705bb8f82",
+  "fileCount": 521,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -50,9 +50,9 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 1569,
-      "sha256": "6e1bc7a173508132e75b8c7c69a703954b7f3a0f7ea06b54ba490c3a30f49097",
-      "gitBlob": "b2f95770bff56951b4540dcd5387c70259569cd6",
+      "bytes": 1718,
+      "sha256": "15edf666e37bf8e18bdc9a1a84b90138be0b4eb08db9fd89befd040a0b1e5af0",
+      "gitBlob": "dc7ddf824c667a52ca7be62dc2bdb54ce494ca26",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -787,6 +787,15 @@
       "bytes": 5401,
       "sha256": "e2f9ebde25c962d3ed1090fbc527abe6940fcc3878f604c31db7766370809463",
       "gitBlob": "e70031e0334ac8102240a3db403987f3e57ab719",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-MISSION-SELECTION.fa.md",
+      "bytes": 4212,
+      "sha256": "d6148dfcd0a796f7bd3659871937902466bdbd0fbd4e21ce872cd58533e1e9b2",
+      "gitBlob": "cbdc40589ff30d45281d8b2de2b0c2ef8e246bf0",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2328,9 +2337,9 @@
     },
     {
       "path": "mana-ai/research-preview/aec-instruction-preview.cjs",
-      "bytes": 7741,
-      "sha256": "5053d1350d5929503620399bf89d2fff1aa23b4a98b57c921f2dd735018c7f73",
-      "gitBlob": "11ac277a4d742101b0e7ceba97600651c4f60a1d",
+      "bytes": 9007,
+      "sha256": "2d3d1115f764fdaa2d6a50a0f6518500706e5f6dfd3f1a1c0ecb22310f28273e",
+      "gitBlob": "7ce2dd2c0d6c1ada89ebef4b6b9828f12de0db91",
       "dependencyCandidates": [
         {
           "value": "node:http",
@@ -2353,18 +2362,22 @@
           "line": 4
         },
         {
+          "value": "./mission-selection-runner.cjs",
+          "line": 21
+        },
+        {
           "value": "./aec-source.cjs",
-          "line": 54
+          "line": 56
         },
         {
           "value": "./aec-learner.cjs",
-          "line": 55
+          "line": 57
         }
       ],
       "environmentCandidates": [
         {
           "value": "MANA_AEC_RESEARCH_PORT",
-          "line": 58
+          "line": 60
         }
       ],
       "testFile": false
@@ -2705,6 +2718,142 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/research-preview/mission-selection-preview.cjs",
+      "bytes": 3838,
+      "sha256": "1637b90b0d692145a2df9316ffd5fd5bb4bee3d671226323af065891568b8b06",
+      "gitBlob": "8bfa809df3fc22f77a251f27c9b507ca458d9fa4",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./aec-instruction-preview.cjs",
+          "line": 3
+        },
+        {
+          "value": "./mission-selection-runner.cjs",
+          "line": 4
+        },
+        {
+          "value": "./runner.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-instruction-runner.cjs",
+          "line": 6
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 7
+        },
+        {
+          "value": "./official-https.cjs",
+          "line": 8
+        },
+        {
+          "value": "./preview.cjs",
+          "line": 9
+        },
+        {
+          "value": "./aec-learner.cjs",
+          "line": 10
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_MISSION_SELECTION_PORT",
+          "line": 43
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/mission-selection-runner.cjs",
+      "bytes": 9399,
+      "sha256": "f49268240ace897cab67463f37ce9961b2236b363bca5da905aacbc67b354bea",
+      "gitBlob": "7214599e24db91d1e307217cc2af277aa6bb219d",
+      "dependencyCandidates": [
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./queue.cjs",
+          "line": 3
+        },
+        {
+          "value": "./persian-intake.cjs",
+          "line": 4
+        },
+        {
+          "value": "./cpython-source.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/mission-selection-runner.test.cjs",
+      "bytes": 6043,
+      "sha256": "879130dff0582a1fbf253eb4c42a5593b35d49572a85963ebe6cdb7400c29911",
+      "gitBlob": "44f4b52636eb318880f57d953f0576f74733cf76",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./mission-selection-runner.cjs",
+          "line": 3
+        },
+        {
+          "value": "./queue.cjs",
+          "line": 4
+        },
+        {
+          "value": "./persian-intake.cjs",
+          "line": 5
+        },
+        {
+          "value": "./cpython-source.cjs",
+          "line": 6
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 7
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 8
+        }
+      ],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/research-preview/official-https.cjs",
       "bytes": 1486,
       "sha256": "9f2864267af76374c86d68c5ae07d1134c7c43b136b179fba0a50cc7ae75d6ca",
@@ -2973,9 +3122,9 @@
     },
     {
       "path": "mana-ai/research-preview/runner.cjs",
-      "bytes": 10382,
-      "sha256": "1cbc422f1a761415cf9ad01a739399793d95e77a643619a4d6a0f5b4a04aa257",
-      "gitBlob": "527a2a0713dd5eb7ac0ca6942b83351af79391f4",
+      "bytes": 10711,
+      "sha256": "92d04fee2f9fc392efed482c3abb882e4b17115612b3a10b37da8b9c66807cd2",
+      "gitBlob": "14b211896caaf07da5216423c3926befb89431f4",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -3011,7 +3160,7 @@
         },
         {
           "value": "../development-ui.cjs",
-          "line": 137
+          "line": 147
         }
       ],
       "environmentCandidates": [],
@@ -8527,6 +8676,81 @@
         }
       ],
       "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/mission-selection.test.cjs",
+      "bytes": 5502,
+      "sha256": "77d0b1516fb50ee04e5b68b4089bfced834c98b913a2346a20bd4ed84f52a810",
+      "gitBlob": "79ff755f23a8cf7a75f6bc62c92da1c5d096c460",
+      "dependencyCandidates": [
+        {
+          "value": "../research-preview/mission-selection-runner.test.cjs",
+          "line": 2
+        },
+        {
+          "value": "node:test",
+          "line": 3
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:events",
+          "line": 3
+        },
+        {
+          "value": "node:vm",
+          "line": 3
+        },
+        {
+          "value": "../research-preview/mission-selection-runner.cjs",
+          "line": 4
+        },
+        {
+          "value": "../research-preview/aec-instruction-preview.cjs",
+          "line": 5
+        },
+        {
+          "value": "../research-preview/mission-selection-preview.cjs",
+          "line": 43
+        },
+        {
+          "value": "../research-preview/preview.cjs",
+          "line": 44
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 39
+        },
+        {
+          "value": "MANA_SELECTION_CPYTHON",
+          "line": 39
+        },
+        {
+          "value": "MANA_SELECTION_INDOT",
+          "line": 39
+        },
+        {
+          "value": "MANA_SELECTION_INDOT_SHA256",
+          "line": 39
+        }
+      ],
       "testFile": true
     },
     {

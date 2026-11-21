@@ -89,13 +89,23 @@ function createQueueResearchRunner({queueBytes,workspace,holdoutPath,holdoutSha2
   const restored=bridge.readFmaMissionHistory({workspace:workerWorkspace,sourcePath,sourceSha256:result.captureSha256,holdoutPath,holdoutSha256});
   need(Array.isArray(restored)&&restored.length===1&&restored[0].status===result.status&&restored[0].heldoutPassed===result.passed&&restored[0].heldoutTotal===result.total&&restored[0].bridgeReceiptSha256===result.bridgeReceiptSha256&&restored[0].candidateSha256===result.candidate,'WORKER_RECEIPT_MISMATCH');
  }
- function renderSaved(result){
+ function validateSaved(result){
   validateProvenance(result);
   validateTested(result);
+  return result;
+ }
+ function renderSaved(result){
+  validateSaved(result);
   const selection=selectResearchMission(queue,result.status==='AWAITING_HUMAN_REVIEW'?[initial.subcaseId]:[]);
   return display({...selection,mission:initial.mission},result,true);
  }
  return {
+  review(){
+   const record=store.read();
+   if(record.state==='EMPTY')return null;
+   if(record.state!=='TERMINAL')return {status:'UNKNOWN',missionId:initial.mission.id};
+   return {...validateSaved(record.result),missionId:initial.mission.id};
+  },
   history(){
    const record=store.read();
    if(record.state==='EMPTY')return [];
