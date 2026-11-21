@@ -10,9 +10,23 @@ function page(token,selectionCommand){const selecting=!!selectionCommand;return 
 <script>
 const statusLine=document.querySelector('#status'),details=document.querySelector('#details'),button=document.querySelector('#run');
 const labels={AWAITING_HUMAN_REVIEW:'نیازمند بازبینی',TEST_NOT_PASSED:'پیشنهاد آزمون را نگذرانده',SOURCE_BLOCKED:'منبع رسمی قابل تأیید نبود؛ پیشنهادی ساخته نشد.',UNKNOWN_OUTCOME:'اجرای قبلی نتیجهٔ قطعی ندارد؛ تکرار نمی‌شود.',REJECTED:'دستور خارج از محدودهٔ بازبینی‌شده است.',READY:'آمادهٔ اجرا',NO_READY_CASE:'مأموریت آمادهٔ دیگری در محدودهٔ این پیش‌نمایش نیست.'};
+const sourceFailures={
+ INDOT_HTTPS_TIMEOUT:'پاسخ ناشر در زمان مجاز نرسید.',
+ INDOT_HTTPS_REQUEST_FAILED:'اتصال به ناشر رسمی برقرار نشد.',
+ INDOT_HTTPS_STATUS_REJECTED:'ناشر پاسخ مورد انتظار را نداد.',
+ INDOT_HTTPS_INCOMPLETE:'فایل ناشر کامل دریافت نشد.',
+ INDOT_LINK_NOT_APPROVED:'پیوند ناشر با پیوند بازبینی‌شده یکی نبود.',
+ INDOT_LINK_MISSING_OR_AMBIGUOUS:'پیوند یکتای راهنما در فهرست رسمی پیدا نشد.',
+ INDOT_PDF_REVISION_MISMATCH:'نسخهٔ PDF تغییر کرده و نیاز به بازبینی دارد.',
+ INDOT_PYMUPDF_REQUIRED:'خوانندهٔ PDF در Python تعیین‌شده پیدا نشد.',
+ INDOT_EXTRACTOR_START_FAILED:'خوانندهٔ PDF اجرا نشد.',
+ INDOT_EXTRACTOR_TIMEOUT:'خواندن صفحه در زمان مجاز پایان نیافت.',
+ INDOT_EXTRACTOR_FAILED:'خواندن صفحه نتیجهٔ قابل‌تأیید نداد.',
+ INDOT_SOURCE_UNVERIFIED:'تطبیق منبع یا محتوای صفحه تأیید نشد.'
+};
 let runStarted=false;
 const num=n=>new Intl.NumberFormat('fa-IR',{useGrouping:false}).format(n);
-function show(r){if(!r)return;const progress=document.querySelector('#progress');if(progress)progress.textContent=typeof r.validatedCount==='number'?'رسید معتبر: '+num(r.validatedCount)+' از '+num(r.reviewedCount)+(r.nextCaseId?'؛ یک آزمون دیگر آمادهٔ انتخاب است.':''):'';statusLine.textContent=labels[r.status]||'وضعیت نامشخص';details.textContent=[r.title,r.selectedBecause,r.missionId&&'شناسهٔ ردیف صف: '+r.missionId,...(Array.isArray(r.completed)?r.completed.map(x=>x.title+' · '+num(x.passed)+' از '+num(x.total)):[]),r.sourceUrl,r.sourceUrl&&(r.sourceMode==='host-mediated'?'دریافت زنده از ناشر با رابط میزبان':r.sourceMode==='official-https'?'دریافت محدود مستقیم از ناشر':'بازپخش مدرک پین‌شده؛ بدون دریافت زنده'),r.total==null?'':'آزمون مستقل روی CPU: '+num(r.passed)+' از '+num(r.total),r.candidateSha256&&'شناسهٔ پیشنهاد: '+r.candidateSha256,r.status==='AWAITING_HUMAN_REVIEW'&&'پیشنهاد برای بازبینی ذخیره شد؛ چیزی فعال نشده است.',r.reused&&r.status!=='NO_READY_CASE'&&'رسید قبلی استفاده شد؛ مأموریت دوباره اجرا نشد.'].filter(Boolean).join('\\n');}
+function show(r){if(!r)return;const progress=document.querySelector('#progress');if(progress)progress.textContent=typeof r.validatedCount==='number'?'رسید معتبر: '+num(r.validatedCount)+' از '+num(r.reviewedCount)+(r.nextCaseId?'؛ یک آزمون دیگر آمادهٔ انتخاب است.':''):'';statusLine.textContent=labels[r.status]||'وضعیت نامشخص';details.textContent=[r.title,r.selectedBecause,Object.hasOwn(sourceFailures,r.sourceFailureCode)&&sourceFailures[r.sourceFailureCode],r.missionId&&'شناسهٔ ردیف صف: '+r.missionId,...(Array.isArray(r.completed)?r.completed.map(x=>x.title+' · '+num(x.passed)+' از '+num(x.total)):[]),r.sourceUrl,r.sourceUrl&&(r.sourceMode==='host-mediated'?'دریافت زنده از ناشر با رابط میزبان':['official-https','direct'].includes(r.sourceMode)?'دریافت مستقیم از ناشر رسمی':'بازپخش مدرک پین‌شده؛ بدون دریافت زنده'),r.total==null?'':'آزمون مستقل روی CPU: '+num(r.passed)+' از '+num(r.total),r.candidateSha256&&'شناسهٔ پیشنهاد: '+r.candidateSha256,r.status==='AWAITING_HUMAN_REVIEW'&&'پیشنهاد برای بازبینی ذخیره شد؛ چیزی فعال نشده است.',r.reused&&r.status!=='NO_READY_CASE'&&'رسید قبلی استفاده شد؛ مأموریت دوباره اجرا نشد.'].filter(Boolean).join('\\n');}
 async function load(url,opts){const res=await fetch(url,opts);const r=await res.json();if(!res.ok)throw Error(r.error);return r;}
 button.onclick=async()=>{if(button.disabled)return;runStarted=true;button.disabled=true;statusLine.textContent='در حال پژوهش و ارزیابی…';details.textContent='';try{show(await load('/run',{method:'POST',headers:{'Content-Type':'application/json','X-Mana-Token':'${token}'},body:JSON.stringify({instruction:document.querySelector('#instruction').value})}));}catch(e){statusLine.textContent=e.message;}finally{button.disabled=false;}};
 load('/history').then(r=>{if(!runStarted)show(r);}).catch(e=>{if(!runStarted)statusLine.textContent=e.message;});

@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "2424254e6ae6ffdee17a45b58aa575c5a8b8bc7bd0c643ef96157a3705bb8f82",
-  "fileCount": 521,
+  "sourceSetDigest": "46b9f243b672a7b180036847edd628890be7397fc911c450db822f6784aa7d9a",
+  "fileCount": 526,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -50,10 +50,19 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 1718,
-      "sha256": "15edf666e37bf8e18bdc9a1a84b90138be0b4eb08db9fd89befd040a0b1e5af0",
-      "gitBlob": "dc7ddf824c667a52ca7be62dc2bdb54ce494ca26",
-      "dependencyCandidates": [],
+      "bytes": 3421,
+      "sha256": "d2259e5f239c533a1e9744016a215b9eae96e158c07022aeff923681634aae96",
+      "gitBlob": "b7d868e919b37a5a73fc809fe96d238906122f62",
+      "dependencyCandidates": [
+        {
+          "value": "node:assert/strict",
+          "line": 69
+        },
+        {
+          "value": "./mana-ai/research-preview/indot-direct.cjs",
+          "line": 70
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -778,6 +787,15 @@
       "bytes": 3150,
       "sha256": "7663fb15ae81345074685a0d383ec9c9f4fcd462665e4c4a935c1606e44c8d22",
       "gitBlob": "79fabd3a52a67c75565fdb024f17c3851f1949e5",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-INDOT-DIRECT.fa.md",
+      "bytes": 4025,
+      "sha256": "9cedba55804d538dd500b0eaea01c132171feb100e8290156475e520800c01b1",
+      "gitBlob": "3f7d8dde31a196aede99c39183599e29d300643c",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2337,9 +2355,9 @@
     },
     {
       "path": "mana-ai/research-preview/aec-instruction-preview.cjs",
-      "bytes": 9007,
-      "sha256": "2d3d1115f764fdaa2d6a50a0f6518500706e5f6dfd3f1a1c0ecb22310f28273e",
-      "gitBlob": "7ce2dd2c0d6c1ada89ebef4b6b9828f12de0db91",
+      "bytes": 10240,
+      "sha256": "9acba02b7da1e1ecd58f0f4b2fcd90d5b9f50ffdbd3898bc7d3ca97f0250ffde",
+      "gitBlob": "81bea58ad64ae94d865fdcfc84e9a4fa1984d859",
       "dependencyCandidates": [
         {
           "value": "node:http",
@@ -2363,21 +2381,21 @@
         },
         {
           "value": "./mission-selection-runner.cjs",
-          "line": 21
+          "line": 35
         },
         {
           "value": "./aec-source.cjs",
-          "line": 56
+          "line": 70
         },
         {
           "value": "./aec-learner.cjs",
-          "line": 57
+          "line": 71
         }
       ],
       "environmentCandidates": [
         {
           "value": "MANA_AEC_RESEARCH_PORT",
-          "line": 60
+          "line": 74
         }
       ],
       "testFile": false
@@ -2447,9 +2465,9 @@
     },
     {
       "path": "mana-ai/research-preview/aec-instruction-runner.cjs",
-      "bytes": 5832,
-      "sha256": "797740d0813dd8270352998be95f6f7fc97cd81a56910d70e495cb9f7b529326",
-      "gitBlob": "ad55a9d071891580ee2184edb356446259bdb9b2",
+      "bytes": 8179,
+      "sha256": "fa465818e08609ab1160e83cdaf2221f701824f58b55b3982379fe8a5c91f0f3",
+      "gitBlob": "b274b3423f3f1d48623079262f88231c7defe5ae",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -2477,7 +2495,11 @@
         },
         {
           "value": "./aec-source.cjs",
-          "line": 47
+          "line": 63
+        },
+        {
+          "value": "./indot-direct.cjs",
+          "line": 66
         }
       ],
       "environmentCandidates": [],
@@ -2718,10 +2740,96 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/research-preview/indot-direct.cjs",
+      "bytes": 8631,
+      "sha256": "8e04adb6c87cc2ad2f76f115d94f2047d8c120ec0db390197df37e150623179c",
+      "gitBlob": "77ecb837e49935b206052bb9d7bef11695a5752c",
+      "dependencyCandidates": [
+        {
+          "value": "node:https",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "node:child_process",
+          "line": 5
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/indot-direct.py",
+      "bytes": 5870,
+      "sha256": "4c46ca4f63d4739f810925b5315c5a545240bdb28c84128a8f2ac2405fab644a",
+      "gitBlob": "5687690b75e77be688dc2b766564ed7292d039fc",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/indot-direct.test.cjs",
+      "bytes": 4693,
+      "sha256": "1815788d63bcf1fc0f36598b850109d6c75fc79ccdfede04646447cf3f665954",
+      "gitBlob": "8137cdc484854b06f30d883421b326cdbcaca8fc",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:events",
+          "line": 4
+        },
+        {
+          "value": "./indot-direct.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_INDOT_PYTHON",
+          "line": 10
+        },
+        {
+          "value": "MANA_INDOT_RAW_FIXTURES",
+          "line": 11
+        }
+      ],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/research-preview/mission-selection-preview.cjs",
-      "bytes": 3838,
-      "sha256": "1637b90b0d692145a2df9316ffd5fd5bb4bee3d671226323af065891568b8b06",
-      "gitBlob": "8bfa809df3fc22f77a251f27c9b507ca458d9fa4",
+      "bytes": 4473,
+      "sha256": "3bd02ee731134581c7a13a54cff8b57a6b0314233761bf231cd914619dc0f80c",
+      "gitBlob": "0a31757768b4aabd14e35b79b3db300e08510db8",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -2762,21 +2870,25 @@
         {
           "value": "./aec-learner.cjs",
           "line": 10
+        },
+        {
+          "value": "./indot-direct.cjs",
+          "line": 39
         }
       ],
       "environmentCandidates": [
         {
           "value": "MANA_MISSION_SELECTION_PORT",
-          "line": 43
+          "line": 47
         }
       ],
       "testFile": false
     },
     {
       "path": "mana-ai/research-preview/mission-selection-runner.cjs",
-      "bytes": 9399,
-      "sha256": "f49268240ace897cab67463f37ce9961b2236b363bca5da905aacbc67b354bea",
-      "gitBlob": "7214599e24db91d1e307217cc2af277aa6bb219d",
+      "bytes": 9881,
+      "sha256": "d58b7196ec8e930eeb6a852395712bb7da8c3d84e1f0cae8c6aa1ea193289252",
+      "gitBlob": "6c8f13c11f36d7ecc82a37541b4ddee1af0104d8",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2797,6 +2909,10 @@
         {
           "value": "./aec-source.cjs",
           "line": 6
+        },
+        {
+          "value": "./aec-instruction-runner.cjs",
+          "line": 7
         }
       ],
       "environmentCandidates": [],
@@ -2804,9 +2920,9 @@
     },
     {
       "path": "mana-ai/research-preview/mission-selection-runner.test.cjs",
-      "bytes": 6043,
-      "sha256": "879130dff0582a1fbf253eb4c42a5593b35d49572a85963ebe6cdb7400c29911",
-      "gitBlob": "44f4b52636eb318880f57d953f0576f74733cf76",
+      "bytes": 10061,
+      "sha256": "39eae768f94d28e006d364ecafd07206e3265c6557ce3e1e5c174b2c83c2b013",
+      "gitBlob": "6842e036f599fba52ddc193c5f122f2b55131ead",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -2843,6 +2959,22 @@
         {
           "value": "./aec-source.cjs",
           "line": 7
+        },
+        {
+          "value": "node:os",
+          "line": 119
+        },
+        {
+          "value": "./aec-instruction-runner.cjs",
+          "line": 119
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 120
+        },
+        {
+          "value": "./indot-direct.cjs",
+          "line": 120
         }
       ],
       "environmentCandidates": [
@@ -8676,6 +8808,81 @@
         }
       ],
       "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/mission-selection-indot-direct.test.cjs",
+      "bytes": 4355,
+      "sha256": "5a7f3711b4c568b34cab7059fe83fa1c02a3feffcaef1db6a2d12abd660963c1",
+      "gitBlob": "d71b0b340d3973fd76c71064bea9a792b6972d22",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:https",
+          "line": 3
+        },
+        {
+          "value": "node:events",
+          "line": 3
+        },
+        {
+          "value": "../research-preview/aec-source.cjs",
+          "line": 4
+        },
+        {
+          "value": "../research-preview/mission-selection-runner.cjs",
+          "line": 5
+        },
+        {
+          "value": "../research-preview/aec-instruction-preview.cjs",
+          "line": 6
+        },
+        {
+          "value": "../research-preview/mission-selection-preview.cjs",
+          "line": 15
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_DIRECT_INDOT",
+          "line": 8
+        },
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 9
+        },
+        {
+          "value": "MANA_INDOT_PYTHON",
+          "line": 9
+        },
+        {
+          "value": "MANA_SELECTION_CPYTHON",
+          "line": 10
+        },
+        {
+          "value": "MANA_INDOT_RAW_FIXTURES",
+          "line": 11
+        }
+      ],
       "testFile": true
     },
     {

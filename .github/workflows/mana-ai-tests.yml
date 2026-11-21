@@ -47,3 +47,34 @@ jobs:
         run: node --test mana-ai/tests/aec-instruction.test.cjs
       - name: Exercise Persian queue selection, safe stops and receipt validation
         run: node --test mana-ai/tests/mission-selection*.test.cjs
+      - name: Verify direct publisher transport and page-validation policy
+        run: node --test mana-ai/research-preview/indot-direct.test.cjs
+  direct-official-source-smoke:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feature/dot-mana-indot-direct'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install the reviewed PDF extraction dependency
+        run: python -m pip install 'PyMuPDF==1.26.6'
+      - name: Verify actual public publisher index, linked PDF, and extracted page
+        run: |
+          node - "$(command -v python)" <<'JS'
+          const assert=require('node:assert/strict');
+          const {discoverDirectPanelEvidence,PDF_SHA256}=require('./mana-ai/research-preview/indot-direct.cjs');
+          discoverDirectPanelEvidence({pythonPath:process.argv[2]}).then(result=>{
+            assert.equal(result.status,'OFFICIAL_SOURCE_VERIFIED');
+            assert.equal(result.evidence.sourceMode,'direct');
+            assert.equal(result.evidence.directRuntimeNetwork,true);
+            assert.equal(result.sourceSha256,PDF_SHA256);
+            assert.equal(result.evidence.passage.pageIndex,12);
+            assert.equal(result.fit.examples.length,14);
+            console.log('MANA_INDOT_OFFICIAL_HTTPS_VERIFIED',result.sourceSha256,result.evidence.passage.pageIndex);
+          }).catch(error=>{console.error(error.message);process.exitCode=1;});
+          JS
