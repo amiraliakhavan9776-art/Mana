@@ -9,6 +9,7 @@ const {isDirectSourceFailure}=require('./aec-instruction-runner.cjs');
 const APPROVED_MISSION_SELECTION_COMMAND='طبق سند توسعه ۱٫۱ از صف پژوهش یک مأموریت آماده انتخاب کن، منبع رسمی پیدا کن و پیشنهاد را با آزمون مستقل در محیط ایزوله بسنج؛ چیزی را فعال نکن.';
 const POLICY='طبق سند توسعه 1.1 از صف پژوهش یک ماموریت آماده انتخاب کن منبع رسمی پیدا کن و پیشنهاد را با آزمون مستقل در محیط ایزوله بسنج چیزی را فعال نکن';
 const AEC_MISSION_ID='6d213a1b0d0b2a93';
+const TIMEOUT='INDOT_HTTPS_TIMEOUT';
 const PY_SOURCE='https://github.com/'+REPOSITORY+'/blob/'+COMMIT+'/Doc/library/math.rst';
 const LIMIT=768;
 const SAFE=Object.freeze({activationAuthorized:false,productionDeploymentAllowed:false,modelTrainingPerformed:false,fullMissionComplete:false});
@@ -73,21 +74,50 @@ function createMissionSelectionRunner({masterBytes,queueBytes,cpythonRunner,aecR
   const isPython=r.id===RESEARCH_MISSION_ID;
   const adapter=isPython?cpythonRunner:aecRunner,read=isPython?'review':'history';
   need(r.domain===(isPython?'Intelligence':'Technical office')&&r.state==='PENDING_REVIEW'&&r.productionDeploymentAllowed===false&&typeof adapter?.[read]==='function'&&typeof adapter.run==='function','CASE_ADAPTER_OR_QUEUE_INVALID');
-  return {...CASES[r.id],missionId:r.id,isPython,read:adapter[read].bind(adapter),run:adapter.run.bind(adapter)};
+  const withRetry=!isPython&&typeof adapter.retryHistory==='function'&&typeof adapter.retryTimeout==='function';
+  return {...CASES[r.id],missionId:r.id,isPython,read:adapter[read].bind(adapter),run:adapter.run.bind(adapter),
+   readRetry:withRetry?adapter.retryHistory.bind(adapter):null,retry:withRetry?adapter.retryTimeout.bind(adapter):null};
+
  });
  need(ordered.length===2&&ordered[0].isPython&&!ordered[1].isPython,'REVIEWED_QUEUE_ORDER_MISMATCH');
  function inspect(){
   const rows=ordered.map(spec=>({spec,result:verdict(spec.read(),spec,spec.isPython)}));
+  const [cp,aec]=rows;
+  const retry=aec.spec.readRetry?.();
+  let retryAvailable=false,retryAttempted=false;
+  if(retry){
+   need(typeof retry.available==='boolean'&&typeof retry.attempted==='boolean'&&
+    retry.attempted===(retry.result!==null)&&!(retry.available&&retry.attempted),'INVALID_RETRY_RECEIPT_VIEW');
+   if(retry.available||retry.attempted){
+    need(cp.result?.status==='AWAITING_HUMAN_REVIEW'&&aec.result?.status==='SOURCE_BLOCKED'&&
+     aec.result.sourceMode==='direct'&&aec.result.sourceFailureCode===TIMEOUT,'RETRY_WITHOUT_ELIGIBLE_SEQUENCE');
+    retryAvailable=retry.available;retryAttempted=retry.attempted;
+    if(retry.attempted){
+     const latest=verdict(retry.result,aec.spec,false);
+     need(latest.status==='UNKNOWN_OUTCOME'||latest.sourceMode==='direct','RETRY_RECEIPT_NOT_DIRECT');
+     aec.result=latest;
+    }
+   }
+  }
   const incomplete=rows.findIndex(row=>row.result?.status!=='AWAITING_HUMAN_REVIEW');
   const count=incomplete<0?rows.length:incomplete;
   need(rows.slice(count+1).every(x=>x.result===null),'CASE_SEQUENCE_OR_RECEIPT_INVALID');
-  return {rows,count,current:incomplete<0?null:rows[incomplete]};
+  return {rows,count,current:incomplete<0?null:rows[incomplete],retryAvailable,retryAttempted};
  }
  const info=(spec,result,progress,reused=false)=>({
   ...SAFE,caseId:spec.caseId,missionId:spec.missionId,title:spec.title,...result,
   sourceUrl:result.sourceUrl??null,sourceMode:result.sourceMode??null,
   passed:result.passed??null,total:result.total??null,candidateSha256:result.candidateSha256??null,
-  selectedBecause:result.status==='UNKNOWN_OUTCOME'
+  retryAvailable:progress.retryAvailable,retryAttempted:progress.retryAttempted,
+  recoveryAttempt:!spec.isPython&&progress.retryAttempted,
+  previousFailureCode:!spec.isPython&&progress.retryAttempted?TIMEOUT:null,
+  selectedBecause:!spec.isPython&&progress.retryAttempted
+   ?result.status==='UNKNOWN_OUTCOME'
+    ?'تنها تلاشِ بازیابی ثبت شده، اما نتیجهٔ آن هنوز تأیید نشده است. مانا آن را دوباره شروع نمی‌کند.'
+    :'مانا پس از تأیید رسید قطع مهلت دریافتِ قبلی، تنها یک تلاش جداگانه برای خواندن همان منبع آغاز کرد. رسید تلاش اول محفوظ است.'
+   :!spec.isPython&&progress.retryAvailable
+    ?'مهلت دریافت منبع در تلاش اول تمام شد. این نتیجه ذخیره شد؛ دفعهٔ بعد مانا فقط یک بار همان دریافت را تکرار می‌کند.'
+    :result.status==='UNKNOWN_OUTCOME'
    ?'رسید قطعی این مورد در دست نیست؛ مانا برای جلوگیری از اجرای تکراری به مورد بعد نمی‌رود.'
    :reused
     ?'رسید همین مورد بررسی شد. فقط قبولی آزمون مستقل اجازه می‌دهد مانا سراغ مورد بعد برود.'
@@ -96,11 +126,11 @@ function createMissionSelectionRunner({masterBytes,queueBytes,cpythonRunner,aecR
   reused,reviewedCount:ordered.length,validatedCount:progress.count,
   nextCaseId:progress.current?.result===null?progress.current.spec.caseId:null,
  });
- function noReady({rows,count}){
+ function noReady({rows,count,retryAttempted}){
   return {...SAFE,status:'NO_READY_CASE',caseId:null,missionId:null,title:'مورد آمادهٔ دیگری در این پیش‌نمایش نیست',
    selectedBecause:'هر دو آزمون بازبینی‌شده رسید قبولی دارند. مانا سراغ منبع یا مأموریت دیگری نمی‌رود؛ وضعیت صف ۸۴ ردیفی تغییر نکرده است.',
    sourceUrl:null,sourceMode:null,passed:null,total:null,candidateSha256:null,reused:true,
-   reviewedCount:ordered.length,validatedCount:count,nextCaseId:null,
+   reviewedCount:ordered.length,validatedCount:count,nextCaseId:null,retryAvailable:false,retryAttempted,previousFailureCode:retryAttempted?TIMEOUT:null,
    completed:rows.map(({spec,result})=>({caseId:spec.caseId,missionId:spec.missionId,title:spec.title,passed:result.passed,total:result.total})),
   };
  }
@@ -121,11 +151,12 @@ function createMissionSelectionRunner({masterBytes,queueBytes,cpythonRunner,aecR
     const before=inspect();
     if(!before.current)return noReady(before);
     const {spec,result}=before.current;
-    if(result)return info(spec,result,before,true);
-    await (spec.isPython?spec.run():spec.run(APPROVED_PERSIAN_COMMAND));
+    if(result&&!before.retryAvailable)return info(spec,result,before,true);
+    if(before.retryAvailable)await spec.retry(APPROVED_PERSIAN_COMMAND);
+    else await (spec.isPython?spec.run():spec.run(APPROVED_PERSIAN_COMMAND));
     // A passing return value is never enough. Require the adapter's validated ledger.
     const after=inspect();
-    const own=after.rows.find(x=>x.spec===spec).result;
+    const own=before.retryAvailable&&!after.retryAttempted?null:after.rows.find(x=>x.spec===spec).result;
     return info(spec,own??{status:'UNKNOWN_OUTCOME'},after);
    }finally{busy=false;}
   },
