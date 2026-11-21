@@ -2,6 +2,7 @@
 const https=require('node:https');
 const path=require('node:path');
 const {createHash}=require('node:crypto');
+const {performance}=require('node:perf_hooks');
 const {spawn}=require('node:child_process');
 const {INDEX_URL,SOURCE_URL,ID}=require('./aec-source.cjs');
 const PDF_SHA256='61cee6fc891b0121c424e3c9b8ee1610e87c06341c38c916123ac82850692968';
@@ -22,27 +23,35 @@ const hash=bytes=>createHash('sha256').update(bytes).digest('hex');
 const digest=value=>hash(JSON.stringify(value));
 const hex=s=>typeof s==='string'&&/^[0-9a-f]{64}$/.test(s);
 const isPythonPath=s=>typeof s==='string'&&s.length<4096&&!s.includes('\0')&&path.isAbsolute(s)&&path.resolve(s)===s;
-const deadline=15000;
-function fetchOfficial(url,request=https.request) {
+const INDOT_HTTPS_DEADLINE_MS=15000;
+function fetchOfficial(url,request=https.request,observe) {
  return new Promise((resolve,reject)=>{
   if(!Object.hasOwn(LIMITS,url))return reject(Error('INDOT_URL_NOT_APPROVED'));
   const bytesLimit=LIMITS[url], type=MODES[url];
   let timer,req,settled=false;
+  const monitored=typeof observe==='function';
+  const start=monitored?performance.now():0;
+  const elapsed=()=>Math.round(performance.now()-start);
+  let headersMs=null,firstBodyByteMs=null,size=0;
+  const report=()=>{
+   if(monitored)try{observe({elapsedMs:elapsed(),headersMs,firstBodyByteMs,bytesReceived:size});}catch{/* metrics cannot affect transport */}
+  };
   const fail=code=>{
    if(settled)return;
-   settled=true;clearTimeout(timer);reject(Error(code));req?.destroy();
+   settled=true;clearTimeout(timer);report();reject(Error(code));req?.destroy();
   };
-  req=request(url,{method:'GET',rejectUnauthorized:true,maxHeaderSize:16384,headers:{
-   Accept:type,'Accept-Encoding':'identity','User-Agent':'MANA-indot-evidence/1.0',
-  }},res=>{
+  const onResponse=res=>{
+   if(settled)return;
+   if(monitored)headersMs=elapsed();
    if(res.statusCode!==200)return fail('INDOT_HTTPS_STATUS_REJECTED');
    const mime=String(res.headers['content-type']??'').split(';',1)[0].trim().toLowerCase();
    if(mime!==type||!['identity',''].includes(res.headers['content-encoding']??''))return fail('INDOT_HTTPS_MEDIA_REJECTED');
    const announced=res.headers['content-length'];
    if(announced!==undefined&&(!/^\d{1,10}$/.test(announced)||Number(announced)<1||Number(announced)>bytesLimit))return fail('INDOT_HTTPS_BODY_REJECTED');
-   const chunks=[];let size=0;
+   const chunks=[];
    res.on('data',chunk=>{
     if(settled)return;
+    if(monitored&&chunk.length>0&&firstBodyByteMs===null)firstBodyByteMs=elapsed();
     size+=chunk.length;
     if(size>bytesLimit)return fail('INDOT_HTTPS_BODY_REJECTED');
     chunks.push(chunk);
@@ -52,13 +61,21 @@ function fetchOfficial(url,request=https.request) {
    res.on('end',()=>{
     if(settled)return;
     if(!res.complete||size<1||(announced!==undefined&&size!==Number(announced)))return fail('INDOT_HTTPS_INCOMPLETE');
-    settled=true;clearTimeout(timer);
+    settled=true;clearTimeout(timer);report();
     resolve({bytes:Buffer.concat(chunks,size),retrievedAt:new Date().toISOString()});
    });
-  });
-  timer=setTimeout(()=>fail('INDOT_HTTPS_TIMEOUT'),deadline);
-  req.on('error',()=>fail('INDOT_HTTPS_REQUEST_FAILED'));
-  req.end();
+  };
+  try{
+   req=request(url,{method:'GET',rejectUnauthorized:true,maxHeaderSize:16384,headers:{
+    Accept:type,'Accept-Encoding':'identity','User-Agent':'MANA-indot-evidence/1.0',
+   }},onResponse);
+   if(!settled)timer=setTimeout(()=>fail('INDOT_HTTPS_TIMEOUT'),INDOT_HTTPS_DEADLINE_MS);
+   req.on('error',()=>fail('INDOT_HTTPS_REQUEST_FAILED'));
+   req.end();
+  }catch(e){
+   if(!monitored)throw e;
+   fail('INDOT_HTTPS_REQUEST_FAILED');
+  }
  });
 }
 function helper(pythonPath,mode,bytes) {
@@ -153,4 +170,4 @@ async function discoverDirectPanelEvidence({pythonPath}={}) {
    input:{unit:'mm',minimum:1,maximum:MAX,geometry:'positive parallel base lengths; perpendicular altitude; ideal planar panel'}},
   fit:makeFit(info)};
 }
-module.exports={discoverDirectPanelEvidence,PDF_SHA256,PDF_BYTES,inspectIndex,inspectPdf,fetchOfficial};
+module.exports={discoverDirectPanelEvidence,PDF_SHA256,PDF_BYTES,inspectIndex,inspectPdf,fetchOfficial,INDOT_HTTPS_DEADLINE_MS};
