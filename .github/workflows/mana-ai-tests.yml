@@ -49,6 +49,8 @@ jobs:
         run: node --test mana-ai/tests/mission-selection*.test.cjs
       - name: Verify direct publisher transport and page-validation policy
         run: node --test mana-ai/research-preview/indot-direct.test.cjs
+      - name: Distinguish INDOT index response from PDF transfer timeouts
+        run: node --test mana-ai/research-preview/indot-diagnostic.test.cjs
   direct-official-source-smoke:
     if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feature/dot-mana-indot-direct'
     runs-on: ubuntu-latest
