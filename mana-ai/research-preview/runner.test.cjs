@@ -7,7 +7,7 @@ const os=require('node:os');
 const vm=require('node:vm');
 const {once}=require('node:events');
 const {createHash}=require('node:crypto');
-const {startQueueResearchPreview}=require('./runner.cjs');
+const {startQueueResearchPreview,createQueueResearchRunner}=require('./runner.cjs');
 const root='Doc/library/index.rst';
 const queueBytes=fs.readFileSync(path.resolve(__dirname,'../capability-registry/development-queue-v01.json'));
 const holdoutSha256='85fc8836e406a09356b2fb8455022f20e6625b1380d9260942bb497c9d41cb9b';
@@ -87,4 +87,35 @@ test('official publisher evidence flows through Persian UI into isolated native 
  const frozen=JSON.parse(fs.readFileSync(path.join(workspace,'worker/learner/frozen.json'),'utf8'));
  assert.equal(frozen.candidateSha256,'3808634650e64a8d167daf6794265ce7a77c5d104fc16f3a41e649ec5a05d819');
  assert.equal(frozen.activationAuthorized,false);
+});
+
+test('terminal replay rejects missing or contradictory persisted provenance without retry or rewrite',{skip:!capturesFile},async t=>{
+ const workspace=state(t),records=JSON.parse(fs.readFileSync(capturesFile)),calls=[];
+ const config={workspace,queueBytes,sourceMode,holdoutPath:oracle,holdoutSha256,
+  readOfficial:async p=>{calls.push(p);return records[p];}};
+ assert.equal((await createQueueResearchRunner(config).run()).status,'REVIEW_REQUIRED');
+ const terminal=path.join(workspace,'terminal.json');
+ const proofFile=path.join(workspace,'source-provenance.json');
+ const captureFile=path.join(workspace,'source-capture.json');
+ const saved=fs.readFileSync(terminal);
+ const proof=fs.readFileSync(proofFile),capture=fs.readFileSync(captureFile);
+ const receipt=JSON.parse(saved).result;
+ assert.equal(receipt.sourceProvenanceSha256,createHash('sha256').update(proof).digest('hex'));
+ assert.equal(JSON.parse(proof).sourceMode,'pinned-replay');
+ assert.equal(JSON.parse(proof).transport,'PINNED_LOCAL_REPLAY');
+ for(const corrupt of [
+  ()=>fs.unlinkSync(proofFile),
+  ()=>fs.writeFileSync(proofFile,JSON.stringify({...JSON.parse(proof),transport:'OFFICIAL_CPYTHON_HTTPS'})),
+  ()=>fs.writeFileSync(captureFile,JSON.stringify({...JSON.parse(capture),title:'other source'})),
+ ]){
+  fs.writeFileSync(proofFile,proof,{mode:0o600}); fs.writeFileSync(captureFile,capture);
+  corrupt();
+  const restarted=createQueueResearchRunner(config);
+  await assert.rejects(restarted.run(),/SOURCE_(PROVENANCE|CAPTURE)_/);
+  assert.throws(()=>restarted.history(),/SOURCE_(PROVENANCE|CAPTURE)_/);
+  assert.deepEqual(fs.readFileSync(terminal),saved);
+  assert.deepEqual(calls,[root,'Doc/library/numeric.rst','Doc/library/math.rst']);
+ }
+ fs.writeFileSync(proofFile,proof,{mode:0o600}); fs.writeFileSync(captureFile,capture);
+ assert.equal((await createQueueResearchRunner(config).run()).reused,true);
 });

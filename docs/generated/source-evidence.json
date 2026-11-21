@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "6c4e60d289eb27b622145a6a93a185ab1c4d53fc467b76b3fbd48725eb436211",
-  "fileCount": 503,
+  "sourceSetDigest": "04e36ccebf4326fab9d8dae19b2a4b7600775642c1112e07189045ec6a85eec7",
+  "fileCount": 504,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -32,9 +32,9 @@
     },
     {
       "path": ".github/workflows/development-loop.yml",
-      "bytes": 2925,
-      "sha256": "7c94f83e54bc66d18d304202afb99849cb8b3c652a9ba6e4ab84ded11410a4ea",
-      "gitBlob": "43136c917bceccde9f853962b6be82faaa18c1f3",
+      "bytes": 3078,
+      "sha256": "6bbf2317e1520a16a831aff6d4e8ff249f5867c97585046ab7355409b39e4170",
+      "gitBlob": "1720c91c3d2d3439afbd1b2004dd952cc31b5ab9",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -784,9 +784,9 @@
     },
     {
       "path": "mana-ai/MANA-QUEUE-RESEARCH.fa.md",
-      "bytes": 5134,
-      "sha256": "eec71be4fbe454faf259cd81abc438c72e6ede4f3bbf9f60ec6194fb4fc91992",
-      "gitBlob": "ccde9a142279b6e4e4f2a4f040f15c6cd00848d9",
+      "bytes": 5522,
+      "sha256": "eb741c4f2a678f44947a27b8bd99c00cbd7b166ca019d731a54eda82f25112fb",
+      "gitBlob": "ef8309c53c054ca6bdd8aecbd972e94253ad40b4",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2341,9 +2341,9 @@
     },
     {
       "path": "mana-ai/research-preview/cpython-source.cjs",
-      "bytes": 5841,
-      "sha256": "9465095bd33f7be82aee6de3543e9f1b6be8652c52e79d402c62059a506fdec2",
-      "gitBlob": "ba15ea552b8d34590ffa47169e6c33dbe0dfc3ce",
+      "bytes": 6440,
+      "sha256": "87f29d4eabbe8ee0e32b710f420f7eb10c2bd700da893c5453c5a8a792473420",
+      "gitBlob": "cfddbc2bbecfef159d36e8d6926d076a84a861b7",
       "dependencyCandidates": [
         {
           "value": "node:crypto",
@@ -2355,9 +2355,9 @@
     },
     {
       "path": "mana-ai/research-preview/cpython-source.test.cjs",
-      "bytes": 4250,
-      "sha256": "6ee67ba287577aed210a0102e535192fa8a5d2abe84ca96070459cbca783d1ad",
-      "gitBlob": "42fb950970a4d31cd3b57d15aca8e4f709c4b387",
+      "bytes": 5272,
+      "sha256": "44f99c16b9eca7897b133feef3868e4afa2bae0d69269a0af546fe70f1277b19",
+      "gitBlob": "1a330239a6172980ef2b781b1bf8a4c51a3aef75",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -2381,7 +2381,7 @@
         },
         {
           "value": "./source.cjs",
-          "line": 64
+          "line": 66
         }
       ],
       "environmentCandidates": [
@@ -2625,9 +2625,9 @@
     },
     {
       "path": "mana-ai/research-preview/runner.cjs",
-      "bytes": 7809,
-      "sha256": "b42586fc11677b18d21f2ad72a2c0c05e0a56b3208c9d4ca5417317815a3b470",
-      "gitBlob": "d3648d37ffe4af70a83dd303de07c9efe3f74035",
+      "bytes": 10382,
+      "sha256": "1cbc422f1a761415cf9ad01a739399793d95e77a643619a4d6a0f5b4a04aa257",
+      "gitBlob": "527a2a0713dd5eb7ac0ca6942b83351af79391f4",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -2663,7 +2663,7 @@
         },
         {
           "value": "../development-ui.cjs",
-          "line": 99
+          "line": 137
         }
       ],
       "environmentCandidates": [],
@@ -2671,9 +2671,9 @@
     },
     {
       "path": "mana-ai/research-preview/runner.test.cjs",
-      "bytes": 5305,
-      "sha256": "c9e4d0ab023b66b061c34cb9a7e0f2c0889c02dd31648788f98436b5da2dacdd",
-      "gitBlob": "4339963f41b044e44fbf272882830f66883369ac",
+      "bytes": 7222,
+      "sha256": "d9001b4f10735a1634b38c15e08ce7c1cb82e8f46cde6865f0d908194d480b8a",
+      "gitBlob": "85619832a42a4315549d05357fea687d8a4eb533",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -10104,6 +10104,73 @@
         {
           "value": "MANA_BROWSER_PROOF_DIR",
           "line": 82
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/tools/queue-research-browser-check.cjs",
+      "bytes": 7741,
+      "sha256": "e670b71912fcac68c9107c8a9984c4919c4f7fed70f9fbbfc90c691cc066a5ba",
+      "gitBlob": "1ffe0b93b00f107286b5ad8b48d2f59f5274cc9e",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 4
+        },
+        {
+          "value": "node:events",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "../../tests/browser/node_modules/playwright",
+          "line": 5
+        },
+        {
+          "value": "../research-preview/runner.cjs",
+          "line": 6
+        },
+        {
+          "value": "../research-preview/official-https.cjs",
+          "line": 7
+        },
+        {
+          "value": "../research-preview/cpython-source.cjs",
+          "line": 8
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "GITHUB_ACTIONS",
+          "line": 122
+        },
+        {
+          "value": "RUNNER_ENVIRONMENT",
+          "line": 122
+        },
+        {
+          "value": "MANA_CHROMIUM_PATH",
+          "line": 123
+        },
+        {
+          "value": "MANA_CHROMIUM_PATH",
+          "line": 123
         }
       ],
       "testFile": false

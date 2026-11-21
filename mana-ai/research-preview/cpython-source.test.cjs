@@ -58,6 +58,8 @@ test('real pinned publisher captures resolve the toctree and legacy projection',
   assert.deepEqual(result.source.parameters,['x','y','z']);
   assert.equal(result.source.relation,'(x * y) + z');
   assert.equal(result.source.directRuntimeNetwork,false);
+  assert.equal(result.source.sourceMode,'host-mediated');
+  assert.equal(result.source.transport,'HOST_MEDIATED_GITHUB_CONNECTOR');
   assert.match(result.legacyCapture.title,/not an HTTP capture/);
   assert.equal(result.legacyCapture.provenance.sourceUrl,result.source.captures[2].url);
   assert.equal(result.legacyCapture.provenance.sourceSha256,result.source.captures[2].sha256);
@@ -78,4 +80,22 @@ test('authentic path survives but tampered final relation is blocked', {skip:!ca
   row.contentBase64=Buffer.from(changed).toString('base64');
   await assert.rejects(researchFma({readOfficial:async p=>{called.push(p);return data[p];}}),/SOURCE_BLOB_MISMATCH/);
   assert.deepEqual(called,[ROOT,'Doc/library/numeric.rst',last]);
+});
+
+test('capture provenance accurately distinguishes each configured acquisition mode', {skip:!capturesFile},async()=>{
+ const data=records();
+ for(const [sourceMode,transport,directRuntimeNetwork] of [
+  ['host-mediated','HOST_MEDIATED_GITHUB_CONNECTOR',false],
+  ['pinned-replay','PINNED_LOCAL_REPLAY',false],
+  ['official-https','OFFICIAL_CPYTHON_HTTPS',true],
+ ]){
+  const proof=await researchFma({sourceMode,readOfficial:async p=>data[p]});
+  assert.deepEqual({sourceMode:proof.source.sourceMode,transport:proof.source.transport,directRuntimeNetwork:proof.source.directRuntimeNetwork},
+    {sourceMode,transport,directRuntimeNetwork});
+ }
+});
+test('unknown source mode fails before reading anything',async()=>{
+ const called=[];
+ await assert.rejects(researchFma({sourceMode:'unsupported',readOfficial:async p=>called.push(p)}),/SOURCE_MODE_REJECTED/);
+ assert.deepEqual(called,[]);
 });

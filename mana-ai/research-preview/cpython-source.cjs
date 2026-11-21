@@ -8,6 +8,13 @@ const URL_ROOT = 'https://github.com/' + REPOSITORY + '/blob/' + COMMIT + '/';
 const PYTHON_SYMBOL_URL = 'https://docs.python.org/3.13/library/math.html#math.fma';
 const VERSION = '3.13.5';
 const MAX_BYTES = 64 * 1024;
+// The host selects the acquisition adapter. Validation below never performs I/O
+// other than requests to that adapter, and the learner never uses the network.
+const SOURCE_TRANSPORTS=Object.freeze({
+  'host-mediated':Object.freeze({transport:'HOST_MEDIATED_GITHUB_CONNECTOR',directRuntimeNetwork:false}),
+  'pinned-replay':Object.freeze({transport:'PINNED_LOCAL_REPLAY',directRuntimeNetwork:false}),
+  'official-https':Object.freeze({transport:'OFFICIAL_CPYTHON_HTTPS',directRuntimeNetwork:true}),
+});
 const PINS = Object.freeze({
   [ROOT]: '44b218948d07e1ace3ff9a3aec10f96a98b47d9a',
   'Doc/library/numeric.rst': '7c76a479d73b2641c510e7d54e0815e0451bdcae',
@@ -77,7 +84,8 @@ function readDeclaration(moduleDoc) {
     normalizedPassage:SYMBOL+'(x, y, z)¶\n\n'+prose,
   };
 }
-async function researchFma({readOfficial}={}) {
+async function researchFma({readOfficial,sourceMode='host-mediated'}={}) {
+  need(Object.hasOwn(SOURCE_TRANSPORTS,sourceMode),'SOURCE_MODE_REJECTED');
   need(typeof readOfficial==='function','OFFICIAL_READER_REQUIRED');
   const read=async path=>readRecord(await readOfficial(path),path);
   const root=await read(ROOT);
@@ -93,9 +101,9 @@ async function researchFma({readOfficial}={}) {
   const {normalizedPassage,...facts}=readDeclaration(doc);
   const source={
     schema:'MANA_CPYTHON_OFFICIAL_RESEARCH_V1',repository:REPOSITORY,commit:COMMIT,
-    version:VERSION,symbol:SYMBOL,transport:'HOST_MEDIATED_GITHUB_CONNECTOR',
+    version:VERSION,symbol:SYMBOL,sourceMode,...SOURCE_TRANSPORTS[sourceMode],
     rootPath:ROOT,links:[first,second],captures:[root.receipt,category.receipt,doc.receipt],
-    directRuntimeNetwork:false,discoveryScope:'Pinned publisher documentation tree only',...facts,
+    discoveryScope:'Pinned publisher documentation tree only',...facts,
   };
   const legacyCapture={
     url:PYTHON_SYMBOL_URL,
@@ -107,4 +115,4 @@ async function researchFma({readOfficial}={}) {
   return {status:'OFFICIAL_SOURCE_VERIFIED',source,legacyCapture};
 }
 
-module.exports={researchFma,REPOSITORY,COMMIT,ROOT,SYMBOL,PINS};
+module.exports={researchFma,REPOSITORY,COMMIT,ROOT,SYMBOL,PINS,SOURCE_TRANSPORTS};

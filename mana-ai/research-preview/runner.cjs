@@ -6,7 +6,7 @@ const {execFile} = require('node:child_process');
 const {promisify} = require('node:util');
 const {selectResearchMission} = require('./queue.cjs');
 const {createReceiptStore} = require('./receipt.cjs');
-const {researchFma} = require('./cpython-source.cjs');
+const {researchFma,SOURCE_TRANSPORTS,REPOSITORY,COMMIT,PINS} = require('./cpython-source.cjs');
 const run = promisify(execFile);
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const hex=s=>typeof s==='string'&&/^[a-f0-9]{64}$/.test(s);
@@ -16,6 +16,24 @@ const bridgePath=path.resolve(__dirname,'./bridge.cjs');
 const HOLDOUT_SHA256='85fc8836e406a09356b2fb8455022f20e6625b1380d9260942bb497c9d41cb9b';
 const TESTED=new Set(['AWAITING_HUMAN_REVIEW','TEST_FAILED']);
 const TITLE='موتور پژوهش: یافتن مستند رسمی و ساخت یک قاعدهٔ قابل‌آزمون';
+const SOURCE_MAX=128*1024;
+const MATH_PATH='Doc/library/math.rst';
+const MATH_URL='https://github.com/'+REPOSITORY+'/blob/'+COMMIT+'/'+MATH_PATH;
+function sourceArtifact(file){
+ let fd;
+ try{fd=fs.openSync(file,fs.constants.O_RDONLY|fs.constants.O_NOFOLLOW|fs.constants.O_NONBLOCK);}
+ catch(e){if(e.code==='ENOENT')return null;throw Error('SOURCE_ARTIFACT_INVALID');}
+ try{
+  const st=fs.fstatSync(fd);
+  need(st.isFile()&&st.uid===process.getuid()&&(st.mode&0o077)===0&&st.size>=2&&st.size<=SOURCE_MAX,'SOURCE_ARTIFACT_INVALID');
+  const bytes=Buffer.alloc(st.size+1);
+  let off=0;
+  while(off<bytes.length){const n=fs.readSync(fd,bytes,off,bytes.length-off,null);if(n===0)break;off+=n;}
+  need(off===st.size,'SOURCE_ARTIFACT_INVALID');
+  return bytes.subarray(0,off);
+ }finally{fs.closeSync(fd);}
+}
+const decode=b=>JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(b));
 function display(selection,result,reused=false){
  const status=result?.status;
  const tested=TESTED.has(status);
@@ -41,13 +59,30 @@ function createQueueResearchRunner({queueBytes,workspace,holdoutPath,holdoutSha2
  need(Buffer.isBuffer(queueBytes)&&queueBytes.length<=128*1024,'QUEUE_BYTES_REQUIRED');
  const queue=Buffer.from(queueBytes);
  const initial=selectResearchMission(queue);
- need(initial.status==='READY'&&['pinned-replay','host-mediated','official-https'].includes(sourceMode)&&typeof readOfficial==='function','REVIEWED_REPLAY_REQUIRED');
+ need(initial.status==='READY'&&Object.hasOwn(SOURCE_TRANSPORTS,sourceMode)&&typeof readOfficial==='function','REVIEWED_REPLAY_REQUIRED');
  need(typeof holdoutPath==='string'&&path.isAbsolute(holdoutPath)&&path.resolve(holdoutPath)===holdoutPath&&holdoutSha256===HOLDOUT_SHA256,'PINNED_ORACLE_REQUIRED');
  need(holdoutPath!==workspace&&!holdoutPath.startsWith(workspace+path.sep),'ORACLE_MUST_BE_OUTSIDE_STATE');
  const bridge=require(bridgePath);
  const store=createReceiptStore({workspace,slot:{id:initial.subcaseId,schema:'MANA_QUEUE_RESEARCH_V1',queue:initial.queueSha256,scope:initial.subcaseId,mission:initial.mission.id,holdoutSha256,sourceMode}});
  const sourcePath=path.join(workspace,'source-capture.json');
  const workerWorkspace=path.join(workspace,'worker');
+ const provenancePath=path.join(workspace,'source-provenance.json');
+ function validateProvenance(result){
+  const proofBytes=sourceArtifact(provenancePath),captureBytes=sourceArtifact(sourcePath);
+  if(result.status==='RESEARCH_BLOCKED'){
+   need(!proofBytes&&!captureBytes&&!Object.hasOwn(result,'sourceUrl')&&!Object.hasOwn(result,'sourceMode'),'SOURCE_PROVENANCE_UNEXPECTED');
+   return;
+  }
+  need(result.sourceMode===sourceMode&&result.sourceUrl===MATH_URL&&hex(result.sourceProvenanceSha256)&&hex(result.captureSha256),'SOURCE_PROVENANCE_BINDING_MISSING');
+  need(proofBytes&&sha(proofBytes)===result.sourceProvenanceSha256,'SOURCE_PROVENANCE_MISMATCH');
+  need(captureBytes&&sha(captureBytes)===result.captureSha256,'SOURCE_CAPTURE_MISMATCH');
+  const proof=decode(proofBytes),capture=decode(captureBytes),mode=SOURCE_TRANSPORTS[sourceMode],last=proof?.captures?.at(-1);
+  need(proof?.schema==='MANA_CPYTHON_OFFICIAL_RESEARCH_V1'&&proof.repository===REPOSITORY&&proof.commit===COMMIT&&
+   proof.sourceMode===sourceMode&&proof.transport===mode.transport&&proof.directRuntimeNetwork===mode.directRuntimeNetwork&&
+   last?.path===MATH_PATH&&last.url===result.sourceUrl&&last.gitBlobSha===PINS[MATH_PATH]&&hex(last.sha256),'SOURCE_PROVENANCE_MISMATCH');
+  need(capture?.provenance?.kind==='RST_NORMALIZED_LEGACY_PROJECTION'&&capture.provenance.sourceUrl===last.url&&
+   capture.provenance.sourceSha256===last.sha256&&capture.retrievedAt===last.retrievedAt,'SOURCE_CAPTURE_MISMATCH');
+ }
  function validateTested(result){
   if(!TESTED.has(result.status))return;
   need(result.sourceMode===sourceMode&&hex(result.captureSha256)&&hex(result.bridgeReceiptSha256)&&hex(result.candidate),'MISSING_WORKER_LINK');
@@ -55,6 +90,7 @@ function createQueueResearchRunner({queueBytes,workspace,holdoutPath,holdoutSha2
   need(Array.isArray(restored)&&restored.length===1&&restored[0].status===result.status&&restored[0].heldoutPassed===result.passed&&restored[0].heldoutTotal===result.total&&restored[0].bridgeReceiptSha256===result.bridgeReceiptSha256&&restored[0].candidateSha256===result.candidate,'WORKER_RECEIPT_MISMATCH');
  }
  function renderSaved(result){
+  validateProvenance(result);
   validateTested(result);
   const selection=selectResearchMission(queue,result.status==='AWAITING_HUMAN_REVIEW'?[initial.subcaseId]:[]);
   return display({...selection,mission:initial.mission},result,true);
@@ -70,26 +106,28 @@ function createQueueResearchRunner({queueBytes,workspace,holdoutPath,holdoutSha2
    const ticket=store.claim();
    if(ticket.state==='TERMINAL')return renderSaved(ticket.result);
    if(ticket.state!=='CLAIMED')return display(initial,{status:'UNKNOWN'});
-   const done=result=>{ticket.commit(result);return display(initial,result);};
+   const done=result=>{validateProvenance(result);validateTested(result);ticket.commit(result);return display(initial,result);};
    let evidence;
-   try{evidence=await researchFma({readOfficial});}
+   try{evidence=await researchFma({readOfficial,sourceMode});}
    catch{return done({status:'RESEARCH_BLOCKED'});}
    if(evidence?.status!=='OFFICIAL_SOURCE_VERIFIED'||!evidence.legacyCapture||!evidence.source)return done({status:'RESEARCH_BLOCKED'});
    const b=Buffer.from(JSON.stringify(evidence.legacyCapture)+'\n');
    const captureSha256=sha(b);
+   const provenanceBytes=Buffer.from(JSON.stringify(evidence.source)+'\n');
+   const sourceProvenanceSha256=sha(provenanceBytes);
    // This is a cross-reference; it is not a claim to have fetched the rendered docs site.
    const sourceUrl=evidence.source.captures.at(-1).url;
+   const acquisition={sourceUrl,sourceMode,captureSha256,sourceProvenanceSha256};
    const f=fs.openSync(sourcePath,'wx',0o600);
    try{fs.writeFileSync(f,b);fs.fsyncSync(f);}finally{fs.closeSync(f);}
-   const proof=fs.openSync(path.join(workspace,'source-provenance.json'),'wx',0o600);
-   try{fs.writeFileSync(proof,JSON.stringify(evidence.source)+'\n');fs.fsyncSync(proof);}finally{fs.closeSync(proof);}
+   const proof=fs.openSync(provenancePath,'wx',0o600);
+   try{fs.writeFileSync(proof,provenanceBytes);fs.fsyncSync(proof);}finally{fs.closeSync(proof);}
    fs.mkdirSync(workerWorkspace,0o700);
    let result;
    try{const {stdout}=await run(process.execPath,[bridgePath,workerWorkspace,sourcePath,captureSha256,holdoutPath,holdoutSha256],{timeout:22000,maxBuffer:32000,env:{},windowsHide:true});result=JSON.parse(stdout);}
-   catch{return done({status:'SYNTHESIS_BLOCKED',sourceUrl,sourceMode});}
-   if(!TESTED.has(result.status))return done({status:'SYNTHESIS_BLOCKED',sourceUrl,sourceMode});
-   const verdict={status:result.status,captureSha256,sourceUrl,sourceMode,passed:result.heldoutPassed,total:result.heldoutTotal,candidate:result.candidateSha256,bridgeReceiptSha256:result.bridgeReceiptSha256};
-   validateTested(verdict);
+   catch{return done({status:'SYNTHESIS_BLOCKED',...acquisition});}
+   if(!TESTED.has(result.status))return done({status:'SYNTHESIS_BLOCKED',...acquisition});
+   const verdict={status:result.status,...acquisition,passed:result.heldoutPassed,total:result.heldoutTotal,candidate:result.candidateSha256,bridgeReceiptSha256:result.bridgeReceiptSha256};
    return done(verdict);
   },
  };
