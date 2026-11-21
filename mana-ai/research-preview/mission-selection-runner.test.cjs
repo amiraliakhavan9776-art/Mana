@@ -163,3 +163,122 @@ test('direct AEC rejects unbound raw evidence and persists only safe source diag
   assert.equal(discovers,1);
  }
 });
+
+function recoveryFixture(t,discover,{sourceMode='direct'}={}){
+ const os=require('node:os'),{createAecInstructionRunner}=require('./aec-instruction-runner.cjs');
+ const workspace=fs.mkdtempSync(path.join(os.tmpdir(),'mana-recovery-test-'));
+ t.after(()=>fs.rmSync(workspace,{recursive:true,force:true}));
+ const masterBytes=fs.readFileSync(master);
+ let reaches=0,learns=0;
+ const learnerResult={status:'AWAITING_HUMAN_REVIEW',activationAuthorized:false,passed:16,total:16,candidateSha256:pin,freezeSha256:pin,gradeSha256:pin};
+ const config={workspace,masterBytes,queueBytes,sourceMode,
+  learn(){learns++;return learnerResult;},readLearning(){return learnerResult;},
+  discover(){return discover(++reaches);}};
+ const cpythonRunner={review:()=>pyPass(),run:()=>assert.fail('old CPython success must not run again')};
+ return {workspace,runner:()=>create({masterBytes,queueBytes,cpythonRunner,aecRunner:createAecInstructionRunner(config)}),
+  lane:()=>createAecInstructionRunner(config),reaches:()=>reaches,learns:()=>learns};
+}
+const timeout=()=>{throw Error('INDOT_HTTPS_TIMEOUT');};
+function directEvidence(){
+ const {INDEX_URL}=require('./aec-source.cjs'),{PDF_SHA256,PDF_BYTES}=require('./indot-direct.cjs');
+ const u=new URL(SOURCE_URL),retrievedAt='2026-11-21T14:00:00.000Z';
+ return {status:'OFFICIAL_SOURCE_VERIFIED',sourceUrl:SOURCE_URL,sourceSha256:PDF_SHA256,fit:{id:aecCase},evidence:{
+  sourceMode:'direct',transport:'DIRECT_OFFICIAL_HTTPS',directRuntimeNetwork:true,
+  captureRepresentation:'AUTHENTICATED_RAW_HTML_AND_PDF',
+  index:{url:INDEX_URL,sha256:pin,retrievedAt,byteCount:1000},
+  source:{url:SOURCE_URL,sha256:PDF_SHA256,retrievedAt,byteCount:PDF_BYTES},
+  link:{href:u.pathname+u.search,url:SOURCE_URL,sha256:pin},
+  passage:{pageIndex:12,sha256:pin,structureSha256:pin,proseSha256:pin},
+ }};
+}
+const retrySkip=!master||Number(process.versions.node.split('.')[0])<24;
+test('same command recovers one authenticated direct timeout after reopen; original receipt unchanged',{skip:retrySkip},async t=>{
+ const x=recoveryFixture(t,n=>n===1?timeout():directEvidence());
+ const first=await x.runner().run(command);
+ assert.equal(first.sourceFailureCode,'INDOT_HTTPS_TIMEOUT');
+ assert.equal(first.retryAvailable,true);assert.equal(first.retryAttempted,false);
+ assert.equal(first.recoveryAttempt,false);assert.equal(first.validatedCount,1);
+ const oldClaimPath=path.join(x.workspace,'claim.json'),oldTerminalPath=path.join(x.workspace,'terminal.json');
+ const original=[fs.readFileSync(oldClaimPath),fs.readFileSync(oldTerminalPath)];
+ assert.equal(x.runner().history().retryAvailable,true);
+ assert.equal(x.reaches(),1);
+ assert(!fs.existsSync(path.join(x.workspace,'retry-timeout')));
+ assert.equal((await x.runner().run(command+'!')).status,'REJECTED');assert.equal(x.reaches(),1);
+ const next=await x.runner().run(command);
+ assert.equal(next.status,'AWAITING_HUMAN_REVIEW');assert.equal(next.recoveryAttempt,true);
+ assert.equal(next.previousFailureCode,'INDOT_HTTPS_TIMEOUT');assert.equal(next.retryAvailable,false);assert.equal(next.retryAttempted,true);
+ assert.equal(next.validatedCount,2);assert.equal(next.passed,16);
+ const retryClaim=JSON.parse(fs.readFileSync(path.join(x.workspace,'retry-timeout','claim.json')));
+ assert.notEqual(retryClaim.slot.id,JSON.parse(original[0]).slot.id);
+ assert.equal(retryClaim.slot.previousClaimSha256,JSON.parse(original[0]).claimSha256);
+ assert.equal(retryClaim.slot.previousTerminalSha256,JSON.parse(original[1]).terminalSha256);
+ assert.deepEqual([fs.readFileSync(oldClaimPath),fs.readFileSync(oldTerminalPath)],original);
+ assert.equal(x.lane().history().sourceFailureCode,'INDOT_HTTPS_TIMEOUT');
+ assert.equal(x.runner().history().status,'NO_READY_CASE');
+ assert.equal((await x.runner().run(command)).status,'NO_READY_CASE');
+ assert.equal(x.reaches(),2);assert.equal(x.learns(),1);
+});
+test('parallel separate adapters can claim at most one timeout retry, second timeout does not retry again',{skip:retrySkip},async t=>{
+ let resume;
+ const wait=new Promise(r=>{resume=r;});
+ const x=recoveryFixture(t,n=>n===1?timeout():wait.then(timeout));
+ assert.equal((await x.runner().run(command)).retryAvailable,true);
+ const pending=x.runner().run(command);
+ assert.equal(x.reaches(),2);
+ assert.equal(x.runner().history().status,'UNKNOWN_OUTCOME');
+ const overlap=await x.runner().run(command);
+ assert.equal(overlap.status,'UNKNOWN_OUTCOME');assert.equal(overlap.retryAttempted,true);
+ assert.equal(x.reaches(),2);
+ resume();
+ const tried=await pending;
+ assert.equal(tried.status,'SOURCE_BLOCKED');assert.equal(tried.recoveryAttempt,true);assert.equal(tried.retryAvailable,false);
+ assert.equal((await x.runner().run(command)).sourceFailureCode,'INDOT_HTTPS_TIMEOUT');
+ assert.equal(x.reaches(),2);assert.equal(x.learns(),0);
+});
+test('no recovery for foreign, corrupt, replay, unknown or non-timeout failures',{skip:retrySkip},async t=>{
+ for(const [sourceMode,code] of [['direct','INDOT_HTTPS_REQUEST_FAILED'],['direct','INDOT_PDF_REVISION_MISMATCH'],['pinned-replay','INDOT_HTTPS_TIMEOUT']]){
+  const x=recoveryFixture(t,()=>{throw Error(code);},{sourceMode});
+  const first=await x.runner().run(command);
+  assert.equal(first.status,'SOURCE_BLOCKED');assert.equal(first.retryAvailable,false);
+  assert.equal((await x.runner().run(command)).status,'SOURCE_BLOCKED');
+  assert.equal((await x.lane().retryTimeout(aecCommand)).status,'RETRY_NOT_AVAILABLE');
+  assert.equal(x.reaches(),1);assert(!fs.existsSync(path.join(x.workspace,'retry-timeout')));
+ }
+ const before=recoveryFixture(t,()=>assert.fail('no primary attempt or retry expected'));
+ assert.equal((await before.lane().retryTimeout(aecCommand)).status,'RETRY_NOT_AVAILABLE');
+ let resume;
+ const wait=new Promise(r=>{resume=r;});
+ const pending=recoveryFixture(t,()=>wait.then(timeout));
+ const run=pending.runner().run(command);
+ assert.equal(pending.runner().history().status,'UNKNOWN_OUTCOME');
+ assert.equal((await pending.runner().run(command)).status,'UNKNOWN_OUTCOME');
+ assert(!fs.existsSync(path.join(pending.workspace,'retry-timeout')));
+ resume();await run;
+ const x=recoveryFixture(t,timeout);
+ await x.runner().run(command);
+ const terminal=path.join(x.workspace,'terminal.json');
+ fs.appendFileSync(terminal,' ');
+ await assert.rejects(x.runner().run(command),/CORRUPT_RECEIPT/);
+ assert.equal(x.reaches(),1);
+ assert(!fs.existsSync(path.join(x.workspace,'retry-timeout')));
+ const moved=recoveryFixture(t,timeout);
+ await moved.runner().run(command);
+ fs.mkdirSync(path.join(moved.workspace,'retry-timeout'),0o700);
+ fs.copyFileSync(path.join(moved.workspace,'claim.json'),path.join(moved.workspace,'retry-timeout','claim.json'));
+ await assert.rejects(moved.runner().run(command),/RETRY_STATE_WITHOUT_RESERVATION/);
+ assert.equal(moved.reaches(),1);
+});
+
+test('loss of retry child cannot renew a durably spent parent reservation',{skip:retrySkip},async t=>{
+ const x=recoveryFixture(t,timeout);
+ await x.runner().run(command);await x.runner().run(command);
+ const marker=path.join(x.workspace,'retry-timeout-issued.json');
+ const original=fs.readFileSync(marker);
+ fs.rmSync(path.join(x.workspace,'retry-timeout'),{recursive:true});
+ const result=await x.runner().run(command);
+ assert.equal(result.status,'UNKNOWN_OUTCOME');assert.equal(result.retryAttempted,true);
+ assert.equal(result.retryAvailable,false);assert.match(result.selectedBecause,/هنوز تأیید نشده/);
+ assert.equal(x.reaches(),2);
+ assert.deepEqual(fs.readFileSync(marker),original);
+ assert(!fs.existsSync(path.join(x.workspace,'retry-timeout')));
+});

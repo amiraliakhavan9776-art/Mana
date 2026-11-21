@@ -1,5 +1,5 @@
 'use strict';
-const fs=require('node:fs'),path=require('node:path'),{createHash}=require('node:crypto');
+const fs=require('node:fs'),path=require('node:path'),{createHash,randomBytes}=require('node:crypto');
 const {createReceiptStore}=require('./receipt.cjs');
 const {QUEUE_SHA256}=require('./queue.cjs');
 const {APPROVED_PERSIAN_COMMAND,parsePersianResearchInstruction}=require('./persian-intake.cjs');
@@ -10,6 +10,8 @@ const missionId='6d213a1b0d0b2a93',subcase='trapezoid-panel-area-twice-mm2';
 const title='مترهٔ سطح ناخالص قطعهٔ ذوزنقه‌ای';
 const reason='از بند ۶٫۴ و صف ۸۴ ردیفی، این آزمون محدودِ متره برای پژوهش بازبینی شده و در این محیط هنوز رسید ندارد.';
 const DIRECT_TRANSPORT='DIRECT_OFFICIAL_HTTPS';
+const DIRECT_TIMEOUT='INDOT_HTTPS_TIMEOUT';
+const RETRY_ID=subcase+':retry-timeout-v1';
 const DIRECT_FAILURES=Object.freeze({
  INDOT_HTTPS_TIMEOUT:'INDOT_HTTPS_TIMEOUT',
  INDOT_HTTPS_REQUEST_FAILED:'INDOT_HTTPS_REQUEST_FAILED',
@@ -47,8 +49,10 @@ function createAecInstructionRunner({workspace,masterBytes,queueBytes,discover,l
  const policy=parsePersianResearchInstruction(APPROVED_PERSIAN_COMMAND,{masterBytes:master});
  need(policy.status==='ACCEPTED','MASTER_PIN_MISMATCH');
  need(['pinned-replay','host-mediated','direct'].includes(sourceMode)&&[discover,learn,readLearning].every(f=>typeof f==='function'),'LANE_CONFIG_INVALID');
- const store=createReceiptStore({workspace,slot:{id:subcase,schema:'MANA_AEC_INSTRUCTION_V1',missionId,queue:QUEUE_SHA256,documentSha256:policy.master.documentSha256,sectionSha256:policy.master.sectionSha256,instructionSha256:policy.instructionSha256,sourceMode}});
- const sourceFile=path.join(workspace,'source.json'),learner=path.join(workspace,'learner');
+ const slot={id:subcase,schema:'MANA_AEC_INSTRUCTION_V1',missionId,queue:QUEUE_SHA256,documentSha256:policy.master.documentSha256,sectionSha256:policy.master.sectionSha256,instructionSha256:policy.instructionSha256,sourceMode};
+ const store=createReceiptStore({workspace,slot});
+ const retryWorkspace=path.join(workspace,'retry-timeout');
+ const retryIssued=path.join(workspace,'retry-timeout-issued.json');
  function render(result,reused=false){
   return {...result,missionId,title,selectedBecause:reused?'رسید معتبر قبلی برای همین مأموریت ثبت شده است.':reason,sourceMode,reused,...safety};
  }
@@ -76,9 +80,15 @@ function createAecInstructionRunner({workspace,masterBytes,queueBytes,discover,l
   return e;
  }
  const sourceTransport=e=>sourceMode==='direct'?{transport:e.evidence.transport,directRuntimeNetwork:e.evidence.directRuntimeNetwork}:{};
- function restore(r){
+ const context=(directory,receipts)=>({store:receipts,sourceFile:path.join(directory,'source.json'),learner:path.join(directory,'learner')});
+ const first=context(workspace,store);
+ function restore(r,{sourceFile,learner}){
+  for(const f of [sourceFile,learner]){
+   if(r.status==='SOURCE_BLOCKED'){
+    try{fs.lstatSync(f);throw Error('UNEXPECTED_EVIDENCE');}catch(e){if(e.code!=='ENOENT')throw e;}
+   }
+  }
   if(r.status==='SOURCE_BLOCKED'){
-   need(!fs.existsSync(sourceFile)&&!fs.existsSync(learner),'UNEXPECTED_EVIDENCE');
    if(sourceMode==='direct')need(isDirectSourceFailure(r.sourceFailureCode),'INVALID_DIRECT_SOURCE_FAILURE');
   }else{
    need(hex(r.evidenceSha256),'RECEIPT_EVIDENCE_MISSING');
@@ -90,31 +100,88 @@ function createAecInstructionRunner({workspace,masterBytes,queueBytes,discover,l
   }
   return render(r,true);
  }
+ function historyAt(c,state=c.store.read()){
+  return state.state==='EMPTY'?null:state.state==='TERMINAL'?restore(state.result,c):render({status:'UNKNOWN_OUTCOME'});
+ }
+ function syncRoot(){
+  const fd=fs.openSync(workspace,fs.constants.O_RDONLY|fs.constants.O_NOFOLLOW|fs.constants.O_DIRECTORY);
+  try{fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
+ }
+ function retryContext(){
+  const prior=store.read();
+  const eligible=sourceMode==='direct'&&prior.state==='TERMINAL'&&prior.result.status==='SOURCE_BLOCKED'&&prior.result.sourceFailureCode===DIRECT_TIMEOUT;
+  let child, marker;
+  try{fs.lstatSync(retryWorkspace);child=true;}catch(e){if(e.code!=='ENOENT')throw e;child=false;}
+  try{marker=readBound(retryIssued,4096);}catch(e){if(e.code!=='ENOENT')throw e;marker=null;}
+  if(!eligible){
+   need(!child&&!marker,'RETRY_WITHOUT_VERIFIED_TIMEOUT');
+   return {eligible:false,attempted:false,c:null};
+  }
+  restore(prior.result,first);
+  need(hex(prior.claimSha256)&&hex(prior.terminalSha256),'ORIGINAL_TIMEOUT_BINDING_MISSING');
+  const retrySlot={
+   ...slot,id:RETRY_ID,schema:'MANA_AEC_INSTRUCTION_TIMEOUT_RETRY_V1',
+   previousClaimSha256:prior.claimSha256,previousTerminalSha256:prior.terminalSha256,
+   previousFailureCode:DIRECT_TIMEOUT,
+  };
+  const reservation=Buffer.from(JSON.stringify(retrySlot)+'\n');
+  need(!marker||marker.equals(reservation),'RETRY_RESERVATION_BINDING_MISMATCH');
+  need(!child||marker,'RETRY_STATE_WITHOUT_RESERVATION');
+  const c=child?context(retryWorkspace,createReceiptStore({workspace:retryWorkspace,slot:retrySlot})):null;
+  return {eligible:true,attempted:Boolean(marker),c,reservation,retrySlot};
+ }
+ function reserveRetry(bytes){
+  const stage=path.join(workspace,'.retry-budget-'+randomBytes(16).toString('hex')+'.tmp');
+  const fd=fs.openSync(stage,fs.constants.O_WRONLY|fs.constants.O_CREAT|fs.constants.O_EXCL|fs.constants.O_NOFOLLOW,0o600);
+  try{
+   try{fs.fchmodSync(fd,0o600);fs.writeFileSync(fd,bytes);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
+   try{fs.linkSync(stage,retryIssued);}catch(e){if(e.code==='EEXIST')return false;throw e;}
+   syncRoot();return true;
+  }finally{fs.unlinkSync(stage);syncRoot();}
+ }
+ function retryView(state=retryContext()){
+  const result=state.attempted?((state.c?historyAt(state.c):null)??render({status:'UNKNOWN_OUTCOME'})):null;
+  return {available:state.eligible&&!state.attempted,attempted:state.attempted,result};
+ }
+ async function runAt(c){
+  const {store,sourceFile,learner}=c;
+  const ticket=store.claim();
+  if(ticket.state==='TERMINAL')return restore(ticket.result,c);
+  if(ticket.state!=='CLAIMED')return render({status:'UNKNOWN_OUTCOME'});
+  let e;
+  try{e=checkedEvidence(await discover());}catch(error){
+   const r={status:'SOURCE_BLOCKED',...(sourceMode==='direct'?{sourceFailureCode:isDirectSourceFailure(error?.message)?error.message:'INDOT_SOURCE_UNVERIFIED'}:{})};
+   ticket.commit(r);return render(r);
+  }
+  const b=Buffer.from(JSON.stringify(e)+'\n'),evidenceSha256=sha(b);
+  need(b.length<=64*1024,'SOURCE_EVIDENCE_LIMIT');
+  const fd=fs.openSync(sourceFile,'wx',0o600);
+  try{fs.writeFileSync(fd,b);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
+  fs.mkdirSync(learner,0o700);
+  const g=await learn({workspace:learner,fit:e.fit,evidenceSha256});
+  const r={...learningView(g),...sourceTransport(e),sourceUrl:e.sourceUrl,sourceSha256:e.sourceSha256,evidenceSha256};
+  // Re-read and verify before committing the terminal verdict, not just on replay.
+  restore(r,c);ticket.commit(r);return render(r);
+ }
+ const parse=instruction=>parsePersianResearchInstruction(instruction,{masterBytes:master});
+ const rejected=accepted=>({status:'REJECTED',reasonCode:accepted.reasonCode,...safety});
  return {
-  history(){
-   const v=store.read();
-   return v.state==='EMPTY'?null:v.state==='TERMINAL'?restore(v.result):render({status:'UNKNOWN_OUTCOME'});
-  },
+  history(){return historyAt(first);},
+  retryHistory(){return retryView();},
   async run(instruction){
-   const accepted=parsePersianResearchInstruction(instruction,{masterBytes:master});
-   if(accepted.status!=='ACCEPTED')return {status:'REJECTED',reasonCode:accepted.reasonCode,...safety};
-   const ticket=store.claim();
-   if(ticket.state==='TERMINAL')return restore(ticket.result);
-   if(ticket.state!=='CLAIMED')return render({status:'UNKNOWN_OUTCOME'});
-   let e;
-   try{e=checkedEvidence(await discover());}catch(error){
-    const r={status:'SOURCE_BLOCKED',...(sourceMode==='direct'?{sourceFailureCode:isDirectSourceFailure(error?.message)?error.message:'INDOT_SOURCE_UNVERIFIED'}:{})};
-    ticket.commit(r);return render(r);
-   }
-   const b=Buffer.from(JSON.stringify(e)+'\n'),evidenceSha256=sha(b);
-   need(b.length<=64*1024,'SOURCE_EVIDENCE_LIMIT');
-   const fd=fs.openSync(sourceFile,'wx',0o600);
-   try{fs.writeFileSync(fd,b);fs.fsyncSync(fd);}finally{fs.closeSync(fd);}
-   fs.mkdirSync(learner,0o700);
-   const g=await learn({workspace:learner,fit:e.fit,evidenceSha256});
-   const r={...learningView(g),...sourceTransport(e),sourceUrl:e.sourceUrl,sourceSha256:e.sourceSha256,evidenceSha256};
-   // Re-read and verify before committing the terminal verdict, not just on replay.
-   restore(r);ticket.commit(r);return render(r);
+   const accepted=parse(instruction);
+   return accepted.status==='ACCEPTED'?runAt(first):rejected(accepted);
+  },
+  async retryTimeout(instruction){
+   const accepted=parse(instruction);
+   if(accepted.status!=='ACCEPTED')return rejected(accepted);
+   const state=retryContext();
+   if(!state.eligible)return render({status:'RETRY_NOT_AVAILABLE'});
+   // The durable marker stays outside the child. A removed/incomplete child
+   // therefore cannot reopen the single retry budget.
+   if(state.attempted||!reserveRetry(state.reservation))return retryView().result??render({status:'UNKNOWN_OUTCOME'});
+   fs.mkdirSync(retryWorkspace,{mode:0o700});syncRoot();
+   return runAt(context(retryWorkspace,createReceiptStore({workspace:retryWorkspace,slot:state.retrySlot})));
   },
  };
 }
