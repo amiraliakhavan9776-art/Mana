@@ -60,3 +60,6 @@ jobs:
       - run: node mana-ai/tools/mana-skill-dependence-browser-check.cjs
 
       - run: node mana-ai/tools/mana-clearance-browser-check.cjs
+
+      - name: Verify Persian research preview in Chromium with official HTTPS evidence
+        run: node mana-ai/tools/queue-research-browser-check.cjs

@@ -1,0 +1,40 @@
+'use strict';
+const {test}=require('node:test'),assert=require('node:assert/strict');
+const {readFileSync}=require('node:fs'),path=require('node:path');
+const {selectResearchMission,QUEUE_SHA256,QUEUE_GIT_BLOB,RESEARCH_MISSION_ID,RESEARCH_SUBCASE_ID}=require('./queue.cjs');
+const actual=readFileSync(process.env.MANA_RESEARCH_QUEUE_PATH||path.resolve(__dirname,'../capability-registry/development-queue-v01.json'));
+test('authentic 84-row queue selects only actual reviewed Research Engine as an incomplete proof',()=>{
+ const raw=JSON.parse(actual);
+ const result=selectResearchMission(actual);
+ assert.equal(result.status,'READY');
+ assert.equal(result.queueCount,84);
+ assert.equal(result.remainingUncoveredCount,83);
+ assert.equal(result.queueSha256,QUEUE_SHA256);
+ assert.equal(result.queueGitBlob,QUEUE_GIT_BLOB);
+ assert.equal(result.reviewedScopeCount,1);
+ const orig=raw.missions.find(x=>x.id===RESEARCH_MISSION_ID);
+ for(const k of Object.keys(result.mission))assert.equal(result.mission[k],orig[k],k);
+ assert.equal(result.subcaseId,RESEARCH_SUBCASE_ID);
+ assert.match(result.selectionReason,/۸۴/);
+ assert.equal(result.master.section,'3.5');
+ assert.equal(result.fullMissionComplete,false);
+ assert.equal(result.activationAuthorized,false);
+ assert.equal(raw.missions.find(x=>x.id===RESEARCH_MISSION_ID).state,'PENDING_REVIEW');
+ assert.deepEqual(raw.missions.find(x=>x.id===RESEARCH_MISSION_ID).acceptanceEvidence,[]);
+});
+test('same verified subcase is skipped without selecting unrelated or marking complete',()=>{
+ const x=selectResearchMission(actual,[RESEARCH_SUBCASE_ID,'unrelated-verified-subcase']);
+ assert.equal(x.status,'NO_SUPPORTED_UNVALIDATED_SUBCASE');
+ assert.equal(x.mission,null);
+ assert.equal(x.fullMissionComplete,false);
+ assert.equal(x.remainingUncoveredCount,83);
+ assert.match(x.selectionReason,/تغییر نکرده/);
+ assert.equal(selectResearchMission(actual,['irrelevant-fixture']).mission.id,RESEARCH_MISSION_ID);
+});
+test('exact artifact required; rejects whitespace changes, modified state and caller-shaped ledger',()=>{
+ assert.throws(()=>selectResearchMission(actual.toString()),/QUEUE_BYTES_REQUIRED/);
+ assert.throws(()=>selectResearchMission(Buffer.concat([actual,Buffer.from('\n')])),/QUEUE_PIN_MISMATCH/);
+ const queue=JSON.parse(actual);queue.missions[12].state='COMPLETE';
+ assert.throws(()=>selectResearchMission(Buffer.from(JSON.stringify(queue))),/QUEUE_PIN_MISMATCH/);
+ assert.throws(()=>selectResearchMission(actual,[{id:RESEARCH_SUBCASE_ID}]),/VALIDATED_SUBCASE_LIST_INVALID/);
+});
