@@ -43,3 +43,5 @@ jobs:
         run: node --test mana-ai/tests/mana-rd-native-synthesis.test.cjs
       - name: Test the opt-in research preview and receipt lifecycle
         run: node --test mana-ai/tests/research-preview.test.cjs
+      - name: Verify bounded Persian AEC research intake and isolated learner
+        run: node --test mana-ai/tests/aec-instruction.test.cjs

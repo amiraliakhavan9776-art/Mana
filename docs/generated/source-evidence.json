@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "04e36ccebf4326fab9d8dae19b2a4b7600775642c1112e07189045ec6a85eec7",
-  "fileCount": 504,
+  "sourceSetDigest": "19d76a70ae104ad302d731c60766fea0fb9ad24dba32edc2be900cf53143f5fc",
+  "fileCount": 516,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -50,9 +50,9 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 1427,
-      "sha256": "dc5ce4513b0bab3451dc5ad030211439b8b6a4d860ebfe8b7a78f86c9b81afa4",
-      "gitBlob": "35fad115f398c9e220e54afe63e9dd91f82591fd",
+      "bytes": 1569,
+      "sha256": "6e1bc7a173508132e75b8c7c69a703954b7f3a0f7ea06b54ba490c3a30f49097",
+      "gitBlob": "b2f95770bff56951b4540dcd5387c70259569cd6",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -751,6 +751,15 @@
       "bytes": 1123,
       "sha256": "3a4b787121743188c18163ea6be3afe1bb44a1d6b2f34f8144f24b1d5c3dd103",
       "gitBlob": "a6d2006422525518a72f074d65fc7d587446b231",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-AEC-INSTRUCTION.fa.md",
+      "bytes": 3538,
+      "sha256": "cf9d429b2aa4d23d376fe5cf52951d9262d97954d92ac5a717427a1943202f63",
+      "gitBlob": "2f4f18320946cf08ad78e1c7026252fe837fb627",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2318,6 +2327,300 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/research-preview/aec-instruction-preview.cjs",
+      "bytes": 7741,
+      "sha256": "5053d1350d5929503620399bf89d2fff1aa23b4a98b57c921f2dd735018c7f73",
+      "gitBlob": "11ac277a4d742101b0e7ceba97600651c4f60a1d",
+      "dependencyCandidates": [
+        {
+          "value": "node:http",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./persian-intake.cjs",
+          "line": 3
+        },
+        {
+          "value": "./aec-instruction-runner.cjs",
+          "line": 4
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 54
+        },
+        {
+          "value": "./aec-learner.cjs",
+          "line": 55
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_AEC_RESEARCH_PORT",
+          "line": 58
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-instruction-preview.test.cjs",
+      "bytes": 4926,
+      "sha256": "19848fb23514e88434f4c026b355074305d146fc19ba6fdae8c409c2ded3d1ab",
+      "gitBlob": "29561088dbfb89557056ea39420d12d07b9244c5",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:events",
+          "line": 2
+        },
+        {
+          "value": "./aec-instruction-preview.cjs",
+          "line": 3
+        },
+        {
+          "value": "./aec-instruction-runner.cjs",
+          "line": 4
+        },
+        {
+          "value": "./persian-intake.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-learner.cjs",
+          "line": 41
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 57
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 8
+        },
+        {
+          "value": "MANA_TEST_INDOT_CAPTURE",
+          "line": 9
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-instruction-runner.cjs",
+      "bytes": 5832,
+      "sha256": "797740d0813dd8270352998be95f6f7fc97cd81a56910d70e495cb9f7b529326",
+      "gitBlob": "ad55a9d071891580ee2184edb356446259bdb9b2",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./receipt.cjs",
+          "line": 3
+        },
+        {
+          "value": "./queue.cjs",
+          "line": 4
+        },
+        {
+          "value": "./persian-intake.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 47
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-learner-oracle.cjs",
+      "bytes": 812,
+      "sha256": "687309fb65aaa43d6ae4c7079e3a79f4a86dbc508dc58335d8ce4a4df82bc791",
+      "gitBlob": "6a75a44ad253d2fed830439e6b7706b560d7e90a",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-learner.cjs",
+      "bytes": 11044,
+      "sha256": "19b8023f6f312ec6a450ce038cd282387006f7b60d3fc91c65a84ed8fb54c101",
+      "gitBlob": "c2e1fd1a64cbbc85647722b01e044a946368f00b",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 3
+        },
+        {
+          "value": "./receipt.cjs",
+          "line": 4
+        },
+        {
+          "value": "../src/exact-json.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/approval-store.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-learner.test.cjs",
+      "bytes": 5126,
+      "sha256": "1b675962c90fe10e6536fc24d13d0f25b7e174bba751007cb38eed573afdd817",
+      "gitBlob": "2688be3d5f55d228bd525764e8a513627a296d0e",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:test",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 3
+        },
+        {
+          "value": "./aec-learner.cjs",
+          "line": 4
+        },
+        {
+          "value": "./aec-learner-oracle.cjs",
+          "line": 5
+        },
+        {
+          "value": "node:fs",
+          "line": 35
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 35
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-source.cjs",
+      "bytes": 7137,
+      "sha256": "6151dd09b152d1197d8545c7c2dd58582f27998941d7a68263a0580cad9c81b9",
+      "gitBlob": "d9f976e11598e472eff4b7d77a5c1e04f3c5c0d2",
+      "dependencyCandidates": [
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-source.test.cjs",
+      "bytes": 5134,
+      "sha256": "0d7d4b044fd9fa21e8941eb16f4240fb71a15cae6ecba0f10867105b95d5148c",
+      "gitBlob": "d747c9b80054c29cb14f7702d01072cf40012179",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_INDOT_CAPTURE",
+          "line": 69
+        },
+        {
+          "value": "MANA_INDOT_CAPTURE_SHA256",
+          "line": 70
+        }
+      ],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/research-preview/bridge.cjs",
       "bytes": 12132,
       "sha256": "91d6fcae2b7e88ec08246ebe5219933385a69e7e72464c88af05675f00d8da50",
@@ -2447,6 +2750,51 @@
         }
       ],
       "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/persian-intake.cjs",
+      "bytes": 3483,
+      "sha256": "6a135f654fcf2cbc154c78f3346c0f68715fa639831436fe1416266cab5cb050",
+      "gitBlob": "f379090adca22151a728c31b980c0526f5d3c964",
+      "dependencyCandidates": [
+        {
+          "value": "node:crypto",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/persian-intake.test.cjs",
+      "bytes": 3226,
+      "sha256": "6e4223c106d8ea0ca66de8711eed922580da36ecbe8184b3966a754e9d79b1c2",
+      "gitBlob": "2a106562888ae0c393324514e8890272cdb2603e",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "./persian-intake.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 4
+        }
+      ],
       "testFile": false
     },
     {
@@ -5613,6 +5961,32 @@
         {
           "value": "../src/native/aec-access-plan.cjs",
           "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/aec-instruction.test.cjs",
+      "bytes": 291,
+      "sha256": "e1eefd51963b883ecb36048ff6db808393e53f47b246e03f5a826979e6763910",
+      "gitBlob": "d3803e6c2b4b096149b41dcff5c00a2b753a182e",
+      "dependencyCandidates": [
+        {
+          "value": "../research-preview/persian-intake.test.cjs",
+          "line": 2
+        },
+        {
+          "value": "../research-preview/aec-source.test.cjs",
+          "line": 3
+        },
+        {
+          "value": "../research-preview/aec-instruction-preview.test.cjs",
+          "line": 4
+        },
+        {
+          "value": "../research-preview/aec-learner.test.cjs",
+          "line": 5
         }
       ],
       "environmentCandidates": [],
