@@ -31,3 +31,13 @@ jobs:
           find mana-ai -type f -name '*.cjs' -print0 | xargs -0 -n 1 node --check
       - name: Node unit and integration tests
         run: node --test mana-ai/tests/*.test.cjs
+  native-learning-cpu:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify native learning and exact child evidence isolation
+        run: node --test mana-ai/tests/mana-rd-native-synthesis.test.cjs

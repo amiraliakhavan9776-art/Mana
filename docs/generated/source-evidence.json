@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "44684dd83706fdbaf7419049c2dd02d268de7e84c74c8185d41f47f6238e6024",
-  "fileCount": 475,
+  "sourceSetDigest": "0543e90f737fc8e2365ec4292e7eb87a18e61e2bc45387cd7f83bd7df17b7429",
+  "fileCount": 486,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -50,9 +50,9 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 951,
-      "sha256": "9c9f89bd258c11e4ff3857eec433b2211d5778308fe9b623af13d01fc7acbd6b",
-      "gitBlob": "9e8b832879ce428df3db4b4902d555c3271932fb",
+      "bytes": 1293,
+      "sha256": "0c5fd372413bd1ef8e9edb0f69b5ed887eee1f20b29d716c6bcb01de0af2b497",
+      "gitBlob": "39b1e648dd83b5391c2459f88c194e7990e002c6",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -787,6 +787,15 @@
       "bytes": 2535,
       "sha256": "f08ef888d67ebbc9a6bb1155023d7a97a474cca888f9a08922565b9086ac7799",
       "gitBlob": "df0b5a9131105ec1e0cb122accd0aeb788a8902a",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-RD-NATIVE.fa.md",
+      "bytes": 5170,
+      "sha256": "43a5a18b5d4d7eec282bf92e17d95d9d715edf9abc72b756f37c88168e5eeadf",
+      "gitBlob": "863033412a97376b1d35c7616bbe48980915b35f",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -2058,6 +2067,86 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/native-rd-pilot/fit-only/floor.json",
+      "bytes": 498,
+      "sha256": "ab5564060f2af5e39d13c23e3e33adb20ba189916b76aeee82e57507aa99383e",
+      "gitBlob": "0d3f173f830c423905c37766849293033800f10b",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/native-rd-pilot/fit-only/volume.json",
+      "bytes": 494,
+      "sha256": "e337b44768dfc25d790ec8cabfe767d57801eacda49ce97e07bb0a13662edc0e",
+      "gitBlob": "d4953c00b28943adf741b7ddc9eeaa6375a56273",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/native-rd-pilot/native-synth.cjs",
+      "bytes": 6344,
+      "sha256": "30fc3b1b5121ee61d6a86ef1ae83e223d2f5b58f547fb4dad4a4804016e1ddf6",
+      "gitBlob": "ec8d47a405782665135fd2225b249878b13dcb59",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:perf_hooks",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/native-rd-pilot/permission-launch.cjs",
+      "bytes": 550,
+      "sha256": "4e5ff093f24663056604fa04be773944bc3c0e78dba3e64ae7e4ef5a5d74852a",
+      "gitBlob": "4ab853e47cd5fb6074da375a7b022974d086850c",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/native-rd-pilot/verify-only/floor.json",
+      "bytes": 1504,
+      "sha256": "8903e33c17aa7da643fe1f700a3e50e1aa05f56b782882dcfcac525a6a2e3f79",
+      "gitBlob": "a3dd1ebbede114e0500ec0dded2aa1bdc182309a",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/native-rd-pilot/verify-only/volume.json",
+      "bytes": 1513,
+      "sha256": "4c7b52e3c3533ee6196a53571d7864a0ddbc9138174a5885ec1e96b64149b6ea",
+      "gitBlob": "43c4a207a5a233213b0f9788a64680eb77b03344",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/native-skill-draft.cjs",
       "bytes": 1268,
       "sha256": "ff8cbc1de49e8e7f4705a42704af7868e78818ae6c72753ea78b6fd2deb52c2f",
@@ -2501,6 +2590,20 @@
           "line": 9
         }
       ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/run-rd-native-synthesis.cjs",
+      "bytes": 564,
+      "sha256": "76c7e637f3d1f38c8765253aafa86b56ff6fd8b20b55e0ce714b2a2a179a4842",
+      "gitBlob": "a58b08b530245fc1a183e7a1276f6b18e7f7708d",
+      "dependencyCandidates": [
+        {
+          "value": "./src/pilot/mana-native-rd.cjs",
+          "line": 2
+        }
+      ],
+      "environmentCandidates": [],
       "testFile": false
     },
     {
@@ -4416,6 +4519,66 @@
         {
           "value": "./mana-skirting-preview.cjs",
           "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/pilot/mana-native-rd-verifier.cjs",
+      "bytes": 4222,
+      "sha256": "f4523fe8618c14cb4638401d6925fad74f78ea5775dfa201723d23250023bb87",
+      "gitBlob": "0bfdb1ae5e6ae156f3c37d3c275a768e1cbfd914",
+      "dependencyCandidates": [
+        {
+          "value": "../native/skill-expression.cjs",
+          "line": 2
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/pilot/mana-native-rd.cjs",
+      "bytes": 10510,
+      "sha256": "f7a935c33eb8c8ae2c1f7e4a0391353768f84f6fc9e9b41895bbed44d89e531b",
+      "gitBlob": "e2d2676c1ca2dbdb523db9dd63a833e6489d8248",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 2
+        },
+        {
+          "value": "../exact-json.cjs",
+          "line": 3
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 3
+        },
+        {
+          "value": "./mana-native-rd-verifier.cjs",
+          "line": 79
         }
       ],
       "environmentCandidates": [],
@@ -7193,6 +7356,65 @@
         }
       ],
       "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/mana-rd-native-synthesis.test.cjs",
+      "bytes": 4865,
+      "sha256": "93afa071efdcc3f31b4322f408ad560b1d0577be9e39a6cc31c5a186834f5c1a",
+      "gitBlob": "101aa6109ce61180d54ffe780ba4b779f7c8e9b1",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 2
+        },
+        {
+          "value": "../src/pilot/mana-native-rd.cjs",
+          "line": 3
+        },
+        {
+          "value": "../src/pilot/mana-native-rd-verifier.cjs",
+          "line": 3
+        },
+        {
+          "value": "../rd-pilot/catalog.json",
+          "line": 5
+        },
+        {
+          "value": "node:fs",
+          "line": 22
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 4
+        }
+      ],
       "testFile": true
     },
     {
