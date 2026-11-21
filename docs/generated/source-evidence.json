@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "83901339b379c443d05ba2c94ac1a99b7ca1e88be69e35f336a2dbe1f6ad2235",
+  "sourceSetDigest": "6c4e60d289eb27b622145a6a93a185ab1c4d53fc467b76b3fbd48725eb436211",
   "fileCount": 503,
   "files": [
     {
@@ -50,9 +50,9 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 1293,
-      "sha256": "0c5fd372413bd1ef8e9edb0f69b5ed887eee1f20b29d716c6bcb01de0af2b497",
-      "gitBlob": "39b1e648dd83b5391c2459f88c194e7990e002c6",
+      "bytes": 1427,
+      "sha256": "dc5ce4513b0bab3451dc5ad030211439b8b6a4d860ebfe8b7a78f86c9b81afa4",
+      "gitBlob": "35fad115f398c9e220e54afe63e9dd91f82591fd",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -8954,29 +8954,41 @@
     },
     {
       "path": "mana-ai/tests/research-preview.test.cjs",
-      "bytes": 270,
-      "sha256": "3c79ff87e093050d39e071956a73c056a1a68a6d59b8fa29e31c0079389f0f8b",
-      "gitBlob": "2effb991b7637b513707b4ec3e05a54c0b7eed79",
+      "bytes": 641,
+      "sha256": "9d3f19b653e714af36d854d326d736d732d82cb8e9ed60fc5873d431f80310cc",
+      "gitBlob": "0851542d390d56f6f143ed203868907810b32c3e",
       "dependencyCandidates": [
         {
           "value": "../research-preview/queue.test.cjs",
           "line": 2
         },
         {
-          "value": "../research-preview/receipt.test.cjs",
+          "value": "../research-preview/cpython-source.test.cjs",
           "line": 3
         },
         {
-          "value": "../research-preview/cpython-source.test.cjs",
+          "value": "../research-preview/official-https.test.cjs",
           "line": 4
         },
         {
-          "value": "../research-preview/runner.test.cjs",
-          "line": 5
+          "value": "../research-preview/receipt.test.cjs",
+          "line": 7
         },
         {
-          "value": "../research-preview/official-https.test.cjs",
-          "line": 6
+          "value": "../research-preview/runner.test.cjs",
+          "line": 8
+        },
+        {
+          "value": "node:test",
+          "line": 10
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 11
+        },
+        {
+          "value": "../research-preview/receipt.cjs",
+          "line": 12
         }
       ],
       "environmentCandidates": [],
