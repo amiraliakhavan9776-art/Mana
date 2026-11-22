@@ -256,3 +256,41 @@ test('split math proof cannot bridge hidden, tainted, unrelated or foreign sibli
   assert.equal(calls.length,2);
  }
 });
+
+const centeredArea=(rectangleCenter='<CENTER><p>A = h * b</p></CENTER>',trapezoidCenter='<CENTER><p>'+formula+'</p></CENTER>')=>
+ '<html><head><title>Area</title></head><body><div><p>'+metadata+'</p><p>'+context+' '+rectangleWords+'</p>\n'+
+ rectangleCenter+'\n<p>'+prose+'\n'+trapezoidCenter+'\n<p>'+triangleWords+
+ '\n<CENTER><p>A = .5 * b * h</p></CENTER></div></body></html>';
+test('legacy attribute-free isolated equation centers preserve physical proof and implicit prose endings',{skip:!hasPython},async()=>{
+ const calls=[];
+ const info=await discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,index(link),centeredArea())});
+ assert.deepEqual(calls,[{kind:'index',url:INDEX_URL},{kind:'selected-link',url:AREA_URL}]);
+ assert.equal(info.planar.profile,'split-adjacent-sibling-paragraphs');
+ assert.equal(info.fit.examples[0][1],48);
+});
+test('center flattening is barred by any attributes, extra content, hidden markers, wrong roles, or missing closures',{skip:!hasPython},async()=>{
+ for(const raw of [
+  centeredArea(undefined,'<CENTER class="formula"><p>'+formula+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER hidden><p>'+formula+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p id="formula">'+formula+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p aria-hidden="true">'+formula+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER>unrelated<p>'+formula+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p>'+formula+'</p>trailer</CENTER>'),
+  centeredArea(undefined,'<CENTER><p>'+formula+'</p><!-- hidden alternative --></CENTER>'),
+  centeredArea(undefined,'<CENTER><p><?decoy?>'+formula+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p><!DOCTYPE html>'+formula+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p>'+formula+'</p><p>extra</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p><b>'+formula+'</b></p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p>'+formula+'</CENTER>'),
+  centeredArea(undefined,'<CENTER><p>'+formula+'</p>'),
+  centeredArea(undefined,'</div><div><CENTER><p>'+formula+'</p></CENTER>'),
+  centeredArea('<CENTER><p>A = t * b</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p>'+formula.replace('h *','t *')+'</p></CENTER>'),
+  centeredArea(undefined,'<CENTER><p>'+formula.replace('/ 2','/ 3')+'</p></CENTER>'),
+ ]){
+  const calls=[];
+  await assert.rejects(discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,index(link),raw)}),
+   e=>e.sourceStage==='selected-link');
+  assert.equal(calls.length,2);
+ }
+});

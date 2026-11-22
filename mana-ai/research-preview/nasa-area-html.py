@@ -14,6 +14,10 @@ BLOCK = set(("address article aside blockquote dd div dl dt fieldset footer form
              "tbody td th thead tr ul").split())
 SKIP_CONTEXT = set(("form nav aside blockquote footer header pre code samp ").split())
 MAX = 384 * 1024
+SPLIT_TRAPEZOID = "The equation for the area of a trapezoid is one half the sum of the top t and bottom b times the height h;"
+SPLIT_TRIANGLE = "The area of a triangle is equal to one half of the base b times the height h;"
+CENTER_FORMULA = re.compile(r"A\s*=\s*(?:h\s*[*×]\s*b|[tbh]\s*[*×]\s*\[\s*[tbh]\s*[+\-]\s*[tbh]\s*\]\s*/\s*[1-9][0-9]?)")
+
 
 
 def norm(parts):
@@ -33,6 +37,7 @@ class Document(HTMLParser):
         self.stack_ids = []
         self.layout = []
         self.layout_clean = True
+        self.center = None
         self.pa = None
         self.pa_anchor_uncertain = False
         self.a = None
@@ -68,6 +73,25 @@ class Document(HTMLParser):
             self.handle_endtag("p")  # HTML implicitly closes older/open p tags here.
         concealed = self.blocked(attrs) or tag in HIDDEN or tag in SKIP_CONTEXT or any(h for _, h in self.stack)
         if self.mode == "lesson":
+            if self.center is not None:
+                wrapper = self.center
+                if (tag == "p" and not attrs and not concealed and
+                        len(self.stack) == wrapper["depth"]+1 and wrapper["phase"] == "before"):
+                    wrapper["phase"] = "inside"
+                else:
+                    wrapper["valid"] = False
+            elif tag == "center" and not attrs and not concealed:
+                # The reviewed legacy page implicitly closes just these bare
+                # prose paragraphs before opening its displayed formula block.
+                if (self.pa is not None and self.layout_clean and not self.pa_anchor_uncertain and
+                        self.stack[-1][0] == "p" and norm(self.pa[0]) in (SPLIT_TRAPEZOID, SPLIT_TRIANGLE)):
+                    self.handle_endtag("p")
+                if self.pa is None:
+                    self.center = {"depth": len(self.stack), "node": self.nodes,
+                                   "parent": self.stack_ids[-1] if self.stack_ids else 0,
+                                   "start": len(self.layout), "phase": "before", "valid": True}
+            if tag == "center" and self.pa is not None:
+                self.layout_clean = False
             if self.pa is not None and (concealed or (tag in VOID and tag not in ("br", "wbr"))):
                 self.layout_clean = False
             elif self.pa is None and (concealed or tag not in ("p", "br", "wbr")):
@@ -112,6 +136,18 @@ class Document(HTMLParser):
 
     def handle_endtag(self, tag):
         match = next((i for i in range(len(self.stack)-1, -1, -1) if self.stack[i][0] == tag), -1)
+        wrapper = self.center
+        center_closing = False
+        if wrapper is not None:
+            depth = wrapper["depth"]
+            if tag == "p" and match == depth+1 and wrapper["phase"] == "inside":
+                wrapper["phase"] = "after"
+            elif match == depth and tag == "center":
+                center_closing = True
+            else:
+                wrapper["valid"] = False
+                if 0 <= match <= depth:
+                    self.center = None
         if match < 0:
             return
         removed = [t for t, _ in self.stack[match:]]
@@ -138,6 +174,18 @@ class Document(HTMLParser):
             self.pa = None
         if self.mode == "lesson" and tag in BLOCK and tag != "p" and self.pa is None:
             self.layout.append(None)
+        if center_closing:
+            self.center = None
+            start = wrapper["start"]
+            tail = self.layout[start:]
+            # A center is normally a physical barrier. Flatten only the
+            # standalone, text-only, explicitly closed equation paragraph.
+            if (wrapper["valid"] and wrapper["phase"] == "after" and len(tail) == 2
+                    and tail[0] is None and tail[1] is not None):
+                row, inner_parent = tail[1]
+                if inner_parent == wrapper["node"] and CENTER_FORMULA.fullmatch(row["text"]):
+                    row["layout_pos"] = start
+                    self.layout[start:] = [(row, wrapper["parent"])]
 
     def finish_anchor(self, explicit):
         a, self.a = self.a, None
@@ -156,13 +204,22 @@ class Document(HTMLParser):
             self.links.append({"href": a["hrefs"][0], "label": "Area", "line": a["line"]})
 
     def handle_comment(self, data):
+        if self.center is not None:
+            self.center["valid"] = False
         if self.mode == "lesson":
             if self.pa is not None:
                 self.layout_clean = False
             else:
                 self.layout.append(None)
 
+    # These non-text token types are barriers for the split evidence lane.
+    handle_decl = handle_comment
+    unknown_decl = handle_comment
+    handle_pi = handle_comment
+
     def handle_data(self, data):
+        if self.center is not None and self.center["phase"] != "inside" and data.strip():
+            self.center["valid"] = False
         require(not (self.stack and self.stack[-1][0] == "style" and data.strip()), "NASA_INLINE_STYLESHEET_UNSUPPORTED")
         if self.title is not None and self.stack and self.stack[-1][0] == "title":
             self.title.append(data)
@@ -208,8 +265,7 @@ def main():
         # or intervening material stays a barrier; don't bridge across it.
         window = p.layout[max(0,physical-3):physical+3]
         split = None
-        split_prose = "The equation for the area of a trapezoid is one half the sum of the top t and bottom b times the height h;"
-        if candidate["text"] == split_prose and physical >= 3 and len(window) == 6 and all(x is not None for x in window):
+        if candidate["text"] == SPLIT_TRAPEZOID and physical >= 3 and len(window) == 6 and all(x is not None for x in window):
             if len({parent for _, parent in window}) == 1:
                 split = [{"line": row["line"], "text": row["text"]} for row, _ in window]
         def public_record(row):
