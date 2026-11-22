@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "695ff2521b582640c081407daf70a9977c0ae66de11f2c32cc47412d1a98fd50",
-  "fileCount": 531,
+  "sourceSetDigest": "7f07bfceb37eab7d19744b167f24b959fe1355d40926b2897a38c195d758c0d0",
+  "fileCount": 541,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -61,6 +61,24 @@
         {
           "value": "./mana-ai/research-preview/indot-direct.cjs",
           "line": 72
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": ".github/workflows/nasa-area-pilot.yml",
+      "bytes": 5727,
+      "sha256": "c832cb67b38c452ac3fee1c48f164a34412435dcbfd29832a00260a98d0d3603",
+      "gitBlob": "28ed25be3d9a8011a01cee6b2916dbcf4329a4cc",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 57
+        },
+        {
+          "value": "node:fs",
+          "line": 80
         }
       ],
       "environmentCandidates": [],
@@ -832,6 +850,15 @@
       "bytes": 4212,
       "sha256": "d6148dfcd0a796f7bd3659871937902466bdbd0fbd4e21ce872cd58533e1e9b2",
       "gitBlob": "cbdc40589ff30d45281d8b2de2b0c2ef8e246bf0",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-NASA-AREA-PILOT.fa.md",
+      "bytes": 3070,
+      "sha256": "21e5cf906c4e9bccde23eaacff7b4401d6a7fdfdb8272a4a064f0f47712f7aac",
+      "gitBlob": "94ee4bf00fa81440429e77f7e160d64ae982fd17",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -3090,6 +3117,284 @@
           "line": 8
         }
       ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-capture.cjs",
+      "bytes": 3239,
+      "sha256": "30a1e2dbdd058b0f37fedd6fa77e021365b003cfc4f5d6231501ed7f664fe84a",
+      "gitBlob": "2c9e0257831241683aae728470b9f5425828cad2",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-capture.test.cjs",
+      "bytes": 3067,
+      "sha256": "b962b9f6d645826cb8d0694594ad25bfd6437e780a859e5efc39ac80697a9d4d",
+      "gitBlob": "f4d4cc21e1e1c84f20c60ec0f31b6b2f1c02c013",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "node:events",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-capture.cjs",
+          "line": 5
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_NASA_PYTHON",
+          "line": 7
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-experiment.cjs",
+      "bytes": 9535,
+      "sha256": "7975bf98a2c62b1a6cefd7bcb5489ca0cc0fae249b526af0745064fb11c5d266",
+      "gitBlob": "2fa08cbd091434c14050f5dbef7a0c32af76da09",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./receipt.cjs",
+          "line": 3
+        },
+        {
+          "value": "./aec-learner.cjs",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-experiment.test.cjs",
+      "bytes": 19571,
+      "sha256": "62987ea513fd0fb251e919b4eb49b7ec4d3234ff6048aa1afd9ba200b4f33537",
+      "gitBlob": "08f64cebf5c77053a88f9139192f6ebded65474f",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "node:events",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        },
+        {
+          "value": "./nasa-area-experiment.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_NASA_PYTHON",
+          "line": 7
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-html.py",
+      "bytes": 14401,
+      "sha256": "7f6c09a263921213b910ef886729a28d5e7797f2784701148caf471e98196770",
+      "gitBlob": "248c292bcbea02765c9fdb1820e1302a02587817",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-layout-diagnostic.cjs",
+      "bytes": 6339,
+      "sha256": "1d8d05aaa389188fb38694db83ce27c07cb35a4c6fbd7de310d16f93a3f6769c",
+      "gitBlob": "94615f41c36cc9fe9fa2abc437d75d66804544c2",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-layout-diagnostic.test.cjs",
+      "bytes": 4394,
+      "sha256": "a04a5704c410bf38efb1bb693c8650fa0b02d9c6f6c507a1e3a48708d853b397",
+      "gitBlob": "83225692c3c448ed31cd7f4d294bcedb71d6d330",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 3
+        },
+        {
+          "value": "node:events",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "./nasa-area-layout-diagnostic.cjs",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_NASA_PYTHON",
+          "line": 6
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-source.cjs",
+      "bytes": 12055,
+      "sha256": "f6fe094452b1e5a2a09aea135b961a2fcebdfac62ed403351bc050d26b64adda",
+      "gitBlob": "c7d77acc1ca84c46f8b1496b35ff245177571166",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:https",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
       "testFile": false
     },
     {

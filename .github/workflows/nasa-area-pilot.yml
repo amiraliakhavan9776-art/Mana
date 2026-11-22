@@ -1,0 +1,123 @@
+name: MANA NASA source pilot
+on:
+  pull_request:
+    paths:
+      - 'mana-ai/research-preview/nasa-*'
+      - '.github/workflows/nasa-area-pilot.yml'
+permissions:
+  contents: read
+jobs:
+  cpu-fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify the isolated source and candidate paths with deterministic fixtures
+        run: node --test mana-ai/research-preview/nasa-*.test.cjs
+  live-publisher:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feature/dot-mana-nasa-area-pilot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run bounded direct NASA source discovery and CPU candidate acceptance
+        id: nasa_live
+        shell: bash
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          git log -1 --format='head=%H tree=%T'
+          state="$(mktemp -d)"
+          result="$(mktemp)"
+          reused="$(mktemp)"
+          python="$(realpath "$(command -v python3)")"
+          if ! node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$python" >"$result"; then
+            cat "$result"
+            if node - "$result" <<'JS'
+          const read = p => JSON.parse(require("node:fs").readFileSync(p, "utf8"));
+          const eligible = new Set(["NASA_PLANAR_PRECEDING_EVIDENCE_MISSING", "NASA_PLANAR_PARAGRAPH_PREFIX_MISSING", "NASA_PLANAR_FORBIDDEN_SCOPE"]);
+          try {
+            const r = read(process.argv[2]);
+            if (r.status !== "SOURCE_BLOCKED" || r.sourceMode !== "direct" ||
+                r.sourceFailureStage !== "selected-link" || !eligible.has(r.sourceFailureCode)) process.exit(1);
+          } catch { process.exit(1); }
+          JS
+            then
+              if [[ "$(git log -1 --format=%s)" == 'Capture exact public NASA lesson evidence once' ]]; then
+                printf 'layout_capture_once=true\n' >> "$GITHUB_OUTPUT"
+              else
+                printf 'layout_eligible=true\n' >> "$GITHUB_OUTPUT"
+              fi
+            fi
+            exit 1
+          fi
+          cat "$result"
+          receipt="$(sha256sum "$state/terminal.json")"
+          node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$python" >"$reused" || { cat "$reused"; exit 1; }
+          cat "$reused"
+          test "$(sha256sum "$state/terminal.json")" = "$receipt"
+          node - "$result" "$reused" <<'JS'
+          const read = p => JSON.parse(require("node:fs").readFileSync(p, "utf8"));
+          const [x, y] = process.argv.slice(2).map(read);
+          const digestKeys = ["indexSha256", "sourceSha256", "candidateSha256", "evidenceSha256", "clauseSha256", "freezeSha256", "gradeSha256"];
+          for (const r of [x, y]) {
+            if (r.status !== "AWAITING_HUMAN_REVIEW" || r.transport !== "DIRECT_OFFICIAL_HTTPS" ||
+                r.sourceUrl !== "https://www.grc.nasa.gov/www/k-12/airplane/area.html" ||
+                r.modelCalls !== 0 || r.modelTrainingPerformed !== false ||
+                r.passed !== 16 || r.total !== 16 || r.testsRun !== 16 ||
+                r.activationAuthorized !== false || r.productionDeploymentAllowed !== false ||
+                digestKeys.some(k => !/^[a-f0-9]{64}$/.test(r[k] ?? ""))) process.exit(1);
+          }
+          if (x.reused !== false || y.reused !== true || digestKeys.some(k => x[k] !== y[k])) process.exit(1);
+          JS
+
+      - name: Summarize only approved publisher layout metadata after an evidence-layout stop
+        if: failure() && steps.nasa_live.outcome == 'failure' && steps.nasa_live.outputs.layout_eligible == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python="$(realpath "$(command -v python3)")"
+          node mana-ai/research-preview/nasa-area-layout-diagnostic.cjs "$python"
+
+      - name: Capture the exact public NASA lesson once for parser review
+        id: nasa_capture
+        if: failure() && steps.nasa_live.outcome == 'failure' && steps.nasa_live.outputs.layout_capture_once == 'true' && github.event.pull_request.number == 22
+        shell: bash
+        run: |
+          set -euo pipefail
+          python="$(realpath "$(command -v python3)")"
+          dir="$(mktemp -d)"
+          chmod 700 "$dir"
+          node mana-ai/research-preview/nasa-area-capture.cjs "$python" "$dir"
+          file="$dir/nasa-area.html"
+          test -f "$file" && test ! -L "$file"
+          test "$(sha256sum "$file" | cut -d' ' -f1)" = 'ee6cfe639a6dee602af883fb1411fcb5a8a6e46f35be92421fa937ad69180cef'
+          printf 'path=%s\n' "$file" >> "$GITHUB_OUTPUT"
+      - name: Retain only the SHA-verified public lesson for one day
+        if: failure() && steps.nasa_capture.outcome == 'success' && steps.nasa_capture.outputs.path != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: nasa-exact-public-lesson-ee6cfe63
+          path: ${{ steps.nasa_capture.outputs.path }}
+          if-no-files-found: error
+          retention-days: 1
