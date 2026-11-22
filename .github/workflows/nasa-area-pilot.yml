@@ -1,0 +1,43 @@
+name: MANA NASA source pilot
+on:
+  pull_request:
+    paths:
+      - 'mana-ai/research-preview/nasa-*'
+      - '.github/workflows/nasa-area-pilot.yml'
+permissions:
+  contents: read
+jobs:
+  cpu-fixtures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify the isolated source and candidate paths with deterministic fixtures
+        run: node --test mana-ai/research-preview/nasa-*.test.cjs
+  live-publisher:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'feature/dot-mana-nasa-area-pilot'
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run bounded direct NASA source discovery and CPU candidate acceptance
+        shell: bash
+        run: |
+          set -euo pipefail
+          state="$(mktemp -d)"
+          result="$(mktemp)"
+          node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$(realpath "$(command -v python3)")" >"$result" || { cat "$result"; exit 1; }
+          cat "$result"
+          node -e 'const r=require("node:fs").readFileSync(process.argv[1],"utf8"); const x=JSON.parse(r); if(x.status!=="AWAITING_HUMAN_REVIEW" || x.transport!=="DIRECT_OFFICIAL_HTTPS" || x.passed!==16 || x.total!==16 || x.activationAuthorized!==false || x.productionDeploymentAllowed!==false) process.exit(1)' "$result"

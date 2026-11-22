@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "695ff2521b582640c081407daf70a9977c0ae66de11f2c32cc47412d1a98fd50",
-  "fileCount": 531,
+  "sourceSetDigest": "6abc4cc2e4aa5ed3d11ed9d675a5dc2f415b342d624b8d5682207fc54d738647",
+  "fileCount": 537,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -61,6 +61,20 @@
         {
           "value": "./mana-ai/research-preview/indot-direct.cjs",
           "line": 72
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": ".github/workflows/nasa-area-pilot.yml",
+      "bytes": 1740,
+      "sha256": "49a7300534d072b358326c5647ae05e6f2d7e5e82892b3a03d96976d64128cdf",
+      "gitBlob": "1dce022e35cc6ed8654bdffb2e9b1ee1b564bbcf",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 43
         }
       ],
       "environmentCandidates": [],
@@ -832,6 +846,15 @@
       "bytes": 4212,
       "sha256": "d6148dfcd0a796f7bd3659871937902466bdbd0fbd4e21ce872cd58533e1e9b2",
       "gitBlob": "cbdc40589ff30d45281d8b2de2b0c2ef8e246bf0",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-NASA-AREA-PILOT.fa.md",
+      "bytes": 3070,
+      "sha256": "21e5cf906c4e9bccde23eaacff7b4401d6a7fdfdb8272a4a064f0f47712f7aac",
+      "gitBlob": "94ee4bf00fa81440429e77f7e160d64ae982fd17",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -3090,6 +3113,142 @@
           "line": 8
         }
       ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-experiment.cjs",
+      "bytes": 9025,
+      "sha256": "cc55246192a1c8f4a4479272c68564e9e7ad5ebeda75bcb8b9ac328d3f3c0d4d",
+      "gitBlob": "495d1cbf7a394d620877486ee4e497f42dadaee4",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:crypto",
+          "line": 2
+        },
+        {
+          "value": "./receipt.cjs",
+          "line": 3
+        },
+        {
+          "value": "./aec-learner.cjs",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-experiment.test.cjs",
+      "bytes": 9216,
+      "sha256": "24f84b1249209ce3e714416e4862f1e43a1e1dcea5e9120c16d3cd8912f3ba52",
+      "gitBlob": "d9f0b6cc1ab581fb8a2818107a7347a1024d764c",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "node:events",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        },
+        {
+          "value": "./nasa-area-experiment.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_NASA_PYTHON",
+          "line": 7
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-html.py",
+      "bytes": 6555,
+      "sha256": "707302b0a4a681fa6b0b36d9c8ffe7a8828355fe846ace12893e7581e5750a81",
+      "gitBlob": "abe479de2ebf0c7baeac15a6cfbb92889f15475d",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-source.cjs",
+      "bytes": 9437,
+      "sha256": "4174f2ecb89939fa1302c3ceb59e69f1603b5b25efe6f79408aa0514ea269744",
+      "gitBlob": "e0e6180391c8eadff174a9cc4b5ab3d66acde28a",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "node:https",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "./aec-source.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
       "testFile": false
     },
     {
