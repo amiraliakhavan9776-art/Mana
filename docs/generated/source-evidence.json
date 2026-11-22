@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "6dd5b506eded11a06f5d24ec18ae504ff05cfc8d6eabc3d7c7d24c693ad46949",
-  "fileCount": 544,
+  "sourceSetDigest": "e75093f7d06c5e4fbdc21d55a0c2ebb3e8b9567997036a7bb019a95ef0f9da12",
+  "fileCount": 549,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -50,17 +50,17 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 3571,
-      "sha256": "8300f64599e641596f09db93e1bf76b50bbc281c33e0d0cdd44fef436fcb9306",
-      "gitBlob": "95be43031bf4e82ac9be6c4549d0ea20c700d60e",
+      "bytes": 3788,
+      "sha256": "046210eb211120db99b1fe1fc430906e803c9441bef1303f5d0111699b2967f2",
+      "gitBlob": "d84758eef58bebe1c274dba5343124f3d218de23",
       "dependencyCandidates": [
         {
           "value": "node:assert/strict",
-          "line": 71
+          "line": 73
         },
         {
           "value": "./mana-ai/research-preview/indot-direct.cjs",
-          "line": 72
+          "line": 74
         }
       ],
       "environmentCandidates": [],
@@ -2408,6 +2408,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/research-preview/NIGHTLY-IDEAS-PREVIEW.fa.md",
+      "bytes": 3894,
+      "sha256": "6f3b3fbbebc934401646017acce06c46eedd64eb0fb5612d7dc7c5617e679e0c",
+      "gitBlob": "851c473ce476b5c94b3709a4d24e4a1c3ae7398c",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/research-preview/aec-instruction-preview.cjs",
       "bytes": 10547,
       "sha256": "04f11f0e6cc97dee7bd32b100647f958185f867297bc708495d7a0587de2aa59",
@@ -3404,6 +3413,96 @@
         }
       ],
       "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nightly-ideas-preview.cjs",
+      "bytes": 10510,
+      "sha256": "9208414a297c0b6bc593bc2a08e1d764d9bd7590a3ebc1c98a03793e598e8b7f",
+      "gitBlob": "57bfc4d28771da3c9667a07d3c7308b4fc17e8a2",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:http",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "../src/approval-store.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/evidence-improvement-ideas.cjs",
+          "line": 59
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_IDEAS_PREVIEW_TOKEN",
+          "line": 117
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nightly-ideas-preview.test.cjs",
+      "bytes": 6120,
+      "sha256": "450bdb3a9ea09af8f42268bd06a33679a2664eb45c3f1cb4a0d26775ae8eea95",
+      "gitBlob": "ffa459b5339359247d6d051ab36a34b2af66fafe",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:http",
+          "line": 3
+        },
+        {
+          "value": "node:events",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "./nightly-ideas-preview.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_IDEAS_TEST_MASTER",
+          "line": 7
+        }
+      ],
       "testFile": false
     },
     {
@@ -5301,6 +5400,20 @@
         {
           "value": "node:crypto",
           "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/evidence-improvement-ideas.cjs",
+      "bytes": 8757,
+      "sha256": "15a08bcb4209e5f0b068edb9b7e43f45221dfcd968d76fbe7b3afca6a5039a27",
+      "gitBlob": "438f90df7c05a9a5bd69c3760ebaa5e6c11d29fb",
+      "dependencyCandidates": [
+        {
+          "value": "node:crypto",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
@@ -7917,6 +8030,28 @@
         {
           "value": "../src/engine.cjs",
           "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/evidence-improvement-ideas.test.cjs",
+      "bytes": 6348,
+      "sha256": "7451c0a5e1db973a0795f17d20b2e547583127a8493371b899793cc9efa22eff",
+      "gitBlob": "ae0c88d774daae5dfd69b2367446fb7725a0b739",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "../src/native/evidence-improvement-ideas.cjs",
+          "line": 3
         }
       ],
       "environmentCandidates": [],
