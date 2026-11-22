@@ -1,0 +1,4 @@
+# Opt-in sample for mana-roadmap-development.service.d, not for its .timer.
+# Starts on a service activation (timer OR manual), independently of legacy success.
+[Unit]
+Wants=mana-rd-pilot.service
