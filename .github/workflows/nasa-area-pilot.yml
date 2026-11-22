@@ -63,7 +63,11 @@ jobs:
           } catch { process.exit(1); }
           JS
             then
-              printf 'layout_eligible=true\n' >> "$GITHUB_OUTPUT"
+              if [[ "$(git log -1 --format=%s)" == 'Capture exact public NASA lesson evidence once' ]]; then
+                printf 'layout_capture_once=true\n' >> "$GITHUB_OUTPUT"
+              else
+                printf 'layout_eligible=true\n' >> "$GITHUB_OUTPUT"
+              fi
             fi
             exit 1
           fi
@@ -94,3 +98,26 @@ jobs:
           set -euo pipefail
           python="$(realpath "$(command -v python3)")"
           node mana-ai/research-preview/nasa-area-layout-diagnostic.cjs "$python"
+
+      - name: Capture the exact public NASA lesson once for parser review
+        id: nasa_capture
+        if: failure() && steps.nasa_live.outcome == 'failure' && steps.nasa_live.outputs.layout_capture_once == 'true' && github.event.pull_request.number == 22
+        shell: bash
+        run: |
+          set -euo pipefail
+          python="$(realpath "$(command -v python3)")"
+          dir="$(mktemp -d)"
+          chmod 700 "$dir"
+          node mana-ai/research-preview/nasa-area-capture.cjs "$python" "$dir"
+          file="$dir/nasa-area.html"
+          test -f "$file" && test ! -L "$file"
+          test "$(sha256sum "$file" | cut -d' ' -f1)" = 'ee6cfe639a6dee602af883fb1411fcb5a8a6e46f35be92421fa937ad69180cef'
+          printf 'path=%s\n' "$file" >> "$GITHUB_OUTPUT"
+      - name: Retain only the SHA-verified public lesson for one day
+        if: failure() && steps.nasa_capture.outcome == 'success' && steps.nasa_capture.outputs.path != ''
+        uses: actions/upload-artifact@v4
+        with:
+          name: nasa-exact-public-lesson-ee6cfe63
+          path: ${{ steps.nasa_capture.outputs.path }}
+          if-no-files-found: error
+          retention-days: 1
