@@ -31,6 +31,7 @@ class Document(HTMLParser):
         self.mode = mode
         self.stack = []
         self.pa = None
+        self.pa_anchor_uncertain = False
         self.a = None
         self.title = None
         self.titles = []
@@ -74,11 +75,13 @@ class Document(HTMLParser):
                     self.a["crossed_math"] = True
                 self.math_active = new_math
                 self.math_sections += int(new_math)
+        if tag == "a" and self.mode == "lesson" and self.a is not None and self.pa is not None:
+            raise ValueError("NASA_LINK_MALFORMED")
         if tag == "a" and concealed and self.mode == "index" and self.a is not None:
             self.a["nested_hidden"] = True
         if tag == "a" and not concealed:
             if self.a is not None:
-                require(self.mode == "index", "NASA_LINK_MALFORMED")
+                require(self.mode == "index" or self.pa is None, "NASA_LINK_MALFORMED")
                 # Legacy pages can omit end tags on unrelated/name anchors.
                 # Only the unrelated anchor is discarded; its descendants
                 # (and their visibility/section context) are not reopened.
@@ -90,6 +93,7 @@ class Document(HTMLParser):
                       "crossed_math": False, "nested_hidden": False, "depth": len(self.stack)}
         if tag == "p" and not concealed:
             self.pa = ([], self.getpos()[0])
+            self.pa_anchor_uncertain = self.mode == "lesson" and self.a is not None
         if tag in ("br", "wbr") and not concealed:
             self.handle_data(" ")
         if tag not in VOID:
@@ -110,11 +114,14 @@ class Document(HTMLParser):
             parts, start = self.pa
             content = norm(parts)
             if content:
-                self.paragraphs.append({"text": content, "line": start})
+                self.paragraphs.append({"text": content, "line": start,
+                                        "anchor_uncertain": self.pa_anchor_uncertain})
             self.pa = None
 
     def finish_anchor(self, explicit):
         a, self.a = self.a, None
+        if self.mode == "lesson" and self.pa is not None and not explicit:
+            self.pa_anchor_uncertain = True
         label = norm(a["parts"])
         in_scope = a["in_math"] or a["crossed_math"]
         # Treat an Area-looking href as a potential target even if malformed
@@ -123,7 +130,7 @@ class Document(HTMLParser):
                         re.search(r"(?:^|/)area\.html(?:[?#]|$)", href.strip(), re.I) for href in a["hrefs"])
         if self.mode == "index" and in_scope and (label == "Area" or targetish):
             require(explicit and not a["crossed_math"] and not a["nested_hidden"], "NASA_LINK_MALFORMED")
-        if a["in_math"] and label == "Area":
+        if self.mode == "index" and a["in_math"] and label == "Area":
             require(len(a["hrefs"]) == 1 and isinstance(a["hrefs"][0], str), "NASA_LINK_MALFORMED")
             self.links.append({"href": a["hrefs"][0], "label": "Area", "line": a["line"]})
 
@@ -161,7 +168,11 @@ def main():
                    if re.search(r"The equation for the area of a trapezoid\b", v["text"], re.IGNORECASE)]
         require(len(matches) == 1, "NASA_TRAPEZOID_CLAUSE_MISSING_OR_AMBIGUOUS")
         pos = matches[0]
-        result = {"clause": p.paragraphs[pos], "earlier": p.paragraphs[max(0,pos-4):pos]}
+        require(not p.paragraphs[pos]["anchor_uncertain"], "NASA_LINK_MALFORMED")
+        # A malformed anchor spanning a paragraph can never supply proof:
+        # retain the position for ambiguity checks but do not read it as scope.
+        earlier = [v for v in p.paragraphs[max(0,pos-4):pos] if not v["anchor_uncertain"]]
+        result = {"clause": p.paragraphs[pos], "earlier": earlier}
     print(json.dumps(result, ensure_ascii=False, separators=(",", ":")))
 
 

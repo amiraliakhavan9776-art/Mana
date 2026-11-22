@@ -161,3 +161,28 @@ test('nested, unclosed and crossing Area candidates stop discovery at the index'
   assert.deepEqual(calls,[{kind:'index',url:INDEX_URL}]);
  }
 });
+
+test('legacy lesson navigation anchors outside paragraphs do not suppress unchanged proof', {skip:!hasPython},async()=>{
+ const calls=[];
+ const clean=lesson();
+ const oldNav='<table><tr><td><a name="menu"><font>Navigation</font><a href="other.html">Other</a></td></tr></table>';
+ const raw=clean.replace('<body>','<body>'+oldNav).replace('The measure','<a href="area-units.html">The measure</a>');
+ const data=await discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,index(link),raw)});
+ assert.deepEqual(calls,[{kind:'index',url:INDEX_URL},{kind:'selected-link',url:AREA_URL}]);
+ assert.equal(data.fit.examples[0][1],48);
+});
+test('lesson legacy repair cannot produce or supply malformed paragraph evidence', {skip:!hasPython},async()=>{
+ const docs=[
+  [lesson(prose+' A = h * [ <a href="side.html">t<a hidden>ignore</a> + b ] / 2</a> '+end),'NASA_LINK_MALFORMED'],
+  [lesson(prose+' <a href="side.html">'+formula+' '+end),'NASA_LINK_MALFORMED'],
+  [lesson().replace('<p>'+context,'<a href="unclosed.html"><p>'+context),'NASA_LINK_MALFORMED'],
+  [lesson().replace('<p>'+metadata,'<a href="unclosed.html"><p>'+metadata).replace(metadata+'</p>',metadata+'</p></a>'),'NASA_PLANAR_SCOPE_NOT_VERIFIED'],
+  [lesson(prose+' <a hidden href="side.html">'+formula+'</a> '+end),'NASA_TRAPEZOID_CLAUSE_NOT_SUPPORTED'],
+ ];
+ for(const [raw,code] of docs){
+  const calls=[];
+  await assert.rejects(discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,index(link),raw)}),
+   e=>e.sourceStage==='selected-link'&&e.message===code);
+  assert.equal(calls.length,2);
+ }
+});
