@@ -100,6 +100,7 @@ test('time rollback and expiry block dispatch; existing workspace and copied cam
   assert.equal(q.open().tick().status,'EXPIRED');
   const copied=path.join(path.dirname(q.config.campaign),'copy');
   fs.cpSync(q.config.campaign,copied,{recursive:true});
+  fs.chmodSync(copied,0o700); // Exercise inode binding independent of cp or CI umask.
   assert.throws(()=>createNightly({...q.config,campaign:copied}).inspect(),/CAMPAIGN_RESERVATION_MISMATCH/);
   assert.deepEqual(q.calls,[]);
 });

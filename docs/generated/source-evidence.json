@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "edc2bcfa47a49dee8c2ef2171946c9c95cc721357fc0d877e92d183df9bbd7e8",
+  "sourceSetDigest": "6dd5b506eded11a06f5d24ec18ae504ff05cfc8d6eabc3d7c7d24c693ad46949",
   "fileCount": 544,
   "files": [
     {
@@ -8955,9 +8955,9 @@
     },
     {
       "path": "mana-ai/tests/mana-rd-nightly-tick.test.cjs",
-      "bytes": 7657,
-      "sha256": "01d486313a08f49c0a06f13a85b2d32b96fe10ebabb739aa7913d8b12029935d",
-      "gitBlob": "b93a1f20a16d4fa35ec6fcc917b6676f7d6d8b47",
+      "bytes": 7744,
+      "sha256": "afcb5236b409463c23bdf390672aa5c681a466c8903d5d611e48b3fae963bcf8",
+      "gitBlob": "7c36dbf9db6917a257dd28d0c9f160e60a33438e",
       "dependencyCandidates": [
         {
           "value": "node:assert/strict",
@@ -8987,7 +8987,7 @@
       "environmentCandidates": [
         {
           "value": "MANA_TEST_MASTER",
-          "line": 157
+          "line": 158
         }
       ],
       "testFile": true
