@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "7f07bfceb37eab7d19744b167f24b959fe1355d40926b2897a38c195d758c0d0",
-  "fileCount": 541,
+  "sourceSetDigest": "edc2bcfa47a49dee8c2ef2171946c9c95cc721357fc0d877e92d183df9bbd7e8",
+  "fileCount": 544,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -886,6 +886,15 @@
       "bytes": 5170,
       "sha256": "43a5a18b5d4d7eec282bf92e17d95d9d715edf9abc72b756f37c88168e5eeadf",
       "gitBlob": "863033412a97376b1d35c7616bbe48980915b35f",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-RD-NIGHTLY-TICK.fa.md",
+      "bytes": 4910,
+      "sha256": "a32bbe1b545a86784446e435af12ff51d14d3a68f348ef2ecb529890db14bab5",
+      "gitBlob": "059599998c0749b070bebab1724ec1e83b51bbd3",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -4068,6 +4077,40 @@
         {
           "value": "./src/pilot/mana-native-rd.cjs",
           "line": 2
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/run-rd-nightly-tick.cjs",
+      "bytes": 11786,
+      "sha256": "3f396f9c7abaadd2d958c32bb91d71f5c0ee6e6a2101c85f2ebd5e94a4820101",
+      "gitBlob": "b7a48c4ea2fe3f5f85cf0ef82e1fd64ec4370b8b",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 5
+        },
+        {
+          "value": "./src/exact-json.cjs",
+          "line": 6
+        },
+        {
+          "value": "./src/approval-store.cjs",
+          "line": 7
+        },
+        {
+          "value": "./src/pilot/mana-native-rd.cjs",
+          "line": 8
         }
       ],
       "environmentCandidates": [],
@@ -8906,6 +8949,45 @@
         {
           "value": "MANA_TEST_MASTER",
           "line": 4
+        }
+      ],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/mana-rd-nightly-tick.test.cjs",
+      "bytes": 7657,
+      "sha256": "01d486313a08f49c0a06f13a85b2d32b96fe10ebabb739aa7913d8b12029935d",
+      "gitBlob": "b93a1f20a16d4fa35ec6fcc917b6676f7d6d8b47",
+      "dependencyCandidates": [
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:fs",
+          "line": 4
+        },
+        {
+          "value": "node:path",
+          "line": 5
+        },
+        {
+          "value": "node:os",
+          "line": 6
+        },
+        {
+          "value": "node:test",
+          "line": 7
+        },
+        {
+          "value": "../run-rd-nightly-tick.cjs",
+          "line": 8
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 157
         }
       ],
       "testFile": true
