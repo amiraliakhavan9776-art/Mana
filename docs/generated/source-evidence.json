@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "7f07bfceb37eab7d19744b167f24b959fe1355d40926b2897a38c195d758c0d0",
-  "fileCount": 541,
+  "sourceSetDigest": "e4461c957093e593849c6131e3941884df806decd7fa5fbcd181e354341acdc5",
+  "fileCount": 544,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -833,6 +833,20 @@
       "sha256": "0b1d5fbdf748111881c58a49a947b529a3256885bab5ab47b23f380282411f28",
       "gitBlob": "a978f1717e0b72ba9feca0d8ce003bdfcb5db63e",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/MANA-JARVIS-OFFLINE-AVAILABILITY.fa.md",
+      "bytes": 1592,
+      "sha256": "0811c7befc7cb02c3f6e6249149af67d783cd27105f89072b2b684939e4694fd",
+      "gitBlob": "e47af86e22d5163f5a7226921c4351f9c117d149",
+      "dependencyCandidates": [
+        {
+          "value": "./mana-ai/src/jarvis/offline-availability.cjs",
+          "line": 9
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -4801,6 +4815,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/src/jarvis/offline-availability.cjs",
+      "bytes": 3814,
+      "sha256": "27a6a98dd0c3588fe728618c07c6eb8c9ba76733725588388781f2aebf1e177a",
+      "gitBlob": "e4c3aa3099d230f08ddbb204133eaabdc1148f28",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/src/jarvis/personal-memory.cjs",
       "bytes": 3736,
       "sha256": "6f0fac9d5dd6e3f8c1d2dd99514b3ef8d2348a43824683d15d37d9bcc3890b3c",
@@ -8306,6 +8329,28 @@
         {
           "value": "../src/audit.cjs",
           "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/jarvis-offline-availability.test.cjs",
+      "bytes": 5479,
+      "sha256": "1d4ae1e306bc5053e1391b08badd636518ad23d2e54458bc416d7b184103af69",
+      "gitBlob": "0f8ef48156dd3f91517939530b0c7173b64b6674",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "../src/jarvis/offline-availability.cjs",
+          "line": 4
         }
       ],
       "environmentCandidates": [],
