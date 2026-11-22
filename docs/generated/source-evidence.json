@@ -1,6 +1,6 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "4d50c43fa853ae6c83eab6b94a6e9ccc2a60b5b536159f81129ef88a2ebcec6d",
+  "sourceSetDigest": "515c7c47281554fc8a552cb28b73f188cb2135a303dd2388e87051d1193a79fe",
   "fileCount": 537,
   "files": [
     {
@@ -3117,9 +3117,9 @@
     },
     {
       "path": "mana-ai/research-preview/nasa-area-experiment.cjs",
-      "bytes": 9025,
-      "sha256": "cc55246192a1c8f4a4479272c68564e9e7ad5ebeda75bcb8b9ac328d3f3c0d4d",
-      "gitBlob": "495d1cbf7a394d620877486ee4e497f42dadaee4",
+      "bytes": 9535,
+      "sha256": "7975bf98a2c62b1a6cefd7bcb5489ca0cc0fae249b526af0745064fb11c5d266",
+      "gitBlob": "2fa08cbd091434c14050f5dbef7a0c32af76da09",
       "dependencyCandidates": [
         {
           "value": "node:fs",
@@ -3155,9 +3155,9 @@
     },
     {
       "path": "mana-ai/research-preview/nasa-area-experiment.test.cjs",
-      "bytes": 12301,
-      "sha256": "282567d6e6813d36e1613f3a578450b3f437e9e861bc66ae3a43a39c351d1e6a",
-      "gitBlob": "6a3f810d62f09455eda00de718521d11f025a55d",
+      "bytes": 14100,
+      "sha256": "857d7aff29290386e89c8c206ef437fbd0397c3898a5ef2ab67611c3a3793d02",
+      "gitBlob": "fb04b5b429b0a54bde05a41e4e3e212130fb98ec",
       "dependencyCandidates": [
         {
           "value": "node:test",
@@ -3219,9 +3219,9 @@
     },
     {
       "path": "mana-ai/research-preview/nasa-area-source.cjs",
-      "bytes": 9437,
-      "sha256": "4174f2ecb89939fa1302c3ceb59e69f1603b5b25efe6f79408aa0514ea269744",
-      "gitBlob": "e0e6180391c8eadff174a9cc4b5ab3d66acde28a",
+      "bytes": 10769,
+      "sha256": "ba4d4b1df34261d427e0e2a4f437cc0f4cccbe2f4be634cfb667ed153f2d2185",
+      "gitBlob": "d3d9c3547f32644af618f53eaa38100d876b0586",
       "dependencyCandidates": [
         {
           "value": "node:fs",

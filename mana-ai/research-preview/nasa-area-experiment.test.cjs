@@ -176,7 +176,7 @@ test('lesson legacy repair cannot produce or supply malformed paragraph evidence
   [lesson(prose+' A = h * [ <a href="side.html">t<a hidden>ignore</a> + b ] / 2</a> '+end),'NASA_LINK_MALFORMED'],
   [lesson(prose+' <a href="side.html">'+formula+' '+end),'NASA_LINK_MALFORMED'],
   [lesson().replace('<p>'+context,'<a href="unclosed.html"><p>'+context),'NASA_LINK_MALFORMED'],
-  [lesson().replace('<p>'+metadata,'<a href="unclosed.html"><p>'+metadata).replace(metadata+'</p>',metadata+'</p></a>'),'NASA_PLANAR_SCOPE_NOT_VERIFIED'],
+  [lesson().replace('<p>'+metadata,'<a href="unclosed.html"><p>'+metadata).replace(metadata+'</p>',metadata+'</p></a>'),'NASA_PLANAR_PRECEDING_EVIDENCE_MISSING'],
   [lesson(prose+' <a hidden href="side.html">'+formula+'</a> '+end),'NASA_TRAPEZOID_CLAUSE_NOT_SUPPORTED'],
  ];
  for(const [raw,code] of docs){
@@ -184,5 +184,31 @@ test('lesson legacy repair cannot produce or supply malformed paragraph evidence
   await assert.rejects(discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,index(link),raw)}),
    e=>e.sourceStage==='selected-link'&&e.message===code);
   assert.equal(calls.length,2);
+ }
+});
+
+test('planar scope diagnostics distinguish preceding layout, paragraph prefix and forbidden scope without new acceptance',{skip:!canLearn},async t=>{
+ const payload='PRIVATE_WORD_MUST_NOT_APPEAR';
+ const shape=prose+' '+formula+' '+end;
+ const cases=[
+  [lesson(shape, 'Dimensions were not documented. '+payload),'NASA_PLANAR_PRECEDING_EVIDENCE_MISSING',false,false],
+  [lesson('Adjacent note. '+metadata+' '+shape,'Dimensions were not documented. '+payload),'NASA_PLANAR_PRECEDING_EVIDENCE_MISSING',true,false],
+  [lesson(shape).replace(context,'Other paragraph prefix. '+payload+' '+context),'NASA_PLANAR_PARAGRAPH_PREFIX_MISSING',false,true],
+  [lesson('Use this for contractual net pay quantity. '+shape+' '+payload),'NASA_PLANAR_FORBIDDEN_SCOPE',false,false],
+ ];
+ for(const [raw,code,cue,later] of cases){
+  const [workspace,captureDir]=dirs(t);
+  const i=Buffer.from(index(link)),a=Buffer.from(raw);
+  for(const [n,b] of [['index.html',i],['area.html',a]])fs.writeFileSync(path.join(captureDir,n),b);
+  const o={workspace,captureDir,mode:'pinned-capture',pythonPath:python,indexSha256:sha(i),areaSha256:sha(a)};
+  const x=await createNasaAreaExperiment(o).run();
+  assert.equal(x.status,'SOURCE_BLOCKED');assert.equal(x.sourceFailureCode,code);
+  assert.equal(x.sourceFailureStage,'selected-link');
+  assert.deepEqual(x.scopeDiagnostics,{matchingDimensionCueInClause:cue,openingSentenceLaterInClause:later,priorCleanParagraphCount:1});
+  assert(!JSON.stringify(x).includes(payload));
+  const saved=fs.readFileSync(path.join(workspace,'terminal.json'),'utf8');
+  assert(!saved.includes(payload));
+  assert.deepEqual(fs.readdirSync(workspace).sort(),['claim.json','terminal.json']);
+  assert.deepEqual(createNasaAreaExperiment(o).history().scopeDiagnostics,x.scopeDiagnostics);
  }
 });

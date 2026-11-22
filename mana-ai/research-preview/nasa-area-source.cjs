@@ -97,15 +97,35 @@ function approvedHref(href){
  need(u.href===AREA_URL&&!u.username&&!u.password&&!u.search&&!u.hash,'NASA_AREA_LINK_NOT_APPROVED');
  return u.href;
 }
+const PLANAR_LAYOUT_CODES=new Set(['NASA_PLANAR_PRECEDING_EVIDENCE_MISSING','NASA_PLANAR_PARAGRAPH_PREFIX_MISSING','NASA_PLANAR_FORBIDDEN_SCOPE']);
+function scopeDiagnostic(code,d){
+ return PLANAR_LAYOUT_CODES.has(code)&&d&&typeof d==='object'&&!Array.isArray(d)&&Object.keys(d).length===3&&
+  ['matchingDimensionCueInClause','openingSentenceLaterInClause','priorCleanParagraphCount'].every(k=>Object.hasOwn(d,k))&&
+  typeof d.matchingDimensionCueInClause==='boolean'&&typeof d.openingSentenceLaterInClause==='boolean'&&
+  Number.isInteger(d.priorCleanParagraphCount)&&d.priorCleanParagraphCount>=0&&d.priorCleanParagraphCount<=4;
+}
 function relation(record){
  const c=record?.clause,e=record?.earlier;
- need(typeof c?.text==='string'&&c.text.length<5000&&Number.isSafeInteger(c.line)&&c.line>=0&&Array.isArray(e)&&e.length<=4&&
-  e.some(v=>/(?:^|[.!?]\s+)The area is the two-dimensional amount of space\b.*\bdimensions of length squared\b/.test(v.text)), 'NASA_PLANAR_SCOPE_NOT_VERIFIED');
+ need(typeof c?.text==='string'&&c.text.length<5000&&Number.isSafeInteger(c.line)&&c.line>=0&&Array.isArray(e)&&e.length<=4,
+  'NASA_PLANAR_EVIDENCE_SHAPE_INVALID');
+ const dimensionCue=/(?:^|[.!?]\s+)The area is the two-dimensional amount of space\b.*\bdimensions of length squared\b/;
+ // Diagnostics classify failure but cannot supply new proof or change order.
+ const prefix='On the slide we have listed the formula to calculate the area of a variety of shapes:';
+ const text=c.text.replace(/\s+/g,' ');
+ function scopeFailure(message){
+  const failure=Error(message);
+  failure.scopeDiagnostics={
+   matchingDimensionCueInClause:dimensionCue.test(c.text),
+   openingSentenceLaterInClause:text.indexOf(prefix,1)!==-1,
+   priorCleanParagraphCount:e.length,
+  };
+  throw failure;
+ }
+ if(!e.some(v=>dimensionCue.test(v.text)))scopeFailure('NASA_PLANAR_PRECEDING_EVIDENCE_MISSING');
  // Require this single clause inside the shapes discussion, and close it
  // before its independently named neighbor. No formulas from any other shape.
- const text=c.text.replace(/\s+/g,' ');
- need(text.startsWith('On the slide we have listed the formula to calculate the area of a variety of shapes:')&&
-  !/\b(?:net|deductions?|volume|contractual|pay quantit(?:y|ies))\b/i.test(text),'NASA_PLANAR_SCOPE_NOT_VERIFIED');
+ if(!text.startsWith(prefix))scopeFailure('NASA_PLANAR_PARAGRAPH_PREFIX_MISSING');
+ if(/\b(?:net|deductions?|volume|contractual|pay quantit(?:y|ies))\b/i.test(text))scopeFailure('NASA_PLANAR_FORBIDDEN_SCOPE');
  const match=/\bThe equation for the area of a trapezoid is (one half) the sum of the top (t) and bottom (b) times the height (h);\s*A\s*=\s*([tbh])\s*([*×])\s*\[\s*([tbh])\s*([+\-])\s*([tbh])\s*\]\s*\/\s*([1-9]\d?)\s*(?=The area of a triangle is|$)/.exec(text);
  need(match,'NASA_TRAPEZOID_CLAUSE_NOT_SUPPORTED');
  const [,ratio,top,bottom,height,factor,mul,left,add,right,divisor]=match;
@@ -125,7 +145,10 @@ async function discoverNasaArea({mode,pythonPath,reader,request}={}){
  need(typeof choose==='function'&&abs(pythonPath),'NASA_READER_OR_PYTHON_REQUIRED');
  function staged(error,stage){
   const failure=Error(typeof error?.message==='string'?error.message:'NASA_SOURCE_UNVERIFIED');
-  failure.sourceStage=stage;throw failure;
+  failure.sourceStage=stage;
+  if(stage==='selected-link'&&scopeDiagnostic(error?.message,error?.scopeDiagnostics))
+   failure.scopeDiagnostics={...error.scopeDiagnostics};
+  throw failure;
  }
  let index,link;
  try{
@@ -144,4 +167,4 @@ async function discoverNasaArea({mode,pythonPath,reader,request}={}){
  return {schema:'MANA_NASA_AREA_EVIDENCE_V1',sourceMode:mode,transport:PROFILES[mode],
   captureRepresentation:'RAW_HTML',visibilityAssessment:'STATIC_HTML_PROFILE_NOT_BROWSER_RENDERING',index,link,source,planar,scope:SCOPE,fit};
 }
-module.exports={INDEX_URL,AREA_URL,PROFILES,SCOPE,fetchNasa,rawReplayReader,discoverNasaArea};
+module.exports={INDEX_URL,AREA_URL,PROFILES,SCOPE,fetchNasa,rawReplayReader,discoverNasaArea,scopeDiagnostic};

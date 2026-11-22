@@ -2,7 +2,7 @@
 const fs=require('node:fs'),path=require('node:path'),{createHash}=require('node:crypto');
 const {createReceiptStore}=require('./receipt.cjs');
 const {learnAec,readAecLearning}=require('./aec-learner.cjs');
-const {INDEX_URL,AREA_URL,PROFILES,SCOPE,discoverNasaArea,rawReplayReader}=require('./nasa-area-source.cjs');
+const {INDEX_URL,AREA_URL,PROFILES,SCOPE,discoverNasaArea,rawReplayReader,scopeDiagnostic}=require('./nasa-area-source.cjs');
 const {ID}=require('./aec-source.cjs');
 const SLOT='nasa-gross-planar-trapezoid-experiment-v1';
 const SAFETY=Object.freeze({scope:SCOPE,activationAuthorized:false,productionDeploymentAllowed:false,modelCalls:0,modelTrainingPerformed:false});
@@ -11,7 +11,8 @@ const SOURCE_FAULTS=new Set([
  'NASA_HTTPS_TIMEOUT','NASA_HTTPS_REQUEST_FAILED','NASA_HTTPS_STATUS_REJECTED','NASA_HTTPS_MEDIA_REJECTED','NASA_HTTPS_BODY_REJECTED','NASA_HTTPS_INCOMPLETE',
  'NASA_CAPTURE_PIN_MISMATCH','NASA_CAPTURE_PATH_OR_PIN_REJECTED','NASA_CAPTURE_FILE_REJECTED','NASA_CAPTURE_FILE_CHANGED',
  'NASA_AREA_LINK_NOT_APPROVED','NASA_AREA_LINK_MISSING_OR_AMBIGUOUS','NASA_LINK_MALFORMED',
- 'NASA_TRAPEZOID_CLAUSE_MISSING_OR_AMBIGUOUS','NASA_TRAPEZOID_CLAUSE_NOT_SUPPORTED','NASA_PLANAR_SCOPE_NOT_VERIFIED','NASA_FORMULA_ROLE_OR_PROSE_MISMATCH',
+ 'NASA_TRAPEZOID_CLAUSE_MISSING_OR_AMBIGUOUS','NASA_TRAPEZOID_CLAUSE_NOT_SUPPORTED','NASA_PLANAR_SCOPE_NOT_VERIFIED','NASA_PLANAR_EVIDENCE_SHAPE_INVALID','NASA_PLANAR_PRECEDING_EVIDENCE_MISSING',
+ 'NASA_PLANAR_PARAGRAPH_PREFIX_MISSING','NASA_PLANAR_FORBIDDEN_SCOPE','NASA_FORMULA_ROLE_OR_PROSE_MISMATCH',
  'NASA_WRONG_LESSON','NASA_EXTRACTOR_TIMEOUT','NASA_EXTRACTOR_START_OR_OUTPUT_FAILED','NASA_HTML_BYTES_REJECTED','NASA_MARKUP_INVALID','NASA_MARKUP_BUDGET','NASA_INLINE_STYLESHEET_UNSUPPORTED','NASA_EXTRACTION_FAILED',
  'NASA_SOURCE_UNVERIFIED',
 ]);
@@ -73,6 +74,8 @@ function createNasaAreaExperiment({workspace,mode,pythonPath,captureDir,indexSha
   if(r.status==='SOURCE_BLOCKED'){
    for(const target of [file,learner])try{fs.lstatSync(target);throw Error('NASA_UNEXPECTED_SOURCE_ARTIFACT');}catch(e){if(e.code!=='ENOENT')throw e;}
    need(SOURCE_FAULTS.has(r.sourceFailureCode)&&SOURCE_STAGES.has(r.sourceFailureStage),'NASA_INVALID_SOURCE_FAILURE');
+   if(Object.hasOwn(r,'scopeDiagnostics'))need(r.sourceFailureStage==='selected-link'&&
+    scopeDiagnostic(r.sourceFailureCode,r.scopeDiagnostics),'NASA_INVALID_SCOPE_DIAGNOSTICS');
   }else{
    const bytes=evidenceBytes(file);
    need(hex(r.evidenceSha256)&&r.evidenceSha256===sha(bytes),'NASA_RECEIPT_EVIDENCE_MISMATCH');
@@ -101,6 +104,8 @@ function createNasaAreaExperiment({workspace,mode,pythonPath,captureDir,indexSha
    }catch(error){
     const r={status:'SOURCE_BLOCKED',sourceFailureCode:SOURCE_FAULTS.has(error?.message)?error.message:'NASA_SOURCE_UNVERIFIED',
      sourceFailureStage:SOURCE_STAGES.has(error?.sourceStage)?error.sourceStage:'source-setup'};
+    if(r.sourceFailureStage==='selected-link'&&scopeDiagnostic(r.sourceFailureCode,error?.scopeDiagnostics))
+     r.scopeDiagnostics={...error.scopeDiagnostics};
     validate(r);ticket.commit(r);return render(r);
    }
    const bytes=Buffer.from(JSON.stringify(e)+'\n'),evidenceSha256=sha(bytes);
