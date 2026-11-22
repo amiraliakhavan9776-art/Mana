@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "7f07bfceb37eab7d19744b167f24b959fe1355d40926b2897a38c195d758c0d0",
-  "fileCount": 541,
+  "sourceSetDigest": "d2a99eacabd9adae47a39eadc5c2f623ab32d83e17cfeb26945c4efd601d4515",
+  "fileCount": 544,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -2399,6 +2399,15 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/research-preview/NASA-QUANTITY-REPORT.fa.md",
+      "bytes": 4428,
+      "sha256": "3ba1a5490c0631bb235f9922cef751ccbdbfcadc339fa7a794b9cdf60ced6633",
+      "gitBlob": "454754dcf5f18640f182f1e037fbbbe7a5979682",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/research-preview/aec-instruction-preview.cjs",
       "bytes": 10547,
       "sha256": "04f11f0e6cc97dee7bd32b100647f958185f867297bc708495d7a0587de2aa59",
@@ -3395,6 +3404,103 @@
         }
       ],
       "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-quantity-report.cjs",
+      "bytes": 8556,
+      "sha256": "9b1912519893495112d7be785126cd296f0df6a24cd106af4391d41130712a33",
+      "gitBlob": "ea405f92c5e52fbf87eece74464486d29884c120",
+      "dependencyCandidates": [
+        {
+          "value": "./nasa-area-experiment.cjs",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        },
+        {
+          "value": "./aec-learner-oracle.cjs",
+          "line": 6
+        },
+        {
+          "value": "../src/native/floor-takeoff.cjs",
+          "line": 7
+        },
+        {
+          "value": "../src/exact-json.cjs",
+          "line": 8
+        },
+        {
+          "value": "../src/approval-store.cjs",
+          "line": 9
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-quantity-report.test.cjs",
+      "bytes": 9974,
+      "sha256": "1dafab2b9720d1cb01f586d943e3036b86579227226cf08f41d8deb3dbba2ad4",
+      "gitBlob": "78d4d6584d638d8389e2210043420e8d927dd191",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:events",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 5
+        },
+        {
+          "value": "node:child_process",
+          "line": 6
+        },
+        {
+          "value": "./nasa-quantity-report.cjs",
+          "line": 7
+        },
+        {
+          "value": "./nasa-area-experiment.cjs",
+          "line": 8
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 9
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_NASA_PYTHON",
+          "line": 10
+        },
+        {
+          "value": "MANA_NASA_REPORT_TEST_LESSON",
+          "line": 11
+        }
+      ],
       "testFile": false
     },
     {
