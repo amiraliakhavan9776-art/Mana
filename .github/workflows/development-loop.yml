@@ -63,3 +63,6 @@ jobs:
 
       - name: Verify Persian research preview in Chromium with official HTTPS evidence
         run: node mana-ai/tools/queue-research-browser-check.cjs
+
+      - name: Verify offline Persian DXF review and exact CSV download in Chromium
+        run: node mana-ai/tools/synthetic-review-browser-check.cjs

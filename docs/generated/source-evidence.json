@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "6dd5b506eded11a06f5d24ec18ae504ff05cfc8d6eabc3d7c7d24c693ad46949",
-  "fileCount": 544,
+  "sourceSetDigest": "b34f4b06ceabaf783221c676b2f3d39c53fbc414d396b1e90c5ff3dcc2faecff",
+  "fileCount": 565,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -32,9 +32,9 @@
     },
     {
       "path": ".github/workflows/development-loop.yml",
-      "bytes": 3078,
-      "sha256": "6bbf2317e1520a16a831aff6d4e8ff249f5867c97585046ab7355409b39e4170",
-      "gitBlob": "1720c91c3d2d3439afbd1b2004dd952cc31b5ab9",
+      "bytes": 3229,
+      "sha256": "b44e6705cfdbc4f13cd28499d28743847edd6852fe82c34e575c9b668c5d9a00",
+      "gitBlob": "18fe923d2bb4dd688b9788307be16cf0aef486dc",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -1937,6 +1937,118 @@
       "bytes": 513,
       "sha256": "0916ccdaa75cfdb5f65afcdb9c784afee64d81948210900ce7b197a9e4cbc840",
       "gitBlob": "c82bb684204fa416f9b6a7edb91e68a87d1ef027",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/BRAND-CONCEPTS.fa.md",
+      "bytes": 2565,
+      "sha256": "6c8c35abd64bfbe157bdd33bb1d8a33dac1d8ba166b3ca49d4f421bc4fd65b5a",
+      "gitBlob": "7c5ef40a5df9ddaaa2ed65f99af3b2fb7e99beac",
+      "dependencyCandidates": [
+        {
+          "value": "./src/native/synthetic-brand-concepts.cjs",
+          "line": 17
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/INTEGRATED-REVIEW.fa.md",
+      "bytes": 2214,
+      "sha256": "dd12e3cc044a721ffa8dcbbd14deab69033819e6a6dab9678bae2ea3c431b136",
+      "gitBlob": "3597602703d1183d43222a483950f8b1b91139da",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/MANA-5000M2-ACCEPTANCE.md",
+      "bytes": 8620,
+      "sha256": "54c737adcc7da49d06a5235a07c89bcae0ed41e0ac476ab82790f9047e65ed63",
+      "gitBlob": "e838c87e5f2782cc48e0b0c69c1ba1bc1147cbb1",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/README.fa.md",
+      "bytes": 6728,
+      "sha256": "52ddf65fddbd8bef0050774f1267bdb00a9646158e5d6e34701a2f182f1fefa8",
+      "gitBlob": "68db584df60017ddfe4409b7684ac910ba1c9ded",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/REVIEW-ARTIFACTS.fa.md",
+      "bytes": 2945,
+      "sha256": "60160456cb7d86b473551ec7afc260916f743c7e22de051fa6c49a2885abd1cb",
+      "gitBlob": "fbf27740791eb9d86963a4d497113a994b5f1ddb",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/REVISION-IMPACT.fa.md",
+      "bytes": 2314,
+      "sha256": "7ec122ffcc2c9c04da1c61346c121f903b155e1f1df771a8645d61b12a3faf5a",
+      "gitBlob": "ed6b1f00bc621f2b84ca14e04665806621e318d6",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/floor-r1-r2.dxf",
+      "bytes": 310,
+      "sha256": "4b6e6019945ee748fbd42a12daad06d9a91b3d5e790530f8dea089138efa87bf",
+      "gitBlob": "da20693c0639eaa47af66083f01cdf7a5ca386de",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/render-review.cjs",
+      "bytes": 9486,
+      "sha256": "7af19f938ef856ac668952d7b124a79b3cbf679f4415542f70848d4a3f918b08",
+      "gitBlob": "b3b274828978e4356288ed1d57d6e3203febccfd",
+      "dependencyCandidates": [
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "../../src/native/synthetic-dxf-revision-impact.cjs",
+          "line": 4
+        },
+        {
+          "value": "../../src/native/synthetic-dxf-review-artifacts.cjs",
+          "line": 5
+        },
+        {
+          "value": "../../src/native/synthetic-brand-concepts.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/south-facade-r1.dxf",
+      "bytes": 587,
+      "sha256": "2ea9e764f5747dea78c04b0eab27f0b4da789aa0ab78b8dd9b08afe85986994b",
+      "gitBlob": "2a94676e3a0743ad895f9d631112baa92d6d30c9",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/examples/synthetic-aec-dxf/south-facade-r2.dxf",
+      "bytes": 587,
+      "sha256": "381b2c09208534b55c649459305c48de047ce4c8f85b3e740d9a27d60f03effa",
+      "gitBlob": "5fd0c50a6a815932ded60e15d925f45074697270",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
@@ -5905,6 +6017,118 @@
         {
           "value": "../financial/exact-decimal.cjs",
           "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/synthetic-aec-dxf.cjs",
+      "bytes": 10522,
+      "sha256": "e0bbafe73d5e102e7bae08b673ebc96753ad7418693925c63fe04a2a71a0c6fd",
+      "gitBlob": "3083b447b7054db88d9e2af49ca8fda69cd6f3d0",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/synthetic-brand-concepts.cjs",
+      "bytes": 12095,
+      "sha256": "2d14943cec6dfd78071fc5e4f1043fcaec57dd185e43362a936fabcec09369b0",
+      "gitBlob": "e3171911dd5d8644ad6c9d003f24af19db6435bf",
+      "dependencyCandidates": [
+        {
+          "value": "../approval-store.cjs",
+          "line": 2
+        },
+        {
+          "value": "./synthetic-dxf-revision-impact.cjs",
+          "line": 3
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/synthetic-dxf-review-artifacts.cjs",
+      "bytes": 9993,
+      "sha256": "b8e4d9bf22cf91874d6e3193a47eb8dbe6c418b4b2c43886611d3dbf8b037b53",
+      "gitBlob": "56257e3751751797d8614f16b6c77c9b0f36d1bf",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 5
+        },
+        {
+          "value": "./synthetic-aec-dxf.cjs",
+          "line": 6
+        },
+        {
+          "value": "./synthetic-dxf-revision-impact.cjs",
+          "line": 7
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/src/native/synthetic-dxf-revision-impact.cjs",
+      "bytes": 11954,
+      "sha256": "1b702816cdcf86870adc7342a08412c571308343cbdabe1daf59cf4f51510b5f",
+      "gitBlob": "2e6e6f9145adedcb5027005529ad85dfd2582648",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "../approval-store.cjs",
+          "line": 5
+        },
+        {
+          "value": "./synthetic-aec-dxf.cjs",
+          "line": 6
+        },
+        {
+          "value": "./artifact-impact.cjs",
+          "line": 7
         }
       ],
       "environmentCandidates": [],
@@ -10690,6 +10914,201 @@
       "testFile": true
     },
     {
+      "path": "mana-ai/tests/synthetic-aec-dxf.test.cjs",
+      "bytes": 6660,
+      "sha256": "fe6f675c4ab9d3f4170a807b3bdbf3d96f111c9dde7cb8eacc5b73c98eb17658",
+      "gitBlob": "50618808943337d8184ab9c02b5d7ccd2435f974",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "../src/native/synthetic-aec-dxf.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/synthetic-brand-concepts.test.cjs",
+      "bytes": 5741,
+      "sha256": "526b662248bd279faa5686ea18d7e597fb308724e77cbc06d84d75220268f73c",
+      "gitBlob": "6c19df4e024e3ddd6685d5c3438d44622ae7ce23",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:fs",
+          "line": 4
+        },
+        {
+          "value": "../src/native/synthetic-brand-concepts.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/synthetic-dxf-review-artifacts.test.cjs",
+      "bytes": 4050,
+      "sha256": "b0c5161595058e7bd3922591e73c1f6d68ed811b30ef7b75e0e96b97b754e6f1",
+      "gitBlob": "6f94fb48a9829c2996871c0bee4c80c5995e7342",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:os",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "../src/native/synthetic-dxf-review-artifacts.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/synthetic-dxf-revision-impact.cjs",
+          "line": 6
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_DXF_REVIEW_PYTHON",
+          "line": 10
+        }
+      ],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/synthetic-dxf-review-page.test.cjs",
+      "bytes": 2118,
+      "sha256": "bad8ebd38e4722ed5a7be568c83858aacf1f3103e1db12d8f85a081ef3b5081b",
+      "gitBlob": "f8f889c7008e66869673ae2babd9502720ff5d85",
+      "dependencyCandidates": [
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "node:path",
+          "line": 5
+        },
+        {
+          "value": "node:test",
+          "line": 6
+        },
+        {
+          "value": "../examples/synthetic-aec-dxf/render-review.cjs",
+          "line": 7
+        },
+        {
+          "value": "../src/native/synthetic-dxf-review-artifacts.cjs",
+          "line": 8
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/synthetic-dxf-revision-impact.test.cjs",
+      "bytes": 4966,
+      "sha256": "6a57acb191ad1ba3b5ac138e3f359c7b469241725a77d85a8b5a447cb9e016c5",
+      "gitBlob": "d6d037bbd6f88df415de5e82090b8cdbd05708a9",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:child_process",
+          "line": 4
+        },
+        {
+          "value": "../src/native/synthetic-dxf-revision-impact.cjs",
+          "line": 5
+        },
+        {
+          "value": "../src/native/synthetic-aec-dxf.cjs",
+          "line": 6
+        },
+        {
+          "value": "../src/approval-store.cjs",
+          "line": 7
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": true
+    },
+    {
       "path": "mana-ai/tests/training-feedback.test.cjs",
       "bytes": 2246,
       "sha256": "15f7eee44b0c027c6c07350449753acb92a1c2ac819c2deee47588786f1dbad5",
@@ -11586,6 +12005,48 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/tools/synthetic-review-browser-check.cjs",
+      "bytes": 2741,
+      "sha256": "a08bdca15be1ae10a34419d432625aefbf30047ebc5ceb3a5612b3185432ad55",
+      "gitBlob": "3df4b85edcafc4b13a4f2e3f9b869c06964355bc",
+      "dependencyCandidates": [
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:fs/promises",
+          "line": 4
+        },
+        {
+          "value": "node:os",
+          "line": 5
+        },
+        {
+          "value": "node:path",
+          "line": 6
+        },
+        {
+          "value": "node:url",
+          "line": 7
+        },
+        {
+          "value": "../../tests/browser/node_modules/playwright",
+          "line": 8
+        },
+        {
+          "value": "../examples/synthetic-aec-dxf/render-review.cjs",
+          "line": 9
+        },
+        {
+          "value": "../src/native/synthetic-dxf-review-artifacts.cjs",
+          "line": 10
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/tools/test_architecture_provider.py",
       "bytes": 1581,
       "sha256": "3a7a2561c2e2cf664a3b61092e5191420a17bdf07ff64feba3e267265346bb4e",
@@ -11644,6 +12105,15 @@
       "bytes": 11686,
       "sha256": "d998faf7090d2220743663fcba164f40a11d08d2f0dba6115f2340dccd7ea728",
       "gitBlob": "4c0d626e6ebf81c0784a57e7f4cb51bdd94641ac",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/tools/verify_synthetic_dxf_review.py",
+      "bytes": 12133,
+      "sha256": "bfec2236fc3826d218a0663852c712967914b9bb133f56e35003a65216e3e93a",
+      "gitBlob": "33df559161c959a604459edc77f53d33f82987a5",
       "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
