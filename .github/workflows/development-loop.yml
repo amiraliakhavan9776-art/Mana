@@ -63,3 +63,6 @@ jobs:
 
       - name: Verify Persian research preview in Chromium with official HTTPS evidence
         run: node mana-ai/tools/queue-research-browser-check.cjs
+
+      - name: Check the separate Persian read-only receipt preview in Chromium
+        run: node mana-ai/tools/receipt-review-browser-check.cjs
