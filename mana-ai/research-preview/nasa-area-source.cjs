@@ -167,4 +167,4 @@ async function discoverNasaArea({mode,pythonPath,reader,request}={}){
  return {schema:'MANA_NASA_AREA_EVIDENCE_V1',sourceMode:mode,transport:PROFILES[mode],
   captureRepresentation:'RAW_HTML',visibilityAssessment:'STATIC_HTML_PROFILE_NOT_BROWSER_RENDERING',index,link,source,planar,scope:SCOPE,fit};
 }
-module.exports={INDEX_URL,AREA_URL,PROFILES,SCOPE,fetchNasa,rawReplayReader,discoverNasaArea,scopeDiagnostic};
+module.exports={INDEX_URL,AREA_URL,PROFILES,SCOPE,fetchNasa,rawReplayReader,discoverNasaArea,scopeDiagnostic,inspectNasaMarkup:html};

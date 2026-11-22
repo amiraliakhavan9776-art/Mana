@@ -39,6 +39,7 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run bounded direct NASA source discovery and CPU candidate acceptance
+        id: nasa_live
         shell: bash
         env:
           EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
@@ -50,7 +51,22 @@ jobs:
           result="$(mktemp)"
           reused="$(mktemp)"
           python="$(realpath "$(command -v python3)")"
-          node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$python" >"$result" || { cat "$result"; exit 1; }
+          if ! node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$python" >"$result"; then
+            cat "$result"
+            if node - "$result" <<'JS'
+          const read = p => JSON.parse(require("node:fs").readFileSync(p, "utf8"));
+          const eligible = new Set(["NASA_PLANAR_PRECEDING_EVIDENCE_MISSING", "NASA_PLANAR_PARAGRAPH_PREFIX_MISSING", "NASA_PLANAR_FORBIDDEN_SCOPE"]);
+          try {
+            const r = read(process.argv[2]);
+            if (r.status !== "SOURCE_BLOCKED" || r.sourceMode !== "direct" ||
+                r.sourceFailureStage !== "selected-link" || !eligible.has(r.sourceFailureCode)) process.exit(1);
+          } catch { process.exit(1); }
+          JS
+            then
+              printf 'layout_eligible=true\n' >> "$GITHUB_OUTPUT"
+            fi
+            exit 1
+          fi
           cat "$result"
           receipt="$(sha256sum "$state/terminal.json")"
           node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$python" >"$reused" || { cat "$reused"; exit 1; }
@@ -70,3 +86,11 @@ jobs:
           }
           if (x.reused !== false || y.reused !== true || digestKeys.some(k => x[k] !== y[k])) process.exit(1);
           JS
+
+      - name: Summarize only approved publisher layout metadata after an evidence-layout stop
+        if: failure() && steps.nasa_live.outcome == 'failure' && steps.nasa_live.outputs.layout_eligible == 'true'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python="$(realpath "$(command -v python3)")"
+          node mana-ai/research-preview/nasa-area-layout-diagnostic.cjs "$python"

@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "515c7c47281554fc8a552cb28b73f188cb2135a303dd2388e87051d1193a79fe",
-  "fileCount": 537,
+  "sourceSetDigest": "4892cac6a051fc34f3054954a71de7bf175e437490b0a8d00a618ebe0b658c7a",
+  "fileCount": 539,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -68,13 +68,17 @@
     },
     {
       "path": ".github/workflows/nasa-area-pilot.yml",
-      "bytes": 3185,
-      "sha256": "2d0ceaba41b1d85808d67141fcb3aad2b44c089c96ac3bee452eb9e3da0aa599",
-      "gitBlob": "9a7362f5b761b7e622e88709dc6e183368757d20",
+      "bytes": 4332,
+      "sha256": "060d78e079e27aff893628a0b92200f2ef9e4d42a3a42f4d9ace5b20517575d0",
+      "gitBlob": "2a6cde2eebb9ea72bd6c35397bd686c317ff3dc3",
       "dependencyCandidates": [
         {
           "value": "node:fs",
-          "line": 60
+          "line": 57
+        },
+        {
+          "value": "node:fs",
+          "line": 76
         }
       ],
       "environmentCandidates": [],
@@ -3218,10 +3222,75 @@
       "testFile": false
     },
     {
+      "path": "mana-ai/research-preview/nasa-area-layout-diagnostic.cjs",
+      "bytes": 6339,
+      "sha256": "1d8d05aaa389188fb38694db83ce27c07cb35a4c6fbd7de310d16f93a3f6769c",
+      "gitBlob": "94615f41c36cc9fe9fa2abc437d75d66804544c2",
+      "dependencyCandidates": [
+        {
+          "value": "node:path",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/nasa-area-layout-diagnostic.test.cjs",
+      "bytes": 4394,
+      "sha256": "a04a5704c410bf38efb1bb693c8650fa0b02d9c6f6c507a1e3a48708d853b397",
+      "gitBlob": "83225692c3c448ed31cd7f4d294bcedb71d6d330",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:child_process",
+          "line": 3
+        },
+        {
+          "value": "node:events",
+          "line": 3
+        },
+        {
+          "value": "node:crypto",
+          "line": 3
+        },
+        {
+          "value": "./nasa-area-layout-diagnostic.cjs",
+          "line": 4
+        },
+        {
+          "value": "./nasa-area-source.cjs",
+          "line": 5
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_NASA_PYTHON",
+          "line": 6
+        }
+      ],
+      "testFile": false
+    },
+    {
       "path": "mana-ai/research-preview/nasa-area-source.cjs",
-      "bytes": 10769,
-      "sha256": "ba4d4b1df34261d427e0e2a4f437cc0f4cccbe2f4be634cfb667ed153f2d2185",
-      "gitBlob": "d3d9c3547f32644af618f53eaa38100d876b0586",
+      "bytes": 10792,
+      "sha256": "e9fc2ac2814116e586684268dbaa37c0ac290e2fea319999baf571ee90265160",
+      "gitBlob": "d8514bdbeca73b51a35e00321cbc5b3da935f0e2",
       "dependencyCandidates": [
         {
           "value": "node:fs",
