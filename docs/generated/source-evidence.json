@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "6dd5b506eded11a06f5d24ec18ae504ff05cfc8d6eabc3d7c7d24c693ad46949",
-  "fileCount": 544,
+  "sourceSetDigest": "56e0531b9ab0d87b0d4a2ca1ac9b1c6de1f7cd009d00cd1349e5a1e7bee618c5",
+  "fileCount": 549,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -2264,6 +2264,63 @@
           "line": 4
         }
       ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/ops/rd-nightly-stage-v1/90-mana-rd-pilot.conf.example",
+      "bytes": 196,
+      "sha256": "7a797252f50cfdd3fda2ef0e0895a93c867a3d725b316f162f154b69292dd798",
+      "gitBlob": "4051c353872eaac59fab194971e0e1c1bf4ea83c",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/ops/rd-nightly-stage-v1/README.fa.md",
+      "bytes": 7912,
+      "sha256": "c2f349d037d4cb73773a4c7451222e6d7b53c374bc454e3ca95abcbdd6fe75aa",
+      "gitBlob": "0e1ed94480ffdb46e5d924b0a5365afa6ca2d729",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/ops/rd-nightly-stage-v1/armed-v1.cjs",
+      "bytes": 4002,
+      "sha256": "6ecb46d0623dee1c88a4c7289ab92073b0ca10069295e99e4b23bb290cad0b6d",
+      "gitBlob": "8a61b2b1af6383644b5a4279124427ca38a06e1f",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 3
+        },
+        {
+          "value": "node:path",
+          "line": 4
+        },
+        {
+          "value": "node:crypto",
+          "line": 5
+        },
+        {
+          "value": "../../run-rd-nightly-tick.cjs",
+          "line": 6
+        },
+        {
+          "value": "../../src/pilot/mana-native-rd.cjs",
+          "line": 7
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/ops/rd-nightly-stage-v1/mana-rd-pilot.service",
+      "bytes": 1054,
+      "sha256": "856112f406363d1f5f3cc7c20d615457fbf0955d00ddbe2f831f9000ac5ef133",
+      "gitBlob": "cf42006a5f4e05109fc67a26856d1442cf7c5d3b",
+      "dependencyCandidates": [],
       "environmentCandidates": [],
       "testFile": false
     },
@@ -8988,6 +9045,57 @@
         {
           "value": "MANA_TEST_MASTER",
           "line": 158
+        }
+      ],
+      "testFile": true
+    },
+    {
+      "path": "mana-ai/tests/mana-rd-systemd-stage.test.cjs",
+      "bytes": 8293,
+      "sha256": "3c42ff4ea227d2b7ba18c3e59151913bed6d6c85cafa9032493f13dd41f0470b",
+      "gitBlob": "30b74a30c54cf2b93d9c3b452716a4b49776064b",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 3
+        },
+        {
+          "value": "node:fs",
+          "line": 4
+        },
+        {
+          "value": "node:os",
+          "line": 5
+        },
+        {
+          "value": "node:path",
+          "line": 6
+        },
+        {
+          "value": "node:crypto",
+          "line": 7
+        },
+        {
+          "value": "../ops/rd-nightly-stage-v1/armed-v1.cjs",
+          "line": 8
+        },
+        {
+          "value": "../run-rd-nightly-tick.cjs",
+          "line": 95
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 127
+        },
+        {
+          "value": "MANA_TEST_MASTER",
+          "line": 133
         }
       ],
       "testFile": true

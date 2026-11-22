@@ -1,0 +1,41 @@
+[Unit]
+Description=MANA staged offline native R&D single tick (v1, review only)
+ConditionPathExists=/etc/mana-rd-pilot/armed-v1
+
+[Service]
+Type=oneshot
+User=mana-rd-pilot
+Group=mana-rd-pilot
+WorkingDirectory=/opt/mana-rd-pilot/v1
+StateDirectory=mana-rd-pilot
+StateDirectoryMode=0700
+UMask=0077
+ExecStart=/opt/mana-rd-pilot/v1/node/bin/node /opt/mana-rd-pilot/v1/mana-ai/ops/rd-nightly-stage-v1/armed-v1.cjs
+Restart=no
+RemainAfterExit=no
+TimeoutStartSec=35s
+TimeoutStopSec=5s
+KillMode=control-group
+CPUQuota=100%
+MemoryMax=512M
+TasksMax=48
+
+NoNewPrivileges=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictSUIDSGID=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateDevices=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=none
+ReadOnlyPaths=/opt/mana-rd-pilot/v1 /etc/mana-rd-pilot /tmp /var/tmp -/dev/shm
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+UnsetEnvironment=NODE_OPTIONS NODE_PATH LD_PRELOAD LD_LIBRARY_PATH
+StandardInput=null
+StandardOutput=journal
+StandardError=journal
