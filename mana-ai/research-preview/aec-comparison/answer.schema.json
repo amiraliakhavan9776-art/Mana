@@ -1,0 +1,26 @@
+{
+ "$schema":"https://json-schema.org/draft/2020-12/schema",
+ "title":"MANA AEC Comparison V1",
+ "type":"object","additionalProperties":false,"required":["schema","results"],
+ "properties":{"schema":{"const":"MANA_AEC_COMPARISON_V1"},"results":{"type":"array","minItems":8,"maxItems":8,"items":{"$ref":"#/$defs/row"}}},
+ "$defs":{
+  "row":{
+   "type":"object","additionalProperties":false,
+   "required":["id","status","shape","inputUnit","dimensionsMm","formulaId","twiceAreaMm2","denominator","areaMm2","areaM2","sourceUrl","reasonCode"],
+   "properties":{
+    "id":{"enum":["R1","R2","T1","T2","U1","U2","H1","S1"]},"status":{"enum":["OK","ABSTAIN"]},
+    "shape":{"enum":["rectangle","trapezoid"]},"inputUnit":{"enum":["mm",null]},
+    "dimensionsMm":{"type":["array","null"],"minItems":2,"maxItems":3,"items":{"type":"integer","minimum":1,"maximum":100000}},
+    "formulaId":{"enum":["gross-planar-rectangle-v1","gross-planar-trapezoid-v1",null]},
+    "twiceAreaMm2":{"type":["string","null"],"pattern":"^(0|[1-9][0-9]*)$"},"denominator":{"enum":[2,null]},
+    "areaMm2":{"type":["string","null"],"pattern":"^(0|[1-9][0-9]*)([.][0-9]*[1-9])?$"},
+    "areaM2":{"type":["string","null"],"pattern":"^(0|[1-9][0-9]*)([.][0-9]*[1-9])?$"},
+    "sourceUrl":{"enum":["https://www.grc.nasa.gov/www/k-12/airplane/area.html",null]},
+    "reasonCode":{"enum":["WHOLE_MILLIMETERS_REQUIRED","MIXED_UNITS","PERPENDICULAR_HEIGHT_REQUIRED","OUT_OF_SCOPE",null]}
+   },
+   "if":{"properties":{"status":{"const":"OK"}}},
+   "then":{"properties":{"inputUnit":{"const":"mm"},"dimensionsMm":{"type":"array"},"formulaId":{"type":"string"},"twiceAreaMm2":{"type":"string"},"denominator":{"const":2},"areaMm2":{"type":"string"},"areaM2":{"type":"string"},"sourceUrl":{"type":"string"},"reasonCode":{"type":"null"}}},
+   "else":{"properties":{"inputUnit":{"type":"null"},"dimensionsMm":{"type":"null"},"formulaId":{"type":"null"},"twiceAreaMm2":{"type":"null"},"denominator":{"type":"null"},"areaMm2":{"type":"null"},"areaM2":{"type":"null"},"sourceUrl":{"type":"null"},"reasonCode":{"type":"string"}}}
+  }
+ }
+}

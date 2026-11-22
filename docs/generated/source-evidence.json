@@ -1,7 +1,7 @@
 {
   "contract": "MANA_SOURCE_EVIDENCE_V1",
-  "sourceSetDigest": "d2a99eacabd9adae47a39eadc5c2f623ab32d83e17cfeb26945c4efd601d4515",
-  "fileCount": 544,
+  "sourceSetDigest": "9bbad625ae3c2451b189a1dc5a392a187861f1f7dd4160ab81ec6610c919d082",
+  "fileCount": 551,
   "files": [
     {
       "path": ".github/workflows/artifact-workflows.yml",
@@ -50,17 +50,17 @@
     },
     {
       "path": ".github/workflows/mana-ai-tests.yml",
-      "bytes": 3571,
-      "sha256": "8300f64599e641596f09db93e1bf76b50bbc281c33e0d0cdd44fef436fcb9306",
-      "gitBlob": "95be43031bf4e82ac9be6c4549d0ea20c700d60e",
+      "bytes": 3729,
+      "sha256": "e83accc7a82bde5e13328a80e5ddecb889a4fe4133c65a72c65049886aa85faa",
+      "gitBlob": "34e08e2ffd0423207b0ed56544cfd9ea95961d51",
       "dependencyCandidates": [
         {
           "value": "node:assert/strict",
-          "line": 71
+          "line": 73
         },
         {
           "value": "./mana-ai/research-preview/indot-direct.cjs",
-          "line": 72
+          "line": 74
         }
       ],
       "environmentCandidates": [],
@@ -2404,6 +2404,145 @@
       "sha256": "3ba1a5490c0631bb235f9922cef751ccbdbfcadc339fa7a794b9cdf60ced6633",
       "gitBlob": "454754dcf5f18640f182f1e037fbbbe7a5979682",
       "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-comparison/PROMPT.fa.txt",
+      "bytes": 4679,
+      "sha256": "92b24a0c91a3e5c1cdb10a65c7febcc9e924bc67d5711f5c6daf94eaca5a1057",
+      "gitBlob": "3efb98b23e12e001239670a23c9d1e3956d0d091",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-comparison/README.fa.md",
+      "bytes": 3379,
+      "sha256": "538d4302f99ec3be12e36f86d3a6316f99d24e3f7ee848e5d9a9028a352cbce8",
+      "gitBlob": "b2c5189de3bf5f7757c98d201cb133d97c348436",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-comparison/answer.schema.json",
+      "bytes": 2090,
+      "sha256": "672b0e0f277b498f034fdd4fa6c640ac7142b2065e86d923f9ed22f8fd36e87b",
+      "gitBlob": "4d318d13a94f1b80cfd34d986f54674d033236f1",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-comparison/benchmark.test.cjs",
+      "bytes": 6192,
+      "sha256": "381947eb2cbf02d512d1aa920312a576142a82b618bf067a435e9b505bf1d3b0",
+      "gitBlob": "0dc761023f1ccd2803cc0303adc636b67d65d7b1",
+      "dependencyCandidates": [
+        {
+          "value": "node:test",
+          "line": 2
+        },
+        {
+          "value": "node:assert/strict",
+          "line": 2
+        },
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "node:os",
+          "line": 2
+        },
+        {
+          "value": "node:path",
+          "line": 2
+        },
+        {
+          "value": "./run-mana.cjs",
+          "line": 3
+        },
+        {
+          "value": "./grade.cjs",
+          "line": 4
+        },
+        {
+          "value": "./cases.cjs",
+          "line": 5
+        },
+        {
+          "value": "../nasa-area-experiment.cjs",
+          "line": 66
+        },
+        {
+          "value": "../nasa-area-source.cjs",
+          "line": 67
+        },
+        {
+          "value": "node:events",
+          "line": 68
+        },
+        {
+          "value": "node:crypto",
+          "line": 69
+        }
+      ],
+      "environmentCandidates": [
+        {
+          "value": "MANA_BENCH_NASA_TEST_LESSON",
+          "line": 64
+        }
+      ],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-comparison/cases.cjs",
+      "bytes": 1120,
+      "sha256": "e23ec9c1ee21068287a8950b31d6f7cb79f38bbb796976da7ab24e722d581010",
+      "gitBlob": "fef8c2280610742cf8c6424863a472c5c5f2fa82",
+      "dependencyCandidates": [],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-comparison/grade.cjs",
+      "bytes": 4956,
+      "sha256": "31ccb5774fe35a739c4ae33942a8bfb0d45b0959f474b44200b43be8e39f47e2",
+      "gitBlob": "03d12cc914ba03a3aaed0f0737271eafad32b4b9",
+      "dependencyCandidates": [
+        {
+          "value": "node:fs",
+          "line": 2
+        },
+        {
+          "value": "../../src/exact-json.cjs",
+          "line": 3
+        },
+        {
+          "value": "./cases.cjs",
+          "line": 4
+        }
+      ],
+      "environmentCandidates": [],
+      "testFile": false
+    },
+    {
+      "path": "mana-ai/research-preview/aec-comparison/run-mana.cjs",
+      "bytes": 2237,
+      "sha256": "3050c8cab670da4b95fbdacb1ceacc7e8e6e32121cb101f03b2e43effc78359f",
+      "gitBlob": "4d6e6187fb7767019b9d2c14c50d181c470e4cb7",
+      "dependencyCandidates": [
+        {
+          "value": "../nasa-quantity-report.cjs",
+          "line": 2
+        },
+        {
+          "value": "./cases.cjs",
+          "line": 3
+        }
+      ],
       "environmentCandidates": [],
       "testFile": false
     },
