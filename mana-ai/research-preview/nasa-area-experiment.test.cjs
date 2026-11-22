@@ -136,3 +136,28 @@ test('missing outer terminal after durable claim remains unknown and cannot reac
  assert(!fs.existsSync(path.join(workspace,'terminal.json')));
  assert.deepEqual(retained.map(n=>fs.readFileSync(path.join(workspace,n))),copies);
 });
+test('unrelated legacy anchors may close implicitly without weakening the Area candidate', {skip:!hasPython},async()=>{
+ const openNamed='<a name="bookmarks">';
+ const raw=index(openNamed+'<font>Math topics</font><a href="volume.html">Volume '+link);
+ const calls=[];
+ const data=await discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,raw,lesson())});
+ assert.deepEqual(calls,[{kind:'index',url:INDEX_URL},{kind:'selected-link',url:AREA_URL}]);
+ assert.equal(data.link.href,'area.html');
+});
+test('nested, unclosed and crossing Area candidates stop discovery at the index', {skip:!hasPython},async()=>{
+ const cases=[
+  index('<a href="area.html">Ar<a href="other">Other</a>'+link),
+  index('<a href="other">Area<a href="volume.html">Volume</a>'+link),
+  index('<a href="area.html">Area<img alt="Label for Analysis"></a>'),
+  index(link+'<a href="area.html">Area'), // An unclosed competing actual link is not ignored.
+  index('<a href="area.html">Area<img alt="Label for Math Fundamentals"></a>'+link,'Analysis'),
+  index('<a href="area.html">Ar<a hidden>ignored</a>ea</a>'),
+  index('<a href=" area.html "><a href="Volume.html">Other</a>'+link),
+ ];
+ for(const raw of cases){
+  const calls=[];
+  await assert.rejects(discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,raw,lesson())}),
+   e=>e.sourceStage==='index'&&e.message==='NASA_LINK_MALFORMED');
+  assert.deepEqual(calls,[{kind:'index',url:INDEX_URL}]);
+ }
+});

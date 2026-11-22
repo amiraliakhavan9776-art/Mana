@@ -26,8 +26,9 @@ def require(ok, code):
 
 
 class Document(HTMLParser):
-    def __init__(self):
+    def __init__(self, mode):
         super().__init__(convert_charrefs=True)
+        self.mode = mode
         self.stack = []
         self.pa = None
         self.a = None
@@ -68,11 +69,25 @@ class Document(HTMLParser):
         if tag == "img" and not concealed:
             alt = norm([dict(attrs).get("alt") or ""])
             if alt.startswith("Label for "):
-                self.math_active = alt == "Label for Math Fundamentals"
-                self.math_sections += int(self.math_active)
+                new_math = alt == "Label for Math Fundamentals"
+                if self.a and (self.math_active or new_math):
+                    self.a["crossed_math"] = True
+                self.math_active = new_math
+                self.math_sections += int(new_math)
+        if tag == "a" and concealed and self.mode == "index" and self.a is not None:
+            self.a["nested_hidden"] = True
         if tag == "a" and not concealed:
-            require(self.a is None, "NASA_LINK_MALFORMED")
-            self.a = ([v for k, v in attrs if k == "href"], [], self.getpos()[0], self.math_active)
+            if self.a is not None:
+                require(self.mode == "index", "NASA_LINK_MALFORMED")
+                # Legacy pages can omit end tags on unrelated/name anchors.
+                # Only the unrelated anchor is discarded; its descendants
+                # (and their visibility/section context) are not reopened.
+                depth = self.a["depth"]
+                self.finish_anchor(explicit=False)
+                del self.stack[depth]
+            self.a = {"hrefs": [v for k, v in attrs if k == "href"], "parts": [],
+                      "line": self.getpos()[0], "in_math": self.math_active,
+                      "crossed_math": False, "nested_hidden": False, "depth": len(self.stack)}
         if tag == "p" and not concealed:
             self.pa = ([], self.getpos()[0])
         if tag in ("br", "wbr") and not concealed:
@@ -89,18 +104,28 @@ class Document(HTMLParser):
         if "title" in removed and self.title is not None:
             self.titles.append(norm(self.title))
             self.title = None
-        if "a" in removed and self.a is not None:
-            hrefs, parts, start, in_math = self.a
-            if in_math and norm(parts) == "Area":
-                require(len(hrefs) == 1 and isinstance(hrefs[0], str), "NASA_LINK_MALFORMED")
-                self.links.append({"href": hrefs[0], "label": "Area", "line": start})
-            self.a = None
+        if self.a is not None and self.a["depth"] >= match:
+            self.finish_anchor(explicit=tag == "a" and self.a["depth"] == match)
         if "p" in removed and self.pa is not None:
             parts, start = self.pa
             content = norm(parts)
             if content:
                 self.paragraphs.append({"text": content, "line": start})
             self.pa = None
+
+    def finish_anchor(self, explicit):
+        a, self.a = self.a, None
+        label = norm(a["parts"])
+        in_scope = a["in_math"] or a["crossed_math"]
+        # Treat an Area-looking href as a potential target even if malformed
+        # markup prevented its actual label from being collected.
+        targetish = any(isinstance(href, str) and
+                        re.search(r"(?:^|/)area\.html(?:[?#]|$)", href.strip(), re.I) for href in a["hrefs"])
+        if self.mode == "index" and in_scope and (label == "Area" or targetish):
+            require(explicit and not a["crossed_math"] and not a["nested_hidden"], "NASA_LINK_MALFORMED")
+        if a["in_math"] and label == "Area":
+            require(len(a["hrefs"]) == 1 and isinstance(a["hrefs"][0], str), "NASA_LINK_MALFORMED")
+            self.links.append({"href": a["hrefs"][0], "label": "Area", "line": a["line"]})
 
     def handle_data(self, data):
         require(not (self.stack and self.stack[-1][0] == "style" and data.strip()), "NASA_INLINE_STYLESHEET_UNSUPPORTED")
@@ -109,7 +134,7 @@ class Document(HTMLParser):
         if any(h for _, h in self.stack):
             return
         if self.a is not None:
-            self.a[1].append(data)
+            self.a["parts"].append(data)
         if self.pa is not None:
             self.pa[0].append(data)
 
@@ -121,9 +146,11 @@ def main():
     resource.setrlimit(resource.RLIMIT_CORE, (0, 0))
     data = sys.stdin.buffer.read(MAX + 1)
     require(0 < len(data) <= MAX and b"\x00" not in data, "NASA_HTML_BYTES_REJECTED")
-    p = Document()
+    p = Document(sys.argv[1])
     p.feed(data.decode("utf-8", "strict"))
     p.close()
+    if p.mode == "index" and p.a is not None:
+        p.finish_anchor(explicit=False)
     require(not p.bases and len(p.titles) == 1, "NASA_MARKUP_INVALID")
     if sys.argv[1] == "index":
         require(p.titles == ["Index of Aerodynamics Slides"] and p.math_sections == len(p.links) == 1, "NASA_AREA_LINK_MISSING_OR_AMBIGUOUS")

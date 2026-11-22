@@ -12,6 +12,9 @@ jobs:
     timeout-minutes: 4
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -26,6 +29,9 @@ jobs:
     timeout-minutes: 4
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          persist-credentials: false
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -34,10 +40,33 @@ jobs:
           python-version: '3.12'
       - name: Run bounded direct NASA source discovery and CPU candidate acceptance
         shell: bash
+        env:
+          EXPECTED_HEAD: ${{ github.event.pull_request.head.sha }}
         run: |
           set -euo pipefail
+          test "$(git rev-parse HEAD)" = "$EXPECTED_HEAD"
+          git log -1 --format='head=%H tree=%T'
           state="$(mktemp -d)"
           result="$(mktemp)"
-          node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$(realpath "$(command -v python3)")" >"$result" || { cat "$result"; exit 1; }
+          reused="$(mktemp)"
+          python="$(realpath "$(command -v python3)")"
+          node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$python" >"$result" || { cat "$result"; exit 1; }
           cat "$result"
-          node -e 'const r=require("node:fs").readFileSync(process.argv[1],"utf8"); const x=JSON.parse(r); if(x.status!=="AWAITING_HUMAN_REVIEW" || x.transport!=="DIRECT_OFFICIAL_HTTPS" || x.passed!==16 || x.total!==16 || x.activationAuthorized!==false || x.productionDeploymentAllowed!==false) process.exit(1)' "$result"
+          receipt="$(sha256sum "$state/terminal.json")"
+          node mana-ai/research-preview/nasa-area-experiment.cjs "$state" --direct "$python" >"$reused" || { cat "$reused"; exit 1; }
+          cat "$reused"
+          test "$(sha256sum "$state/terminal.json")" = "$receipt"
+          node - "$result" "$reused" <<'JS'
+          const read = p => JSON.parse(require("node:fs").readFileSync(p, "utf8"));
+          const [x, y] = process.argv.slice(2).map(read);
+          const digestKeys = ["indexSha256", "sourceSha256", "candidateSha256", "evidenceSha256", "clauseSha256", "freezeSha256", "gradeSha256"];
+          for (const r of [x, y]) {
+            if (r.status !== "AWAITING_HUMAN_REVIEW" || r.transport !== "DIRECT_OFFICIAL_HTTPS" ||
+                r.sourceUrl !== "https://www.grc.nasa.gov/www/k-12/airplane/area.html" ||
+                r.modelCalls !== 0 || r.modelTrainingPerformed !== false ||
+                r.passed !== 16 || r.total !== 16 || r.testsRun !== 16 ||
+                r.activationAuthorized !== false || r.productionDeploymentAllowed !== false ||
+                digestKeys.some(k => !/^[a-f0-9]{64}$/.test(r[k] ?? ""))) process.exit(1);
+          }
+          if (x.reused !== false || y.reused !== true || digestKeys.some(k => x[k] !== y[k])) process.exit(1);
+          JS
