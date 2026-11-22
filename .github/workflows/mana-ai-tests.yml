@@ -47,6 +47,8 @@ jobs:
         run: node --test mana-ai/tests/aec-instruction.test.cjs
       - name: Exercise Persian queue selection, safe stops and receipt validation
         run: node --test mana-ai/tests/mission-selection*.test.cjs
+      - name: Test the Persian read-only ideas panel and bounded evidence suggestions
+        run: node --test mana-ai/research-preview/nightly-ideas-preview.test.cjs mana-ai/tests/evidence-improvement-ideas.test.cjs
       - name: Verify direct publisher transport and page-validation policy
         run: node --test mana-ai/research-preview/indot-direct.test.cjs
       - name: Distinguish INDOT index response from PDF transfer timeouts
