@@ -111,7 +111,9 @@ function relation(record){
  const dimensionCue=/(?:^|[.!?]\s+)The area is the two-dimensional amount of space\b.*\bdimensions of length squared\b/;
  // Diagnostics classify failure but cannot supply new proof or change order.
  const prefix='On the slide we have listed the formula to calculate the area of a variety of shapes:';
- const text=c.text.replace(/\s+/g,' ');
+ let text=c.text.replace(/\s+/g,' ');
+ const forbidden=/\b(?:net|deductions?|volume|contractual|pay quantit(?:y|ies))\b/i;
+ let profile='single-paragraph',splitSha256;
  function scopeFailure(message){
   const failure=Error(message);
   failure.scopeDiagnostics={
@@ -124,8 +126,23 @@ function relation(record){
  if(!e.some(v=>dimensionCue.test(v.text)))scopeFailure('NASA_PLANAR_PRECEDING_EVIDENCE_MISSING');
  // Require this single clause inside the shapes discussion, and close it
  // before its independently named neighbor. No formulas from any other shape.
- if(!text.startsWith(prefix))scopeFailure('NASA_PLANAR_PARAGRAPH_PREFIX_MISSING');
- if(/\b(?:net|deductions?|volume|contractual|pay quantit(?:y|ies))\b/i.test(text))scopeFailure('NASA_PLANAR_FORBIDDEN_SCOPE');
+ if(!text.startsWith(prefix)){
+  const rows=record.split;
+  const valid=Array.isArray(rows)&&rows.length===6&&rows.every((row,i)=>typeof row?.text==='string'&&row.text.length<=4999&&
+   Number.isSafeInteger(row.line)&&row.line>=0&&(i===0||row.line>=rows[i-1].line))&&rows[3].text===c.text&&rows[3].line===c.line;
+  if(!valid)scopeFailure('NASA_PLANAR_PARAGRAPH_PREFIX_MISSING');
+  const [dimension,intro,rectangle,prose,formula,triangle]=rows.map(row=>row.text);
+  if(rows.some(row=>forbidden.test(row.text)))scopeFailure('NASA_PLANAR_FORBIDDEN_SCOPE');
+  if(!dimensionCue.test(dimension)||intro!==prefix+' The area of a rectangle is equal to the height h times the base b;'||
+   !/^A\s*=\s*h\s*[*×]\s*b$/.test(rectangle)||
+   prose!=='The equation for the area of a trapezoid is one half the sum of the top t and bottom b times the height h;'||
+   !/^A\s*=\s*[tbh]\s*[*×]\s*\[\s*[tbh]\s*[+\-]\s*[tbh]\s*\]\s*\/\s*[1-9]\d?$/.test(formula)||
+   !triangle.startsWith('The area of a triangle is equal to one half of the base b times the height h;'))
+   scopeFailure('NASA_PLANAR_PARAGRAPH_PREFIX_MISSING');
+  text=prose+' '+formula+' '+triangle;
+  profile='split-adjacent-sibling-paragraphs';splitSha256=sha(JSON.stringify(rows));
+ }
+ if(forbidden.test(text))scopeFailure('NASA_PLANAR_FORBIDDEN_SCOPE');
  const match=/\bThe equation for the area of a trapezoid is (one half) the sum of the top (t) and bottom (b) times the height (h);\s*A\s*=\s*([tbh])\s*([*×])\s*\[\s*([tbh])\s*([+\-])\s*([tbh])\s*\]\s*\/\s*([1-9]\d?)\s*(?=The area of a triangle is|$)/.exec(text);
  need(match,'NASA_TRAPEZOID_CLAUSE_NOT_SUPPORTED');
  const [,ratio,top,bottom,height,factor,mul,left,add,right,divisor]=match;
@@ -136,7 +153,7 @@ function relation(record){
   add==='+'&&Number(divisor)===expectedDivisor&&Object.hasOwn(ops,mul),'NASA_FORMULA_ROLE_OR_PROSE_MISMATCH');
  const fit={schema:'MANA_INTEGER_EXAMPLES_V1',id:ID,fields:FIELDS.map(id=>({id,power:1,max:100000})),outputPower:2,
   examples:ANCHORS.map(row=>[[...row],ops[mul](row[named.get(factor)],ops[add](row[named.get(left)],row[named.get(right)]))])};
- return {fit,planar:{line:c.line,clauseSha256:sha(match[0].trim()),output:{numerator:'twice_area',denominator:Number(divisor),unit:'mm²'},
+ return {fit,planar:{line:c.line,clauseSha256:sha(match[0].trim()),...(splitSha256?{profile,splitSha256}:{}),output:{numerator:'twice_area',denominator:Number(divisor),unit:'mm²'},
   input:{unit:'mm',min:1,max:100000,roles:['parallel-base','parallel-base','perpendicular-height']}}};
 }
 async function discoverNasaArea({mode,pythonPath,reader,request}={}){

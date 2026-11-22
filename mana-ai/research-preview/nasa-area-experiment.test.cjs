@@ -212,3 +212,47 @@ test('planar scope diagnostics distinguish preceding layout, paragraph prefix an
   assert.deepEqual(createNasaAreaExperiment(o).history().scopeDiagnostics,x.scopeDiagnostics);
  }
 });
+
+const rectangleWords='The area of a rectangle is equal to the height <b>h</b> times the base <b>b</b>;';
+const triangleWords='The area of a triangle is equal to one half of the base <b>b</b> times the height <b>h</b>;';
+const splitArea=(sections=[metadata,context+' '+rectangleWords,'A = h * b',prose,formula,triangleWords])=>
+ '<html><head><title>Area</title></head><body><div>'+sections.map(s=>'<p>'+s+'</p>').join('\n')+'</div></body></html>';
+test('split profile obtains all six real sibling paragraphs; independent grading stays 16/16',{skip:!canLearn},async t=>{
+ const [workspace,captureDir]=dirs(t);
+ const i=Buffer.from(index(link)),a=Buffer.from(splitArea());
+ for(const [n,b] of [['index.html',i],['area.html',a]])fs.writeFileSync(path.join(captureDir,n),b);
+ const o={workspace,captureDir,mode:'pinned-capture',pythonPath:python,indexSha256:sha(i),areaSha256:sha(a)};
+ const r=await createNasaAreaExperiment(o).run();
+ assert.equal(r.status,'AWAITING_HUMAN_REVIEW');assert.equal(r.passed,16);assert.equal(r.activationAuthorized,false);
+ const saved=JSON.parse(fs.readFileSync(path.join(workspace,'source.json')));
+ assert.equal(saved.planar.profile,'split-adjacent-sibling-paragraphs');
+ assert.match(saved.planar.splitSha256,/^[a-f0-9]{64}$/);
+});
+test('split math proof cannot bridge hidden, tainted, unrelated or foreign sibling rows',{skip:!hasPython},async()=>{
+ const clean=splitArea(), contexts=[
+  clean.replace('<p>'+formula,'<p hidden>Do not join this row.</p><p>'+formula),
+  clean.replace('<p>'+formula,'<div hidden>Different context</div><p>'+formula),
+  clean.replace('<p>'+formula,'<p>Irrelevant middle paragraph.</p><p>'+formula),
+  clean.replace('<p>'+formula,'<img src="another-diagram.png" alt="Intervening concept"><p>'+formula),
+  clean.replace('<p>'+formula,'<input type="text"><p>'+formula),
+  clean.replace('<p>'+formula,'<span aria-hidden="true"></span><p>'+formula),
+  clean.replace('<p>'+formula,'<p><img src="formula-context.png">'+formula),
+  clean.replace('<p>'+formula,'<p></p><p>'+formula),
+  clean.replace('<p>'+formula,'<aside><p>'+formula).replace(formula+'</p>',formula+'</p></aside>'),
+  clean.replace('<p>'+formula,'</div><div><p>'+formula),
+  clean.replace('<p>'+formula,'<p><a href="unfinished">'+formula),
+  clean.replace('<p>'+formula,'<p><span hidden>Fake</span>'+formula),
+  clean.replace('A = h * b','A = b * t'),
+  clean.replace(triangleWords,'The area of a circle:'),
+  clean.replace(formula,formula.replace('/ 2','/ 3')),
+  clean.replace(formula,formula.replace('h *','t *')),
+  clean.replace(triangleWords,triangleWords+' For net pay quantity.'),
+  clean.replace('<p>'+triangleWords,'<p>'+prose+'</p><p>'+triangleWords),
+ ];
+ for(const raw of contexts){
+  const calls=[];
+  await assert.rejects(discoverNasaArea({mode:'pinned-capture',pythonPath:python,reader:replay(calls,index(link),raw)}),
+   e=>e.sourceStage==='selected-link');
+  assert.equal(calls.length,2);
+ }
+});

@@ -30,6 +30,9 @@ class Document(HTMLParser):
         super().__init__(convert_charrefs=True)
         self.mode = mode
         self.stack = []
+        self.stack_ids = []
+        self.layout = []
+        self.layout_clean = True
         self.pa = None
         self.pa_anchor_uncertain = False
         self.a = None
@@ -64,6 +67,11 @@ class Document(HTMLParser):
         if tag in BLOCK and self.stack and any(t == "p" for t, _ in self.stack):
             self.handle_endtag("p")  # HTML implicitly closes older/open p tags here.
         concealed = self.blocked(attrs) or tag in HIDDEN or tag in SKIP_CONTEXT or any(h for _, h in self.stack)
+        if self.mode == "lesson":
+            if self.pa is not None and (concealed or (tag in VOID and tag not in ("br", "wbr"))):
+                self.layout_clean = False
+            elif self.pa is None and (concealed or tag not in ("p", "br", "wbr")):
+                self.layout.append(None)  # No invisible jump over interstitial markup or content.
         if tag == "title":
             require(self.title is None, "NASA_MARKUP_INVALID")
             self.title = []
@@ -88,23 +96,28 @@ class Document(HTMLParser):
                 depth = self.a["depth"]
                 self.finish_anchor(explicit=False)
                 del self.stack[depth]
+                del self.stack_ids[depth]
             self.a = {"hrefs": [v for k, v in attrs if k == "href"], "parts": [],
                       "line": self.getpos()[0], "in_math": self.math_active,
                       "crossed_math": False, "nested_hidden": False, "depth": len(self.stack)}
         if tag == "p" and not concealed:
             self.pa = ([], self.getpos()[0])
             self.pa_anchor_uncertain = self.mode == "lesson" and self.a is not None
+            self.layout_clean = True
         if tag in ("br", "wbr") and not concealed:
             self.handle_data(" ")
         if tag not in VOID:
             self.stack.append((tag, concealed))
+            self.stack_ids.append(self.nodes)
 
     def handle_endtag(self, tag):
         match = next((i for i in range(len(self.stack)-1, -1, -1) if self.stack[i][0] == tag), -1)
         if match < 0:
             return
         removed = [t for t, _ in self.stack[match:]]
+        paragraph_parent = self.stack_ids[match-1] if match else 0
         del self.stack[match:]
+        del self.stack_ids[match:]
         if "title" in removed and self.title is not None:
             self.titles.append(norm(self.title))
             self.title = None
@@ -114,9 +127,17 @@ class Document(HTMLParser):
             parts, start = self.pa
             content = norm(parts)
             if content:
-                self.paragraphs.append({"text": content, "line": start,
-                                        "anchor_uncertain": self.pa_anchor_uncertain})
+                record = {"text": content, "line": start, "anchor_uncertain": self.pa_anchor_uncertain,
+                          "layout_pos": len(self.layout)}
+                self.paragraphs.append(record)
+                if self.mode == "lesson":
+                    self.layout.append((record, paragraph_parent) if not self.pa_anchor_uncertain and
+                                       self.layout_clean and tag == "p" else None)
+            elif self.mode == "lesson":
+                self.layout.append(None)
             self.pa = None
+        if self.mode == "lesson" and tag in BLOCK and tag != "p" and self.pa is None:
+            self.layout.append(None)
 
     def finish_anchor(self, explicit):
         a, self.a = self.a, None
@@ -134,6 +155,13 @@ class Document(HTMLParser):
             require(len(a["hrefs"]) == 1 and isinstance(a["hrefs"][0], str), "NASA_LINK_MALFORMED")
             self.links.append({"href": a["hrefs"][0], "label": "Area", "line": a["line"]})
 
+    def handle_comment(self, data):
+        if self.mode == "lesson":
+            if self.pa is not None:
+                self.layout_clean = False
+            else:
+                self.layout.append(None)
+
     def handle_data(self, data):
         require(not (self.stack and self.stack[-1][0] == "style" and data.strip()), "NASA_INLINE_STYLESHEET_UNSUPPORTED")
         if self.title is not None and self.stack and self.stack[-1][0] == "title":
@@ -144,6 +172,8 @@ class Document(HTMLParser):
             self.a["parts"].append(data)
         if self.pa is not None:
             self.pa[0].append(data)
+        elif self.mode == "lesson" and data.strip():
+            self.layout.append(None)
 
 
 def main():
@@ -172,7 +202,21 @@ def main():
         # A malformed anchor spanning a paragraph can never supply proof:
         # retain the position for ambiguity checks but do not read it as scope.
         earlier = [v for v in p.paragraphs[max(0,pos-4):pos] if not v["anchor_uncertain"]]
-        result = {"clause": p.paragraphs[pos], "earlier": earlier}
+        candidate = p.paragraphs[pos]
+        physical = candidate["layout_pos"]
+        # Only this fixed sibling window is exposed. Empty, hidden, tainted,
+        # or intervening material stays a barrier; don't bridge across it.
+        window = p.layout[max(0,physical-3):physical+3]
+        split = None
+        split_prose = "The equation for the area of a trapezoid is one half the sum of the top t and bottom b times the height h;"
+        if candidate["text"] == split_prose and physical >= 3 and len(window) == 6 and all(x is not None for x in window):
+            if len({parent for _, parent in window}) == 1:
+                split = [{"line": row["line"], "text": row["text"]} for row, _ in window]
+        def public_record(row):
+            return {k: v for k, v in row.items() if k != "layout_pos"}
+        result = {"clause": public_record(candidate), "earlier": [public_record(v) for v in earlier]}
+        if split is not None:
+            result["split"] = split
     print(json.dumps(result, ensure_ascii=False, separators=(",", ":")))
 
 
